@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>iOS常用代码片段 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在前面在开发过程中，总会有一些简短但使用频率非常高并且不太容易记住的代码，这里总结一下，方便使用。
+判断系统版本iOS8 之前版本常用方法：
+1234// 变量v是NSString类型#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) \([[[UIDevice currentDevice] systemVersion] \compare:v o">
+<meta property="og:type" content="article">
+<meta property="og:title" content="iOS常用代码片段">
+<meta property="og:url" content="http://shinemax1.github.io/2015/02/11/common-code-snipperts-in-ios/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="写在前面在开发过程中，总会有一些简短但使用频率非常高并且不太容易记住的代码，这里总结一下，方便使用。
+判断系统版本iOS8 之前版本常用方法：
+1234// 变量v是NSString类型#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) \([[[UIDevice currentDevice] systemVersion] \compare:v o">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="iOS常用代码片段">
+<meta name="twitter:description" content="写在前面在开发过程中，总会有一些简短但使用频率非常高并且不太容易记住的代码，这里总结一下，方便使用。
+判断系统版本iOS8 之前版本常用方法：
+1234// 变量v是NSString类型#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) \([[[UIDevice currentDevice] systemVersion] \compare:v o">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-common-code-snipperts-in-ios" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/02/11/common-code-snipperts-in-ios/" class="article-date">
+  	<time datetime="2015-02-11T07:51:12.000Z" itemprop="datePublished">2015-02-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      iOS常用代码片段
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>在开发过程中，总会有一些简短但使用频率非常高并且不太容易记住的代码，这里总结一下，方便使用。</p>
+<h2 id="判断系统版本"><a href="#判断系统版本" class="headerlink" title="判断系统版本"></a>判断系统版本</h2><p>iOS8 之前版本常用方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 变量v是NSString类型</span></div><div class="line"><span class="meta">#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v) \</span></div><div class="line">([[[<span class="built_in">UIDevice</span> currentDevice] systemVersion] \</div><div class="line">compare:v options:<span class="built_in">NSNumericSearch</span>] != <span class="built_in">NSOrderedAscending</span>)</div></pre></td></tr></table></figure>
+<p>记得从某篇博客中了解到iOS8提供了更直接的封装，但忘了方法名了，哎，好记性不如烂笔头啊，以后再补上吧！</p>
+<h2 id="根据字体和宽度计算高度"><a href="#根据字体和宽度计算高度" class="headerlink" title="根据字体和宽度计算高度"></a>根据字体和宽度计算高度</h2><p>常用语计算UILabel实例的高度。已知文本内容、字体以及UILabel宽度，计算UILabel的高度。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line">+ (<span class="built_in">CGFloat</span>)computeHeightForText:(<span class="built_in">NSString</span> *)text</div><div class="line">                    havingWidth:(<span class="built_in">CGFloat</span>)widthValue</div><div class="line">                        andFont:(<span class="built_in">UIFont</span> *)font</div><div class="line">&#123;</div><div class="line"><span class="meta">#define SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(v)\</span></div><div class="line">([[[<span class="built_in">UIDevice</span> currentDevice] systemVersion] \</div><div class="line">compare:v options:<span class="built_in">NSNumericSearch</span>] != <span class="built_in">NSOrderedAscending</span>)</div><div class="line">    </div><div class="line">    <span class="built_in">CGFloat</span> result = font.pointSize + <span class="number">4</span>;</div><div class="line">    <span class="keyword">if</span> (text) &#123;</div><div class="line">        <span class="built_in">CGSize</span> size;</div><div class="line">        <span class="keyword">if</span> (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(<span class="string">@"7.0"</span>)) &#123;</div><div class="line">            <span class="comment">//iOS 7</span></div><div class="line">            <span class="built_in">CGRect</span> frame = [text boundingRectWithSize:<span class="built_in">CGSizeMake</span>(widthValue, <span class="built_in">CGFLOAT_MAX</span>)</div><div class="line">                                              options:<span class="built_in">NSStringDrawingUsesLineFragmentOrigin</span></div><div class="line">                                           attributes:@&#123;<span class="built_in">NSFontAttributeName</span>:font&#125;</div><div class="line">                                              context:<span class="literal">nil</span>];</div><div class="line">            size = <span class="built_in">CGSizeMake</span>(frame.size.width, frame.size.height+<span class="number">1</span>);</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="comment">//iOS 6.0</span></div><div class="line">        &#125;</div><div class="line">        result = MAX(size.height, result); <span class="comment">//At least one row</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="收起键盘"><a href="#收起键盘" class="headerlink" title="收起键盘"></a>收起键盘</h2><p>在UIViewController中收起键盘，除了调用相应控件的resignFirstResponder方法外，还有另外三种办法：</p>
+<ol>
+<li>重载ViewController中的touchBegin方法，然后在里面执行<code>[self.view endEditing:YES];</code>，这样单击UIViewController的任意地方，就可以收起键盘；</li>
+<li>直接执行[[UIApplication sharedApplication] sendAction:@selector(resignFirstResponder) to:nil from:nil forEvent:nil]，用于在获得当前UIViewController比较困难的时候用；</li>
+<li>直接执行<code>[[[UIApplication sharedApplication] keyWindow] endEditing:YES];</code>。</li>
+</ol>
+<h2 id="取消UIButton被按下时的高亮效果"><a href="#取消UIButton被按下时的高亮效果" class="headerlink" title="取消UIButton被按下时的高亮效果"></a>取消UIButton被按下时的高亮效果</h2><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIButton</span>.adjustsImageWhenDisabled    = <span class="literal">false</span>;   <span class="comment">// 取消高亮效果</span></div><div class="line"><span class="built_in">UIButton</span>.adjustsImageWhenHighlighted = <span class="literal">false</span>;   <span class="comment">// 取消失能状态的高亮效果</span></div></pre></td></tr></table></figure>
+<h2 id="Button图片和title共存"><a href="#Button图片和title共存" class="headerlink" title="Button图片和title共存"></a>Button图片和title共存</h2><p>很多时候我们在UI中需要实现同时具备image和title的button，最常见的场景如下：</p>
+<div class="imagediv" style="width: 320px; height: 90px"></div>
+
+<p>这样的效果如何实现呢？很简单，使用UIButton的<code>titleEdgeInsets</code>和<code>imageEdgeInsets</code>属性控制image和title的位置，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    </div><div class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> lightGrayColor];</div><div class="line">    </div><div class="line">    <span class="built_in">CGFloat</span> spacingBetweenIconAndTitle = <span class="number">15.</span>f;  <span class="comment">// icon和title的间距</span></div><div class="line">    <span class="built_in">UIButton</span> *button                   = [[<span class="built_in">UIButton</span> alloc] init];</div><div class="line">    <span class="built_in">UIImage</span> *icon                      = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"order_order"</span>];</div><div class="line">    button.titleLabel.font             = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">15.</span>f];</div><div class="line">    button.backgroundColor             = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">    [button setImage:icon forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    [button setTitle:<span class="string">@"购物车"</span> forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    [button setTitleEdgeInsets:<span class="built_in">UIEdgeInsetsMake</span>(<span class="number">0</span>, spacingBetweenIconAndTitle, <span class="number">0</span>, <span class="number">0</span>)];</div><div class="line">    [button setImageEdgeInsets:<span class="built_in">UIEdgeInsetsMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">0</span>, spacingBetweenIconAndTitle)];</div><div class="line">    [button setTitleColor:[<span class="built_in">UIColor</span> lightGrayColor] forState:<span class="built_in">UIControlStateNormal</span>];</div><div class="line">    [button sizeToFit];     <span class="comment">// 匹配最合适的size</span></div><div class="line">    <span class="built_in">CGRect</span> buttonFrame     = button.frame;</div><div class="line">    buttonFrame.size.width += spacingBetweenIconAndTitle;</div><div class="line">    button.frame           = buttonFrame;</div><div class="line">    button.center          = <span class="built_in">CGPointMake</span>(<span class="keyword">self</span>.view.center.x, <span class="number">50</span>);</div><div class="line">    </div><div class="line">    [<span class="keyword">self</span>.view addSubview:button];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/04/http/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          HTTP学习笔记
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/07/nsoperation-vs-gcd/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">NSOperation v.s GCD</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

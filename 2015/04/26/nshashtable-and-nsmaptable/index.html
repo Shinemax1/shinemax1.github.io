@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>NSHashtable和NSMaptable | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="说明
+本文转自《NSHashtable and NSMaptable》，其原作者是Mattt Thompson，该大神是AFNetworking的作者。作者简单介绍了一下iOS开发中相对于NSDictionary和NSSet来说，不常被人使用NSHashTable和NSMapTable的相关知识。
+
+P.S: 笔者关注《NSHashtable and NSMaptable》这篇博客的原因是因为以前">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSHashtable和NSMaptable">
+<meta property="og:url" content="http://shinemax1.github.io/2015/04/26/nshashtable-and-nsmaptable/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="说明
+本文转自《NSHashtable and NSMaptable》，其原作者是Mattt Thompson，该大神是AFNetworking的作者。作者简单介绍了一下iOS开发中相对于NSDictionary和NSSet来说，不常被人使用NSHashTable和NSMapTable的相关知识。
+
+P.S: 笔者关注《NSHashtable and NSMaptable》这篇博客的原因是因为以前">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NSHashtable和NSMaptable">
+<meta name="twitter:description" content="说明
+本文转自《NSHashtable and NSMaptable》，其原作者是Mattt Thompson，该大神是AFNetworking的作者。作者简单介绍了一下iOS开发中相对于NSDictionary和NSSet来说，不常被人使用NSHashTable和NSMapTable的相关知识。
+
+P.S: 笔者关注《NSHashtable and NSMaptable》这篇博客的原因是因为以前">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-nshashtable-and-nsmaptable" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/26/nshashtable-and-nsmaptable/" class="article-date">
+  	<time datetime="2015-04-26T00:53:43.000Z" itemprop="datePublished">2015-04-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NSHashtable和NSMaptable
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>说明</strong></p>
+<p>本文转自《<a href="http://www.cocoachina.com/industry/20140605/8683.html" target="_blank" rel="external">NSHashtable and NSMaptable</a>》，其原作者是<a href="http://nshipster.com/nshashtable-and-nsmaptable/" target="_blank" rel="external">Mattt Thompson</a>，该大神是AFNetworking的作者。作者简单介绍了一下iOS开发中相对于NSDictionary和NSSet来说，不常被人使用NSHashTable和NSMapTable的相关知识。</p>
+<blockquote>
+<p>P.S: 笔者关注《<a href="http://www.cocoachina.com/industry/20140605/8683.html" target="_blank" rel="external">NSHashtable and NSMaptable</a>》这篇博客的原因是因为以前遇到「如何实现NSNotificationCenter」这样的问题，我意识到实现NSNotificationCenter的关键在于找到一个能够支持弱指针的容器，而NSHashTable和NSMaptable恰好是这样的容器。</p>
+</blockquote>
+<p>NSSet，NSDictionary，NSArray是Foundation框架关于集合操作的常用类，和<a href="http://en.wikipedia.org/wiki/Java_collections_framework" target="_blank" rel="external">其他标准的集合操作库</a>不同，他们的实现方法对开发者进行<a href="http://ridiculousfish.com/blog/posts/array.html" target="_blank" rel="external">隐藏</a>，只允许开发者写一些简单的代码，让他们相信这些代码有理由正常的工作。</p>
+<p>然而这样的话最好的代码抽象风格就会被打破，苹果的本意也被曲解了。在这种情况下，开发者寻求更好的抽象方式来使用集合，或者说寻找一种更通用的方式。</p>
+<p>对于NSSet和NSDictionary，打破代码抽象风格的是他们在内存中存取object的方式。在NSSet中，objects是被强引用的（strongly referenced），同样NSDictionary中的keys和values也会被NSDictionary复制。如果一个开发者想要存储一个weak类型的值或者使用一个没有实现NSCopying协议的object作为NSDictionary的key，他可能会很聪明的想到<a href="http://nshipster.com/nsvalue/" target="_blank" rel="external">NSValue+valueWithNonretainedObject</a>。 iOS6和OSX 10.5以后，可以分别使用和NSSet，NSDictionary地位相同的NSHashTable，NSMapTable。</p>
+<p>这两个类在Foundation的collection中不常用到，为了避免你慌乱无措，下面将介绍这两个类的用法。</p>
+<h2 id="NSHashTable"><a href="#NSHashTable" class="headerlink" title="NSHashTable"></a>NSHashTable</h2><p>NSHashTable是更广泛意义的NSSet，区别于NSSet/NSMutableSet，NSHashTable有如下特性：</p>
+<ul>
+<li>NSHashTable是可变的；</li>
+<li>NSHashTable可以持有weak类型的成员变量；</li>
+<li>NSHashTable可以在添加成员变量的时候复制成员；</li>
+<li>NSHashTable可以随意的存储指针并且利用指针的唯一性来进行hash同一性检查（检查成员变量是否有重复）和对比操作（equal）；</li>
+</ul>
+<p>用法如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSHashTable</span> *hashTable = [<span class="built_in">NSHashTable</span> hashTableWithOptions:<span class="built_in">NSPointerFunctionsCopyIn</span>];</div><div class="line">[hashTable addObject:<span class="string">@"foo"</span>];</div><div class="line">[hashTable addObject:<span class="string">@"bar"</span>]; </div><div class="line">[hashTable addObject:@<span class="number">42</span>];</div><div class="line">[hashTable removeObject:<span class="string">@"bar"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"Members: %@"</span>, [hashTable allObjects]);</div></pre></td></tr></table></figure>
+<p>NSHashTable是根据一个option参数来进行初始化的，因为从OSX平台上移植到iOS平台上，原来OSX平台上使用的枚举类型被放弃了，从而用option来代替，命名也发生了一些变化：</p>
+<ul>
+<li>NSHashTableStrongMemory</li>
+</ul>
+<p>等同于NSPointerFunctionsStrongMemory。对成员变量进行强引用，这是一个默认值，如果采用这个默认值，NSHashTable和NSSet就没什么区别了。</p>
+<ul>
+<li>NSHashTableWeakMemory</li>
+</ul>
+<p>等同于NSPointerFunctionsWeakMemory。对成员变量进行弱引用，使用NSPointerFunctionsWeakMemory，object引用在最后释放的时候会被指向NULL。</p>
+<ul>
+<li>NSHashTableZeroingWeakMemory</li>
+</ul>
+<p>已被抛弃，使用NSHashTableWeakMemory代替。</p>
+<ul>
+<li>NSHashTableCopyIn</li>
+</ul>
+<p>在对象被加入集合之前进行复制（<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSPointerFunctions_Class/index.html#//apple_ref/occ/instp/NSPointerFunctions/acquireFunction" target="_blank" rel="external">NSPointerFunction-acquireFunction</a>），等同于NSPointerFunctionsCopyIn。</p>
+<ul>
+<li>NSHashTableObjectPointerPersonality</li>
+</ul>
+<p>用指针来等同代替实际的值，当打印这个指针的时候相当于调用description方法。和NSPointerFunctionsObjectPointerPersonality等同。</p>
+<h2 id="NSMapTable"><a href="#NSMapTable" class="headerlink" title="NSMapTable"></a>NSMapTable</h2><p>NSMapTable是对更广泛意义的NSDictionary。和NSDictionary/NSMutableDictionary相比具有如下特性：</p>
+<ul>
+<li>NSDictionary/NSMutableDictionary会复制keys并且通过强引用values来实现存储；</li>
+<li>NSMapTable是可变的；</li>
+<li>NSMapTable可以通过弱引用来持有keys和values，所以当key或者value被deallocated的时候，所存储的实体也会被移除；</li>
+<li>NSMapTable可以在添加value的时候对value进行复制；</li>
+</ul>
+<p>和NSHashTable类似，NSMapTable可以随意的存储指针，并且利用指针的唯一性来进行对比和重复检查。</p>
+<p>用法：假设用NSMapTable来存储不用被复制的keys和被若引用的value，这里的value就是某个delegate或者一种弱类型。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">id</span> delegate = ...;</div><div class="line"><span class="built_in">NSMapTable</span> *mapTable = [<span class="built_in">NSMapTable</span> mapTableWithKeyOptions:<span class="built_in">NSMapTableStrongMemory</span></div><div class="line">                                             valueOptions:<span class="built_in">NSMapTableWeakMemory</span>];</div><div class="line">[mapTable setObject:delegate forKey:<span class="string">@"foo"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"Keys: %@"</span>, [[mapTable keyEnumerator] allObjects]);</div></pre></td></tr></table></figure>
+<p>看完上面几个小例子后，你可能会想 “为什么不使用object subscripting呢?”。一些激进的NSHipster估计已经开始动手写NSMapTable的subscripting category了。</p>
+<p><strong>那么为什么NSMapTable不能继承subscripting？</strong></p>
+<p>来看看下面的代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>)objectForKeyedSubscript:(<span class="keyword">id</span> &lt;<span class="built_in">NSCopying</span>&gt;)key;</div><div class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>)obj forKeyedSubscript:(<span class="keyword">id</span> &lt;<span class="built_in">NSCopying</span>&gt;)key;</div></pre></td></tr></table></figure>
+<p><strong>注意：参数key是类型的</strong>。这对NSDictionary NSMutableDictionary来讲是非常有用的，但是我们不能臆断对NSMapTable也同样适用。我们陷入一个僵局：通过id，我们不能利用NSMapTable实现subscripting。如果object subscripting的代理方法放弃了约束，那么使用NSMutableDictionary -setObject:forKeyedSubscript:的时候编译将得不到想要的结果。</p>
+<p>所以说实话，对比NSMapTable所处的位置，句法的方便和快捷并不是大数人所关注的。</p>
+<p>通常，记住编程不是为了让人更聪明，而是最大化抽象一个问题的能力。NSSet和NSDictionary是非常伟大的类，他们能解决99%的问题，也无疑是用来工作的正确工具。如果，然而你的问题牵扯到上述的内存问题时候，NSHashTable和NSMapTable是值得一看的。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/26/understanding-objective-c-runtime-part-1/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          理解Objective-C Runtime（一）预备知识
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/17/thread-basics-in-ios/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">iOS Thread基础知识</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

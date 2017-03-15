@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>NSOperation v.s GCD | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="NSOperationNSOperation其实是对task的一种Objective-C封装。
+NSOperation是个抽象类，官方文档是这么描述的：
+
+The NSOperation class itself is an abstract base class that must be subclassed in order to do any useful work.
+
+值得一提的是，Obj">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NSOperation v.s GCD">
+<meta property="og:url" content="http://shinemax1.github.io/2015/02/07/nsoperation-vs-gcd/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="NSOperationNSOperation其实是对task的一种Objective-C封装。
+NSOperation是个抽象类，官方文档是这么描述的：
+
+The NSOperation class itself is an abstract base class that must be subclassed in order to do any useful work.
+
+值得一提的是，Obj">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="NSOperation v.s GCD">
+<meta name="twitter:description" content="NSOperationNSOperation其实是对task的一种Objective-C封装。
+NSOperation是个抽象类，官方文档是这么描述的：
+
+The NSOperation class itself is an abstract base class that must be subclassed in order to do any useful work.
+
+值得一提的是，Obj">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-nsoperation-vs-gcd" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/02/07/nsoperation-vs-gcd/" class="article-date">
+  	<time datetime="2015-02-07T02:24:41.000Z" itemprop="datePublished">2015-02-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      NSOperation v.s GCD
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GCD/">GCD</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="NSOperation"><a href="#NSOperation" class="headerlink" title="NSOperation"></a>NSOperation</h2><p><del>NSOperation其实是对task的一种Objective-C封装。</del></p>
+<p><code>NSOperation</code>是个抽象类，官方文档是这么描述的：</p>
+<blockquote>
+<p>The NSOperation class itself is an abstract base class that must be subclassed in order to do any useful work.</p>
+</blockquote>
+<p>值得一提的是，Objective-C中的abstract class和其余语言中的abstract class不太一样，其他语言（主要是静态语言）中的抽象类是不允许进行实例化的，如果对抽象类实例化了，则在编译阶段就可以检查出来；对于Objective-C，对抽象类的说明仅仅停留在文档层面，如果作者想让某个类称为抽象类，则需要在开发文档中进行说明（没有所谓的abstract关键字来修饰），告诉用户不要直接对此类进行实例化，而是去继承它然后自己实现相关方法的定义，但是如果用户实例化该类，则也不会有啥问题（至少在编译阶段是没啥问题）。</p>
+<p>如果抽象类的定义只是依靠文档说明，则未免有些太弱了，通常的做法是：You can force a user to at least override certain methods by raising an exception in those methods implementation in your abstract class:</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[<span class="built_in">NSException</span> raise:<span class="built_in">NSInternalInconsistencyException</span> </div><div class="line">            format:<span class="string">@"You must override %@ in a subclass"</span>, <span class="built_in">NSStringFromSelector</span>(_cmd)];</div></pre></td></tr></table></figure>
+<p>当然，也可以使用<code>assert</code>或<code>NSAssert</code>处理。这和Python很多场合对抽象类的处理有些类似，更多讯息参考来自stackoverflow的<a href="http://stackoverflow.com/questions/1034373/creating-an-abstract-class-in-objective-c" target="_blank" rel="external">Creating an abstract class in Objective-C</a>。</p>
+<p>Foundation Framework提供了两个比较好用的<code>NSOperation</code>子类，<code>NSInvocationOperation</code>和<code>NSBlockOperation</code>。</p>
+<p>就我目前的使用经验来看，还没有遇到直接使用<code>NSOperation</code>的机会，更多的时候使用AFNetworking框架提供的<code>AFHTTPRequestOperation</code>。</p>
+<p><strong>执行operation</strong></p>
+<p><code>NSOperation</code>对象往往关联一段代码，执行这段代码有两种方式：</p>
+<ol>
+<li>直接执行其<code>start</code>方法；</li>
+<li>将<code>NSOperation</code>对象添加到<code>NSOperationQueue</code>中；</li>
+</ol>
+<p>P.S: 关于<code>NSOperation</code>的内容还有很多，譬如优先级、completion block之类的，更多信息参考Apple文档<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/OperationObjects/OperationObjects.html" target="_blank" rel="external">Concurrency Programming Guide</a>，写得很详细。</p>
+<h2 id="NSOperationQueue"><a href="#NSOperationQueue" class="headerlink" title="NSOperationQueue"></a>NSOperationQueue</h2><p>在阅读<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/Introduction/Introduction.html" target="_blank" rel="external">Concurrency Programming Guide</a>的过程中，不免和GCD进行对比，非常疑惑的问题是，<code>NSOperation</code>的执行大概是什么样子的？并行？FIFO？在main thread还是other threads？下面就围绕这些问题进行阐述。</p>
+<h3 id="创建NSOperationQueue对象"><a href="#创建NSOperationQueue对象" class="headerlink" title="创建NSOperationQueue对象"></a>创建NSOperationQueue对象</h3><p>创建<code>NSOperationQueue</code>有两种方式：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1. NSOperationQueue</span></div><div class="line"><span class="built_in">NSOperationQueue</span> *operationQueue1 = [[<span class="built_in">NSOperationQueue</span> alloc] init];</div><div class="line">    </div><div class="line"><span class="comment">// 2. NSOperationQueue</span></div><div class="line"><span class="built_in">NSOperationQueue</span> *operationQueue2 = [<span class="built_in">NSOperationQueue</span> mainQueue];</div></pre></td></tr></table></figure>
+<p>先说<code>mainQueue</code>，it returns the operation queue associated with the main thread，简而言之，<code>mainQueue</code>上的operation（或曰task）都是在main thread上完成的，进一步来说，<code>mainQueue</code>中的operation都有控制UI的能力；对于第一种方式<code>[NSOperationQueue alloc]</code>，则不然，其关联的thread与main thread或许无关。</p>
+<p>所以也可以看出来：<strong>operation的执行thread由其所在的NSOperationQueue决定</strong>。</p>
+<p>值得一提的是，同一个<code>NSOperationQueue</code>的不同operation的执行线程并非同一个，因为<code>NSOperationQueue</code>可能同时涉及多个线程。</p>
+<p>并且这和GCD不同，GCD中，dispatch_queue中的block的执行线程不单由queue决定，还与block的派发方式有关。</p>
+<p><code>NSOperationQueue</code>对象不存在所谓的<code>start</code>之类的启动方法，根据我的理解，自它被创建了就开始工作了。</p>
+<p>P.S: 目前还没有到有用到<code>[NSOperationQueue mainQueue]</code>的应用，很想知道在哪些场合会用到…</p>
+<h3 id="NSOperationQueue的工作方式"><a href="#NSOperationQueue的工作方式" class="headerlink" title="NSOperationQueue的工作方式"></a>NSOperationQueue的工作方式</h3><p>根据<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/Introduction/Introduction.html" target="_blank" rel="external">Concurrency Programming Guide</a>上介绍，获悉：</p>
+<ol>
+<li><code>NSOperationQueue</code>是不支持FIFO的，因为<code>NSOperation</code>存在priority的概念，所以<code>NSOperationQueue</code>是不支持FIFO的；</li>
+<li><code>NSOperationQueue</code>上的operation是并发执行的，但是用户可以配置同一时刻最多可以并发的operation数量，对应属性是<code>maxConcurrentOperationCount</code>，也就是说，如果<code>maxConcurrentOperationCount</code>的值设置为1，则<code>NSOperationQueue</code>中的operation是串行执行的（串行顺序依然受priority和就绪状态决定，不遵循FIFO）；</li>
+</ol>
+<h3 id="NSOperation的completion-block"><a href="#NSOperation的completion-block" class="headerlink" title="NSOperation的completion block"></a>NSOperation的completion block</h3><p>考虑到接触的频率非常之高，有必要对<code>NSOperation</code>的completion block做更多的了解。</p>
+<blockquote>
+<p>In OS X v10.6 and later, an operation can execute a completion block when its main task finishes executing. You can use a completion block to perform any work that you do not consider part of the main task. For example, you might use this block to notify interested clients that the operation itself has completed. A concurrent operation object might use this block to generate its final KVO notifications.<br>To set a completion block, use the setCompletionBlock: method of NSOperation. The block you pass to this method should have no arguments and no return value.</p>
+</blockquote>
+<p>考虑这么一个应用场景，使用<code>NSOperation</code>服务下载一张图片，在completion block中更新相关<code>UIImageView</code>，图片下载图片后，就会调用completion block。</p>
+<p>结合这个应用场景，刚开始，对<code>NSOperation</code>的completion block比较疑惑的地方在于，completion block哪一个线程执行，在main thread，还是和<code>NSOperation</code>所在线程是同一个？前者的可能性不高；如果是后者，考虑到只有main thread上代码才有控制UI的资格，那么<code>NSOperation</code>必须得在main thread上执行，即其所在operation queue的创建方式是<code>oq = [NSOperationQueue mainQueue];</code>，但是download image代码难免会产生阻塞，必然会影响UI的交互，显然是不可取。</p>
+<p>将<code>NSOperation</code>和其completion block割裂来看的做法显然是愚蠢的，也就是说，执行<code>NSOperation</code>的completion block的线程和执行<code>NSOperation</code>的线程是一样的，也都是由其所在的<code>NSOperationQueue</code>决定的。</p>
+<p>带着这个问题，我查看了AFNetworking的处理代码，它的做法是这样的，执行网络任务的<code>NSOperation</code>所在的<code>NSOperation</code>所关联的thread都不是main thread，为了在下载图片（也可能是其他数据）后更新UI，其调用completion block的方式并不是直接调用，而是使用<code>dispatch_group_async</code>函数将用户指定的completion block添加到main thread。<br>简单来说，在用户的completion block基础上加了一层，确保用户的completion block在main thread上执行，认识到这一点很重要！</p>
+<p>P.S: AFNetworking的网络任务的CompletionBlock都是在main thread中完成的，这从<code>AFHTTPRequestOperation</code>的<code>setCompletionBlockWithSuccess:fuilure:</code>方法定义可以看出来。</p>
+<h2 id="NSOperation-v-s-GCD"><a href="#NSOperation-v-s-GCD" class="headerlink" title="NSOperation v.s GCD"></a>NSOperation v.s GCD</h2><p>关于<code>NSOperation</code>（以及<code>NSOperationQueue</code>）和GCD的关系，引用《Effective-C 2.0》的描述：</p>
+<blockquote>
+<p>The similarity to GCD’s dispatch queues is not a coincidence. Operation queues came before GCD, but there is no doublt that GCD is based on the principles made popular by operation queues. In fact, from iOS 4 and Mac OS X 10.6 onward, operation queues use GCD under hood.</p>
+</blockquote>
+<p>GCD的同步机制无与伦比，但有些时候使用<code>NSOperation</code>或许是更好的选择，相较于GCD，<code>NSOperation</code>有如下这些优势：</p>
+<ol>
+<li><p>取消操作（任务）<br>在GCD中，是没办法对添加到queue的task进行cancel操作的，但是<code>NSOperation</code>是可以的；值得一提的是，<code>NSOperation</code>取消操作只适用于哪些还没被执行的operation，如果operation正在running，则cancel操作是无效的。</p>
+</li>
+<li><p>Operation dependencies<br>An operation can have dependencies on as many other operations as it wishes. This enables you to create a hierarchy of operations dictating that certain operations can execute only after another operation has completed successfully. For example, you may have operations to download and process files from a server that requires a manifest file to be downloaded first before others can be processed. The operation to download the manifest file first could be a dependency of the subsequent download operations. If the operation queue were set to allow concurrent execution, the subsequent downloads could execute in parallel but only after the dependent operation had completed.</p>
+</li>
+<li><p>KVO<br>对<code>NSOperation</code>，还可以对其某些属性进行KVO处理，这对于基于C-API的GCD是没办法做到的，至于<code>NSOperation</code>哪些属性支持KVO，还需要参考<a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/Introduction/Introduction.html" target="_blank" rel="external">Concurrency Programming Guide</a>。</p>
+</li>
+<li><p>优先级控制<br>GCD的dispatch queue中的任务的执行顺序全部遵循FIFO，但是<code>NSOperationQueue</code>中对operation的调用更复杂一些，因为它每个operation都有优先级，所以用户可以通过优先级控制实现对任务更复杂的管理。</p>
+</li>
+<li><p>Reuse of operations<br>因为<code>NSOperation</code>是完全支持面向对象的类，所以其对reuse的支持也是相对于GCD的一大优势。</p>
+</li>
+</ol>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li><a href="http://www.raywenderlich.com/19788/how-to-use-nsoperations-and-nsoperationqueues" target="_blank" rel="external">How To Use NSOperations and NSOperationQueues</a>；</li>
+<li><a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/Introduction/Introduction.html" target="_blank" rel="external">Concurrency Programming Guide</a></li>
+<li><a href="https://book.douban.com/subject/21370593/" target="_blank" rel="external">Effective Objective-C 2.0</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/02/11/common-code-snipperts-in-ios/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          iOS常用代码片段
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/02/01/using-gcd-part-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">GCD实践（三）使用dispatch_once来执行只需运行一次的线程安全代码</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

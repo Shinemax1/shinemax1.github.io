@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>理解Objective-C Runtime（一）预备知识 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在前面很早就知道了Objective-C Runtime这个概念，「Objective-C奇技淫巧」「iOS黑魔法」各种看起来很屌的主题中总会有它的身影；但一直没有深入去学习，一来觉得目前在实际项目中还没有必要了解，二来懒。但，若想成为一个合格的iOS开发者，这个东西是躲不过的，好吧，抡起胳膊开始吧，争取一点点把它整明白吧！
+和了解其他技术一样，在了解一个东西之前，我总是问自己，这个有啥实际意义">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解Objective-C Runtime（一）预备知识">
+<meta property="og:url" content="http://shinemax1.github.io/2015/04/26/understanding-objective-c-runtime-part-1/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="写在前面很早就知道了Objective-C Runtime这个概念，「Objective-C奇技淫巧」「iOS黑魔法」各种看起来很屌的主题中总会有它的身影；但一直没有深入去学习，一来觉得目前在实际项目中还没有必要了解，二来懒。但，若想成为一个合格的iOS开发者，这个东西是躲不过的，好吧，抡起胳膊开始吧，争取一点点把它整明白吧！
+和了解其他技术一样，在了解一个东西之前，我总是问自己，这个有啥实际意义">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解Objective-C Runtime（一）预备知识">
+<meta name="twitter:description" content="写在前面很早就知道了Objective-C Runtime这个概念，「Objective-C奇技淫巧」「iOS黑魔法」各种看起来很屌的主题中总会有它的身影；但一直没有深入去学习，一来觉得目前在实际项目中还没有必要了解，二来懒。但，若想成为一个合格的iOS开发者，这个东西是躲不过的，好吧，抡起胳膊开始吧，争取一点点把它整明白吧！
+和了解其他技术一样，在了解一个东西之前，我总是问自己，这个有啥实际意义">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-understanding-objective-c-runtime-part-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/26/understanding-objective-c-runtime-part-1/" class="article-date">
+  	<time datetime="2015-04-26T12:07:37.000Z" itemprop="datePublished">2015-04-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      理解Objective-C Runtime（一）预备知识
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Runtime/">Runtime</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>很早就知道了Objective-C Runtime这个概念，「Objective-C奇技淫巧」「iOS黑魔法」各种看起来很屌的主题中总会有它的身影；但一直没有深入去学习，一来觉得目前在实际项目中还没有必要了解，二来懒。但，若想成为一个合格的iOS开发者，这个东西是躲不过的，好吧，抡起胳膊开始吧，争取一点点把它整明白吧！</p>
+<p>和了解其他技术一样，在了解一个东西之前，我总是问自己，这个有啥实际意义？为什么要了解她？多自问一些问题，找到实际意义，在理解上总会容易一些，学习也自然更有目的性一些。</p>
+<p>好吧，看了十几篇博客和iOS文档，还是很容易针对Objective-C Runtime提出一些问题的，有了这些问题，理解Objective-C Runtime就自然不会过于枯燥了，譬如：</p>
+<ul>
+<li>在iOS中调用方法为什么叫「发送消息」，为什么这个概念这么重要？</li>
+<li>KVO的实现原理是什么，是否涉及Objective-C Runtime？</li>
+<li>Category的原理是什么？为什么其他语言中没有这个东东？</li>
+<li>Category中以「关联对象」的方式添加动态属性的原理什么？</li>
+</ul>
+<p>看了一些大牛的博客之后，对Objective-C Runtime的重要性在心里基本有谱了，但路要一步一步走，饭要一口一口吃，先将一些基础性的概念进行整理，「消息转发」「Method Swizzling」之类的高端东西放在之后的博客分析吧！</p>
+<h2 id="关于Objective-C-Runtime"><a href="#关于Objective-C-Runtime" class="headerlink" title="关于Objective-C Runtime"></a>关于Objective-C Runtime</h2><p><strong>Runtime的学习资源</strong></p>
+<p>Runtime的学习资源非常丰富，下面是个人的一些整理：</p>
+<ul>
+<li>《Objective-C Runtime Programming Guide》（官方文档）；</li>
+<li><code>/usr/include/objc/</code>下的头文件，譬如<code>objc.h</code>，<code>runtime.h</code>，<code>NSObject.h</code>，<code>message.h</code>等；<code>/usr/include/objc/</code>下的头文件不多，都可以看一下；</li>
+<li>《Effective Objective-C 2.0》；</li>
+<li>《<a href="http://www.tuicool.com/articles/FRRVNv" target="_blank" rel="external">理解 Objective-C Runtime</a>》；</li>
+<li>《<a href="http://blog.devtang.com/blog/2013/10/15/objective-c-object-model/" target="_blank" rel="external">Objective-C对象模型及应用</a>》；</li>
+<li>《<a href="http://blog.devtang.com/blog/2014/05/30/understand-tagged-pointer/" target="_blank" rel="external">深入理解Tagged Point</a>》；</li>
+<li>《<a href="http://yulingtianxia.com/blog/2014/11/05/objective-c-runtime/" target="_blank" rel="external">Objective-C Runtime</a>》；</li>
+<li>Objective-C Runtime系列博客：<ol>
+<li>《<a href="http://tech.glowing.com/cn/objective-c-runtime/" target="_blank" rel="external">Objective C Runtime</a>》；</li>
+<li>《<a href="http://tech.glowing.com/cn/method-swizzling-aop/" target="_blank" rel="external">Method Swizzling 和 AOP 实践</a>》；</li>
+<li>《<a href="http://tech.glowing.com/cn/implement-kvo/" target="_blank" rel="external">如何自己动手实现 KVO</a>》；</li>
+</ol>
+</li>
+<li>刨根问底Objective－C Runtime系列博客：<ol>
+<li>《<a href="http://t.cn/R7HYfhz" target="_blank" rel="external">刨根问底Objective－C Runtime（1）－ Self &amp; Super</a>》；</li>
+<li>《<a href="http://t.cn/R7QUSUE" target="_blank" rel="external">刨根问底Objective－C Runtime（2）－ Object &amp; Class &amp; Meta Class</a>》；</li>
+<li>《<a href="http://t.cn/R7meOzE" target="_blank" rel="external">刨根问底Objective－C Runtime（3）－ 消息 和 Category</a>》；</li>
+<li>《<a href="http://t.cn/R7mdOq1" target="_blank" rel="external">刨根问底Objective－C Runtime（4）－ 成员变量与属性</a>》；</li>
+</ol>
+</li>
+<li>《<a href="http://www.cnblogs.com/biosli/p/NSObject_inherit_2.html" target="_blank" rel="external">继承自NSObject的不常用又很有用的函数（2）</a>》；</li>
+</ul>
+<blockquote>
+<p>P.S: 值得一提的是，Objective-C Runtime是开源的，任何时候都能从<a href="http://opensource.apple.com" target="_blank" rel="external">opensource</a>中获取源代码。</p>
+</blockquote>
+<p><strong>动态语言v.s静态语言</strong></p>
+<p>在网上阅读Objective-C Runtime相关的信息时都提到了「Objective-C是一门动态语言…」「作为一门动态语言…」之类的字眼，这让我有些诧异。因为根据我之前的理解：虽然动态和静态语言都是相对的，但Objective-C怎么也不算动态语言吧！动态语言是Python、Javascript这种弱类型语言吧？！</p>
+<p>关于Objective-C是否是动态语言，笔者才疏学浅，不敢妄论，知乎中关于这个有讨论：<a href="http://www.zhihu.com/question/19970471" target="_blank" rel="external">Objective-C是动态语言吗？为什么？</a></p>
+<p>但无论如何，它比C++、C这类传统静态语言具备更多的动态特性，说它是动态语言或许不为过吧。暂时不纠结这个问题了，希望以后有更多的自信回答这个问题。跟随主流意见，暂时认为Objective-C是一门动态语言吧。</p>
+<p>P.S: 后来又仔细阅读了一下《Effective Objective-C 2.0》，其中对「Objective-C是动态语言」有更好的佐证，后面阐述「Objective-C的消息传递机制」时再补充说明吧！</p>
+<p>P.S: 关于OC是动态语言这个话题，总会少不了「动态特性」「动态类型」「动态绑定」这几个关键词的讨论分析，之前在《<a href="/basics-in-objective-c/#多态、动态类型和动态绑定">Objective-C基础知识</a>》中进行了简单的概述。</p>
+<p><strong>Runtime是什么</strong></p>
+<p>Runtime是什么？为什么有Runtime这个东东？</p>
+<p>《Objective-C Runtime Programming Guide》的introduction的第一段就回答了这个问题：</p>
+<blockquote>
+<p>The Objective-C language defers as many decisions as it can from compile time and link time to runtime. Whenever possible, it does things dynamically. This means that the language requires not just a compiler, but also a runtime system to execute the compiled code. The runtime system acts as a kind of operating system for the Objective-C language; it’s what makes the language work.</p>
+</blockquote>
+<p>不过貌似不够清晰，<a href="http://www.tuicool.com/articles/FRRVNv" target="_blank" rel="external">理解Objective-C Runtime</a>中有更浅显的解释：</p>
+<blockquote>
+<p>Objective-C是面相运行时的语言（runtime oriented language），就是说它会尽可能的把编译和链接时要执行的逻辑延迟到运行时。这就给了你很大的灵活性，你可以按需要把消息重定向给合适的对象，你甚至可以交换方法的实现，等等；这就需要使用runtime，runtime可以做对象自省查看他们正在做的和不能做的（don’t respond to）并且适当地分发消息。</p>
+<p>Objective-C的Runtime是一个运行时库（Runtime Library），它是一个主要使用C和汇编写的库，为C添加了面相对象的能力并创造了Objective-C。这就是说它在类信息（Class Information）中被加载，完成所有的方法分发，方法转发，等等。Objective-C runtime创建了所有需要的结构体，让Objective-C的面相对象编程变为可能。</p>
+</blockquote>
+<h2 id="关于Runtime的一些术语"><a href="#关于Runtime的一些术语" class="headerlink" title="关于Runtime的一些术语"></a>关于Runtime的一些术语</h2><p>各种Runtime资料中有很多术语，有些是以前认识但理解不深刻的，譬如<code>id</code>、<code>Class</code>，有些是很少接触的，譬如<code>isa</code>。</p>
+<p>为了更好地理解Runtime，先了解Runtime的一些术语是非常必要的。</p>
+<p>首先简单提一下<code>objc_class</code>，它是一个结构体，其中包含一些类信息；然后是<code>objc_object</code>，它也是一个结构体，但它只包括一个条目 – <code>isa</code>，后者是一个<code>objc_class</code>指针；</p>
+<p>P.S: 为了查看方便，把<code>objc_class</code>、<code>objc_object</code>等的定义源码都拷贝出来了，详见。</p>
+<p>其实，说到底，<code>NSObject</code>就是建立在<code>objc_class</code>这个结构体之上的，所以了解<code>objc_class</code>对于了解<code>NSObject</code>以及Cocoa的对象模型是非常重要的。</p>
+<p>P.S: <code>objc_class</code>和<code>isa</code>相对而言信息量比较大，后文再详细阐述。</p>
+<p>OK，接着来看建立在<code>objc_class</code>和<code>objc_objec</code>t基础之上的一些关键字。</p>
+<p><strong>Class</strong></p>
+<p><code>Class</code>（不是class哦），它在<code>&lt;objc/objc.h&gt;</code>中定义，如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents an Objective-C class.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_class *Class;</div></pre></td></tr></table></figure>
+<p>可以看到<code>Class</code>其实是一种指针类型，即用于指向<code>objc_class</code>结构体。<code>NSObject</code>中定义的方法<code>-(Class)class</code>用于返回其对应的<code>objc_class</code>结构体指针；</p>
+<p>除了<code>-(Class)class</code>方法之外，<code>NSObject</code>类中还有一些常见方法包含<code>Class</code>类型参数或者返回<code>Class</code>类型返回值，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (Class)<span class="keyword">class</span>;</div><div class="line">- (<span class="built_in">BOOL</span>)isKindOfClass:(Class)aClass;</div><div class="line">- (<span class="built_in">BOOL</span>)isMemberOfClass:(Class)aClass;</div><div class="line">+ (<span class="built_in">BOOL</span>)isSubclassOfClass:(Class)aClass;</div><div class="line">+ (<span class="built_in">BOOL</span>)isSubclassOfClass:(Class)aClass;</div><div class="line">+ (Class)superclass;</div><div class="line">+ (Class)<span class="keyword">class</span>;</div></pre></td></tr></table></figure>
+<p><strong>id</strong></p>
+<p>对于有过iOS开发经验的人而言，<code>id</code>使用太广泛了，不过似乎对它还没有过比较深入的理解；事实上，一直以为<code>id</code>和<code>NSObject *</code>等价呢！现在看来，这种理解太naive了，它也在<code>&lt;objc/objc.h&gt;</code>中定义：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> objc_object &#123;</div><div class="line">    Class isa  OBJC_ISA_AVAILABILITY;</div><div class="line">&#125;;</div><div class="line"><span class="comment">// objc_object也是一个只包含一个条目isa（指向objc_object结构体的指针）的结构体。</span></div><div class="line">    </div><div class="line"><span class="comment">/// A pointer to an instance of a class.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_object *id;</div></pre></td></tr></table></figure>
+<p><strong>SEL</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents a method selector.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_selector *SEL;</div></pre></td></tr></table></figure>
+<p>没找到<code>objc_selector</code>的定义，但根据网友的描述：其实它就是个映射到方法的C字符串，可以用Objc编译器命令<code>@selector()</code>或者Runtime系统的<code>sel_registerName</code>函数来获得一个SEL类型的方法选择器（通常简称：选择子）。</p>
+<p>考虑到Xcode对<code>@selector</code>的支持比对<code>sel_registerName</code>的支持更好，所以<code>@selector</code>貌似用得更多一些，但有时候<code>sel_registerName</code>或许更简洁一些。</p>
+<p>譬如有一段代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.selectedViewController respondsToSelector:<span class="keyword">@selector</span>(isReadyForEditing)]) &#123;</div><div class="line">    boolNumber = [<span class="keyword">self</span>.selectedViewController performSelector:<span class="keyword">@selector</span>(isReadyForEditing)];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>但当前上下文中没有<code>isReadyForEditing</code>这个方法，所以编译器会有警告；当然，可以有各种方式来关闭警告，如下是其中一种：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma clang diagnostic push</span></div><div class="line"><span class="meta">#pragma clang diagnostic ignored <span class="meta-string">"-Wundeclared-selector"</span></span></div><div class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.selectedViewController respondsToSelector:<span class="keyword">@selector</span>(isReadyForEditing)]) &#123;</div><div class="line">    boolNumber = [<span class="keyword">self</span>.selectedViewController performSelector:<span class="keyword">@selector</span>(isReadyForEditing)];</div><div class="line">    &#125;</div><div class="line"><span class="meta">#pragma clang diagnostic pop</span></div></pre></td></tr></table></figure>
+<p>但此时，若改用<code>sel_registerName</code>，则这个警告就没了！</p>
+<p>P.S: 不晓得Apple更青睐于哪一个，个人感觉是<code>@selector</code>，因为<code>sel_registerName</code>的使用几乎没碰到过。</p>
+<p><strong>IMP</strong></p>
+<p>IMP的定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// A pointer to the function of a method implementation. </span></div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> !OBJC_OLD_DISPATCH_PROTOTYPES</span></div><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">void</span> <span class="params">(*IMP)</span><span class="params">(<span class="keyword">void</span> <span class="comment">/* id, SEL, ... */</span> )</span></span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">else</span></span></div><div class="line"><span class="function"><span class="keyword">typedef</span> <span class="title">id</span> <span class="params">(*IMP)</span><span class="params">(id, SEL, ...)</span></span>;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div></pre></td></tr></table></figure>
+<p>可以了解到，IMP是一个函数指针。IMP是Implementation的缩写，一个函数是由一个selector(SEL)，和一个implement(IML)组成的；Selector相当于门牌号，而Implement才是真正的住户（函数实现）。理解Selector和Implementation的关系蛮重要的！</p>
+<p><strong>Method</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents a method in a class definition.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_method *Method;</div></pre></td></tr></table></figure>
+<p><strong>Ivar</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents an instance variable.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_ivar *Ivar;</div></pre></td></tr></table></figure>
+<p><strong>Category</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents a category.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_category *Category;</div></pre></td></tr></table></figure>
+<p><strong>objc_property_t</strong></p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/// An opaque type that represents an Objective-C declared property.</span></div><div class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> objc_property *<span class="keyword">objc_property_t</span>;</div></pre></td></tr></table></figure>
+<p>可以通过<code>class_copyPropertyLis</code>t和<code>protocol_copyPropertyList</code>方法来获取类（Class）和协议（Protocol）中的属性，获取属性之后，还可以使用<code>property_getName</code>获取属性的名字（C字串）：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">objc_property_t *class_copyPropertyList(Class cls, <span class="keyword">unsigned</span> <span class="keyword">int</span> *outCount);</div><div class="line">objc_property_t *protocol_copyPropertyList(Protocol *proto, <span class="keyword">unsigned</span> <span class="keyword">int</span> *outCount);</div><div class="line"><span class="keyword">const</span> <span class="keyword">char</span> *property_getName(objc_property_t property);</div></pre></td></tr></table></figure>
+<p>举个例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">Student</span> : <span class="title">NSObject</span></span></div><div class="line">    </div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSString</span> *name;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSUInteger</span> age;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSUInteger</span> score;</div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div><div class="line">    </div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">Student</span></span></div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div><div class="line">    </div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div><div class="line">    </div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="keyword">unsigned</span> <span class="keyword">int</span> outCount;</div><div class="line">    objc_property_t *aProperty = class_copyPropertyList([Student <span class="keyword">class</span>], &amp;outCount);</div><div class="line">    </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"一共有%d个属性，它们的名字分别是："</span>, outCount);</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; outCount; ++i) &#123;</div><div class="line">        objc_property_t aP = aProperty[i];</div><div class="line">        <span class="keyword">const</span> <span class="keyword">char</span> * property_name = property_getName(aP);</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"%s"</span>, property_name);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">/*输出：</span></div><div class="line">Student类一共有3个属性，它们的名字分别是：</div><div class="line">name</div><div class="line">age</div><div class="line">score</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>这个示例的执行结果也从侧面反映出了，<code>NSObject</code>中没有定义属性（只有一个叫<code>isa</code>成员变量）。</p>
+<p>P.S: 属性v.s成员变量？这里留个尾巴，以后把这个问题也分析一下吧！</p>
+<h2 id="objc-class和isa"><a href="#objc-class和isa" class="headerlink" title="objc_class和isa"></a>objc_class和isa</h2><p>把<code>objc_class</code>和<code>isa</code>单独拧出来的原因是它们的信息量比较大，稍微复杂一点！</p>
+<p>Objective-C是一种面向对象的语言。按照面向对象语言的设计原则，所有事物都应该是对象（严格来说Objective-C并没有完全做到这一点，因为它有象<code>int</code>, <code>double</code>这样的简单变量类型）。所以一定要有这个认识：<strong>Objective-C中，类也是对象</strong>。</p>
+<p>在Cocoa中，所有类都继承自<code>NSObject</code>，参考<code>NSObject</code>在<code>&lt;objc/NSObject.h&gt;</code>中的定义如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> &lt;<span class="title">NSObject</span>&gt; </span>&#123;</div><div class="line">    Class isa  OBJC_ISA_AVAILABILITY;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>objc_class</code>的定义如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> objc_class &#123;</div><div class="line">    Class isa  OBJC_ISA_AVAILABILITY;</div><div class="line">    </div><div class="line"><span class="meta">#<span class="meta-keyword">if</span> !__OBJC2__</span></div><div class="line">    Class super_class                                        OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">char</span> *name                                         OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> version                                             OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> info                                                OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">long</span> instance_size                                       OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_ivar_list *ivars                             OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_method_list **methodLists                    OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_cache *cache                                 OBJC2_UNAVAILABLE;</div><div class="line">    <span class="keyword">struct</span> objc_protocol_list *protocols                     OBJC2_UNAVAILABLE;</div><div class="line"><span class="meta">#<span class="meta-keyword">endif</span></span></div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>可以知道在运行时，所有类对象都有一个名为<code>isa</code>的指针，这个指针指向一个<code>objc_class</code>结构体，<code>objc_class</code>结构体中包含一些与类相关的信息。问题是这个<code>isa</code>指向的<code>objc_class</code>结构体的信息所对应的是自己的信息还是对应的类的信息呢？当然是其所对应的类的信息，存储了变量列表、方法列表、遵守的协议列表等等。</p>
+<p>简单来说，<code>isa</code>指针被称为「is a」指针，顾名思义，它告诉了对象所属的类信息，描述「aX is a X」。</p>
+<p>某个对象的<code>isa</code>指针指向的<code>objc_class</code>结构体存放的是其所对应的类的元数据（metadata），通过它我们可以知道该对象：所对应类的名字（<code>name</code>）、可以做哪些事情（<code>objc_method_list</code>是个二维方法列表）、包括哪些成员变量（<code>objc_ivar_list</code>）、遵守哪些协议（<code>protocols</code>）。</p>
+<p>回到<code>objc_class</code>，可以看到<code>objc_class</code>结构体首变量也是一个<code>isa</code>指针，这也印证了「类也是对象」这个说法。对象的<code>isa</code>指针指向的是该对象的本类，而类的<code>isa</code>指针指向的另外一个类被称为<strong>元类</strong>（metaclass），用来表述类本身所表具备的元数据，类方法就定义于此；也正因为类本身也是一个对象，所以类本身可以接收消息。譬如：考虑到<code>NSObject</code>类本身也是一个对象（是metaclass的一个对象，常称之为<strong>类类型对象</strong>），所以<code>[NSObject alloc]</code>其实可以看成是对<code>NSObject</code>这个类类型对象发送一个消息（调用器<code>alloc</code>实例方法）。</p>
+<p>除了<code>isa</code>指针之外，<code>objc_class</code>结构体中还有一个变量<code>super_class</code>，它指向了是这个类的超类（super class），可以看到这个<code>super_class</code>不是一个一位数组，而是一个单独的指针，即一个类有且仅有一个super class，即所谓的「单继承」。</p>
+<p>关于<code>isa</code>和<code>super_class</code>的更直观描述，还请看图：</p>
+<div class="imagediv" style="width: 274px; height = 287px"></div>
+
+<p>到了这里，Objective-C的对象模型基本上解释清楚了；可能还有一个问题：最终的元类是啥？在Cocoa中，所有类都继承自<code>NSObject</code>，而<code>NSObject</code>的元类（不晓得叫什么名字，假设叫<code>NSObjectMetaClass</code>）（上图中右上角的方框）也继承自<code>NSObject</code>。有些绕，具体来说，<code>NSObject</code>和<code>NSObjectMetaClass</code>的<code>isa</code>指针和<code>super_class</code>指针指向情况是这样的：</p>
+<ul>
+<li><code>NSObject</code>的<code>isa</code>指针<code>NSObjectMetaClass</code>（终极meta class），<code>NSObjectMetaClass</code>指针指向自己；</li>
+<li><code>NSObject</code>的<code>super_class</code>指针指向<code>nil</code>，<code>NSObjectMetaClass</code>的<code>super_class</code>指向<code>NSObject</code>；</li>
+</ul>
+<p>这样就完了？！No！Objective-C的对象模型还有信息可挖，回过头来看<code>objc_class</code>的<code>ivars</code>变量和<code>methodLists</code>变量：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">struct</span> objc_class &#123;</div><div class="line">    <span class="keyword">struct</span> objc_ivar_list *ivars;</div><div class="line">    <span class="keyword">struct</span> objc_method_list **methodLists;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>在运行时，类（包括class和metaclass）的<code>objc_class</code>结构体是固定的，不可能往这个结构体中添加数据，只能修改！譬如可以修改<code>isa</code>指针，让它指向一个中间类；在我的理解里，应该也可以修改<code>ivars</code>和<code>methodLists</code>，让它们指向一个新的区域；若可以这样，那么就可以在运行时随意添加/修改/删除成员变量和方法了。</p>
+<p>但是，貌似Objective-C Runtime没有提供修改<code>ivars</code>和<code>methodLists</code>指针值的接口。</p>
+<p>也因此，<code>ivars</code>在运行时指向的是一个固定区域，当然可以修改这个区域的值了，但这其实只是修改成员变量值而已；「在这个内存区域后面续上一段空余区域用于存放新的成员变量」？呵呵，想多了吧！因此，我们没办法在运行时为对象添加成员变量，这解释了为什么category中不能定义property（dynamic property不算）；</p>
+<p>P.S: 那为什么protocol中可以添加变量，在我的理解里，protocol是在编译器处理的。所以<code>objc_class</code>中有一个变量叫<code>protocols</code>；</p>
+<p>和<code>ivars</code>不同，<code>methodLists</code>是一个二维数组。虽然我们没办法扩展<code>methodLists</code>指向的内存区域，但是我们可以改变这个内存区域（这个内存区域存储的都是指针）的值。因此，我们可以在运行时动态添加（以及做其他的处理，譬如交换等）方法！</p>
+<p>P.S: <code>objc_class</code>结构体中还有一个变量<code>cache</code>，顾名思义，它是用于缓存的，缓存啥呢？缓存方法，下一篇博客阐述「消息传递机制」时会谈到这个。</p>
+<p>到了这里，谁还敢说Objective-C不是动态语言？</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/27/understanding-objective-c-runtime-part-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          理解Objective-C Runtime（二）消息传递机制
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/26/nshashtable-and-nsmaptable/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">NSHashtable和NSMaptable</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Objective-C copy那些事儿 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在前面Objective-C中的copy相关内容比我想象中要丰富多了。
+NSCopying和NSMutableCopying协议使用对象时经常需要拷贝它。在Objective-C中，此操作是通过copy和mutableCopy方法完成的，基类NSObject中与copy相关的API如下：
+12345- (id)copy;- (id)mutableCopy;    + (id)copyWithZo">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C copy那些事儿">
+<meta property="og:url" content="http://shinemax1.github.io/2015/01/28/copy-in-objective-c/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="写在前面Objective-C中的copy相关内容比我想象中要丰富多了。
+NSCopying和NSMutableCopying协议使用对象时经常需要拷贝它。在Objective-C中，此操作是通过copy和mutableCopy方法完成的，基类NSObject中与copy相关的API如下：
+12345- (id)copy;- (id)mutableCopy;    + (id)copyWithZo">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Objective-C copy那些事儿">
+<meta name="twitter:description" content="写在前面Objective-C中的copy相关内容比我想象中要丰富多了。
+NSCopying和NSMutableCopying协议使用对象时经常需要拷贝它。在Objective-C中，此操作是通过copy和mutableCopy方法完成的，基类NSObject中与copy相关的API如下：
+12345- (id)copy;- (id)mutableCopy;    + (id)copyWithZo">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-copy-in-objective-c" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/28/copy-in-objective-c/" class="article-date">
+  	<time datetime="2015-01-28T01:14:48.000Z" itemprop="datePublished">2015-01-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Objective-C copy那些事儿
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>Objective-C中的copy相关内容比我想象中要丰富多了。</p>
+<h2 id="NSCopying和NSMutableCopying协议"><a href="#NSCopying和NSMutableCopying协议" class="headerlink" title="NSCopying和NSMutableCopying协议"></a>NSCopying和NSMutableCopying协议</h2><p>使用对象时经常需要拷贝它。在Objective-C中，此操作是通过<code>copy</code>和<code>mutableCopy</code>方法完成的，基类<code>NSObject</code>中与copy相关的API如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>)<span class="keyword">copy</span>;</div><div class="line">- (<span class="keyword">id</span>)mutableCopy;</div><div class="line">    </div><div class="line">+ (<span class="keyword">id</span>)copyWithZone:(<span class="keyword">struct</span> _NSZone *)zone OBJC_ARC_UNAVAILABLE;</div><div class="line">+ (<span class="keyword">id</span>)mutableCopyWithZone:(<span class="keyword">struct</span> _NSZone *)zone OBJC_ARC_UNAVAILABLE;</div></pre></td></tr></table></figure>
+<p>显然，<code>NSObject</code>已经实现了<code>copy</code>和<code>mutableCopy</code>方法。</p>
+<p>如果想让自己的类（继承自<code>NSObject</code>，假设叫<code>CustomClass</code>）支持拷贝操作，该怎么弄呢？第一个想到的处理方式恐怕是重写<code>copy</code>方法（暂时不谈<code>mutableCopy</code>，稍后再叙）。</p>
+<p>但是，这种做法是错误的。</p>
+<p>正确的做法是让自定义类遵循<code>NSCopying</code>协议（<code>NSObject</code>并未遵循该协议），该协议只有一个方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">NSCopying</span></span></div><div class="line">    </div><div class="line">- (<span class="keyword">id</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone;</div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>简单来说，当对某个对象发送<code>copy</code>消息时，<code>NSObject#copy</code>的实现逻辑会去自动调用<code>copyWithZone:</code>方法，有点回调的感觉；因此，若想支持拷贝操作，需要在自定义类中让其支持<code>NSCopying</code>，即实现<code>copyWithZone:</code>方法，而不是重写<code>copy</code>方法。</p>
+<p>参数<code>zone</code>是什么鬼？这是因为在以前开发程序时，会把内存分为不同的<strong>区</strong>（zone），而对象会创建在某个区里面。现在不用了，每个程序只有一个区：默认区（default zone）。所以说，尽管必须实现<code>copyWithZone:</code>方法，但是不必担心其中的zone参数。</p>
+<p>举个栗子，有个表示个人信息的类，可以在其接口定义中声明此类遵循<code>NSCopying</code>协议，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UserInfo</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>&gt;</span></div><div class="line">    </div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *firstName;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *lastName;</div><div class="line">    </div><div class="line">- (<span class="keyword">instancetype</span>)initWithFirstName:(<span class="built_in">NSString</span> *)firstName</div><div class="line">                      andLastName:(<span class="built_in">NSString</span> *)lastName;</div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div><div class="line">    </div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UserInfo</span></span></div><div class="line">    </div><div class="line">- (<span class="keyword">instancetype</span>)initWithFirstName:(<span class="built_in">NSString</span> *)firstName</div><div class="line">                      andLastName:(<span class="built_in">NSString</span> *)lastName &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> = [<span class="keyword">super</span> init]) &#123;</div><div class="line">        _firstName = [firstName <span class="keyword">copy</span>];</div><div class="line">        _lastName = [lastName <span class="keyword">copy</span>];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="meta">#pragma mark - NSCopying</span></div><div class="line">    </div><div class="line">- (<span class="keyword">instancetype</span>)copyWithZone:(<span class="built_in">NSZone</span> *)zone &#123;</div><div class="line">    UserInfo *<span class="keyword">copy</span> = [[[<span class="keyword">self</span> <span class="keyword">class</span>] allocWithZone:zone] initWithFirstName:_firstName</div><div class="line">                                                              andLastName:_lastName];</div><div class="line">    <span class="keyword">return</span> <span class="keyword">copy</span>;</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>再来讲一下<code>mutableCopy</code>方法和<code>NSMutableCopying</code>协议；它们俩与<code>copy</code>方法和<code>NSCopying</code>协议相对应。当你的类还有mutable版本时，你还应该遵循<code>NSMutableCopying</code>协议，并实现<code>mutableCopyWithZone:</code>方法，这样，当向该类对象发送<code>mutableCopy</code>消息时，NSObject的<code>mutableCopy</code>方法实现代码中会回调你的<code>mutableCopyWithZone:</code>方法。</p>
+<p><strong>Note:</strong> 虽然在自定义<code>copyWithZone:</code>和<code>mutableCopyWithZone:</code>中可以弄各种花样，但是务必保证如下逻辑：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">[CustomClass copy] -&gt; CustomClass</div><div class="line">// 向immutable对象发送copy消息，得到一个immutable对象</div><div class="line"></div><div class="line">[MutableCustomClass copy] -&gt; CustomClass</div><div class="line">// 向mutable对象发送一个copy消息，得到一个immutable对象</div><div class="line"></div><div class="line">[CustomClass mutableCopy] -&gt; MutableCustomClass</div><div class="line">// 向immutable对象发送mutableCopy消息，得到mutable对象</div><div class="line"></div><div class="line">[MutableCustomClass mutableCopy] -&gt; MutableCustomClass</div><div class="line">// 向mutable对象发送mutableCopy消息，得到mutable对象</div></pre></td></tr></table></figure>
+<p>下一个问题：向immutable对象发送<code>copy</code>消息一定会得到一个新对象吗？</p>
+<p>No！下面的测试栗子所做的事情是分别向不可变的<code>NSString</code>、<code>NSArray</code>、<code>NSDictionary</code>以及<code>NSSet</code>对象发送<code>copy</code>消息，得到几个新的对象，新对象显然是immutable的，问题是：这些新对象真的是<strong>新</strong>对象吗？如下栗子分别把新老对象的地址给打印出来：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSString</span> *testString = <span class="string">@"1"</span>;</div><div class="line"><span class="built_in">NSString</span> *copyString = [testString <span class="keyword">copy</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"testString address = %x"</span>, testString);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"copyString address = %x"</span>, copyString);</div><div class="line"><span class="comment">// print:</span></div><div class="line"><span class="comment">// testString address = 79720cc0</span></div><div class="line"><span class="comment">// copyString address = 79720cc0</span></div><div class="line">    </div><div class="line"><span class="built_in">NSArray</span> *testArray = @[@<span class="number">1</span>, @<span class="number">2</span>, @<span class="number">3</span>];</div><div class="line"><span class="built_in">NSArray</span> *copyArray = [testArray <span class="keyword">copy</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"testArray address = %x"</span>, testArray);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"copyArray address = %x"</span>, copyArray);</div><div class="line"><span class="comment">// print:</span></div><div class="line"><span class="comment">// testArray address = 79722fb0</span></div><div class="line"><span class="comment">// copyArray address = 79722fb0</span></div><div class="line">    </div><div class="line"><span class="built_in">NSDictionary</span> *testDictionary = @&#123;@<span class="number">1</span>:@<span class="number">2</span>&#125;;</div><div class="line"><span class="built_in">NSDictionary</span> *copyDictionary = [testDictionary <span class="keyword">copy</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"testDictionary address = %x"</span>, testDictionary);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"copyDictionary address = %x"</span>, copyDictionary);</div><div class="line"><span class="comment">// print:</span></div><div class="line"><span class="comment">// testDictionary address = 79722fd0</span></div><div class="line"><span class="comment">// copyDictionary address = 79722fd0    </span></div><div class="line">    </div><div class="line"><span class="built_in">NSSet</span> *testSet = [<span class="built_in">NSSet</span> setWithObject:@<span class="number">1</span>];</div><div class="line"><span class="built_in">NSSet</span> *copySet = [testSet <span class="keyword">copy</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"testSet address = %x"</span>, testSet);</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"copySet address = %x"</span>, copySet);</div><div class="line"><span class="comment">// print:</span></div><div class="line"><span class="comment">// testSet address = 79722ff0</span></div><div class="line"><span class="comment">// copySet address = 79722ff0</span></div></pre></td></tr></table></figure>
+<p>答案很明了！<code>NSString</code>、<code>NSArray</code>、<code>NSDictionary</code>以及<code>NSSet</code>，这是我们最常用的四个含有mutable版本的类型；向这些类型的immutable对象发送<code>copy</code>消息，这些对象会直接返回本身，而不是返回一个新创建的对象。</p>
+<p>关于这一点，我反复使用各种姿势测试了很多次，均得到这样的结果；但是目前还没能找到比较权威的说法对这个现象进行说明。不过想想也很容易理解，对于一个immutable对象，真的没必要再复制一个，毕竟其中的内容不会发生改变，如果复制了，那么内存中将会存在两个一模一样的资源，岂不浪费？</p>
+<p>总结这一段内容的要点如下：</p>
+<ul>
+<li>若想令自己的类具备拷贝功能，则需要遵循<code>NSCopying</code>协议，实现其定义的<code>copyWithZone:</code>方法；</li>
+<li>若自定义的类分为immutable和mutable版本，则需要同时遵循<code>NSCopying</code>和<code>NSMutableCopying</code>协议；</li>
+<li>向immutable对象发送<code>copy</code>消息，并不一定会得到一个新对象；</li>
+</ul>
+<h2 id="深拷贝和浅拷贝"><a href="#深拷贝和浅拷贝" class="headerlink" title="深拷贝和浅拷贝"></a>深拷贝和浅拷贝</h2><p>在很长时间里，我都认为<strong>浅拷贝</strong>（shallow copy）指的是「指针拷贝」，而<strong>深拷贝</strong>（deep copy）才是真正copy一个对象；显然，这种说法是不正确的。</p>
+<p>一般来说，「深拷贝」和「浅拷贝」这两个概念是分析集合类型才会谈及的。深拷贝的意思是：在拷贝对象时，将其底层数据也一并复制过去。<strong>Foundation框架中所有集合类型在默认情况下都执行浅拷贝，也就是说，只拷贝容器对象本身，而不复制其中数据。这样做的原因在于，容器内的对象未必能拷贝，而且调用者也未必想在拷贝容器时一并拷贝其中每一个对象。</strong></p>
+<p>深拷贝和浅拷贝对比图如下：</p>
+<div class="imagediv" style="width: 560px; height: 280px"></div>
+
+<h2 id="理解-property中的copy修饰符"><a href="#理解-property中的copy修饰符" class="headerlink" title="理解@property中的copy修饰符"></a>理解@property中的copy修饰符</h2><p>经常看到@property中有些对象类型属性被<code>strong</code>修饰，有些被<code>copy</code>修饰。<code>strong</code>修饰符的作用不消多说，该如何理解<code>copy</code>修饰符呢？</p>
+<p>关于@property中<code>copy</code>修饰符的使用，我曾经历了这么两个阶段：</p>
+<ol>
+<li>使用<code>copy</code>修饰mutable类型，使用<code>strong</code>修饰immutable类型；</li>
+<li>使用<code>copy</code>修饰immutable类型，使用<code>strong</code>修饰mutable类型；</li>
+</ol>
+<p>关于第1个阶段，我忘记了当时是怎么想的，它显然是错的；</p>
+<p>关于第2个阶段，我之所以有这样的认识是因为曾在<a href="http://stackoverflow.com/questions/387959/nsstring-property-copy-or-retain" target="_blank" rel="external">stackoverflow</a>中看到了如下这么一段说明：</p>
+<blockquote>
+<p>For attributes whose type is an immutable value class that conforms to the <code>NSCopying</code> protocol, you almost always should specify <code>copy</code> in your <code>@property</code> declaration. Specifying retain is something you almost never want in such a situation.</p>
+</blockquote>
+<p>这句话错了吗？当然没有，要不也不会得到这么多的votes。但为什么这么说呢？不晓得是当时没耐心还是咋地，反正没怎么思考这个问题。</p>
+<p>接着以上文提到的<code>UserInfo</code>为栗子，对之进行简化，只是定义两个<code>NSString</code>属性：<code>firstName</code>和<code>lastName</code>，作为对比前者使用<code>copy</code>修饰，后者使用<code>strong</code>修饰。如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">UserInfo</span> : <span class="title">NSObject</span> &lt;<span class="title">NSCopying</span>&gt;</span></div><div class="line">    </div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *firstName;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) <span class="built_in">NSString</span> *lastName;</div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>基于<code>UserInfo</code>创建实例进行测试：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSMutableString</span> *mutableFirstName = [<span class="built_in">NSMutableString</span> stringWithFormat:<span class="string">@"张"</span>];</div><div class="line"><span class="built_in">NSMutableString</span> *mutableLastName = [<span class="built_in">NSMutableString</span> stringWithFormat:<span class="string">@"不坏"</span>];</div><div class="line">    </div><div class="line">UserInfo *u = [[UserInfo alloc] init];</div><div class="line">u.firstName = mutableFirstName;</div><div class="line">u.lastName  = mutableLastName;</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"全名：%@%@"</span>, u.firstName, u.lastName);</div><div class="line"><span class="comment">// print: 全名：张不坏</span></div><div class="line">    </div><div class="line"><span class="comment">// 改mutableFirstName「张」为「长孙」</span></div><div class="line">[mutableFirstName deleteCharactersInRange:<span class="built_in">NSMakeRange</span>(<span class="number">0</span>, <span class="number">1</span>)];</div><div class="line">[mutableFirstName appendString:<span class="string">@"长孙"</span>];</div><div class="line"><span class="comment">// 改mutableLastName「不坏」为「不坏蛋」</span></div><div class="line">[mutableLastName appendString:<span class="string">@"蛋"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"全名：%@%@"</span>, u.firstName, u.lastName);</div><div class="line"><span class="comment">// print: 全名：张不坏蛋</span></div></pre></td></tr></table></figure>
+<p>简单来说，对于immutable对象类型属性，假设该类型存在mutable版本，若使用<code>strong</code>修饰该属性，则将会是不安全的。</p>
+<p>在上述代码中，<code>u.lastName</code>被<code>strong</code>修饰，对之赋值一个mutable类型<code>mutableLastName</code>，之后改变<code>mutableLastName的</code>值（由「不坏」变为「不坏蛋」），显然也影响到了<code>u.lastName</code>的值，这通常是我们所不希望发生的；作为对比，<code>u.firstName</code>被<code>copy</code>修饰，也为之赋值mutable类型<code>mutableFirstName</code>，之后也改变<code>mutableFirstName</code>的值（由「张」变为「长孙」），但是<code>u.firstName</code>不受影响。</p>
+<p>再往深一点看：<code>@property</code>的<code>copy</code>的作用机制是什么？根据我的理解，<code>copy</code>修饰符的意义有两点：</p>
+<ol>
+<li>在系统自动合成属性的setter提供「指示」，使用类似于<code>_iVar = [var copy];</code>的方式进行赋值；</li>
+<li>告诉使用者，安心的使用吧！</li>
+</ol>
+<p>因此，根据我的理解，系统合成UserInfo的firstName和lastName的setter代码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setFirstName:(<span class="built_in">NSString</span> *)firstName &#123;</div><div class="line">    _firstName = [firstName <span class="keyword">copy</span>];</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)setLastName:(<span class="built_in">NSString</span> *)lastName &#123;</div><div class="line">    _lastName = lastName;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>写到这里，可以回答一个常见的问题了：<strong>如何重写带copy关键字的setter？</strong></p>
+<p>换句话说，即便<code>firstName</code>属性被<code>copy</code>修饰，但是如果重写setter时采用错误的方式，<code>copy</code>带来的好处会荡然无存。譬如这样重写<code>setFirstName:</code>：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)setFirstName:(<span class="built_in">NSString</span> *)firstName &#123;</div><div class="line">    _firstName = firstName;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>得到的结果如下（显然，<code>firstName</code>也是不安全的）：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">全名：张不坏</div><div class="line">全名：长孙不坏蛋</div></pre></td></tr></table></figure>
+<p>继续深挖：</p>
+<ol>
+<li>是不是所有遵循<code>NSCopying</code>类型属性都应该使用<code>copy</code>修饰呢？</li>
+<li>mutable类型属性可以使用<code>copy</code>修饰吗？</li>
+</ol>
+<p>对于第一个问题，答案是No！对于向<code>NSString</code>、<code>NSDictionary</code>等属性才需要使用<code>copy</code>修饰，因为它们存在mutable版本，在为属性赋值时，右值很可能是它们的mutable类型对象，若使用<code>strong</code>修饰则会带来不稳定因子；另外一个方面，如果属性类型不存在对应的mutable版本，则完全不用担心这点，反正你也无法在外部修改它，不稳定因子自然不存在了。</p>
+<p>对于第二个问题，答案仍然是No！被修饰符<code>copy</code>修饰的属性，默认的setter赋值方式是<code>_iVar = [var copy];</code>而<code>copy</code>方法返回的是immutable类型，将immutable对象赋值给mutable类型指针显然是不对的。</p>
+<p>P.S：如果存在<code>mutableCopy</code>修饰符，或许可以使用<code>mutableCopy</code>修饰mutable属性^_^</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li>《Effective Objective-2.0》</li>
+<li><a href="http://stackoverflow.com/questions/387959/nsstring-property-copy-or-retain" target="_blank" rel="external">NSString: copy还是retain</a></li>
+<li><a href="http://www.objc.io/issue-7/value-objects.html" target="_blank" rel="external">Value Objects</a></li>
+<li><a href="http://objccn.io/issue-7-2/" target="_blank" rel="external">值对象</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/01/28/using-gcd-part-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          GCD实践（二）少用performSelector系列方法
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/26/using-gcd-part-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">GCD实践之（一）使用GCD保护property</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

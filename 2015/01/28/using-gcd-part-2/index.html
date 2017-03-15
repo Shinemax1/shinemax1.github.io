@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>GCD实践（二）少用performSelector系列方法 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在前面本文几乎全部参考《Effective Objective-C 2.0》 Item 42。
+performSelector介绍Objective-C本质上是一门非常动态的语言，NSObject定义了几个方法，令开发者可以随意调用任何方法。这几个方法可以推迟执行方法调用，也可以指定运行方法所用的线程。这些功能在出现GCD之前非常有用。
+这其中最简单的是performSelector:(SEL)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GCD实践（二）少用performSelector系列方法">
+<meta property="og:url" content="http://shinemax1.github.io/2015/01/28/using-gcd-part-2/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="写在前面本文几乎全部参考《Effective Objective-C 2.0》 Item 42。
+performSelector介绍Objective-C本质上是一门非常动态的语言，NSObject定义了几个方法，令开发者可以随意调用任何方法。这几个方法可以推迟执行方法调用，也可以指定运行方法所用的线程。这些功能在出现GCD之前非常有用。
+这其中最简单的是performSelector:(SEL)">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GCD实践（二）少用performSelector系列方法">
+<meta name="twitter:description" content="写在前面本文几乎全部参考《Effective Objective-C 2.0》 Item 42。
+performSelector介绍Objective-C本质上是一门非常动态的语言，NSObject定义了几个方法，令开发者可以随意调用任何方法。这几个方法可以推迟执行方法调用，也可以指定运行方法所用的线程。这些功能在出现GCD之前非常有用。
+这其中最简单的是performSelector:(SEL)">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-using-gcd-part-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/01/28/using-gcd-part-2/" class="article-date">
+  	<time datetime="2015-01-28T05:53:22.000Z" itemprop="datePublished">2015-01-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      GCD实践（二）少用performSelector系列方法
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GCD/">GCD</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>本文几乎全部参考《Effective Objective-C 2.0》 Item 42。</p>
+<h2 id="performSelector介绍"><a href="#performSelector介绍" class="headerlink" title="performSelector介绍"></a>performSelector介绍</h2><p>Objective-C本质上是一门非常动态的语言，<code>NSObject</code>定义了几个方法，令开发者可以随意调用任何方法。这几个方法可以推迟执行方法调用，也可以指定运行方法所用的线程。这些功能在出现GCD之前非常有用。</p>
+<p>这其中最简单的是<code>performSelector:(SEL)selector</code>。该方法与直接调用选择子等效。所以下面两行代码的执行效果相同：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">[object performSelector:<span class="keyword">@selector</span>(selectorName)];</div><div class="line">[object selectorName];</div></pre></td></tr></table></figure>
+<p>这种方法看上去似乎有些多余。如果某个方法只是这么来调用的话，那么此方式确实多余，然而，如果selector是在running time才决定的，那么就能体现出此方式的强大之处了。这就等于在动态绑定之上再次使用动态绑定，因而可以实现出下面这种功能：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">SEL selector;</div><div class="line"><span class="keyword">if</span> ( <span class="comment">/* some condition */</span> ) &#123;</div><div class="line">    selector = <span class="keyword">@selector</span>(foo);</div><div class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="comment">/* some other condition */</span> ) &#123;</div><div class="line">    selector = <span class="keyword">@selector</span>(bar);</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    selector = <span class="keyword">@selector</span>(baz);</div><div class="line">&#125;</div><div class="line">    </div><div class="line">[object performSelector:selector];</div></pre></td></tr></table></figure>
+<p>这种编程方式极为灵活，经常可用来简化复杂的代码。还有一种用法，即时先把选择子保存起来，等某个事件发生之后再调用。不管哪种用法，编译器都不知道要执行的选择子是什么，者必须到了运行期才能确定。然而，使用此特性的代价是，如果在ARC下编译代码，那么编译器会发出如下警示信息：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">warningL performSelector may casue a leak because its selector</div><div class="line">is unknown [-Warc-performSelector-leaks]</div></pre></td></tr></table></figure>
+<p>你可能没料到会出现这种警告。要是早就料到了，那么也许应该已经知道使用这些方法为何要小心了。这条消息看上去可能比较奇怪，而且令人纳闷：为什么其中会提到内存泄漏问题呢？只不过是用<code>performSelector:</code>调用了一个方法。原因在于，编译器并不知道将要调用的selector是什么，因此，也就不了解其方法签名及返回值，甚至连是否有返回值都不清楚。而且，由于编译器不知道方法名，所以就没办法用ARC的内存管理规则来判定返回值是不是该释放。鉴于此，ARC采用了比较谨慎的做法，就是不添加释放操作。然而，这么做可能导致内存泄漏，因为方法在返回对象时已经将其保留了。</p>
+<p>这段话不是很容易懂，下面这段代码应该有助于理解：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">SEL selector;</div><div class="line"><span class="keyword">if</span> ( <span class="comment">/* some condition */</span> ) &#123;</div><div class="line">    selector = <span class="keyword">@selector</span>(newObject);</div><div class="line">    <span class="comment">// newObject返回一个new object</span></div><div class="line">&#125; <span class="keyword">else</span> <span class="keyword">if</span> ( <span class="comment">/* some other condition */</span> ) &#123;</div><div class="line">    selector = <span class="keyword">@selector</span>(<span class="keyword">copy</span>);</div><div class="line">    <span class="comment">// copy根据当前object copy出一个新的object</span></div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">    selector = <span class="keyword">@selector</span>(someProperty));</div><div class="line">    <span class="comment">// someProperty可以认为是对象的某个property</span></div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="keyword">id</span> ret = [object performSelector:selector];</div></pre></td></tr></table></figure>
+<p>此代码与刚才那个例子有所不同，以便展示问题所在，如果调用的是前两个选择子之一，那么ret对象应由这段代码来释放，而如果是第三个选择子，则无需释放。如果不使用ARC（此时编译器也不发出警告信息了），那么前两种情况下需要手动释放ret对象，而后一种不需要释放。如果使用ARC，则ARC应该帮忙处理这些事情，但是目前来说ARC是很难解决这个问题的，正如上文所述，其采取的是谨慎的做法：不添加释放操作，这就给程序带来了内存泄漏的可能。</p>
+<p>显然，这已然是performSelector的一大缺点（或说这是performSelector系列函数的一个坑吧）了。这个问题很容易被忽视，而且就算用静态分析器，也很难侦测到随后的内存泄漏。</p>
+<p>performSelector系列的方法之所以要谨慎使用，这就是其中一个原因。</p>
+<p>performSelector的另一个局限在于：返回值只能是<code>void</code>或对象类型（<code>id</code>类型）。如果想返回整数或浮点数等scalar类型值，那么就需要执行一些复杂的转换操作，而这种转换操作很容易出错。由于<code>id</code>类型表示指向任意Objective-C对象的指针，所以从技术上来讲，只要返回的大小和指针所占大小相同就行，也就是说，在32位架构的计算机上，可以返回任意32位大小的类型；而在64位架构的计算机上，则可以返回任意64位大小的类型。除此之外，还可以返回<code>NSNumber</code>进行转换…若返回的类型为C语言结构体，则不可使用performSelector方法。</p>
+<h2 id="多用GCD，少用performSelector系列方法"><a href="#多用GCD，少用performSelector系列方法" class="headerlink" title="多用GCD，少用performSelector系列方法"></a>多用GCD，少用performSelector系列方法</h2><p>performSelector系列方法中有某些方法可以被GCD代替。</p>
+<p>performSelector还有如下几个版本，可以在发消息时顺便传递参数：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>)performSelector:(SEL)aSelector withObject:(<span class="keyword">id</span>)object;</div><div class="line">- (<span class="keyword">id</span>)performSelector:(SEL)aSelector withObject:(<span class="keyword">id</span>)object1 withObject:(<span class="keyword">id</span>)object2;</div></pre></td></tr></table></figure>
+<p>比方说，可以用下面这两个版本来设置对象中名为value的属性值：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">id</span> object = <span class="comment">/* an object with a property called value */</span></div><div class="line"><span class="keyword">id</span> newValue = <span class="comment">/* new value for the property */</span></div><div class="line">[object performSelector:<span class="keyword">@selector</span>(setValue:) withObject:newValue];</div></pre></td></tr></table></figure>
+<p>这些方法貌似有用，但是局限颇多！由于参数类型是<code>id</code>，所以传入的参数必须是对象才行。如果选择子所接受的参数是整数或浮点数，那就不能采用这些方法了。此外，选择子最多只能接受两个参数，也就是调用<code>performSelector:withObject:withObject:</code>这个版本。在参数不止两个的情况下，则没有对应的performSelector方法能够执行这种选择子。</p>
+<p>performSelector系列方法还有两个功能，就是可以延后执行选择子，或将选择子放在另一个线程上执行。下面列出此方法中一些更为常用的版本：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)performSelector:(SEL)aSelector withObject:(<span class="keyword">id</span>)anArgument afterDelay:(<span class="built_in">NSTimeInterval</span>)delay;</div><div class="line">- (<span class="keyword">void</span>)performSelector:(SEL)aSelector onThread:(<span class="built_in">NSThread</span> *)thr withObject:(<span class="keyword">id</span>)arg waitUntilDone:(<span class="built_in">BOOL</span>)wait;</div><div class="line">- (<span class="keyword">void</span>)performSelectorOnMainThread:(SEL)aSelector withObject:(<span class="keyword">id</span>)arg waitUntilDone:(<span class="built_in">BOOL</span>)wait;</div></pre></td></tr></table></figure>
+<p>当然，这几个方法还有一两个别的变种，这里就略过了。然而，很快就会发现，这些方法太过局限了。例如，具备延后功能的那些方法无法处理带有两个参数的选择子。而能够指定执行线程的哪些方法，则与之类似，所以也不是特别通用。如果要用这些方法，就得把很多参数打包到字典中，然后在被调用的方法中将这些参数提取出来，这样会增加开销，同时也提高了产生bug的可能性。</p>
+<p>如果改用替代方案GCD，那么就不受这些限制了。</p>
+<p>performSelector系列方法所提供的线程功能，可以通过GCD机制中的块来实现；performSelector系列方法所提供的延后执行功能，也可以用<code>dispatch_after</code>来实现，在另一个线程上执行任务则可通过<code>dispatch_async</code>和<code>dispatch_sync</code>来实现。</p>
+<p>例如，要延后执行某项任务，可以有下面两种方式实现，而我们应该优先考虑第二种：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// using performSelector:withObject:afterDelay:</span></div><div class="line">[<span class="keyword">self</span> performSelector:<span class="keyword">@selector</span>(doSomething:) withObject:<span class="literal">nil</span> afterDelay:<span class="number">5.0</span>]</div><div class="line"></div><div class="line"><span class="comment">// using dispatch_after</span></div><div class="line">dispatch_time_t time = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(<span class="number">5.0</span> * <span class="built_in">NSEC_PER_SEC</span>));</div><div class="line">dispatch_after(time, dispatch_get_main_queue(), ^&#123;</div><div class="line">    [<span class="keyword">self</span> doSomething];</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>想把任务放在主线程上执行，也可以有下面两种方式，而我们还应该优先选择后者：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// using performSelectorOnMainThread:withObject:waitUntilDone:</span></div><div class="line">[<span class="keyword">self</span> performSelectorOnMainThread:<span class="keyword">@selector</span>(doSomething) withObject:<span class="literal">nil</span> waitUntilDone:<span class="literal">NO</span>];</div><div class="line">    </div><div class="line"><span class="comment">// using dispatch_async</span></div><div class="line"><span class="comment">// (or if waitUntilDone is YES, then dispatch_sync)</span></div><div class="line"><span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">    [<span class="keyword">self</span> doSomething];</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>总结：</p>
+<ol>
+<li>performSelector系列方法在内存管理上容易有缺失，它无法确定将要执行的选择子是什么，因而ARC编译器也无法插入适当的内存管理方法，这是一个大坑，使用GCD则不存在这个问题。</li>
+<li>performSelector系列方法能处理的选择子太过局限了，选择子的返回值类型及发送给方法的参数个数都受到限制，不过GCD似乎也没有比较好的解决方法（或许只是笔者不知道）；</li>
+<li>如果想把任务放在另外一个线程上执行，或者想延时执行某个任务，最好应该把任务封装到block中，然后调用GCD的相关方法来实现。</li>
+</ol>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li><a href="https://book.douban.com/subject/21370593/" target="_blank" rel="external">Effective Objective-C 2.0</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/02/01/using-gcd-part-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          GCD实践（三）使用dispatch_once来执行只需运行一次的线程安全代码
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/01/28/copy-in-objective-c/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Objective-C copy那些事儿</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

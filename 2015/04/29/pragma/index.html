@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>预处理指令#pragma | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#pragma介绍#pragma是一个预处理指令，pragma的中文意思是『编译指示』。它不是Objective-C中独有的东西（貌似在C/C++中使用比较多），最开始的设计初衷是为了保证代码在不同编译器之间的兼容性，但随着时间推移，它出现在了更多更丰富的应用场景中。
+#pragma代码是在编译期间处理的；它既不属于注释，也不属于逻辑代码的一部分；并且它和其他预处理命令譬如#ifdef ... #">
+<meta property="og:type" content="article">
+<meta property="og:title" content="预处理指令#pragma">
+<meta property="og:url" content="http://shinemax1.github.io/2015/04/29/pragma/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="#pragma介绍#pragma是一个预处理指令，pragma的中文意思是『编译指示』。它不是Objective-C中独有的东西（貌似在C/C++中使用比较多），最开始的设计初衷是为了保证代码在不同编译器之间的兼容性，但随着时间推移，它出现在了更多更丰富的应用场景中。
+#pragma代码是在编译期间处理的；它既不属于注释，也不属于逻辑代码的一部分；并且它和其他预处理命令譬如#ifdef ... #">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="预处理指令#pragma">
+<meta name="twitter:description" content="#pragma介绍#pragma是一个预处理指令，pragma的中文意思是『编译指示』。它不是Objective-C中独有的东西（貌似在C/C++中使用比较多），最开始的设计初衷是为了保证代码在不同编译器之间的兼容性，但随着时间推移，它出现在了更多更丰富的应用场景中。
+#pragma代码是在编译期间处理的；它既不属于注释，也不属于逻辑代码的一部分；并且它和其他预处理命令譬如#ifdef ... #">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-pragma" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/29/pragma/" class="article-date">
+  	<time datetime="2015-04-29T08:12:35.000Z" itemprop="datePublished">2015-04-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      预处理指令#pragma
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="pragma介绍"><a href="#pragma介绍" class="headerlink" title="#pragma介绍"></a>#pragma介绍</h2><p><code>#pragma</code>是一个预处理指令，pragma的中文意思是『编译指示』。它不是Objective-C中独有的东西（貌似在C/C++中使用比较多），最开始的设计初衷是为了保证代码在不同编译器之间的兼容性，但随着时间推移，它出现在了更多更丰富的应用场景中。</p>
+<p><code>#pragma</code>代码是在编译期间处理的；它既不属于注释，也不属于逻辑代码的一部分；并且它和其他预处理命令譬如<code>#ifdef ... #endif</code>不同，它不会影响代码在运行时的逻辑处理，所以<code>#pragma</code>指令丝毫不会影响到程序在运行时的性能。根据Mattt Thompson大神的描述，在当前Xcode开发环境中，<code>#pragma</code>主要有两个应用场景：组织代码和屏蔽编译警告。</p>
+<h2 id="pragma-mark组织代码"><a href="#pragma-mark组织代码" class="headerlink" title="#pragma mark组织代码"></a>#pragma mark组织代码</h2><p>组织代码是个人卫生问题，个人卫生不好（代码组织不好）不能反映人品（技术能力），但它在某种程度中影响了别人是否愿意和他搞基（合作）。在一个项目（尤其是多人合作的项目）中，应该有一个比较好的内部一致性编码习惯，不好的习惯或者缺乏一致性，会使得项目难以维持，协作也不便（这点笔者深有体会，笔者目前的项目有一个同事，编码能力尚可，但编码习惯实在太糟糕，代码紧凑，从来不空格，更妄谈空行和注释了，甚至经常不对齐，看他的代码，一点修改的欲望都没有，想的只是自己重写一遍=_=）。</p>
+<p>在组织代码时充分使用<code>#pragma mark</code>就是写出『干净代码』的一个重要环节，就像这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma mark - UIViewController</span></div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    </div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)dealloc &#123;</div><div class="line">    </div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="meta">#pragma mark - IBAction</span></div><div class="line">    </div><div class="line">- (<span class="keyword">IBAction</span>)loginNow:(<span class="keyword">id</span>)sender &#123;</div><div class="line">    </div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="meta">#pragma mark - UITableViewDataSource</span></div><div class="line">    </div><div class="line">- (<span class="built_in">NSInteger</span>)tableView:(<span class="built_in">UITableView</span> *)tableView numberOfRowsInSection:(<span class="built_in">NSInteger</span>)section &#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="meta">#pragma mark - UITableViewDelegate</span></div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)tableView:(<span class="built_in">UITableView</span> *)tableView didSelectRowAtIndexPath:(<span class="built_in">NSIndexPath</span> *)indexPath &#123;</div><div class="line">    </div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>上述代码中使用<code>#pragma mark</code>将@implementation中的代码（方法）分成了几个逻辑section，这种处理并没有改变程序逻辑，但我们在使用Xcode代码导航工具时可以在视觉上汲取片刻的欢愉：</p>
+<div class="imagediv" style="width: 402px; height: 256px;"></div>
+
+<p>组织N个方法为一个section的依据是什么呢？这个就见仁见智了。一般来说：</p>
+<ul>
+<li>将一个protocol的方法组织成一个section；</li>
+<li>将target-action类型方法组织成一个section；</li>
+<li>将notification相关方法组织成一个section；</li>
+<li>将需要override的父类方法组成成一个section；</li>
+</ul>
+<h2 id="pragma屏蔽编译警告"><a href="#pragma屏蔽编译警告" class="headerlink" title="#pragma屏蔽编译警告"></a>#pragma屏蔽编译警告</h2><p>使用<code>#pragma mark</code>来组织代码使用比较普遍，相对而言，使用<code>#pragma</code>指令屏蔽编译器和静态分析器的警告相对来说就比较新鲜了。</p>
+<p>You know what is even more annoying than poorly-formatted code? Code that generates warnings. 编译警告很可恶，应该尽可能修改代码干掉这些警告，但是有些时候有些警告无法避免，譬如我们在编写<code>@selector(aMethodName)</code>这样的代码时，如果aMethodName没有在上下文中出现，可能会出现含有『undeclared-selector』关键词的warning，有洁癖的程序员会想到干掉这个warning，此时<code>#pragma</code>指令就派上用场了。譬如：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#pragma clang diagnostic push</span></div><div class="line"><span class="meta">#pragma clang diagnostic ignored <span class="meta-string">"-Wundeclared-selector"</span></span></div><div class="line">    <span class="keyword">if</span> ([<span class="keyword">self</span>.selectedViewController respondsToSelector:<span class="keyword">@selector</span>(isReadyForEditing)]) &#123;</div><div class="line">        boolNumber = [<span class="keyword">self</span>.selectedViewController performSelector:<span class="keyword">@selector</span>(isReadyForEditing)];</div><div class="line">    &#125;</div><div class="line"><span class="meta">#pragma clang diagnostic pop</span></div></pre></td></tr></table></figure>
+<p>这是Clang编译器提供的一种解决方案，通过使用<code>#pragma clang diagnostic push/pop</code>来告诉编译器仅仅为某一特定部分代码（记得要在代码片段末尾使用pop将最初的diagnostic设置恢复哦）忽视特定警告。</p>
+<p>上述示例中<code>#pragma clang diagnostic ignored</code>后面的<code>&quot;-Wundeclared-selector&quot;</code>指示的是『特定警告』，再别的应用场景中肿么知道该填写什么呢？网络是强大的，有一个（可能是N个）愤怒的网友对clang警告消息做了一个总结，之所以说这个网友“愤怒”，是因为其链接非常有意思：<a href="http://fuckingclangwarnings.com/。" target="_blank" rel="external">http://fuckingclangwarnings.com/。</a></p>
+<p>Finally, you can read more about the LLVM’s use of #pragma in the <a href="http://clang.llvm.org/docs/UsersManual.html#diagnostics_pragmas" target="_blank" rel="external">Clang Compiler User’s Manual</a>.</p>
+<p>最后，感谢大神Mattt Thompson，本文的参考资料完全来自于《<a href="http://nshipster.com/pragma/" target="_blank" rel="external">#pragma</a>》，本来想用自己的语言完成这篇博客，边读边写，最后发现几乎差不多了，没留下啥自己的东西，就这样吧！</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li>《<a href="http://nshipster.com/pragma/" target="_blank" rel="external">#pragma</a>》</li>
+<li>《<a href="http://nshipster.com/clang-diagnostics/" target="_blank" rel="external">clang diagnostics</a>》</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/06/16/uiwebview-load-local-html/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          UIWebView加载本地HTML文件
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/29/associated-object/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">关联对象</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

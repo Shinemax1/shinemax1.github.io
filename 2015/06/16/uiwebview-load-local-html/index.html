@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>UIWebView加载本地HTML文件 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在前面写本文的原因是今天被要求「调研在iOS中加载本地HTML的相关技术」，好记性不如烂笔头，将一些东西给记录下来吧。
+应用场景是这样的：手头的iOS App有一部分UI需要使用HTML完成，好处是这部分UI可以更灵活，即可以在任何不需要升级App的情况下更新这部分UI（包括样式、操作等等）。当下非常火的技术 – Facebook的React Native – 正是用来解决这种问题的，毕竟在传统">
+<meta property="og:type" content="article">
+<meta property="og:title" content="UIWebView加载本地HTML文件">
+<meta property="og:url" content="http://shinemax1.github.io/2015/06/16/uiwebview-load-local-html/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="写在前面写本文的原因是今天被要求「调研在iOS中加载本地HTML的相关技术」，好记性不如烂笔头，将一些东西给记录下来吧。
+应用场景是这样的：手头的iOS App有一部分UI需要使用HTML完成，好处是这部分UI可以更灵活，即可以在任何不需要升级App的情况下更新这部分UI（包括样式、操作等等）。当下非常火的技术 – Facebook的React Native – 正是用来解决这种问题的，毕竟在传统">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="UIWebView加载本地HTML文件">
+<meta name="twitter:description" content="写在前面写本文的原因是今天被要求「调研在iOS中加载本地HTML的相关技术」，好记性不如烂笔头，将一些东西给记录下来吧。
+应用场景是这样的：手头的iOS App有一部分UI需要使用HTML完成，好处是这部分UI可以更灵活，即可以在任何不需要升级App的情况下更新这部分UI（包括样式、操作等等）。当下非常火的技术 – Facebook的React Native – 正是用来解决这种问题的，毕竟在传统">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-uiwebview-load-local-html" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/06/16/uiwebview-load-local-html/" class="article-date">
+  	<time datetime="2015-06-16T08:38:39.000Z" itemprop="datePublished">2015-06-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      UIWebView加载本地HTML文件
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIWebView/">UIWebView</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>写本文的原因是今天被要求「调研在iOS中加载本地HTML的相关技术」，好记性不如烂笔头，将一些东西给记录下来吧。</p>
+<p>应用场景是这样的：手头的iOS App有一部分UI需要使用HTML完成，好处是这部分UI可以更灵活，即可以在任何不需要升级App的情况下更新这部分UI（包括样式、操作等等）。当下非常火的技术 – Facebook的React Native – 正是用来解决这种问题的，毕竟在传统的开发模式下，更新UI必须要升级App，而升级App是一个非常耗时的过程。使用Web App部分代替Native App已经成为当下移动客户端开发的一种思潮了。为了简便起见，也为了不给项目的接盘者制造更高的门槛，暂时决定不使用React Native（原因是多方面的）等著名框架去这种事情，从0开始探究。话说胡来，也许走了这么一遭之后，以后学习React Native会有更多的体会呢！</p>
+<p>总之，目前的构想是这样的：</p>
+<ol>
+<li>App部分UI是由HTML+JS+CSS完成的，HTML+JS+CSS代码会随着App一起发布；</li>
+<li>当后端决定更新App的部分UI（HTML）时，客户端从服务器下载最新的HTML+JS+CSS包，解压后代替本地的、旧的HTML+JS+CSS资源，将最新的呈现给用户，至此完成UI的更新；</li>
+</ol>
+<p>因此有这么些问题需要考虑：</p>
+<ol>
+<li>加载本地HTML+JS+CSS资源（在iOS中，通常使用UIWebView）；</li>
+<li>解压从服务端下载的压缩文件（HTML+JS+   CSS包）；</li>
+<li>JS代码和OC代码的互相调用；</li>
+</ol>
+<p>本文主要探究第一个问题！</p>
+<h2 id="UIWebView介绍"><a href="#UIWebView介绍" class="headerlink" title="UIWebView介绍"></a>UIWebView介绍</h2><p>UIWebView是iOS中一个非常常用的控件，是内置的浏览器控件，可能也是最强大复杂的控件。可以用它来浏览网页、打开文档（譬如PDF文档）等等。</p>
+<p>UIWebView既可以用来显示本地文档，也可以用来显示网络文档。无论是显示本地文件还是网络文件，此过程都可以统称为「加载」。与「加载」相关的方法不多，只有三个：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Loading Local Content or Loading Content From the Network</span></div><div class="line">- (<span class="keyword">void</span>)loadRequest:(<span class="built_in">NSURLRequest</span> *)request;</div><div class="line">    </div><div class="line"><span class="comment">// 嵌入HTML结构的字符串</span></div><div class="line">- (<span class="keyword">void</span>)loadHTMLString:(<span class="built_in">NSString</span> *)string</div><div class="line">               baseURL:(<span class="built_in">NSURL</span> *)baseURL;</div><div class="line">    </div><div class="line"><span class="comment">// Loading Local Content</span></div><div class="line">- (<span class="keyword">void</span>)loadData:(<span class="built_in">NSData</span> *)data</div><div class="line">        MIMEType:(<span class="built_in">NSString</span> *)MIMEType</div><div class="line">textEncodingName:(<span class="built_in">NSString</span> *)textEncodingName</div><div class="line">         baseURL:(<span class="built_in">NSURL</span> *)baseURL;</div></pre></td></tr></table></figure>
+<p>与UIWebView相关的知识点并不多（从某种角度来看，也可以认为是Apple封装得比较好吧），除了上述的三个方法之外，还有必要了解的是UIWebViewDelegate定义的一些delegate方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 开始加载前调用</span></div><div class="line">- (<span class="built_in">BOOL</span>)webView:(<span class="built_in">UIWebView</span> *)webView shouldStartLoadWithRequest:(<span class="built_in">NSURLRequest</span> *)request</div><div class="line"> navigationType:(<span class="built_in">UIWebViewNavigationType</span>)navigationType;</div><div class="line"><span class="comment">// 开始加载时调用</span></div><div class="line">- (<span class="keyword">void</span>)webViewDidStartLoad:(<span class="built_in">UIWebView</span> *)webView;</div><div class="line"><span class="comment">// 加载成功时调用</span></div><div class="line">- (<span class="keyword">void</span>)webViewDidFinishLoad:(<span class="built_in">UIWebView</span> *)webView;</div><div class="line"><span class="comment">// 加载失败时调用</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">UIWebView</span> *)webView didFailLoadWithError:(<span class="built_in">NSError</span> *)error;</div></pre></td></tr></table></figure>
+<p>除此之外，UIWebView似乎有啥其他需要了解的内容，若有需要，以后再补充吧！</p>
+<h2 id="加载本地HTML文件"><a href="#加载本地HTML文件" class="headerlink" title="加载本地HTML文件"></a>加载本地HTML文件</h2><p>加载本地HTML文件不是多么难的事情，但再简单的事情也有一个1-2-3-4，不是嘛？何况笔者比较笨，参考<a href="http://blog.csdn.net/kaitiren/article/details/17115085" target="_blank" rel="external">UIWebView加载本地HTML5文件</a>，也分几个步骤：</p>
+<ol>
+<li>准备HTML文件及其资源文件（主要是CSS文件和JS文件以及image文件）；</li>
+<li>加载本地HTML文件；</li>
+</ol>
+<p>第一种：<br>loadRequest:<br>第二种：<br>loadHTMLString:baseURL:</p>
+<p><strong>第一步，准备HTML文件及其资源文件。</strong></p>
+<p>HTML及其资源文件比较容易获取，随便找个比较漂亮的web页面，将它保存起来即可！</p>
+<p>显然HTML文件及其资源文件是需要添加到工程的，问题是如何添加呢？如何组织管理这些文件呢？沙盒？Bundle？</p>
+<p><strong>Xcode工程添加文件有两种方式</strong></p>
+<p>向项目中添加已有的文件（或资源文件，或第三方库）不是什么稀罕的事情，只是平时都没怎么注意。实际上，将「文件」或者「目录」添加到项目时，Xcode给了我们两个选项：Create groups以及Create folder references，如下图：</p>
+<div class="imagediv" style="width: 730px; height: 126px;"></div>
+
+<p>简单来说，若选择Create groups的方式添加文件夹，则文件夹的颜色是黄色的；若选择Create folder references的，则发现添加的文件夹在工程目录中的的颜色是蓝色的：</p>
+<div class="imagediv" style="width: 400px; height: 120px;"></div>
+
+<p>当然不只是颜色上的区别！主要是Xcode对加入的文件的路径处理不一样。</p>
+<p>如果文件/文件夹以Create groups的方式添加到工程中，则不管加入项目的文件的目录结构如何，在APP中都可以通过mainBundlePath/filename这样结构来访问文件；反之，若文件/文件夹以Create folder references的方式添加到工程中，则会保留相对路径，访问文件的结构就变成了mainBundlePath/path/filename。</p>
+<p>理解Create groups以及Create folder references并不难，自己动手试试就能感受二者的不同了。</p>
+<p><strong>Bundle介绍</strong></p>
+<p>上文谈到了向工程添加文件的两种方式，由此延伸，不得不提bundle，一直以来对bundle的理解非常模糊，知道它的本质是一个目录，也知道在OS X中就有此概念，但一直没get到<code>bundle</code>的存在意义，总感觉它没必要存在，事实上也没主动使用它。</p>
+<p>借撰写本文这个机会，驱动一下自己，查查资料，争取对bundle理解更深入一点点吧！</p>
+<p>参考《<a href="http://avatar-matrix.lofter.com/post/e4689_236e82" target="_blank" rel="external">Bundle in iOS</a>》和《<a href="http://www.cnblogs.com/BigPolarBear/archive/2012/03/28/2421802.html" target="_blank" rel="external">iOS开发里的Bundle是个啥玩意</a>》。</p>
+<p>简单地讲，bundle就是一个内部结构按照标准规则组织的特殊目录，常用来存放一些资源文件，譬如图片，plist文件等，它不会成为编译的一部分，所以它不存放能够被编译的文件，譬如<code>.m</code>、<code>.h</code>文件等。</p>
+<p>Bundle的主要用途是软件的国际化，想象一个应用场景：软件有美国、中国版本，软件的logo等图片不同，这时候，我们把相应的图片资源放到一个文件夹下，然后修改文件夹的名字，以<code>.bundle</code>作为后缀，然后添加到xcode中。</p>
+<p>有过iOS开发经历的人都应该知道，每个project都有个mainBundle，那如何去获取自己定义的bundle内容呢？我们把自定义的bundle当成项目的一种资源，由mainBundle去获取<code>~</code>，然后我们用相同的方式获取自定义的bundle下的资源。即：</p>
+<p>1、通过mainBundle去加载自定义的bundle；<br>2、通过获取到的自定义bundle去获取资源；</p>
+<p>根据上述场景来写的demo项目结构如下：</p>
+<div class="imagediv" style="width: 340px; height: 280px;"></div>
+
+<p>此时，我容易联想到了在Windows世界经常使用的「汉化包」。根据我的理解，我们通过某种手段得到的「汉化包」和本文所谈及的bundle是类似的概念，它们的本质是一个目录，只是这个目录有些特别，特别之处在于它只存放一些资源文件，以及目录名后缀为<code>.bundle</code>，这让它看起来像个文件，但实际上又不是文件，开发者又特别想让普通用户以为它是一个文件…</p>
+<p>总之，bundle就是这么个东东。</p>
+<p>到了这里，应该弄清楚了该把HTML文件及其资源放在哪里了。</p>
+<p>沙盒？显然不可能，沙盒可是App到设备之后才有的概念；所以我们只能让HTML资源成为工程的一部分呢，编译打包时作为安装包的一部分。</p>
+<p>放在普通目录下还是组织成bundle，个人以为没必要组织成bundle，因为后者主要用来处理国际化问题，国际化问题面对的一般是图片资源、字符串资源等等，所以不需要组成成bundle，而是直接添加到工程的mainBundle中。</p>
+<p>上文已经提到了Xcode工程添加文件有两种方式：Create groups和Create folder references，个人以为应该选择后者！</p>
+<p>值得注意是，当被加入到项目中的文件包含js文件时，有可能因为操作不慎等原因，js文件成为了编译文件，若是这样，应该将它从<code>Compile Sources</code>给踢掉，让它成为<code>Copy Bundle Resources</code>的一部分，具体做法是在TARGETS-&gt;Build Phases中的<code>Compile Sources</code>中找到该js文件，并将其移到<code>Copy Bundle Resources</code>中，如下图所示：</p>
+<div class="imagediv" style="width: 699px; height: 364px;"></div>
+
+<p><strong>第二步，加载本地HTML。</strong></p>
+<p>本文示例中，HTML文件及其资源文件被组织在一个叫<code>html</code>的目录中，目录结构如下图，index.html是要被加载的目标文件，index.html中访问css、js以及图片资源的方式都是使用相对路径，实现代码也给展示在下图中。</p>
+<div class="imagediv" style="width: 926px; height: 400px;"></div>
+
+<p>上图右侧代码区域加载策略是，先获取本地HTML文本，转为字符串，然后使用<code>loadHTMLString:baseURL:</code>方法加载；当然也可以使用<code>loadRequest:</code>方法，哪个更好？我暂时也不知道！</p>
+<p><strong>关于baseURL</strong></p>
+<p>上文<code>loadHTMLString:baseURL:</code>方法的第二个参数是baseURL，baseURL是HTML字符串中引用到资源的查找路径，当HTML中没有引用外部资源时，可以指定为<code>nil</code>；若引用了外部资源，一般情况下使用mainBundle的路径即可。在实际操作中，常常会出现「文本显示正常，图片无法显示」等情况，若HTML文本中引用外部资源都是使用相对路径，则出现这种问题的原因一般都是baseURL参数错误（有时甚至是<code>nil</code>）。</p>
+<p>最后，本文的Demo详见<a href="https://github.com/sadjason/iOSDemos/tree/master/UIWebView%E9%9D%9E%E5%88%9D%E4%BD%93%E9%AA%8C" target="_blank" rel="external">这里</a>。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/06/16/using-webviewjavascriptbridge/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          使用WebViewJavascriptBridge
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/29/pragma/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">预处理指令#pragma</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

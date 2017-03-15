@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>非交互式动画基础 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Animation Properties所谓的动画，其本质是物体（譬如view）的某些属性或属性组合在时间线上的变化。Motion Design for iOS将这些属性总结为6种：position、opacity、color、scale、rotation、3D。
+这种说法对iOS环境下UIView同样适合，UIView中与animation相关的属性包括：
+
+UIView#frame/UIVie">
+<meta property="og:type" content="article">
+<meta property="og:title" content="非交互式动画基础">
+<meta property="og:url" content="http://shinemax1.github.io/2016/06/13/non-interactive-animation-basics-in-ios/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="Animation Properties所谓的动画，其本质是物体（譬如view）的某些属性或属性组合在时间线上的变化。Motion Design for iOS将这些属性总结为6种：position、opacity、color、scale、rotation、3D。
+这种说法对iOS环境下UIView同样适合，UIView中与animation相关的属性包括：
+
+UIView#frame/UIVie">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="非交互式动画基础">
+<meta name="twitter:description" content="Animation Properties所谓的动画，其本质是物体（譬如view）的某些属性或属性组合在时间线上的变化。Motion Design for iOS将这些属性总结为6种：position、opacity、color、scale、rotation、3D。
+这种说法对iOS环境下UIView同样适合，UIView中与animation相关的属性包括：
+
+UIView#frame/UIVie">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-non-interactive-animation-basics-in-ios" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/13/non-interactive-animation-basics-in-ios/" class="article-date">
+  	<time datetime="2016-06-13T01:35:14.000Z" itemprop="datePublished">2016-06-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      非交互式动画基础
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Animation-Properties"><a href="#Animation-Properties" class="headerlink" title="Animation Properties"></a>Animation Properties</h2><p>所谓的动画，其本质是物体（譬如view）的某些属性或属性组合在时间线上的变化。<a href="https://dn-motion-design.qbox.me/" target="_blank" rel="external">Motion Design for iOS</a>将这些属性总结为6种：position、opacity、color、scale、rotation、3D。</p>
+<p>这种说法对iOS环境下<code>UIView</code>同样适合，<code>UIView</code>中与animation相关的属性包括：</p>
+<ol>
+<li><code>UIView#frame</code>/<code>UIView#center</code>/<code>UIView#bounds</code>: position</li>
+<li><code>UIView#alpha</code>: alpha</li>
+<li><code>UIView#backgroundColor</code>: color</li>
+<li><code>UIView#transform</code>: position, scale, rotation</li>
+<li><code>UIView#layer.transform</code>: 3D</li>
+</ol>
+<p>最后一个，<code>UIView#layer.transform</code>的类型是<code>CATransform3D</code>，能够控制layer级别的3D变换；其余几种能够控制<code>UIView</code>的2D变换，其中第4个，<code>UIView#transform</code>的类型是<code>CGAffineTransform</code>，能够控制<code>UIView</code>的平移、缩放、旋转。</p>
+<p>这一部分内容着重于分析<code>CGAffineTransform</code>和<code>CATransform3D</code>，其他几个属性相对简单得多。</p>
+<h2 id="Affine-Transforms"><a href="#Affine-Transforms" class="headerlink" title="Affine Transforms"></a>Affine Transforms</h2><p>国内博客在谈及<code>CGAffineTransform</code>时，常常会讲到一个词语：<strong>仿射变换</strong>，它是affine transformation的中文翻译。</p>
+<p><code>CGAffineTransform</code>是个结构体类型，属于Core Graphics框架，它有6个变量：a、b、c、d、tx、ty。这6个变量和另外3个固定值构成了一个3x3矩阵，如下图：</p>
+<div class="imagediv" style="width: 232px; height: 206px"></div>
+
+<p><code>UIView</code>的本质是由像素点组成的矩形块，每个像素点的相对位置可以抽象为坐标<code>(x, y)</code>，将这个坐标称之为某像素点的<strong>原坐标</strong>，<strong>原坐标</strong>的<code>x</code>、<code>y</code>以及<code>1</code>构成一个1x3的向量<code>(x, y, 1)</code>，所谓的仿射变换指的是让该1x3向量与3x3矩阵进行相乘，得到一个新的1x3向量，称之为<code>(_x, _y, 1)</code>，而<code>(_x, _y)</code>即<code>(x, y)</code>反射变换后的新坐标。将<code>UIView</code>的每一个像素点都进行这样的处理，即可完成整个<code>UIView</code>的反射变换。更形象的描述如下图所示：</p>
+<div class="imagediv" style="width: 676px; height: 220px"></div>
+
+<p>显然，仿射变换的关键是生成<code>CGAffineTransform</code>实例了，如果没学过计算机图形学，计算<code>CGAffineTransform</code>的参数值还是蛮麻烦的，不过好在iOS已经为我们提供了快捷API。</p>
+<p>仿射变换实现的效果包括平移、缩放、旋转以及它们的组合，如下是这三种仿射变换的快速生成APIs：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 平移</span></div><div class="line"><span class="type">CGAffineTransformMakeTranslation</span>(<span class="number">_</span>:<span class="number">_</span>:)</div><div class="line"><span class="comment">// CGAffineTransformMakeTranslation(tx, ty)</span></div><div class="line"></div><div class="line"><span class="comment">// 缩放</span></div><div class="line"><span class="type">CGAffineTransformMakeScale</span>(<span class="number">_</span>:<span class="number">_</span>:)</div><div class="line"><span class="comment">// CGAffineTransformMakeScale(sx, sy)</span></div><div class="line"></div><div class="line"><span class="comment">// 旋转</span></div><div class="line"><span class="type">CGAffineTransformMakeRotation</span>(<span class="number">_</span>:)</div><div class="line"><span class="comment">// CGAffineTransformMakeRotation(angle)</span></div></pre></td></tr></table></figure>
+<p>除此之外还有一个其他APIs，此处略过。Wiki还提供了一些常见反射变换及对应的矩阵值，如下图：</p>
+<div class="imagediv" style="width: 512px; height: 683px"></div>
+
+<blockquote>
+<p>Note: 在iOS环境中，对<code>UIView</code>进行反射变换所参考的坐标点是<code>UIView.layer.archorPoint</code>，<a href="layer-geometry-in-ios.md">《iOS图层几何学》</a>里有阐述。</p>
+</blockquote>
+<h2 id="3D-Transforms"><a href="#3D-Transforms" class="headerlink" title="3D Transforms"></a>3D Transforms</h2><p>3D变换要复杂得多，恐怕得花很多时间才能搞清楚，暂时略过。</p>
+<p><a href="https://zsisme.gitbooks.io/ios-/content/chapter5/3d-transform.html" target="_blank" rel="external">iOS核心动画高级技巧–3D变换</a>有比较好的介绍。</p>
+<p><code>UIView#transform</code>和<code>UIView#layer.transform</code>的关系？将一个归位后另外一个会是啥变化？</p>
+<h2 id="Planning-Animations"><a href="#Planning-Animations" class="headerlink" title="Planning Animations"></a>Planning Animations</h2><p>如何规划动画？先问自己这么几个问题：</p>
+<ul>
+<li>What are the initial properties of the item?</li>
+<li>What are the final properties of the item?</li>
+<li>How long should the animation take?</li>
+<li>What’s happening while this item is animating?</li>
+<li>What will happen once this item is done animating?</li>
+</ul>
+<h2 id="Animation-Curve-of-An-Easing-type-Motion"><a href="#Animation-Curve-of-An-Easing-type-Motion" class="headerlink" title="Animation Curve of An Easing-type Motion"></a>Animation Curve of An Easing-type Motion</h2><p>所谓的动画，无非是animation properties在时间轴上的变化过程。</p>
+<p>以时间为x轴，属性值为y轴，可以构建一个二维坐标系，属性值从<code>a</code>到<code>b</code>，有无数种走向。换句话说，动画类型的丰富程度是无限的。</p>
+<p>但在实际应用中，可接受的（看起来比较爽的）动画类型是不多的，其中一种类型叫：<strong>easing-type motion</strong>，一图胜千言：</p>
+<div class="imagediv" style="width: 460px; height: 340px"></div>
+
+<p>图中所展示的是4种最为常见的easing-type motion曲线，<a href="http://easings.net/zh-cn" target="_blank" rel="external">缓动函数速查表</a>里能够看到更多。</p>
+<p>在iOS中使用<code>UIView.animateWithDuration(...)</code>系列方法处理动画时，可以通过设置<code>options</code>来选择对应的easing type，比如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">UIView</span>.animateWithDuration(<span class="number">0.2</span>, delay: <span class="number">0.0</span>, options: .<span class="type">CurveEaseInOut</span>, animations: &#123; <span class="comment">/*...*/</span> &#125;, completion: <span class="literal">nil</span>)</div></pre></td></tr></table></figure>
+<p><code>options</code>可以设置结构体类型<code>UIViewAnimationOptions</code>的变量值，该类型有很多变量值，easing-type motion相关的有四个：</p>
+<ul>
+<li><code>CurveLinear</code>, linear</li>
+<li><code>CurveEaseInOut</code>, ease in, ease out</li>
+<li><code>CurveEaseIn</code>, ease in</li>
+<li><code>CurveEaseOut</code>, ease out</li>
+</ul>
+<blockquote>
+<p>Note: 这些easing curves本质上是3次贝塞尔曲线（cubic Bézier curve），通过控制4个变量可以得到各种各样的3次贝塞尔曲线，只是iOS貌似没有提供控制这些参数的API，<a href="http://cubic-bezier.com/" target="_blank" rel="external">Cubic Bezier On Line</a>提供了更为丰富的体验。</p>
+</blockquote>
+<h2 id="Animation-Curve-of-A-Spring-like-Motion"><a href="#Animation-Curve-of-A-Spring-like-Motion" class="headerlink" title="Animation Curve of A Spring-like Motion"></a>Animation Curve of A Spring-like Motion</h2><p>另一种动画类型叫：<strong>spring-like motion</strong>。<a href="https://dn-motion-design.qbox.me/guide-3.html" target="_blank" rel="external">这里</a>对spring-like motion有较为细致的描述，此处就不再赘述，这一部分重点在于分析控制spring-like motion的关键参数。</p>
+<p>参考<a href="https://dn-motion-design.qbox.me/guide-3.html" target="_blank" rel="external">Natural Motion</a>的分析，控制spring-like motion的关键参数有三个：</p>
+<ul>
+<li><strong>Mass</strong>. The mass is the weight or heft of the object attached to the end of the spring.</li>
+<li><strong>stiffness.</strong> The stiffness is how difficult it is to stretch out the spring, which typically corresponds to its thickness and how tightly it’s coiled. </li>
+<li><strong>damping.</strong> The damping is the resistive force or friction, like when you drag your hand through water and feel the forces pushing against it as you try to move quicker through the water.</li>
+</ul>
+<p>iOS自iOS 7起引入了支持spring-like motion的API：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="type">UIView</span>.animateWithDuration(duration: <span class="type">NSTimeInterval</span>,</div><div class="line">                           delay: <span class="type">NSTimeInterval</span>, </div><div class="line">                           usingSpringWithDamping dampingRatio: <span class="type">CGFloat</span>,</div><div class="line">                           initialSpringVelocity velocity: <span class="type">CGFloat</span>,</div><div class="line">                           options: <span class="type">UIViewAnimationOptions</span>,</div><div class="line">                           animations: () -&gt; <span class="type">Void</span>,</div><div class="line">                           completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)?)</div></pre></td></tr></table></figure>
+<p>相对而言，该Spring Animation API对spring-like motion的控制简化了，只提供了两个参数：<code>dampingRatio</code>和<code>velocity</code></p>
+<p><code>dampingRatio</code>的取值范围是0.0-1.0，数值越小，「弹簧」的震动效果越明显。下图演示了在<code>dampingRatio</code>为<code>0.0</code>的情况下，<code>dampingRatio</code>分别取<code>0.2</code>，<code>0.5</code>和<code>1.0</code>的情况。</p>
+<div class="imagediv" style="width: 314px; height: 321px"></div>
+
+<p><code>velocity</code>表示初识的速度，数值越大一开始移动越快。下图演示了在<code>dampingRatio</code>为<code>1.0</code>时，<code>velocity</code>分别取<code>5.0</code>，<code>15.0</code>和<code>25.0</code>的情况。值得注意的是，初始速度取值较高而时间较短时，也会出现反弹情况。</p>
+<div class="imagediv" style="width: 314px; height: 321px"></div>
+
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li><a href="https://dn-motion-design.qbox.me/" target="_blank" rel="external">Motion Design for iOS</a></li>
+<li><a href="http://www.jianshu.com/p/6c09d138b31d" target="_blank" rel="external">iOS仿射变换CGAffineTransform详解</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2" target="_blank" rel="external">仿射变换</a></li>
+<li><a href="https://zsisme.gitbooks.io/ios-/content/chapter5/affine-fransforms.html" target="_blank" rel="external">iOS核心动画高级技巧–仿射变换</a></li>
+<li><a href="https://zsisme.gitbooks.io/ios-/content/chapter5/3d-transform.html" target="_blank" rel="external">iOS核心动画高级技巧–3D变换</a></li>
+<li><a href="http://easings.net/zh-cn" target="_blank" rel="external">缓动函数速查表</a></li>
+<li><a href="http://cubic-bezier.com/" target="_blank" rel="external">Cubic Bezier On Line</a></li>
+<li><a href="https://www.renfei.org/blog/ios-8-spring-animation.html" target="_blank" rel="external">使用iOS 8 Spring Animation API创建动画</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/06/13/layer-geometry-in-ios/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          iOS图层几何学
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/06/11/navigation-transitions-in-ios/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Navigation Transition</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>理解Objective-C Runtime（四）Method Swizzling | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Objective-C对象收到消息之后，究竟会调用何种方法需要在运行期间才能解析出来。那你也许会问：与给定的选择子名称相应的方法是不是也可以在runtime改变呢？没错，就是这样。若能善用此特性，则可发挥出巨大优势，因为我们既不需要源代码，也不需要通过继承子类来覆写方法就能改变这个类本身的功能。这样一来，新功能将在本类的所有实例中生效，而不仅限于覆写了相关方法的那些子类实例。此方案就是大名鼎鼎的m">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解Objective-C Runtime（四）Method Swizzling">
+<meta property="og:url" content="http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-4/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="Objective-C对象收到消息之后，究竟会调用何种方法需要在运行期间才能解析出来。那你也许会问：与给定的选择子名称相应的方法是不是也可以在runtime改变呢？没错，就是这样。若能善用此特性，则可发挥出巨大优势，因为我们既不需要源代码，也不需要通过继承子类来覆写方法就能改变这个类本身的功能。这样一来，新功能将在本类的所有实例中生效，而不仅限于覆写了相关方法的那些子类实例。此方案就是大名鼎鼎的m">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="理解Objective-C Runtime（四）Method Swizzling">
+<meta name="twitter:description" content="Objective-C对象收到消息之后，究竟会调用何种方法需要在运行期间才能解析出来。那你也许会问：与给定的选择子名称相应的方法是不是也可以在runtime改变呢？没错，就是这样。若能善用此特性，则可发挥出巨大优势，因为我们既不需要源代码，也不需要通过继承子类来覆写方法就能改变这个类本身的功能。这样一来，新功能将在本类的所有实例中生效，而不仅限于覆写了相关方法的那些子类实例。此方案就是大名鼎鼎的m">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-understanding-objective-c-runtime-part-4" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/27/understanding-objective-c-runtime-part-4/" class="article-date">
+  	<time datetime="2015-04-27T13:10:53.000Z" itemprop="datePublished">2015-04-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      理解Objective-C Runtime（四）Method Swizzling
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Runtime/">Runtime</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Objective-C对象收到消息之后，究竟会调用何种方法需要在运行期间才能解析出来。那你也许会问：与给定的选择子名称相应的方法是不是也可以在runtime改变呢？没错，就是这样。<strong>若能善用此特性，则可发挥出巨大优势，因为我们既不需要源代码，也不需要通过继承子类来覆写方法就能改变这个类本身的功能</strong>。这样一来，新功能将在本类的所有实例中生效，而不仅限于覆写了相关方法的那些子类实例。此方案就是大名鼎鼎的<strong>method swizzling</strong>，中文常称之为「方法调配」或「方法调和」或「方法混合」。</p>
+<h2 id="Method-Swizzling"><a href="#Method-Swizzling" class="headerlink" title="Method Swizzling"></a>Method Swizzling</h2><p><strong>类的方法列表会把选择子的名称映射到相关的方法实现之上</strong>，使得<strong>动态消息派发系统</strong>（dynamic message-dispatch system）能够据此找到应该调和的方法。这些方法均以函数指针的形式来表示，这种指针叫IMP（IMP在《<a href="/understanding-objective-c-runtime-part-1/">理解Objective-C Runtime（一）预备知识</a>》已有说明）。</p>
+<p>举个栗子，<code>NSString</code>类可以响应<code>lowercaseString</code>、<code>uppercaseString</code>、<code>capitalizedString</code>等选择子。这张映射表（selector table，也常称为<strong>选择器表</strong>）中的每个选择子都映射到不同的IMP之上，如下图所示：</p>
+<div class="imagediv" style="width: 500px; height: 200px"></div>
+
+<p>Objective-C runtime系统提供的几个方法都能够用来操作这张表。开发者可以向其中新增selector，也可以改变某个selector所对应的方法实现，还可以交换两个selector所映射到的指针。经过几次操作之后，类的方法就会变成如下图所示：</p>
+<div class="imagediv" style="width: 500px; height: 250px"></div>
+
+<p>在新的映射表中，多了一个名为newSelector的选择子，lowercaseString和uppercaseString的实现则互换了。上述修改均无需编写子类，只要修改<strong>方法表</strong>的布局即可，就会反映到程序中所有的NSString实例之上。</p>
+<h2 id="交换两个方法的实现"><a href="#交换两个方法的实现" class="headerlink" title="交换两个方法的实现"></a>交换两个方法的实现</h2><p>现在通过示例代码演绎「调换<code>NSString</code>的<code>lowercaseString</code>和<code>uppercaseString</code>的方法实现」，具体实现操作是这样的：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    </div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    </div><div class="line">    <span class="built_in">NSString</span> *aString = <span class="string">@"AbcDEfg"</span>;</div><div class="line">    </div><div class="line">    <span class="comment">// lowercaseString和uppercaseString交换前：</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercaseString和uppercaseString交换前："</span>);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercase of the string : %@"</span>, [aString lowercaseString]);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"uppercase of the string : %@"</span>, [aString uppercaseString]);</div><div class="line">    </div><div class="line">    <span class="comment">// class_getInstanceMethod方法得到Method类型</span></div><div class="line">    Method originalMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(lowercaseString));</div><div class="line">    Method swappedMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(uppercaseString));</div><div class="line">    </div><div class="line">    <span class="comment">// method_exchangeImplementations交换映射指针</span></div><div class="line">    method_exchangeImplementations(originalMethod, swappedMethod);</div><div class="line">    </div><div class="line">    <span class="comment">// lowercaseString和uppercaseString交换后：</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercaseString和uppercaseString交换后："</span>);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercase of the string : %@"</span>, [aString lowercaseString]);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"uppercase of the string : %@"</span>, [aString uppercaseString]);</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="comment">/* 输出结果：</span></div><div class="line">lowercaseString和uppercaseString交换前：</div><div class="line">lowercase of the string : abcdefg</div><div class="line">uppercase of the string : ABCDEFG</div><div class="line">lowercaseString和uppercaseString交换后：</div><div class="line">lowercase of the string : ABCDEFG</div><div class="line">uppercase of the string : abcdefg</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>这演示了如何交换两个方法的实现，然而在实际应用中，像这样直接交换两个方法实现，其意义不大，除非闲得蛋疼。但是，可以通过这一手段来为既有的方法实现增添新功能。</p>
+<h2 id="修改既有方法的行为"><a href="#修改既有方法的行为" class="headerlink" title="修改既有方法的行为"></a>修改既有方法的行为</h2><p>介绍一个技巧，最好的方式就是提出具体的需求，然后用它跟其他的解决方法做比较。</p>
+<p>所以，先来看看我们的需求：对 App 的用户行为进行追踪和分析。简单说，就是当用户看到某个View或者点击某个Button的时候，就把这个事件记下来。</p>
+<p><strong>手动添加</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">MyViewController</span> ()</span></div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)viewDidAppear:(<span class="built_in">BOOL</span>)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidAppear:animated];</div><div class="line">    </div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="string">@"my view did appear"</span>];</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)myButtonClicked:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="string">@"my button clicked"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种方式的缺点也很明显：它破坏了代码的干净整洁。因为Logging的代码本身并不属于View Controller里的主要逻辑。随着项目扩大、代码量增加，你的View Controller里会到处散布着Logging的代码。这时，要找到一段事件记录的代码会变得困难，也很容易忘记添加事件记录的代码。</p>
+<p>你可能会想到用继承或类别，在重写的方法里添加事件记录的代码。代码可以是长的这个样子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)myViewDidAppear:(<span class="built_in">BOOL</span>)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidAppear:animated];</div><div class="line">    </div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>])];</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)myButtonClicked:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    <span class="built_in">NSString</span> *name = [<span class="built_in">NSString</span> stringWithFormat:@“my button <span class="keyword">in</span> %@ is clicked”, <span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>])];</div><div class="line">    [Logging logWithEventName:name];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Logging 的代码都很相似，通过继承或类别重写相关方法是可以把它从主要逻辑中剥离出来。但同时也带来新的问题：</p>
+<ol>
+<li>你需要继承<code>UIViewController</code>，<code>UITableViewController</code>，<code>UICollectionViewController</code>所有这些View Controller，或者给他们添加类别；</li>
+<li>每个View Controller里的ButtonClick方法命名不可能都一样；</li>
+<li>你不能控制别人如何去实例化你的子类；</li>
+<li>对于类别，你没办法调用到原来的方法实现，大多时候，我们重写一个方法只是为了添加一些代码，而不是完全取代它；</li>
+<li>如果有两个类别都实现了相同的方法，运行时没法保证哪一个类别的方法会给调用。</li>
+</ol>
+<p><strong>Method Swizzling的做法</strong></p>
+<p>Method Swizzling的做法是新增一个方法<code>log_viewDidAppear:</code>，在这个方法体中调用<code>viewDidAppear:</code>的方法体；然后将<code>log_viewDidAppear:</code>和<code>viewDidAppear:</code>进行调换。呃，有些绕，看图吧：</p>
+<div class="imagediv" style="width: 505px; height: 154px"></div>
+
+<p>新增方法<code>log_viewDidAppear:</code>的实现代码可以这样写：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)log_viewDidAppear:(<span class="built_in">BOOL</span>)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span> log_viewDidAppear:animated];</div><div class="line">        </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>])];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看起来，这段代码好像会陷入递归使用的死循环，不过要记住，此方法是准备和<code>viewDidAppear:</code>方法互换的。所以，在runtime，<code>log_viewDidAppear:</code>选择子对应的是原来<code>viewDidAppear:</code>方法的实现；同样，当向对象发送<code>viewDidAppear:</code>消息时，如上这段代码会被调用，而这段代码的第一句是<code>[self log_viewDidAppear:animated];</code>，这其实是调用原来<code>viewDidAppear:</code>方法的实现代码…</p>
+<p>定义了<code>log_viewDidAppear:</code>的实现后，还得与<code>viewDidAppear:</code>进行交换：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// class_getInstanceMethod方法得到Method类型</span></div><div class="line">Method originalMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(viewDidAppear:));</div><div class="line">Method swappedMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(log_viewDidAppear:));</div><div class="line">    </div><div class="line"><span class="comment">// method_exchangeImplementations交换映射指针</span></div><div class="line">method_exchangeImplementations(originalMethod, swappedMethod);</div></pre></td></tr></table></figure>
+<p>如何安排method swizzling相关的代码？</p>
+<p>一般来说，runtime相关的代码都会以category的形式组织，所以上述<code>log_viewDidAppear:</code>方法的实现会写在一个UIViewController category中，比如<code>UIViewController+log.h</code>。而<strong>交换方法</strong>相关的代码会写在category的load中。因为load方法是在runtime之前就被执行的，只要category所在的头文件被引用，load方法就会被调用，并且同一个class在不同category之间允许有多个load方法，这些load方法都会被调用（唯一的问题是谁先谁后）。</p>
+<p>通过method swizzling方案，开发者可以为那些完全不知道具体实现的（completely opaque，完全不透明）黑盒方法增加日志记录功能，这非常有助于程序调试，然而，此做法只在调试程序时有用。很少有人在调试程序之外的场合用上述<strong>方法调配技术</strong>来永久改变某个类的功能，因为如果使用不慎，它造成的破坏太大了，并且很难Debug。不能仅仅因为Objective-C语言里有这个特性就一定要用它。若是滥用，反而会令代码变得不易读懂且难于维护。</p>
+<p>总之，Method Swizzling只一个挺有争议的技术，对此有很多分析的文章，底部的参考资料中有链接。</p>
+<p><strong>补充</strong></p>
+<p>后来终于有机会在实际项目中使用到method swizzling。应用场景是这样的，接手了一个完整的项目，我的任务是在该项目基础上添加一些功能，顺便将项目整理一下，尽可能清理没有用的内容和过时的技术。项目页面非常多，各种文件的命名非常糟糕，我首先需要做的事情是将页面逻辑给整理出来（各种View Controller之间的逻辑关系），简单来说，我需要结合所看到的运行页面（譬如首页），将它的View Controller类给找出来。</p>
+<p>比较蠢的做法当然是去查看代码了。好在我比较机灵，决定使用method swizzling技术，让每个页面将它的View Controller类名自己喊出来。</p>
+<p>我的思路：定义一个UIViewController category，添加一个方法，该方法调用<code>viewDidAppear:</code>，并且将该类的名字给打印出来，然后将该方法的SEL和<code>viewDidAppear:</code>方法的SEL调换，这样系统在回调<code>viewDidAppear:</code>时会定义该方法代码，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIViewController</span> (<span class="title">sayHello</span>)</span></div><div class="line"> </div><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    SEL originalSelector = <span class="keyword">@selector</span>(viewDidAppear:);</div><div class="line">    SEL swizzledSelector = <span class="keyword">@selector</span>(swizzled_viewDidAppear:);</div><div class="line">    </div><div class="line">    <span class="comment">// class_getInstanceMethod方法得到Method类型</span></div><div class="line">    Method originalMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], originalSelector);</div><div class="line">    Method swizzledMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], swizzledSelector);</div><div class="line"> </div><div class="line">    <span class="comment">// method_exchangeImplementations交换映射指针</span></div><div class="line">    method_exchangeImplementations(originalMethod, swizzledMethod);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="keyword">void</span>)swizzled_viewDidAppear:(<span class="built_in">BOOL</span>)animated &#123;</div><div class="line">    [<span class="keyword">self</span> swizzled_viewDidAppear:animated];</div><div class="line">    </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"hello, my name is %@"</span>, <span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]));</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<h2 id="AOP-Aspect-Oriented-Programming"><a href="#AOP-Aspect-Oriented-Programming" class="headerlink" title="AOP(Aspect Oriented Programming)"></a>AOP(Aspect Oriented Programming)</h2><p>在阅读博客《<a href="http://tech.glowing.com/cn/method-swizzling-aop/" target="_blank" rel="external">Method Swizzling和AOP实践</a>》时了解到了一个新概念 – <code>AOP</code>。</p>
+<p>简单来说，在Objective-C世界中，AOP就是利用Runtime特性给指定的方法添加自定义代码，Method Swizzling是其中一种实现AOP的方式之一。</p>
+<p>Mark一下，暂不多讲。</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li>《Effective Objective-C 2.0》</li>
+<li>《iOS开发进阶》</li>
+<li>《<a href="http://tech.glowing.com/cn/method-swizzling-aop/" target="_blank" rel="external">Method Swizzling和AOP实践</a>》</li>
+<li>大神Mattt Thompson（AFNetworking作者）的《<a href="http://nshipster.com/method-swizzling/" target="_blank" rel="external">Method Swizzling</a>》</li>
+<li>《<a href="http://blog.csdn.net/yiyaaixuexi/article/details/9374411" target="_blank" rel="external">Objective-C的hook方案（一）: Method Swizzling</a>》</li>
+<li><a href="http://stackoverflow.com/questions/5339276/what-are-the-dangers-of-method-swizzling-in-objective-c" target="_blank" rel="external">What are the Dangers of Method Swizzling in Objective C?</a>；</li>
+<li>《<a href="http://yulingtianxia.com/blog/2014/11/05/objective-c-runtime/#Method_Swizzling" target="_blank" rel="external">Objective-C Runtime</a>》</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/28/initialize-and-load-in-objective-c/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          Objective-C中的+initialize和+load
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/27/understanding-objective-c-runtime-part-3/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">理解Objective-C Runtime（三）消息转发机制</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>深入理解Auto Layout 第一弹 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在前面iOS的的布局机制「auto layout」不是一个新概念，它早在iOS 6中就推出来了，当下距离iOS 9正式版面世已不远矣，我却对它的了解还比较初级。
+我之前对auto layout机制的理解非常粗浅，几乎把它和「constraint」对等。对它的使用有这么几个阶段：
+
+Storyboard中通过拖拽设置constraints；
+学习VFL（Visual Format Language">
+<meta property="og:type" content="article">
+<meta property="og:title" content="深入理解Auto Layout 第一弹">
+<meta property="og:url" content="http://shinemax1.github.io/2015/07/16/beginning-auto-layout-part-1/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="写在前面iOS的的布局机制「auto layout」不是一个新概念，它早在iOS 6中就推出来了，当下距离iOS 9正式版面世已不远矣，我却对它的了解还比较初级。
+我之前对auto layout机制的理解非常粗浅，几乎把它和「constraint」对等。对它的使用有这么几个阶段：
+
+Storyboard中通过拖拽设置constraints；
+学习VFL（Visual Format Language">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="深入理解Auto Layout 第一弹">
+<meta name="twitter:description" content="写在前面iOS的的布局机制「auto layout」不是一个新概念，它早在iOS 6中就推出来了，当下距离iOS 9正式版面世已不远矣，我却对它的了解还比较初级。
+我之前对auto layout机制的理解非常粗浅，几乎把它和「constraint」对等。对它的使用有这么几个阶段：
+
+Storyboard中通过拖拽设置constraints；
+学习VFL（Visual Format Language">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-beginning-auto-layout-part-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/07/16/beginning-auto-layout-part-1/" class="article-date">
+  	<time datetime="2015-07-16T01:10:31.000Z" itemprop="datePublished">2015-07-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      深入理解Auto Layout 第一弹
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Auto-Layout/">Auto Layout</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>iOS的的布局机制「auto layout」不是一个新概念，它早在iOS 6中就推出来了，当下距离iOS 9正式版面世已不远矣，我却对它的了解还比较初级。</p>
+<p>我之前对auto layout机制的理解非常粗浅，几乎把它和「constraint」对等。对它的使用有这么几个阶段：</p>
+<ol>
+<li>Storyboard中通过拖拽设置constraints；</li>
+<li>学习VFL（Visual Format Language）语法使用代码设置constraints；</li>
+<li>使用大杀器<a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">Masonry</a>。</li>
+</ol>
+<blockquote>
+<p>P.S: iOS的VFL语法实在太罗嗦了，又臭又长且可读性差难于调试，无法忍受，Masonry正是解决这一痛点的第三方库，非常好用，学习成本非常低。</p>
+</blockquote>
+<p>近期因为项目，我需要实现一个能够自适应文本自动调整高度的table view cell。网上有相关丰富的资源（category、博客等），思路都非常简单，比如这篇：<a href="http://www.cocoachina.com/industry/20140604/8668.html" target="_blank" rel="external">动态计算UITableViewCell高度详解</a>。但即便如此，我对有些东西理解起来还有障碍，譬如<code>systemLayoutSizeFittingSize:</code>和<code>sizeThatFits:</code>之类的，想到我都将近有大半年的开发经验了，居然还无法理解这么简单的东西，不能忍！</p>
+<p>导致这种结果的主要原因有俩：一是之前项目比较简单，涉及auto layout相关的知识无非是add/update/remove constraints；二是自己太轻浮，把auto layout想得太简单；</p>
+<p>通过对各种资讯梳理，大概搞明白了自己最大的问题是对auto layout相关的各种API不熟悉或者完全陌生，这导致了无法在一些实际问题中使用正确的策略解决问题。本文的着重点正是结合各种资料加上自己的理解对这些API进行分析。<br>本文涉及的API包括：</p>
+<ul>
+<li><code>sizeThatFits:</code>和<code>sizeToFit</code></li>
+<li><code>systemLayoutSizeFittingSize:</code></li>
+<li><code>intrinsicContentSize</code></li>
+</ul>
+<blockquote>
+<p>P.S: 这几个API都是与size相关，该如何使用它们呢？这曾让笔者一时非常困惑。以上这几个API都是UIView的实例方法，除此之外，本文还涉及一些属性，譬如<code>preferredMaxLayoutWidth</code>。</p>
+</blockquote>
+<h2 id="iOS布局机制"><a href="#iOS布局机制" class="headerlink" title="iOS布局机制"></a>iOS布局机制</h2><p>iOS布局机制大概分这么几个层次：</p>
+<ul>
+<li>frame layout</li>
+<li>autoresizing</li>
+<li>auto layout</li>
+</ul>
+<p><strong>frame layout</strong></p>
+<p>frame layout最简单直接，简单来说，即通过设置view的<code>frame</code>属性值进而控制view的位置（相对于superview的位置）和大小。</p>
+<p><strong>autoresizing</strong></p>
+<p>autoresizing和frame layout一样，从一开始存在，它算是后者的补充，基于autoresizing机制，能够让subview和superview维持一定的布局关系，譬如让subview的大小适应superview的大小，随着后者的改变而改变。</p>
+<p>站在代码接口的角度来看，autoresizing主要体现在几个属性上，包括（但不限于）：</p>
+<ol>
+<li><code>translatesAutoresizingMaskIntoConstraints</code></li>
+<li><code>autoresizingMask</code></li>
+</ol>
+<p>第一个属性标识view是否愿意被autoresize；<br>第二个属性是一个枚举值，决定了当superview的size改变时，subview应该做出什么样的调整；</p>
+<p>关于autoresizing的更详细使用说明，参考：<a href="http://www.cocoachina.com/ios/20141216/10652.html" target="_blank" rel="external">自动布局之autoresizingMask使用详解</a>。</p>
+<p><strong>auto layout</strong></p>
+<p>autoresizing存在的不足是非常显著的，通过<code>autoresizingMask</code>的可选枚举值可以看出：基于autoresizing机制，我们只能让view在superview的大小改变时做些调整；而无法处理兄弟view之间的关系，譬如处理与兄弟view的间隔；更无法反向处理，譬如让superview依据subview的大小进行调整。</p>
+<p>Auto Layout是随着iOS 6推出来的，关于它的介绍，官方文档《Auto Layout Guide》的描述非常精炼：</p>
+<blockquote>
+<p>Auto Layout is a system that lets you lay out your app’s user interface by creating a mathematical description of the relationships between the elements. You define these relationships in terms of constraints either on individual elements, or between sets of elements. Using Auto Layout, you can create a dynamic and versatile interface that responds appropriately to changes in screen size, device orientation, and localization.</p>
+</blockquote>
+<p>简单来说，它是一种基于约束的布局系统，可以根据你在元素（对象）上设置的约束自动调整元素（对象）的位置和大小。</p>
+<p>值得一提的是，对于某个view的布局方式，autoresizing和auto layout只能二选一，简单来说，若要对某个view采用auto layout布局，则需要设置其<code>translatesAutoresizingMaskIntoConstraints</code>属性值为<code>NO</code>。</p>
+<h2 id="几个重要的API"><a href="#几个重要的API" class="headerlink" title="几个重要的API"></a>几个重要的API</h2><p><strong>intrinsicContentSize方法</strong></p>
+<p>在介绍<code>intrinsicContentSize</code>方法之前，先来看一个应用场景：</p>
+<p>场景一：某个UILabel用于显示<strong>单行</strong>文本，让其能够自适应文本，即根据文本自动调整其大小。</p>
+<p>让UILabel自适应文本，在auto layout之前，一般做法是先给定字体，进而计算文本内容所占据的宽度width和高度height，然后使用得来的width和height设置其<code>frame</code>属性值。</p>
+<p>但是使用auto layout非常简单，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> () </span>&#123;</div><div class="line">    <span class="built_in">UILabel</span> *testLabel;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    </div><div class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">    </div><div class="line">    testLabel = (&#123;</div><div class="line">        <span class="built_in">UILabel</span> *label        = [[<span class="built_in">UILabel</span> alloc] init];</div><div class="line">        label.textAlignment   = <span class="built_in">NSTextAlignmentCenter</span>;</div><div class="line">        label.font            = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.0</span>];</div><div class="line">        label.textColor       = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">        label.backgroundColor = [<span class="built_in">UIColor</span> lightGrayColor];</div><div class="line">        label;</div><div class="line">    &#125;);</div><div class="line">    [<span class="keyword">self</span>.view addSubview:testLabel];</div><div class="line">    </div><div class="line">    <span class="comment">// 使用Masonry添加constraints</span></div><div class="line">    [testLabel mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.top.equalTo(<span class="keyword">self</span>.view.mas_top).offset(<span class="number">40</span>);</div><div class="line">        make.left.equalTo(<span class="keyword">self</span>.view.mas_left).offset(<span class="number">10</span>);</div><div class="line">    &#125;];</div><div class="line">    testLabel.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张"</span>;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)viewDidAppear:(<span class="built_in">BOOL</span>)animated &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidAppear:animated];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"testLabel.origin = %@"</span>, <span class="built_in">NSStringFromCGPoint</span>(testLabel.frame.origin));</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"testLabel.size = %@"</span>, <span class="built_in">NSStringFromCGSize</span>(testLabel.frame.size));</div><div class="line">    <span class="comment">// print: "testLabel.origin = &#123;10, 40&#125;"</span></div><div class="line">    <span class="comment">// print: "testLabel.size = &#123;236.5, 17&#125;"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<div class="imagediv" style="width: 320px; height: 100px"></div>
+
+<p>问题来了，auto layout system知道testLabel的size呢？</p>
+<p>OK，就此引入API <code>intrinsicContentSize</code>。</p>
+<p><code>intrinsicContentSize</code>是UIView的基础方法（Available in iOS 6.0 and later），<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/" target="_blank" rel="external">UIView Class References</a>对它的描述如下：</p>
+<blockquote>
+<p>Returns the natural size for the receiving view, considering only properties of the view itself.<br>&nbsp;<br><strong>Return Value</strong><br>A size indicating the natural size for the receiving view based on its intrinsic properties.<br>&nbsp;<br><strong>Discussion</strong><br>Custom views typically have content that they display of which the layout system is unaware. Overriding this method allows a custom view to communicate to the layout system what size it would like to be based on its content. This intrinsic size must be independent of the content frame, because there’s no way to dynamically communicate a changed width to the layout system based on a changed height, for example.<br>If a custom view has no intrinsic size for a given dimension, it can return UIViewNoIntrinsicMetric for that dimension.</p>
+</blockquote>
+<p>「intrinsic content size」在中文世界里常被译作：「固有内容大小」，简单来说，<strong>它被用来告诉auto layout system应该给它分配多大的size</strong>。</p>
+<p>所以呢，在上文代码（<strong>场景一</strong>的Solution）中，根据我的理解，layout工作流程是这样的：在layout时，auto layout system会去回调testLabel的实例方法<code>intrinsicContentSize</code>，该方法能够根据「文本内容+字体」计算出content的size，进而根据此size对testLabel进行布局。</p>
+<p>为了验证这个说法，对上述代码做些改变。</p>
+<p>首先定义一个继承自UILabel的类ZWLabel，重写ZWLabel的<code>intrinsicContentSize</code>方法，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ZWLabel</span> : <span class="title">UILabel</span></span></div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div><div class="line">    </div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ZWLabel</span></span></div><div class="line">    </div><div class="line">- (<span class="built_in">CGSize</span>)intrinsicContentSize &#123;</div><div class="line">    <span class="built_in">CGSize</span> size = [<span class="keyword">super</span> intrinsicContentSize];</div><div class="line">    size.width  += <span class="number">20</span>;</div><div class="line">    size.height += <span class="number">20</span>;</div><div class="line">    <span class="keyword">return</span> size;</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>然后让上文的<code>testLabel</code>从<code>UILabel</code>的实例改为<code>ZWLabel</code>的实例，其余不变：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">testLabel = (&#123;</div><div class="line">    ZWLabel *label = [[ZWLabel alloc] init];</div><div class="line">    <span class="comment">//...</span></div><div class="line">    label;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<div class="imagediv" style="width: 320px; height: 110px"></div>
+
+<p>效果明显，本示例较为直观说明了<code>intrinsicContentSize</code>这个API的作用了，这个API是为auto layout system的callback提供的！</p>
+<p>P.S：笔者刚开始对<code>intrinsicContentSize</code>这个API的用法感到非常疑惑，在我的理解里，它有两种可能：</p>
+<ol>
+<li>Auto Layout System会根据content为view设置一个合适的size，开发者有时需要知道这个size，因此可以通过<code>intrinsicContentSize</code>获取；</li>
+<li>Auto Layout System在layout时，不知道该为view分配多大的size，因此回调view的<code>intrinsicContentSize</code>方法，该方法会给auto layout system一个合适的size，system根据此size对view的大小进行设置；</li>
+</ol>
+<p>现在看来，第二种理解更靠谱！</p>
+<p>对于上文所用到的<code>UILabel</code>，想必Cocoa在实现<code>intrinsicContentSize</code>方法时已经根据<code>text</code>属性值和<code>font</code>属性值进行了计算。那是不是每个原生view都实现了<code>intrinsicContentSize</code>呢？</p>
+<p>NO！《<a href="https://developer.apple.com/library/watchos/documentation/UserExperience/Conceptual/AutolayoutPG/AutoLayoutConcepts/AutoLayoutConcepts.html" target="_blank" rel="external">Auto Layout Guide</a>》在谈论「intrinsic content size」时，总会与另外一个词语「leaf-level views」相关联，譬如：</p>
+<blockquote>
+<p><strong>Intrinsic Content Size</strong><br>Leaf-level views such as buttons typically know more about what size they should be than does the code that is positioning them. This is communicated through the <strong>intrinsic content size</strong>, which tells the layout system that a view contains some content that it doesn’t natively understand, and indicates how large that content is, intrinsically.</p>
+</blockquote>
+<p>「leaf-level views」指的是那种一般不包含任何subview的view，譬如<code>UILabel</code>、<code>UIButton</code>等，这类的view往往能够直接计算出content（譬如<code>UILabel</code>的text、<code>UIButton</code>的title，<code>UIImageView</code>的image）的大小。</p>
+<p>但是有些view不包含content，譬如<code>UIView</code>，这种view被认为「has no intrinsic size」，它们的<code>intrinsicContentSize</code>返回的值是<code>(-1,-1)</code>。</p>
+<blockquote>
+<p>P.S: 官方文档中说的是：UIView’s default implementation is to return (UIViewNoIntrinsicMetric, UIViewNoIntrinsicMetric)，而UIViewNoIntrinsicMetric等于<code>-1</code>，为什么是<code>-1</code>而不是<code>0</code>，我猜是<code>0</code>是一个有效的width/height，而<code>-1</code>不是，更容易区分处理。</p>
+</blockquote>
+<p>还有一种view虽然包含content，但是<code>intrinsicContentSize</code>返回值也是<code>(-1,-1)</code>，这类view往往是<code>UIScrollView</code>的子类，譬如<code>UITextView</code>，它们是可滚动的，因此auto layout system在对这类view进行布局时总会存在一些未定因素，Cocoa干脆让这些view的<code>intrinsicContentSize</code>返回<code>(-1,-1)</code>。</p>
+<p><strong>preferredMaxLayoutWidth属性</strong></p>
+<p>基于上述<strong>场景一</strong>，我们来分析更复杂一点的UILabel自适应问题。</p>
+<p>场景二：某个UILabel用于显示<strong>多行</strong>文本，让其能够自适应文本，即根据文本自动调整其大小；</p>
+<p>对于单行文本UILabel，UILabel的<code>intrinsicContentSize</code>在计算content size时比较容易；但对于多行文本的UILabel，同样的content，譬如「天地玄黄宇宙洪荒」这八个字，摆放方式可以是1x8，可以是2x4，可以是4x2，auto layout system该如何处理呢？UILabel的属性<code>preferredMaxLayoutWidth</code>正是用来应对这个问题的。</p>
+<p><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UILabel_Class/" target="_blank" rel="external">UILabel Class References</a>对它的描述如下：</p>
+<blockquote>
+<p>The preferred maximum width (in points) for a multiline label.<br>&nbsp;<br><strong>Discussion</strong><br>This property affects the size of the label when layout constraints are applied to it. During layout, if the text extends beyond the width specified by this property, the additional text is flowed to one or more new lines, thereby increasing the height of the label.</p>
+</blockquote>
+<p><code>preferredMaxLayoutWidth</code>的作用顾名思义，用来限制UILabel content size的最大宽度值。如下代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">testLabel = (&#123;</div><div class="line">    <span class="built_in">UILabel</span> *label                = [[<span class="built_in">UILabel</span> alloc] init];</div><div class="line">    label.textAlignment           = <span class="built_in">NSTextAlignmentCenter</span>;</div><div class="line">    label.font                    = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.0</span>];</div><div class="line">    label.textColor               = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">    label.numberOfLines           = <span class="number">0</span>;      <span class="comment">// mark</span></div><div class="line">    label.preferredMaxLayoutWidth = <span class="number">100</span>;    <span class="comment">// mark</span></div><div class="line">    label.backgroundColor         = [<span class="built_in">UIColor</span> lightGrayColor];</div><div class="line">    label;</div><div class="line">&#125;);</div><div class="line">[<span class="keyword">self</span>.view addSubview:testLabel];</div><div class="line">    </div><div class="line"><span class="comment">// 使用Masonry添加constraints</span></div><div class="line">[testLabel mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">    make.top.equalTo(<span class="keyword">self</span>.view.mas_top).offset(<span class="number">40</span>);</div><div class="line">    make.left.equalTo(<span class="keyword">self</span>.view.mas_left).offset(<span class="number">10</span>);</div><div class="line">&#125;];</div><div class="line">    </div><div class="line">testLabel.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张"</span>;</div></pre></td></tr></table></figure>
+<p>效果如下：</p>
+<div class="imagediv" style="width: 320px; height: 120px"></div>
+
+<p>那么最后<code>testLabel</code>的width是不是就是<code>preferredMaxLayoutWidth</code>的属性值呢？No，最终<code>testLabel</code>的属性值小于等于<code>preferredMaxLayoutWidth</code>的属性值。</p>
+<p><strong>sizeThatFits:方法和sizeToFit方法</strong></p>
+<p>上文已经提到，<code>UITextView</code>继承自<code>UIScrollView</code>，是可以滚动的，它的<code>intrinsicContentSize</code>方法返回值是<code>(-1,-1)</code>，auto layout system在处理UITextView对象时，为其设置的size是<code>(0,0)</code>。如此看来，似乎<code>UITextView</code>无法体验到auto layout带来的好处了。</p>
+<p>继续结合应用场景引出<code>sizeThatFits:</code>方法和<code>sizeToFit</code>方法。</p>
+<p>场景三：某个<code>UITextView</code>用于显示文本，让其能够自适应文本，即根据文本自动调整其大小；</p>
+<p>既然UITextView的content计算方法<code>intrinsicContentSize</code>无法向auto layout system传递我们想要传达的值，我们就应该另想别的方法。</p>
+<p>好在iOS有直接的接口可供我们使用。</p>
+<p>先谈<code>sizeThatFits:</code>方法，<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/" target="_blank" rel="external">UIView Class References</a>对它的描述如下：</p>
+<blockquote>
+<p>Asks the view to calculate and return the size that best fits the specified size.<br>&nbsp;<br><strong>Return Value</strong><br>A new size that fits the receiver’s subviews.<br>&nbsp;<br><strong>Discussion</strong><br>The default implementation of this method returns the existing size of the view. Subclasses can override this method to return a custom value based on the desired layout of any subviews. For example, a UISwitch object returns a fixed size value that represents the standard size of a switch view, and a UIImageView object returns the size of the image it is currently displaying.</p>
+</blockquote>
+<p>简单来说，调用<code>sizeThatFits:</code>方法意味着「根据文本计算最适合UITextView的size」。从功能来讲，<code>sizeThatFits:</code>和<code>intrinsicContentSize</code>方法比较类似，都是用来计算view的size的。笔者曾一度对二者的关系非常疑惑，甚至觉得二者存在相互调用的关系。后来通过验证发现不是这么回事儿，后文会通过示例说明。</p>
+<p>对于显示多行文本的<code>UILabel</code>，为了方便<code>intrinsicContentSize</code>方法更方便计算content size，需要指定<code>preferredMaxLayoutWidth</code>属性值；对于<code>UITextView</code>的<code>sizeThatFits:</code>，似乎有类似的需求，毕竟<code>UITextView</code>也可能会显示多行啊，这样说来，<code>UITextView</code>也有一个<code>preferredMaxLayoutWidth</code>属性？</p>
+<p>No！<code>preferredMaxLayoutWidth</code>属性是iOS 6才引入的，<code>sizeThatFits:</code>方法则早得多，况且，<code>UITextView</code>是可以滚动的，哪怕文本不会全部呈现出来，但也可以通过左右或者上下滚动浏览所有内容；传给<code>sizeThatFits:</code>的参数（假设为size）是<code>CGSize</code>类型，size.width的功能和<code>UILabel</code>的<code>preferredMaxLayoutWidth</code>差不多，指定了<code>UITextView</code>区域的最大宽度，size.height则指定了<code>UITextView</code>区域的最大高度；可能有人问，若传给<code>sizeThatFits:</code>的size小于<code>UITextView</code>的text面积怎么办，岂不是有些内容无法显示出来？傻啊，可以滚啊！</p>
+<p>值得一提的是，调用<code>sizeThatFits:</code>并不改变view的size，它只是让view根据已有content和给定size计算出最合适的view.size。</p>
+<p>那么<code>sizeToFit</code>方法是干嘛的呢？很简单：</p>
+<blockquote>
+<p>calls sizeThatFits: with current view bounds and changes bounds size.</p>
+</blockquote>
+<p>P.S：有点不太理解，这个「current view」指的是啥？self？还是superview？<br>P.P.S：经过验证，这里的「current view」指的是<code>self</code>。简单来说，<code>sizeToFit</code>等价于：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// calls sizeThatFits</span></div><div class="line"><span class="built_in">CGSize</span> size = [<span class="keyword">self</span> sizeThatFits:<span class="keyword">self</span>.bounds.size];</div><div class="line"><span class="comment">// change bounds size</span></div><div class="line"><span class="built_in">CGRect</span> bounds = <span class="keyword">self</span>.bounds;</div><div class="line">bounds.size.width = size.width;</div><div class="line">bounds.size.height = size.width;</div><div class="line"><span class="keyword">self</span>.bounds = bounds;</div></pre></td></tr></table></figure>
+<p>P.S：值得一提的是，经过测试发现，当调用<code>sizeThatFits:</code>的<code>size=(width, height)</code>，当width/height的值为0时，width/height似乎就被认为是无穷大！</p>
+<p><strong>systemLayoutSizeFittingSize:方法</strong></p>
+<p>首先来看一个应用场景。</p>
+<p>场景四：某个<code>UIView</code>，宽度等于屏幕宽度，包含两个<code>UILabel</code>，两个label都可能显示多行文本，要求结合auto layout让<code>UIView</code>大小能够自适应subviews。</p>
+<p>Easy，给出如下代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> lightGrayColor];</div><div class="line">    </div><div class="line">    bgView = (&#123;</div><div class="line">        <span class="built_in">UIView</span> *view         = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">        view.backgroundColor = [<span class="built_in">UIColor</span> grayColor];</div><div class="line">        view;</div><div class="line">    &#125;);</div><div class="line">    [<span class="keyword">self</span>.view addSubview:bgView];</div><div class="line">    </div><div class="line">    label1 = (&#123;</div><div class="line">        <span class="built_in">UILabel</span> *label                = [[<span class="built_in">UILabel</span> alloc] init];</div><div class="line">        label.font                    = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.0</span>];</div><div class="line">        label.preferredMaxLayoutWidth = <span class="keyword">self</span>.view.frame.size.width<span class="number">-20</span>;</div><div class="line">        label.numberOfLines           = <span class="number">0</span>;</div><div class="line">        label.textColor               = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">        label.backgroundColor         = [<span class="built_in">UIColor</span> purpleColor];</div><div class="line">        label;</div><div class="line">    &#125;);</div><div class="line">    [bgView addSubview:label1];</div><div class="line">    </div><div class="line">    label2 = (&#123;</div><div class="line">        <span class="built_in">UILabel</span> *label                = [[<span class="built_in">UILabel</span> alloc] init];</div><div class="line">        label.font                    = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18.0</span>];</div><div class="line">        label.preferredMaxLayoutWidth = <span class="keyword">self</span>.view.frame.size.width<span class="number">-20</span>;</div><div class="line">        label.numberOfLines           = <span class="number">0</span>;</div><div class="line">        label.textColor               = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">        label.backgroundColor         = [<span class="built_in">UIColor</span> redColor];</div><div class="line">        label;</div><div class="line">    &#125;);</div><div class="line">    [bgView addSubview:label2];</div><div class="line">    </div><div class="line">    <span class="comment">// 添加约束（基于Masonry）</span></div><div class="line">    [bgView mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(<span class="keyword">self</span>.view.mas_left);</div><div class="line">        make.top.equalTo(<span class="keyword">self</span>.view.mas_top).offset(<span class="number">10</span>);</div><div class="line">        make.width.equalTo(<span class="keyword">self</span>.view.mas_width);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    [label1 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(bgView.mas_left).offset(<span class="number">10</span>);</div><div class="line">        make.right.lessThanOrEqualTo(bgView.mas_right).offset(<span class="number">-10</span>);</div><div class="line">        make.top.equalTo(bgView.mas_top).offset(<span class="number">10</span>);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    [label2 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(label1.mas_left);</div><div class="line">        make.right.lessThanOrEqualTo(bgView.mas_right).offset(<span class="number">-10</span>);</div><div class="line">        make.top.equalTo(label1.mas_bottom).offset(<span class="number">10</span>);</div><div class="line">        make.bottom.equalTo(bgView.mas_bottom).offset(<span class="number">-10</span>);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    label1.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张 寒来暑往 秋收冬藏 闰余成岁 律吕调阳"</span>;</div><div class="line">    label2.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张 寒来暑往 秋收冬藏 闰余成岁 律吕调阳"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>代码看得有些枯燥，简单来说，bgView（UIView）中嵌入两个能显示多行文本的label1（UILabel）和label2（UILabel），设置约束如下：</p>
+<div class="imagediv" style="width: 280px; height: 310px"></div>
+
+<p>代码运行后的显示效果：</p>
+<div class="imagediv" style="width: 320px; height: 170px"></div>
+
+<p>代码中除了添加各种各样的constraints，没有任何设置frame的代码，显然都是基于auto layout的。</p>
+<p>那么问题来了，理解label1和label2的布局没啥子问题，因为它们的<code>intrinsicContentSize</code>方法会将content size告诉auto layout system，进而后者会为它们的size设置对应值；但对于bgView，它可是一个<code>UIView</code>对象，它的<code>intrinsicContentSize</code>回调方法的返回值为<code>(-1,-1)</code>，那么auto layout system是如何为它设置合适的size的呢？</p>
+<p>根据我的理解，auto layout system在处理某个view的size时，参考值包括：</p>
+<ul>
+<li>自身的<code>intrinsicContentSize</code>方法返回值；</li>
+<li>subviews的<code>intrinsicContentSize</code>方法返回值；</li>
+<li>自身和subviews的constraints；</li>
+</ul>
+<div class="imagediv" style="width: 570px; height: 340px"></div>
+
+<p>OK，根据笔者理解，结合上图，我认为auto layout system是这样计算一下bgView的size的：</p>
+<p>width=max{10+size1.width+10, 10+size2.width+10, size3.width}<br>height=max{10+size1.height+10+size2.height+10, size3.height}</p>
+<p>我们在<code>viewDidAppear:</code>方法中将相关值打印出来瞧瞧看：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidAppear:(<span class="built_in">BOOL</span>)animated &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidAppear:animated];</div><div class="line">    </div><div class="line">    <span class="built_in">CGSize</span> size1 = [label1 intrinsicContentSize];</div><div class="line">    <span class="built_in">CGSize</span> size2 = [label2 intrinsicContentSize];</div><div class="line">    <span class="built_in">CGSize</span> size3 = [bgView intrinsicContentSize];</div><div class="line">    </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"size1 = %@"</span>, <span class="built_in">NSStringFromCGSize</span>(size1));    <span class="comment">// print: "size1 = &#123;300, 33.5&#125;"</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"size2 = %@"</span>, <span class="built_in">NSStringFromCGSize</span>(size2));    <span class="comment">// print: "size2 = &#123;290.5, 64.5&#125;"</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"size3 = %@"</span>, <span class="built_in">NSStringFromCGSize</span>(size3));    <span class="comment">// print: "size3 = &#123;-1, -1&#125;"</span></div><div class="line">    </div><div class="line">    <span class="built_in">CGSize</span> bgViewSize = bgView.frame.size;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"bgViewSize = %@"</span>, <span class="built_in">NSStringFromCGSize</span>(bgViewSize));  <span class="comment">// print: "bgViewSize = &#123;320, 128&#125;"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>完全吻合我理解的auto layout size计算公式。</p>
+<p>P.S：然而，我知道，事实往往并没有这么简单，当处理自定义View时，当constraints设置不完整或者冲突时，事情总会变得复杂起来，也总会得到意想不到的结果。但，暂且就这么理解吧！</p>
+<p>啰里啰嗦写了这么多，还没引出<code>systemLayoutSizeFittingSize:</code>方法…</p>
+<p>OK，再来看另外一个应用场景。</p>
+<p>场景五：某个<code>UIView</code>，宽度等于屏幕宽度，包含一个<code>UILabel</code>和一个<code>UITextView</code>，二者都可能显示多行文本，要求结合auto layout让<code>UIView</code>大小能够自适应subviews。</p>
+<p>在场景四代码基础上将label2改为UITextView对象textView1，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> lightGrayColor];</div><div class="line">    </div><div class="line">    bgView = (&#123;</div><div class="line">        <span class="built_in">UIView</span> *view         = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">        view.backgroundColor = [<span class="built_in">UIColor</span> grayColor];</div><div class="line">        view;</div><div class="line">    &#125;);</div><div class="line">    [<span class="keyword">self</span>.view addSubview:bgView];</div><div class="line">    </div><div class="line">    label1 = (&#123;</div><div class="line">        <span class="built_in">UILabel</span> *label                = [[<span class="built_in">UILabel</span> alloc] init];</div><div class="line">        label.font                    = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.0</span>];</div><div class="line">        label.preferredMaxLayoutWidth = <span class="keyword">self</span>.view.frame.size.width<span class="number">-20</span>;</div><div class="line">        label.numberOfLines           = <span class="number">0</span>;</div><div class="line">        label.textColor               = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">        label.backgroundColor         = [<span class="built_in">UIColor</span> purpleColor];</div><div class="line">        label;</div><div class="line">    &#125;);</div><div class="line">    [bgView addSubview:label1];</div><div class="line">    </div><div class="line">    textView1 = (&#123;</div><div class="line">        <span class="built_in">UITextView</span> *label     = [[<span class="built_in">UITextView</span> alloc] init];</div><div class="line">        label.font            = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18.0</span>];</div><div class="line">        label.textColor       = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">        label.backgroundColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line">        label;</div><div class="line">    &#125;);</div><div class="line">    [bgView addSubview:textView1];</div><div class="line">    </div><div class="line">    <span class="comment">// 添加约束（基于Masonry）</span></div><div class="line">    [bgView mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(<span class="keyword">self</span>.view.mas_left);</div><div class="line">        make.top.equalTo(<span class="keyword">self</span>.view.mas_top).offset(<span class="number">10</span>);</div><div class="line">        make.width.equalTo(<span class="keyword">self</span>.view.mas_width);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    [label1 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(bgView.mas_left).offset(<span class="number">10</span>);</div><div class="line">        make.right.lessThanOrEqualTo(bgView.mas_right).offset(<span class="number">-10</span>);</div><div class="line">        make.top.equalTo(bgView.mas_top).offset(<span class="number">10</span>);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    [textView1 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(label1.mas_left);</div><div class="line">        make.right.lessThanOrEqualTo(bgView.mas_right).offset(<span class="number">-10</span>);</div><div class="line">        make.top.equalTo(label1.mas_bottom).offset(<span class="number">10</span>);</div><div class="line">        make.bottom.equalTo(bgView.mas_bottom).offset(<span class="number">-10</span>);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    label1.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张 寒来暑往 秋收冬藏 闰余成岁 律吕调阳"</span>;</div><div class="line">    textView1.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张 寒来暑往 秋收冬藏 闰余成岁 律吕调阳"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>运行效果如下：</p>
+<div class="imagediv" style="width: 320px; height: 110px"></div>
+
+<p>这显然不是我们想要的结果，至少存在这么两个问题：</p>
+<ol>
+<li>textView1不见了；</li>
+<li>bgView的大小不是我们想要的；</li>
+</ol>
+<p>为什么会有出现这样的问题呢？</p>
+<p>首先正如上文所提到的那样，textView1是UITextView的对象，而UITextView是UIScrollView的子类，它的<code>intrinsicContentSize:</code>方法的返回值是<code>(-1,-1)</code>，这意味着textView1对bgView的auto layout size没有产生影响。</p>
+<p>那textView1为什么不见了呢？或者说，为什么textView1的size为CGSizeZero呢？根据我对auto layout system的理解，auto layout system在处理view的size时，受三个因素影响：</p>
+<ul>
+<li>自身的<code>intrinsicContentSize</code>方法返回值；</li>
+<li>subviews的<code>intrinsicContentSize</code>方法返回值；</li>
+<li>自身和subviews的constraints；</li>
+</ul>
+<p>对于textView1，前两个因素可以忽略掉，简而言之，textView1的size由它自身的constraints决定。而根据上述代码的约束可以计算出textView1的height：<br>height = bgView.height-10-label1.height-10-10;</p>
+<p>而bgView.height=10+label1.height+10+10；意味着textView1的height值为0；当然就看不到了textView1了。</p>
+<p>因此，若想要让textView1正常可见，至少有这么一种策略：直接为textView1添加约束设置width和height；</p>
+<p>简单来说，override回调方法<code>viewWillLayoutSubviews</code>，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewWillLayoutSubviews &#123;</div><div class="line">    [<span class="keyword">super</span> viewWillLayoutSubviews];</div><div class="line"></div><div class="line">    <span class="built_in">CGSize</span> textViewFitSize = [textView1 sizeThatFits:<span class="built_in">CGSizeMake</span>(<span class="keyword">self</span>.view.frame.size.width<span class="number">-20</span>, <span class="number">0</span>)];</div><div class="line">    [textView1 mas_updateConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.width.equalTo([<span class="built_in">NSNumber</span> numberWithFloat:textViewFitSize.width]);</div><div class="line">        make.height.equalTo([<span class="built_in">NSNumber</span> numberWithFloat:textViewFitSize.height]);</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种做法是有效的，运行效果如下：</p>
+<div class="imagediv" style="width: 320px; height: 190px"></div>
+
+<p>若将这种场景切换到table view cell中会如何呢？简单来说，如果将上述的bgView换成UITableViewCell（或其子类）对象又会如何呢？</p>
+<p>在table view中，我们可以使用<code>- (CGFloat)tableView:heightForRowAtIndexPath:</code>接口，该回调方法会返回CGFloat值，该值指示了对应cell的高度；假设auto layout system为cell分配的size是autoSize，在处理返回值时额外加上textViewFitSize.height即可。</p>
+<p>但问题是，我们如何获取这个autoSize的值呢？毕竟此时cell还未布局完成啊，直接读取cell.frame.size肯定是不行的。</p>
+<p><code>systemLayoutSizeFittingSize:</code>方法正是用于处理这个问题的。</p>
+<p><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/" target="_blank" rel="external">UIView Class References</a>对该方法描述如下：</p>
+<blockquote>
+<p>Returns the size of the view that satisfies the constraints it holds.<br>&nbsp;<br><strong>Return Value</strong><br>The size of the view that satisfies the constraints it holds.<br>&nbsp;<br><strong>Discussion</strong><br>Determines the best size of the view considering all constraints it holds and those of its subviews.</p>
+</blockquote>
+<p>我是这么理解<code>systemLayoutSizeFittingSize:</code>的：对于使用auto layout机制布局的view，auto layout system会在布局过程中综合各种约束的考虑为之设置一个size，在布局完成后，该size的值即为view.frame.size的值；这包含的另外一层意思，即在布局完成前，我们是不能通过view.frame.size准确获取view的size的。但有时候，我们需要在auto layout system对view完成布局前就知道它的size，<code>systemLayoutSizeFittingSize:</code>方法正是能够满足这种要求的API。<code>systemLayoutSizeFittingSize:</code>方法会根据其constraints返回一个合适的size值。</p>
+<p><code>systemLayoutSizeFittingSize:</code>方法可传入一个参数，目前有两个值可以传入：</p>
+<ul>
+<li>UILayoutFittingCompressedSize : The option to use the smallest possible size.</li>
+<li>UILayoutFittingExpandedSize : The option to use the largest possible size.</li>
+</ul>
+<p>值得一提的是，在使用<code>[view systemLayoutSizeFittingSize:]</code>时，要注意尽量确保view的constraints的完整性，这样参数UILayoutFittingCompressedSize和UILayoutFittingExpandedSize得到的结果是一样的。否则，举个例子，若view的right属性没有设置，则这两个参数得到<code>systemLayoutSizeFittingSize:</code>返回值size是不一样的，前者size.width=0，后者size.width=1000。<br>P.S：这纯属个人使用体验。</p>
+<p>至于<code>systemLayoutSizeFittingSize:</code>的使用场景，<a href="http://www.cocoachina.com/industry/20140604/8668.html" target="_blank" rel="external">动态计算UITableViewCell高度详解</a>非常值得参考！</p>
+<p><strong>对比几种API</strong></p>
+<p>在刚开始接触这几个API时感到非常困惑。分不清<code>intrinsicContentSize</code>、<code>sizeThatFits:</code>以及<code>systemLayoutSizeFittingSize:</code>的区别。经过这么将近一天的折腾，现在大概有了基本的判断。</p>
+<p>首先说<code>intrinsicContentSize</code>，它的最主要作用是告诉auto layout system一些信息，可以认为它是后者的回调方法，auto layout system在对view进行布局时会参考这个回调方法的返回值；一般很少像<code>CGSize size = [view intrinsicContentSize]</code>去使用<code>intrinsicContentSize</code> API。</p>
+<p>再来看<code>sizeThatFits:</code>和<code>systemLayoutSizeFittingSize:</code>，它们俩非常相似，都是为开发者直接服务的API（而不是回调方法）。所不同的是，<code>sizeThatFits:</code>是auto layout之前就存在的，一般在leaf-level views中用得比较多，在计算size过程中，它可不会考虑constraints神马的；对于<code>systemLayoutSizeFittingSize:</code>，它是随着auto layout（iOS 6）引入的，用于在view完成布局前获取size值，如果view的constraints确保了完整性和正确性，通常它的返回值就是view完成布局之后的view.frame.size的值。</p>
+<p>它们之前存在相互调用的关系吗？经过测试发现，三者之前没有直接的调用关系。但是能得出这样的结论：<code>intrinsicContentSize</code>的返回值会直接影响<code>systemLayoutSizeFittingSize:</code>的返回值。至于底层是如何处理的不得而知。</p>
+<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>本博客写了好多个小时，非常勉强，写完后不忍直视，臭又长。进一步意识到把博客写长不难，难的是把它写短同时传递足够多的信息。这在方面，我需要极大的提升啊！</p>
+<p>用人话把技术讲清楚。</p>
+<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
+<li><a href="http://stackoverflow.com/questions/24127032/proper-usage-of-intrinsiccontentsize-and-sizethatfits-on-uiview-subclass-with-a" target="_blank" rel="external">Proper usage of intrinsicContentSize and sizeThatFits: on UIView Subclass with autolayout</a></li>
+<li><a href="http://stackoverflow.com/questions/27711853/how-to-set-a-labels-preferredmaxlayoutwidth-to-automatic-programmatically" target="_blank" rel="external">How to set a label’s preferredMaxLayoutWidth to automatic programmatically?</a></li>
+<li><a href="http://stackoverflow.com/questions/18118021/how-to-resize-superview-to-fit-all-subviews-with-autolayout/18155803#18155803" target="_blank" rel="external">How to resize superview to fit all subviews with autolayout?</a></li>
+<li><a href="http://stackoverflow.com/questions/18746929/using-auto-layout-in-uitableview-for-dynamic-cell-layouts-variable-row-heights/18746930#18746930" target="_blank" rel="external">Using Auto Layout in UITableView for dynamic cell layouts &amp; variable row heights</a></li>
+<li><a href="http://xuexuefeng.com/autolayout/" target="_blank" rel="external">iOS开发实践之Auto Layout</a></li>
+<li><a href="http://www.cocoachina.com/industry/20140604/8668.html" target="_blank" rel="external">动态计算UITableViewCell高度详解</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/10/03/using-hexo-to-build-blog-site/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          使用hexo搭建静态博客
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/06/26/objective-c-new-features-in-2015/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">2015 Objective-C新特性</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

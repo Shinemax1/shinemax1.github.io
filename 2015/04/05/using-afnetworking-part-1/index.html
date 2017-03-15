@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>AFNetworking使用笔记 第一弹 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="AFHTTPSessionManager归根到底，使用AFNetworking的最终目的无非是处理网络任务，网络任务包括三类：
+
+download task
+upload task
+data task
+
+P.S: 上传、下载都比较容易理解，data task是什么玩意儿？上传、下载一般处理的对象主要是文件，而data task处理的对象是文本数据。譬如登录、修改用户昵称，这类操作就是data ta">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AFNetworking使用笔记 第一弹">
+<meta property="og:url" content="http://shinemax1.github.io/2015/04/05/using-afnetworking-part-1/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="AFHTTPSessionManager归根到底，使用AFNetworking的最终目的无非是处理网络任务，网络任务包括三类：
+
+download task
+upload task
+data task
+
+P.S: 上传、下载都比较容易理解，data task是什么玩意儿？上传、下载一般处理的对象主要是文件，而data task处理的对象是文本数据。譬如登录、修改用户昵称，这类操作就是data ta">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="AFNetworking使用笔记 第一弹">
+<meta name="twitter:description" content="AFHTTPSessionManager归根到底，使用AFNetworking的最终目的无非是处理网络任务，网络任务包括三类：
+
+download task
+upload task
+data task
+
+P.S: 上传、下载都比较容易理解，data task是什么玩意儿？上传、下载一般处理的对象主要是文件，而data task处理的对象是文本数据。譬如登录、修改用户昵称，这类操作就是data ta">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-using-afnetworking-part-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/05/using-afnetworking-part-1/" class="article-date">
+  	<time datetime="2015-04-04T18:04:16.000Z" itemprop="datePublished">2015-04-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      AFNetworking使用笔记 第一弹
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AFNetworking/">AFNetworking</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="AFHTTPSessionManager"><a href="#AFHTTPSessionManager" class="headerlink" title="AFHTTPSessionManager"></a>AFHTTPSessionManager</h2><p>归根到底，使用AFNetworking的最终目的无非是处理网络任务，网络任务包括三类：</p>
+<ul>
+<li>download task</li>
+<li>upload task</li>
+<li>data task</li>
+</ul>
+<p>P.S: 上传、下载都比较容易理解，data task是什么玩意儿？上传、下载一般处理的对象主要是文件，而data task处理的对象是文本数据。譬如登录、修改用户昵称，这类操作就是data task。</p>
+<p>忽略开发语言以及框架之类的东东，回想一下，启动一个HTTP任务大概需要哪些过程？答案很简单：构建请求消息 – 发送请求消息。</p>
+<p><strong>发送请求消息</strong>相对而言比较死板，这一部分往往由框架在底层实现（当然，这一部分也是最复杂的，因为涉及线程神马的）；但是<strong>构建请求消息</strong>相较而言就比较灵活了。</p>
+<p>「请求消息」的结构是固定的，包括三个部分：请求行、消息头、消息体。（更多内容参考<a href="/http/">HTTP学习笔记</a>）。</p>
+<p>所以无论是什么HTTP任务，万变不离其宗，无非是针对请求行、消息头、消息体进行不同设置和构建。只是在<code>NSURLSession</code>框架里，Apple站在功能的角度做了更进一步的封装，它将request message根据功能封装成download task、upload task、data task。</p>
+<p>这3种task分别对应三个类：<code>NSURLSessionDataTask</code>、<code>NSURLSessionUploadTask</code>、<code>NSURLSessionDownloadTask</code>，它们都是<code>NSURLSessionTask</code>的子类，继承关系如下：</p>
+<div class="imagediv" style="width:612px; height:294px"></div>
+
+<p>关于这3种task，《<a href="https://objccn.io/issue-5-4/" target="_blank" rel="external">从NSURLConnection到NSURLSession</a>》有比较清晰的描述：</p>
+<blockquote>
+<p>当一个<code>NSURLSessionDataTask</code>完成时，它会带有相关联的数据，而一个<code>NSURLSessionDownloadTask</code>任务结束时，它会带回已下载文件的一个临时的文件路径。因为一般来说，服务端对于一个上传任务的响应也会有相关数据返回，所以<code>NSURLSessionUploadTask</code>继承自<code>NSURLSessionDataTask</code>。</p>
+</blockquote>
+<p>所以，在<code>NSURLSession</code>框架下，启动一个HTTP任务的过程变成了：</p>
+<ol>
+<li>创建一个<code>NSURLSession</code>实例，并配置之；</li>
+<li>创建一个<code>NSURLSessionTask</code>实例，并将之关联到<code>NSURLSession</code>实例中；</li>
+<li>激活<code>NSURLSessionTask</code>实例；</li>
+</ol>
+<p>P.S: 对于单客户单-单服务器，<code>NSURLSession</code>创建一次即可；激活<code>NSURLSessionTask</code>调用其<code>resume</code>方法即可。</p>
+<p>所以，在<code>AFHTTPSessionManager</code>中，创建各种HTTP任务流程（参考<a href="https://github.com/AFNetworking/AFNetworking/" target="_blank" rel="external">github:AFNetworking</a>）如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSURLSessionConfiguration</span> *configuration = [<span class="built_in">NSURLSessionConfiguration</span> defaultSessionConfiguration];</div><div class="line">AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];</div><div class="line"></div><div class="line"><span class="built_in">NSURL</span> *URL = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@"http://example.com/download.zip"</span>];</div><div class="line"><span class="built_in">NSURLRequest</span> *request = [<span class="built_in">NSURLRequest</span> requestWithURL:URL];</div><div class="line"><span class="comment">// 这里没有指定request的方法名，我猜是使用默认方法POST</span></div><div class="line"></div><div class="line"><span class="built_in">NSURLSessionDownloadTask</span> *downloadTask =</div><div class="line">[manager downloadTaskWithRequest:request progress:<span class="literal">nil</span> destination:^<span class="built_in">NSURL</span> *(<span class="built_in">NSURL</span> *targetPath, <span class="built_in">NSURLResponse</span> *response) &#123;</div><div class="line">    <span class="built_in">NSURL</span> *aDirectoryURL =</div><div class="line">    [[<span class="built_in">NSFileManager</span> defaultManager] URLForDirectory:<span class="built_in">NSDocumentDirectory</span></div><div class="line">                                           inDomain:<span class="built_in">NSUserDomainMask</span></div><div class="line">                                  appropriateForURL:<span class="literal">nil</span></div><div class="line">                                             create:<span class="literal">NO</span></div><div class="line">                                              error:<span class="literal">nil</span>];</div><div class="line">    <span class="keyword">return</span> [aDirectoryURL URLByAppendingPathComponent:response.suggestedFilename];</div><div class="line">&#125; completionHandler:^(<span class="built_in">NSURLResponse</span> *response, <span class="built_in">NSURL</span> *filePath, <span class="built_in">NSError</span> *error) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"File downloaded to: %@"</span>, filePath);</div><div class="line">&#125;];</div><div class="line"></div><div class="line">[downloadTask resume];</div></pre></td></tr></table></figure>
+<p>这段代码中的<code>NSURLRequest</code>对象的创建全部采用默认值，猜测其默认method是POST，在实际应用中，会对<code>NSURLRequest</code>做更多的配置；再就是download task的创建显然不止一种，根据我的理解，基于<code>NSURLSessionDataTask</code>，GET请求消息、POST请求消息都可以完成download task，只是自己要写更多的代码，譬如将download结果从response中取出来。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// data task</span></div><div class="line"><span class="built_in">NSURLSessionConfiguration</span> *configuration = [<span class="built_in">NSURLSessionConfiguration</span> defaultSessionConfiguration];</div><div class="line">AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];</div><div class="line">    </div><div class="line"><span class="built_in">NSURL</span> *URL = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@"http://example.com/upload"</span>];</div><div class="line"><span class="built_in">NSURLRequest</span> *request = [<span class="built_in">NSURLRequest</span> requestWithURL:URL];</div><div class="line"><span class="comment">// 这里没有指定request的方法名，我猜是使用默认方法POST</span></div><div class="line">    </div><div class="line"><span class="built_in">NSURLSessionDataTask</span> *dataTask =</div><div class="line">[manager dataTaskWithRequest:request</div><div class="line">           completionHandler:^(<span class="built_in">NSURLResponse</span> *response, <span class="keyword">id</span> responseObject, <span class="built_in">NSError</span> *error) &#123;</div><div class="line">               <span class="keyword">if</span> (error) &#123;</div><div class="line">                   <span class="built_in">NSLog</span>(<span class="string">@"Error: %@"</span>, error);</div><div class="line">               &#125; <span class="keyword">else</span> &#123;</div><div class="line">                   <span class="built_in">NSLog</span>(<span class="string">@"%@ %@"</span>, response, responseObject);</div><div class="line">               &#125;</div><div class="line">&#125;];</div><div class="line">[dataTask resume];</div></pre></td></tr></table></figure>
+<p>实际应用中，处理data task时，不会直接像这样写代码，更多的时候会直接使用<code>AFHTTPSessionManager</code>中定义的POST、GET等方法，虽然这些方法的实现和这段代码类似…</p>
+<p>Data task和download task相对来说比较简单一些，但upload task就复杂多了。根据复杂程度来看，upload task可以分为<strong>单文件上传</strong>和<strong>多文件上传</strong>。对于前者，相较而言比较简单，直接把要上传的文件作为POST请求消息的消息体即可。对于多文件上传，就复杂得多了。</p>
+<p>P.S: 多文件上传并不是很复杂，只要熟读了HTTP相关文档，了解了<code>multipart/form-data</code>相关概念之后，实现多文件上传代码也是挺容易的，关于<code>multipart/form-data</code>，<a href="/http/">HTTP学习笔记</a>有介绍。</p>
+<p>先说单文件上传，单文件上传根据文件来源构建<code>NSURLSessionUploadTask</code>对象的方式有这么几种：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1. 单文件（file路径）上传，进度信息，completion handler</span></div><div class="line">uploadTaskWithRequest:fromFile:progress:completionHandler:</div><div class="line"><span class="comment">// 2. 单文件（file data）上传，进度信息，completion handler</span></div><div class="line">uploadTaskWithRequest:fromData:progress:completionHandler:</div></pre></td></tr></table></figure>
+<p>具体实现如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 单文件（file路径）上传</span></div><div class="line"><span class="built_in">NSURLSessionConfiguration</span> *configuration = [<span class="built_in">NSURLSessionConfiguration</span> defaultSessionConfiguration];</div><div class="line">AFURLSessionManager *manager = [[AFURLSessionManager alloc] initWithSessionConfiguration:configuration];</div><div class="line"></div><div class="line"><span class="built_in">NSURL</span> *URL = [<span class="built_in">NSURL</span> URLWithString:<span class="string">@"http://example.com/upload"</span>];</div><div class="line"><span class="built_in">NSURLRequest</span> *request = [<span class="built_in">NSURLRequest</span> requestWithURL:URL];</div><div class="line"></div><div class="line"><span class="built_in">NSURL</span> *filePath = [<span class="built_in">NSURL</span> fileURLWithPath:<span class="string">@"file://path/to/image.png"</span>];</div><div class="line"><span class="built_in">NSURLSessionUploadTask</span> *uploadTask =</div><div class="line">[manager uploadTaskWithRequest:request</div><div class="line">                      fromFile:filePath</div><div class="line">                      progress:<span class="literal">nil</span></div><div class="line">             completionHandler:^(<span class="built_in">NSURLResponse</span> *response, <span class="keyword">id</span> responseObject, <span class="built_in">NSError</span> *error) &#123;</div><div class="line">                 <span class="keyword">if</span> (error) &#123;</div><div class="line">                     <span class="built_in">NSLog</span>(<span class="string">@"Error: %@"</span>, error);</div><div class="line">                 &#125; <span class="keyword">else</span> &#123;</div><div class="line">                     <span class="built_in">NSLog</span>(<span class="string">@"Success: %@ %@"</span>, response, responseObject);</div><div class="line">                 &#125;</div><div class="line">             &#125;];</div><div class="line">[uploadTask resume];</div></pre></td></tr></table></figure>
+<p>多文件上传时，需要自行写更多代码构建消息体，具体实现如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSMutableURLRequest</span> *request =</div><div class="line">[[AFHTTPRequestSerializer serializer] multipartFormRequestWithMethod:<span class="string">@"POST"</span></div><div class="line">                                                           URLString:<span class="string">@"http://example.com/upload"</span></div><div class="line">                                                          parameters:<span class="literal">nil</span></div><div class="line">                                           constructingBodyWithBlock:^(<span class="keyword">id</span>&lt;AFMultipartFormData&gt; formData) &#123;</div><div class="line">                                               [formData appendPartWithFileURL:[<span class="built_in">NSURL</span> fileURLWithPath:<span class="string">@"file://path/to/image.jpg"</span>]</div><div class="line">                                                                          name:<span class="string">@"file"</span></div><div class="line">                                                                      fileName:<span class="string">@"filename.jpg"</span></div><div class="line">                                                                      mimeType:<span class="string">@"image/jpeg"</span> error:<span class="literal">nil</span>];</div><div class="line">                                           &#125;</div><div class="line">                                                               error:<span class="literal">nil</span>];</div><div class="line">    </div><div class="line">AFURLSessionManager *manager =</div><div class="line">[[AFURLSessionManager alloc] initWithSessionConfiguration:[<span class="built_in">NSURLSessionConfiguration</span> defaultSessionConfiguration]];</div><div class="line"><span class="built_in">NSProgress</span> *progress = <span class="literal">nil</span>;</div><div class="line">    </div><div class="line"><span class="built_in">NSURLSessionUploadTask</span> *uploadTask =</div><div class="line">[manager uploadTaskWithStreamedRequest:request</div><div class="line">                              progress:&amp;progress</div><div class="line">                     completionHandler:^(<span class="built_in">NSURLResponse</span> *response, <span class="keyword">id</span> responseObject, <span class="built_in">NSError</span> *error) &#123;</div><div class="line">                         <span class="keyword">if</span> (error) &#123;</div><div class="line">                             <span class="built_in">NSLog</span>(<span class="string">@"Error: %@"</span>, error);</div><div class="line">                         &#125; <span class="keyword">else</span> &#123;</div><div class="line">                             <span class="built_in">NSLog</span>(<span class="string">@"%@ %@"</span>, response, responseObject);</div><div class="line">                         &#125;</div><div class="line">                     &#125;];</div><div class="line">    </div><div class="line">[uploadTask resume];</div></pre></td></tr></table></figure>
+<p>当然，多文件上传代码也可用来实现单文件上传。</p>
+<p>本文站在应用的角度对AFNetworking使用进行了简单的描述。但对<code>NSURLSession</code>的阐述不够，希望以后补充吧。</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ol>
+<li><a href="https://objccn.io/issue-5-4/" target="_blank" rel="external">从NSURLConnection到NSURLSession</a>，这篇文章的作者是Mattt Thompson，也就是AFNetworking的作者</li>
+<li><a href="https://github.com/AFNetworking/AFNetworking/" target="_blank" rel="external">AFNetworking使用文档</a></li>
+</ol>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/05/using-afnetworking-part-2/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          AFNetworking使用笔记 第二弹
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/04/http/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">HTTP学习笔记</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>RACSignal实践 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="接着初识ReactiveCocoa继续写，本文总结RACSignal的简单使用以及基本操作。
+Signal传递的data是event，它所传递的event包括3种：值事件、完成事件和错误事件。其中在传递值事件时，可以携带数据。落实到代码层面，传递值事件、完成事件以及错误事件的本质就是向subscriber发送sendNext:、sendComplete以及sendError:消息。
+为了更形象对各">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RACSignal实践">
+<meta property="og:url" content="http://shinemax1.github.io/2016/07/28/reactive-cocoa-part-2/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="接着初识ReactiveCocoa继续写，本文总结RACSignal的简单使用以及基本操作。
+Signal传递的data是event，它所传递的event包括3种：值事件、完成事件和错误事件。其中在传递值事件时，可以携带数据。落实到代码层面，传递值事件、完成事件以及错误事件的本质就是向subscriber发送sendNext:、sendComplete以及sendError:消息。
+为了更形象对各">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RACSignal实践">
+<meta name="twitter:description" content="接着初识ReactiveCocoa继续写，本文总结RACSignal的简单使用以及基本操作。
+Signal传递的data是event，它所传递的event包括3种：值事件、完成事件和错误事件。其中在传递值事件时，可以携带数据。落实到代码层面，传递值事件、完成事件以及错误事件的本质就是向subscriber发送sendNext:、sendComplete以及sendError:消息。
+为了更形象对各">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-reactive-cocoa-part-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/28/reactive-cocoa-part-2/" class="article-date">
+  	<time datetime="2016-07-28T14:39:41.000Z" itemprop="datePublished">2016-07-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      RACSignal实践
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>接着<a href="/reactive-cocoa-part-1/">初识ReactiveCocoa</a>继续写，本文总结<code>RACSignal</code>的简单使用以及基本操作。</p>
+<p>Signal传递的data是event，它所传递的event包括3种：<strong>值事件</strong>、<strong>完成事件</strong>和<strong>错误事件</strong>。其中在传递值事件时，可以携带数据。落实到代码层面，传递<strong>值事件</strong>、<strong>完成事件</strong>以及<strong>错误事件</strong>的本质就是向subscriber发送<code>sendNext:</code>、<code>sendComplete</code>以及<code>sendError:</code>消息。</p>
+<p>为了更形象对各种操作进行表述，下文会大量使用图例，绿色圆圈代表值事件，红色叉代表错误事件，红色杠代表完成事件，灰色带箭头直线代表时间线，如下：</p>
+<div class="imagediv" style="width:580px; heiht:69px"></div>
+
+<p>Signal在其生命周期内，可以传递任意多个值事件，但最多只能传递一个完成事件或错误事件；换句话说，一旦Signal的事件流中出现了错误事件或者完成事件，之后产生的任何事件都是无效的。</p>
+<h2 id="信号的简单使用"><a href="#信号的简单使用" class="headerlink" title="信号的简单使用"></a>信号的简单使用</h2><p>这一部分将从3个方面介绍信号的简单实用，包括：创建信号、订阅信号、订阅过程。</p>
+<h3 id="获取信号"><a href="#获取信号" class="headerlink" title="获取信号"></a>获取信号</h3><p>获取信号的方式有很多种：</p>
+<ul>
+<li>创建单元信号</li>
+<li>创建动态信号</li>
+<li>通过Cocoa桥接</li>
+<li>从别的信号变换而来</li>
+<li>由序列变换而来</li>
+</ul>
+<p><strong>单元信号</strong></p>
+<p>最简单的信号是单元信号，有4种：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// return信号：被订阅后，立马产生一个值事件，然后产生一个完成事件</span></div><div class="line">RACSignal *signal1 = [RACSignal <span class="keyword">return</span>:someObject];</div><div class="line"><span class="comment">// error信号：被订阅后，立马产生一个错误事件</span></div><div class="line">RACSignal *signal2 = [RACSignal error:someError];</div><div class="line"><span class="comment">// empty信号：被订阅后，立马产生一个完成事件</span></div><div class="line">RACSignal *signal3 = [RACSignal empty];</div><div class="line"><span class="comment">// never信号：永远不产生事件</span></div><div class="line">RACSignal *signal4 = [RACSignal never];</div></pre></td></tr></table></figure>
+<p>可以用图例描述这4个信号：</p>
+<div class="imagediv" style="width: 472px; height: 76px;"></div>
+
+<p><strong>动态信号</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal5 = [RACSignal createSignal:^RACDisposable *(<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) &#123;</div><div class="line">    [subscriber sendNext:<span class="string">@"1"</span>];</div><div class="line">    [subscriber sendNext:<span class="string">@"2"</span>];</div><div class="line">    [subscriber sendCompleted];</div><div class="line">    <span class="keyword">return</span> [RACDisposable disposableWithBlock:^&#123;</div><div class="line">        </div><div class="line">    &#125;];</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p><strong>Cocoa桥接</strong></p>
+<p>RAC为大量的Cocoa类型提供便捷的信号桥接工具，如下是一些常见的桥接方式：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal6 = [object rac_signalForSelector:<span class="keyword">@selector</span>(setFrame:)];</div><div class="line">RACSignal *signal7 = [control rac_signalForControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</div><div class="line">RACSignal *signal8 = [object rac_willDeallocSignal];</div><div class="line">RACSignal *signal9 = RACObserve(object, keyPath);</div><div class="line"><span class="comment">// 还有更多</span></div></pre></td></tr></table></figure>
+<p><strong>信号变换</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal10 = [signal1 map:^<span class="keyword">id</span>(<span class="keyword">id</span> value) &#123;</div><div class="line">    <span class="keyword">return</span> someObject;</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p><strong>序列变换</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal11 = sequence.signal;</div></pre></td></tr></table></figure>
+<h3 id="订阅信号"><a href="#订阅信号" class="headerlink" title="订阅信号"></a>订阅信号</h3><p>订阅信号的方式有3种：</p>
+<ul>
+<li>通过<code>subscribeNext:error:completed:</code>方法订阅</li>
+<li>RAC宏绑定</li>
+<li>Cocoa桥接</li>
+</ul>
+<p><strong>通过subscribeNext:error:completed:方法订阅</strong></p>
+<p><code>subscribeNext:error:completed:</code>是最基础的信号订阅方法，相关的方法原型如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (RACDisposable *)subscribeNext:(<span class="keyword">void</span> (^)(<span class="keyword">id</span> x))nextBlock</div><div class="line">                           error:(<span class="keyword">void</span> (^)(<span class="built_in">NSError</span> *error))errorBlock</div><div class="line">                       completed:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>));</div></pre></td></tr></table></figure>
+<p><strong>RAC宏绑定</strong></p>
+<p>可以使用<code>RAC()</code>宏（和上述的<code>RACObserve()</code>宏不一样）绑定：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">RAC(view, backgroundColor) = signal10;</div><div class="line"><span class="comment">// 每当signal10产生一个值事件，就将view.backgroundColor设为相应的值</span></div></pre></td></tr></table></figure>
+<p><strong>Cocoa桥接</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[object rac_liftSelector:<span class="keyword">@selector</span>(someSelector:) withSignals:signal1, signal2, <span class="literal">nil</span>];</div><div class="line">[object rac_liftSelector:<span class="keyword">@selector</span>(someSelector:) withSignalsFromArray:@[signal1, signal2]];</div><div class="line">[object rac_liftSelector:<span class="keyword">@selector</span>(someSelector:) withSignalOfArguments:signal1];</div></pre></td></tr></table></figure>
+<h3 id="订阅过程"><a href="#订阅过程" class="headerlink" title="订阅过程"></a>订阅过程</h3><p>所谓订阅过程指的是信号被订阅的处理逻辑，如下是简单的例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal = [RACSignal createSignal:^RACDisposable *(<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) &#123;</div><div class="line">    [subscriber sendNext:<span class="string">@"1"</span>];</div><div class="line">    [subscriber sendNext:<span class="string">@"2"</span>];</div><div class="line">    [subscriber sendCompleted];     </div><div class="line">    [subscriber sendNext:<span class="string">@"3"</span>];  <span class="comment">// 无效</span></div><div class="line">    <span class="keyword">return</span> [RACDisposable disposableWithBlock:^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"dispose"</span>);       <span class="comment">// 当错误事件或者完成事件产生时，该block被调用</span></div><div class="line">    &#125;];</div><div class="line">&#125;];</div><div class="line"></div><div class="line">[signal subscribeNext:^(<span class="keyword">id</span> x) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"next value is :  %@"</span>, x);</div><div class="line">&#125; error:^(<span class="built_in">NSError</span> *error) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"error : %@"</span>, error);</div><div class="line">&#125; completed:^&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"completed"</span>);</div><div class="line">&#125;];</div><div class="line"></div><div class="line"><span class="comment">/* prints:</span></div><div class="line">next value is :  1</div><div class="line">next value is :  2</div><div class="line">completed</div><div class="line">dispose</div><div class="line">*/</div></pre></td></tr></table></figure>
+<h2 id="信号的各类操作"><a href="#信号的各类操作" class="headerlink" title="信号的各类操作"></a>信号的各类操作</h2><p>这一部分将介绍信号的各类操作，内容比较多。参考大神臧成威的说法，将信号的操作分为两类：单个信号的变换、多个信号的组合。</p>
+<h3 id="单个信号的变换"><a href="#单个信号的变换" class="headerlink" title="单个信号的变换"></a>单个信号的变换</h3><p>单个信号的变换也可以分为几类：</p>
+<ul>
+<li>值操作</li>
+<li>数量操作</li>
+<li>时间操作</li>
+</ul>
+<p>下文结合图例对各种操作进行说明。</p>
+<p><strong>值操作 – Map</strong></p>
+<div class="imagediv" style="width:350px; heiht:130px"></div>
+
+<ul>
+<li>当<code>signalA</code>事件流出现完成事件时，<code>signalB</code>的事件流也会出现完成事件</li>
+<li>当<code>signalA</code>事件流出现错误事件时，<code>signalB</code>也会将该错误原封不动地释放出来</li>
+</ul>
+<p><code>map:</code>操作还有一个简化版：<code>mapReplace:</code>，<code>[signalA mapReplace:@886];</code>等价于<code>[signalA map:^id(id value) { return @886; }];</code>。</p>
+<p><strong>值操作 – ReduceEach</strong></p>
+<div class="imagediv" style="width:400px; heiht:130px"></div>
+
+<p><code>reduceEach:</code>这个操作的名字不太容易理解，但是操作本身还是非常简单，是<code>map:</code>的变体。当<code>signalA</code>的值事件包裹的数据是<code>RACTuple</code>类型时，才可以使用该操作；稍微读一下该操作的实现源码即可明白。</p>
+<p>此外，<code>reduceEach:</code>的block中，可以传入的参数是任意数量。</p>
+<p>P.S: 如何理解「reduce」？</p>
+<p><strong>值操作 – 其他的Map变体操作</strong></p>
+<p>除了<code>reduceEach:</code>，<code>map:</code>还有其他的一些变体操作：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (RACSignal *)not;</div><div class="line">- (RACSignal *)and;</div><div class="line">- (RACSignal *)or;</div><div class="line">- (RACSignal *)reduceApply;</div></pre></td></tr></table></figure>
+<p>前面3个都比较容易理解，<code>reduceApply</code>也要求值事件包裹的数据类型是<code>RACTuple</code>，并且该<code>RACTuple</code>的第一个元素是一个block，后面的元素作为该block的参数传入，返回该block的执行结果。</p>
+<p><strong>值操作 – Materialize和Dematerialize</strong></p>
+<p>对于<code>signalB = [signalA materialize];</code>，<code>signalA</code>产生的值事件包裹的数据都被转化为<code>RACEvent</code>对象，错误事件和完成事件亦然：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">signalA -- sendNext:x</div><div class="line">=&gt;</div><div class="line">signalB -- sendNext:[RACEvent eventWithValue:x]</div><div class="line"></div><div class="line">signalA -- sendError:error</div><div class="line">=&gt;</div><div class="line">signalB --  sendNext:[RACEvent eventWithError:error]</div><div class="line">signalB --  sendCompleted</div><div class="line"></div><div class="line">signalA -- sendCompleted</div><div class="line">=&gt;</div><div class="line">signalB -- sendNext:RACEvent.completedEvent</div><div class="line">signalB -- sendCompleted</div></pre></td></tr></table></figure>
+<p><code>dematerialize</code>操作与<code>materialize</code>相反，写代码体会一下就明白了。这两个操作似乎很少被用到。</p>
+<p><strong>数量操作 – Filter</strong></p>
+<div class="imagediv" style="width:350px; heiht:130px"></div>
+
+<p>和<code>map:</code>一样：</p>
+<ul>
+<li>当<code>signalA</code>产生完成事件时，<code>signalB</code>也会产生完成事件</li>
+<li>当<code>signalA</code>产生错误事件时，<code>signalB</code>也会将该错误原封不动地释放出来</li>
+</ul>
+<p><strong>数量操作 – Ignore</strong></p>
+<p><code>ignore:</code>是<code>filter:</code>的变体操作：</p>
+<div class="imagediv" style="width:349px; heiht:130px"></div>
+
+<p>还有其他的变体版本：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (RACSignal *)ignoreValues;</div></pre></td></tr></table></figure>
+<p><strong>数量操作 – Distinct</strong></p>
+<p><code>distinctUntilChanged</code>去掉连续相同的值事件。</p>
+<div class="imagediv" style="width:345px; heiht:127px"></div>
+
+<p><strong>数量操作 – Take和Skip</strong></p>
+<p><code>take:</code>操作只取前<code>n</code>（传入的参数）个事件。</p>
+<div class="imagediv" style="width:352px; heiht:129px"></div>
+
+<p>假设<code>signalA</code>第一次出现错误事件/完成事件的index（从1开始）为<code>k</code>：</p>
+<ul>
+<li>当<code>k</code> &gt; <code>n</code>时，<code>signalB</code>中就不会出现错误事件/完成事件</li>
+<li>当<code>k</code> &lt;= <code>n</code>时，错误事件/完成事件也会出现<code>signalB</code>中</li>
+</ul>
+<p><code>skip:</code>与<code>take:</code>相反，它会将前<code>n</code>（传入的参数）个事件给过过滤掉。</p>
+<div class="imagediv" style="width:340px; heiht:129px"></div>
+
+<p><code>signalA</code>的前<code>n</code>个事件中可能会出现错误事件/完成事件，这种情况下，<code>signalB</code>的第一个信号就是错误事件/完成事件，且不会有任何的值事件。</p>
+<p><code>take:</code>和<code>skip:</code>也有几个变体：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (RACSignal *)takeLast:(<span class="built_in">NSUInteger</span>)count;</div><div class="line">- (RACSignal *)takeUntilBlock:(<span class="built_in">BOOL</span> (^)(<span class="keyword">id</span> x))predicate;</div><div class="line">- (RACSignal *)takeWhileBlock:(<span class="built_in">BOOL</span> (^)(<span class="keyword">id</span> x))predicate;</div><div class="line">- (RACSignal *)skipUntilBlock:(<span class="built_in">BOOL</span> (^)(<span class="keyword">id</span> x))predicate;</div><div class="line">- (RACSignal *)skipWhileBlock:(<span class="built_in">BOOL</span> (^)(<span class="keyword">id</span> x))predicate;</div></pre></td></tr></table></figure>
+<p>P.S: 还有两个操作也以「take」作为前缀，即<code>takeUntil:</code>和<code>takeUntilReplacement:</code>，但属于组合操作，详见下文。</p>
+<p><strong>数量操作 – Start With</strong></p>
+<p><code>startWith:</code>操作的作用是在事件流的开始新增一个值事件。</p>
+<div class="imagediv" style="width:370px; heiht:129px"></div>
+
+<p><strong>数量操作 – Repeat</strong></p>
+<div class="imagediv" style="width:430px; heiht:129px"></div>
+
+<p>从图中可以看到，<code>repeat</code>操作会忽略<code>signalA</code>的完成事件，但它不会忽略错误事件，换句话说，如果<code>signalA</code>的事件流中含有错误事件，那么<code>signalB</code>的事件流会和<code>signalA</code>完全一致。</p>
+<p><strong>数量操作 – Retry</strong></p>
+<div class="imagediv" style="width:439px; heiht:130px"></div>
+
+<p>然而，当<code>signalA</code>事件流中含有完成事件时，那么<code>signalA</code>的事件流会和<code>signalA</code>完全一致。</p>
+<p><code>retry</code>操作还有带参数版本<code>retry:</code>，该版本可以指定次数。这种操作在处理网络任务时非常有用。</p>
+<p><strong>数量操作 – Collect</strong></p>
+<div class="imagediv" style="width:360px; heiht:130px"></div>
+
+<p><strong>Aggregate和Scan</strong></p>
+<p>Aggregate（译作「合计」）和Scan这两个操作有些类似，但明显有区别，前者改变了事件流的事件数量，后者没有，看如下图例就明白。</p>
+<div class="imagediv" style="width:380px; heiht:260px"></div>
+
+<div class="imagediv" style="width:450px; heiht:264px"></div>
+
+
+<p>Aggregate和Scan还有一些其他变种方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (RACSignal *)aggregateWithStartFactory:(<span class="keyword">id</span> (^)(<span class="keyword">void</span>))startFactory reduce:(<span class="keyword">id</span> (^)(<span class="keyword">id</span> running, <span class="keyword">id</span> next))reduceBlock;</div><div class="line">- (RACSignal *)aggregateWithStart:(<span class="keyword">id</span>)start reduceWithIndex:(<span class="keyword">id</span> (^)(<span class="keyword">id</span>, <span class="keyword">id</span>, <span class="built_in">NSUInteger</span>))reduceBlock;</div><div class="line">- (RACSignal *)scanWithStart:(<span class="keyword">id</span>)startingValue reduceWithIndex:(<span class="keyword">id</span> (^)(<span class="keyword">id</span>, <span class="keyword">id</span>, <span class="built_in">NSUInteger</span>))reduceBlock;</div></pre></td></tr></table></figure>
+<p><strong>时间操作 – 常会用到的时间信号</strong></p>
+<p>经常会有这样的需求：定时产生一个事件。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">+ (RACSignal *)interval:(<span class="built_in">NSTimeInterval</span>)interval onScheduler:(RACScheduler *)scheduler;</div><div class="line">+ (RACSignal *)interval:(<span class="built_in">NSTimeInterval</span>)interval onScheduler:(RACScheduler *)scheduler withLeeway:(<span class="built_in">NSTimeInterval</span>)leeway;</div></pre></td></tr></table></figure>
+<p>这两个类方法都会产生一个时间信号，时间信号会以一定频率产生一个值事件，值事件包裹的是<code>NSDate</code>对象。第二个方法中的参数<code>leeway</code>是「缓冲」、「余地」的意思，还不太明白其作用。</p>
+<p><strong>时间操作 – Delay</strong></p>
+<div class="imagediv" style="width:380px; heiht:130px"></div>
+
+<p><strong>时间操作 – Throttle</strong></p>
+<p>Throttle信号理解起来相对比较繁琐些。在下图中，<code>signalA</code>事件流中一共有5个值事件和1个完成事件，其中1号和2号事件间隔2s，2、3、4号事件间隔1s，5号值事件比4号值事件晚3s，完成事件比5号事件晚1s。</p>
+<div class="imagediv" style="width:510px; heiht:220px"></div>
+
+<p><code>signalB</code>由<code>[signalA throttle:1.5]</code>得到，throttle表示门限，其作用效果是：</p>
+<ul>
+<li>当<code>signalA</code>事件流产生一个值事件时，若1.5s内没有其他的值事件产生，则<code>signalB</code>事件流中也会产生该值事件；比如上图中的1号值事件，下一个值事件（2号）在其2s后产生，满足要求，故而在1.5s后，<code>signalB</code>的事件流也产生该信号；</li>
+<li>当<code>signalA</code>事件流产生一个值事件时，若1.5s内有其他的值事件产生，则<code>signalB</code>会过滤掉该值事件；比如上图中的2号和3号值事件，在1s后分别有3号和4号信号产生，不满足要求，故而都不会出现在<code>signalB</code>的事件流中；</li>
+<li>对于<code>signalA</code>中的最后一个值事件，<code>signalB</code>事件流中总会也包含它。</li>
+</ul>
+<p>这种信号有什么用呢？有一个常用的应用场景：在App内经常需要搜索，为了确保实时性，简单的做法是每输入一个字符就检索一下，但是若用户输入字符比较快，这种检索策略会比较浪费流量，因此比较好的做法是，用户输入某个字符后，1s（参考值）内没有再输入别的字符，就检索一次搜索结果。此时throttle就有了用武之地。</p>
+<p><code>throttle:</code>还有一个变体<code>throttle:valuesPassingTest:</code>；及类似操作：<code>bufferWithTime:onScheduler:</code>。</p>
+<p><strong>副作用操作</strong></p>
+<p>再补充一些RAC提供的副作用操作：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (RACSignal *)doNext:(<span class="keyword">void</span> (^)(<span class="keyword">id</span> x))block;</div><div class="line">- (RACSignal *)doError:(<span class="keyword">void</span> (^)(<span class="built_in">NSError</span> *error))block;</div><div class="line">- (RACSignal *)doCompleted:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</div><div class="line">- (RACSignal *)initially:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</div><div class="line">- (RACSignal *)finally:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</div></pre></td></tr></table></figure>
+<p>这5个副作用操作，稍微查看一下源码立马能知道它们的作用；其中<code>initially:</code>的作用是让信号在第一次被订阅是调用其block；<code>finally:</code>的作用是在信号的事件流结束（出现完成事件或错误事件）时调用传入的block。</p>
+<h3 id="多个信号的组合"><a href="#多个信号的组合" class="headerlink" title="多个信号的组合"></a>多个信号的组合</h3><p>上面介绍的都是单信号操作，这部分介绍多信号组合操作，在熟悉这些组合操作时，以<code>signalA + signalB =&gt; signalC</code>为例，需要留意几个问题：</p>
+<ul>
+<li>组合得到<code>signalC</code>的信号受哪个信号终止而终止，<code>signalA</code> or <code>signalB</code>？</li>
+<li>当<code>signalA</code>或<code>signalB</code>事件流中出现错误信号，会如何？</li>
+<li>各个信号何时开始被订阅？</li>
+</ul>
+<p><strong>组合操作 – Concat</strong></p>
+<div class="imagediv" style="width:460px; heiht:349px"></div>
+
+<p>在上图中，当<code>signalA</code>的事件流中出现完成事件时，立马订阅<code>signalB</code>，<code>signalC</code>事件流的完成事件与<code>signalB</code>的完成事件对应。同时，注意到当<code>signalA</code>中出现错误事件时，<code>signalC</code>中的事件流与<code>signalA</code>的事件流完全保持一致，就没<code>signalB</code>什么事儿了。</p>
+<p><strong>组合操作 – Merge</strong></p>
+<p>Merge操作比较简单，看图就明白。</p>
+<div class="imagediv" style="width:460px; heiht:349px"></div>
+
+<p>除了<code>signalC = [signalA merge:signalB]</code>这种用法外，还可以这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">signalC = [RACSignal merge:@[signalA, signalB]];</div><div class="line">signalC = [RACSignal merge:RACTuplePack(signalA, signalB)];</div></pre></td></tr></table></figure>
+<p><strong>组合操作 – Zip</strong></p>
+<div class="imagediv" style="width:344px; heiht:344px"></div>
+
+<p>除了<code>signalC = [signalA zip:signalB]</code>这种用法外，还可以这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">signalC = [RACSignal zip:@[signalA, signalB]];</div><div class="line">signalC = [RACSignal zip:RACTuplePack(signalA, signalB)];</div></pre></td></tr></table></figure>
+<p><strong>组合操作 – CombineLatest</strong></p>
+<div class="imagediv" style="width:370px; heiht:339px"></div>
+
+<p>除了<code>signalC = [signalA combineLatest:signalB]</code>这种用法外，还可以这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">signalC = [RACSignal combineLatest:@[signalA, signalB]];</div><div class="line">signalC = [RACSignal combineLatest:RACTuplePack(signalA, signalB)];</div></pre></td></tr></table></figure>
+<p><strong>组合操作 – Sample</strong></p>
+<div class="imagediv" style="width:370px; heiht:170px"></div>
+
+<p>在<code>signalC = [signalA sample:signalB]</code>中，<code>signalB</code>充当<code>signalA</code>的采样信号，一旦<code>signalA</code>或<code>signalB</code>先产生完成事件或者错误事件，<code>signalC</code>的事件流就被终止。</p>
+<p><strong>组合操作 – Take Until</strong></p>
+<div class="imagediv" style="width:370px; heiht:170px"></div>
+
+<p><code>signalC</code>事件流中的事件和<code>signalA</code>一一对应，直到<code>signalB</code>事件流中出现了信号，事件流就终结。</p>
+<p><strong>组合操作 – Take Until Replacement</strong></p>
+<div class="imagediv" style="width:370px; heiht:170px"></div>
+
+<p><code>signalC</code>事件流中的事件和<code>signalA</code>一一对应，一旦<code>signalB</code>事件流中出现了信号，<code>signalC</code>的事件就和<code>signalB</code>形成呼应，当然前提是<code>signalC</code>的事件流还没有终结。</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2016/07/29/reactive-cocoa-part-3/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          ReactiveCocoa实践
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2016/07/28/reactive-cocoa-part-1/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">初识ReactiveCocoa</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

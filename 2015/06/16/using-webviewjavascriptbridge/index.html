@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>使用WebViewJavascriptBridge | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在前面在App中使用Web代替一些Native UI已经成为移动客户端开发的一种思潮。在App中嵌入Web有一个重要的基础问题：Objective-C和JavaScript的交互。
+近期的项目需要，笔者开始着手这方面的问题学习。很容易想到：一定存在某个引擎能够在OC和JS之间转换。去github中搜索关键字iOS JavaScript得到的选择并不多，第三方库WebViewJavascriptB">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用WebViewJavascriptBridge">
+<meta property="og:url" content="http://shinemax1.github.io/2015/06/16/using-webviewjavascriptbridge/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="写在前面在App中使用Web代替一些Native UI已经成为移动客户端开发的一种思潮。在App中嵌入Web有一个重要的基础问题：Objective-C和JavaScript的交互。
+近期的项目需要，笔者开始着手这方面的问题学习。很容易想到：一定存在某个引擎能够在OC和JS之间转换。去github中搜索关键字iOS JavaScript得到的选择并不多，第三方库WebViewJavascriptB">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="使用WebViewJavascriptBridge">
+<meta name="twitter:description" content="写在前面在App中使用Web代替一些Native UI已经成为移动客户端开发的一种思潮。在App中嵌入Web有一个重要的基础问题：Objective-C和JavaScript的交互。
+近期的项目需要，笔者开始着手这方面的问题学习。很容易想到：一定存在某个引擎能够在OC和JS之间转换。去github中搜索关键字iOS JavaScript得到的选择并不多，第三方库WebViewJavascriptB">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-using-webviewjavascriptbridge" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/06/16/using-webviewjavascriptbridge/" class="article-date">
+  	<time datetime="2015-06-16T08:53:35.000Z" itemprop="datePublished">2015-06-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      使用WebViewJavascriptBridge
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>在App中使用Web代替一些Native UI已经成为移动客户端开发的一种思潮。在App中嵌入Web有一个重要的基础问题：Objective-C和JavaScript的交互。</p>
+<p>近期的项目需要，笔者开始着手这方面的问题学习。很容易想到：一定存在某个引擎能够在OC和JS之间转换。去github中搜索关键字<code>iOS JavaScript</code>得到的选择并不多，第三方库<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>的Stars遥遥领先，自然选择它作为OC和JS的交互引擎了。</p>
+<p>本文是笔者了解WebViewJavascriptBridge过程中的一些学习记录，好记性不如烂笔头嘛！</p>
+<h2 id="使用WebViewJavascriptBridge"><a href="#使用WebViewJavascriptBridge" class="headerlink" title="使用WebViewJavascriptBridge"></a>使用WebViewJavascriptBridge</h2><p>WebViewJavascriptBridge的使用不难，<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>提供的Example比较直观的展示了各种接口的使用。</p>
+<p>App中嵌入Web一般需要使用UIWebView（除非你自己写一个），WebViewJavascriptBridge正是配合UIWebView进行工作的。</p>
+<p><strong>初始化</strong></p>
+<p>和其他第三库一样，使用WebViewJavascriptBridge需要做一些初始化，只是WebViewJavascriptBridge的初始化包括两部分：「Objective-C初始化」和「JavaScript初始化」。</p>
+<ul>
+<li>OC初始化</li>
+</ul>
+<p>OC中初始化WebViewJavascriptBridge的前提是存在一个UIWebView对象，每个WebViewJavascriptBridge对象都应该与一个UIWebView对象绑定。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建UIWebView对象</span></div><div class="line"><span class="built_in">UIWebView</span> * webView = [[<span class="built_in">UIWebView</span> alloc] initWithFrame:<span class="keyword">self</span>.view.bounds];</div><div class="line">    </div><div class="line"><span class="comment">// 配置logging</span></div><div class="line">[WebViewJavascriptBridge enableLogging];</div><div class="line">    </div><div class="line"><span class="comment">// 创建WebViewJavascriptBridge对象并与UIWebView对象绑定</span></div><div class="line"><span class="keyword">self</span>.bridge = (&#123;</div><div class="line">    WebViewJavascriptBridge* bridge =</div><div class="line">    [WebViewJavascriptBridge bridgeForWebView:webView</div><div class="line">                              webViewDelegate:<span class="keyword">self</span></div><div class="line">                                      handler:^(<span class="keyword">id</span> data, WVJBResponseCallback responseCallback) &#123;</div><div class="line">                                          <span class="comment">// do something</span></div><div class="line">                                          <span class="comment">// responseCallback(responseData)</span></div><div class="line">                                      &#125;</div><div class="line">     ];</div><div class="line">    bridge;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>使用类方法创建一个WebViewJavascriptBridge对象，其中有一个<code>block</code>类型的handler。这个handler用来处理来自于JavaScript发送的消息，<strong>handler的形参与JavaScript中的send方法的形参对应</strong>，一般有两个参数，第一个参数是JS send传入的参数（可以是任意类类型），第二个是JS send传入的回调handler。</p>
+<p>P.S：看客可能像我当初一样不太理解第二个参数：responseCallback，后文会对此进行详细说明。</p>
+<ul>
+<li>JS初始化</li>
+</ul>
+<p>除了OC外，JS中也得执行针对WebViewJavascriptBridge的初始化代码。这意味着，除了客户端（iOS开发人员）外，服务端（后端写JS的开发人员）也得对WebViewJavascriptBridge有所了解。好在需要理解的内容不多，十分钟就可以搞定。JavaScript对WebViewJavascriptBridge初始化过程（这部分代码几乎是固定的）如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建了一个connectWebViewJavascriptBridge方法，该方法名是固定的</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">connectWebViewJavascriptBridge</span>(<span class="params">callback</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.WebViewJavascriptBridge) &#123;</div><div class="line">        callback(WebViewJavascriptBridge)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">document</span>.addEventListener(<span class="string">'WebViewJavascriptBridgeReady'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            callback(WebViewJavascriptBridge)</div><div class="line">        &#125;, <span class="literal">false</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="comment">// 调用connectWebViewJavascriptBridge方法</span></div><div class="line">connectWebViewJavascriptBridge(<span class="function"><span class="keyword">function</span>(<span class="params">bridge</span>) </span>&#123;</div><div class="line">    bridge.init(<span class="function"><span class="keyword">function</span>(<span class="params">message, responseCallback</span>) </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">        responseCallback(responseData)</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>先创建了一个connectWebViewJavascriptBridge方法，该方法注册了一个WebViewJavascriptBridgeReady事件，同时声明了一个全局的WebViewJavascriptBridge变量，这样我们可以在外部通过WebViewJavascriptBridge调用相关方法。</p>
+<p>在<code>bridge.init</code>里面同样定义了一个匿名function，这个function用来接收Objective-C里面通过send方法发送的消息的，参数与OC里的send方法参数对应。同样，一般有两个参数，第一个参数是OC send传入的参数（可以是任意类类型），第二个是OC send传入的回调handler。</p>
+<p>可以简单总结一下。初始化的根本目的是啥？<br>根据我的理解，初始化的根本目的是：消息接收者定义<code>message handler</code>。</p>
+<p>P.S：请记住<code>message handler</code>这个名词，后文会经常用到。</p>
+<p><strong>发送消息</strong></p>
+<p>上述「初始化」操作的目的是为了确保OC和JS能够相互处理来自对方的消息。</p>
+<p>除了「初始化」操作之外，WebViewJavascriptBridge对发送消息也有所约束，这意味着OC和JS发送消息必须得遵守一定的格式。</p>
+<ul>
+<li>OC向JS发送消息</li>
+</ul>
+<p>OC向JS发送消息，定义了两个用于「发送消息」的接口：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// APIs</span></div><div class="line">- (<span class="keyword">void</span>)send:(<span class="keyword">id</span>)data;</div><div class="line">- (<span class="keyword">void</span>)send:(<span class="keyword">id</span>)data responseCallback: (WVJBResponseCallback)responseCallback;</div></pre></td></tr></table></figure>
+<p>两个接口的区别只是参数个数不同，参数data指的是「传给JS的参数」，responseCallback参数是一个<code>block</code>，给JS发送消息后，JS的<code>message handler</code>可能会返回一些值，responseCallback就是用来处理<strong><em>返回值</em></strong>的。</p>
+<p>P.S：data可以为空；这里的「返回值」并不是非常准确的说法，只是一种参考「函数」的说法，准确来讲应该叫<code>response data</code>。</p>
+<ul>
+<li>JS向OC发送消息</li>
+</ul>
+<p>JS向OC发送消息，WebViewJavascriptBridge也定义了两种格式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">bridge.send(data)</div><div class="line">bridge.send(data, <span class="function"><span class="keyword">function</span> <span class="title">responseCallback</span>(<span class="params">responseData</span>) </span>&#123; ... &#125;)</div></pre></td></tr></table></figure>
+<p>显然，无论是「OC向JS发送消息」，还是「JS向OC发送消息」，都有两种格式，含有<code>responseCallback</code>和不含<code>responseCallback</code>。</p>
+<p>P.S：data可以为空；</p>
+<p><strong>理解responseCallback</strong></p>
+<p>上文已经多次提到了<code>responseCallback</code>，可能是由于笔者对跨平台了解得比较少，也可能是对函数式编程了解不多，刚开始对<code>responseCallback</code>不甚理解。这一小段将对<code>responseCallback</code>进行详细阐述。</p>
+<p>关于「消息处理」和「消息发送」，我是参考「函数定义」和「函数调用」这两个概念来理解的。「函数定义」定义了函数的具体工作（即说明这段代码块都干了些啥），「函数调用」指示执行具体代码块；根据我的理解，从概念上讲，「消息处理」对应「函数定义」，「消息发送」对应「函数调用」。</p>
+<p>这段话非常啰嗦，但引入这么一种对应关系是为了更好说明<code>responseCallback</code>。</p>
+<p>对于函数（广义上的「函数」，而不仅仅指JavaScript function）来说，函数可能有返回值，也可能没有返回值。当有返回值时，调用者往往会定义变量接收返回值，方便之后使用返回值…而上文中反复出现的<code>responseCallback</code>有些类似于对函数返回值的处理，消息发送方向消息接收方发出一个消息，除了希望对方处理某些事情之外，可能还期待对方返回一些数据（<code>response data</code>），这些数据往往会在后续的处理中起作用。</p>
+<p>因此，若「消息接收方」的<code>message handler</code>中可能有需要传给「消息发送方」的<code>response data</code>时，「消息发送方」还需要定义一个handler用来处理这些值，即所谓的<code>responseCallBack</code>。</p>
+<p>P.S：为什么函数处理返回值使用<code>ret = aFunction(variable)</code>这样的格式，而这里使用<code>responseCallBack</code>处理呢？我想是因为这里处理的是两种不同语言，过程中难免存在类型转换，况且，还有可能是由于并发。</p>
+<p>对于函数而言，若某个函数有返回值，但调用者不想要保存该返回值，此时往往不会定义变量接收该返回。这在大多属于语言中是被允许的。</p>
+<p>对于WebViewJavascriptBridge也一样，「消息发送方」发送消息时，可以不传入responseCallback参数，表示对「消息接收方」的<code>response data</code>不care。</p>
+<p>在定义<code>message handler</code>时，在handler的<code>responseCallback(responseData)</code>好比函数中<code>return ret</code>。</p>
+<p>P.S：在定义<code>message handler</code>时，并不要求一定有<code>responseCallback(responseData)</code>这么一句代码；只是个人觉得，有必要写上，哪怕没有任何<code>response data</code>需要返回，也得加上<code>responseCallback(null)</code>。类似于函数，若某个函数没有返回值，也没有显式调用<code>return</code>语句，在编译阶段，编译器也会帮助在末尾加上<code>return void</code>。</p>
+<p>理清了<code>responseCallback</code>这个概念，就基本上算是学会使用WebViewJavascriptBridge了。</p>
+<p><strong>OC和JS互相调用</strong></p>
+<p>「OC和JS互相调用」指的是OC和JS互相对应对方的handler（block或function）。</p>
+<p>笔者刚开始觉得啰嗦：既然「消息机制」能够解决OC和JS交互问题，为啥还需要OC和JS互相调用对方的handler呢？</p>
+<p>我还没有找到比较权威的的说法，但这里也谈谈自己的一点理解。</p>
+<p>先说「函数」，「函数」的本质不过是代码的一种组织结构，它使得代码块具有了更好的可读性，同时极大加强代码复用。</p>
+<p>基于「消息机制」，我们可以尽可能实现任何基于文本交互。可以做的事情非常丰富，譬如「消息发送者」传入参数<code>1</code>，<code>message handler</code>执行A段代码，传入参数<code>2</code>，执行B段代码。但问题是：基于「消息机制」，OC和JS之间的几乎所有交互任务都得写在<code>message handler</code>中。当交互任务变得复杂时，代码组织将是一种灾难（会充斥很长并且嵌套很深的<code>if</code>语句）。以消息的第一个参数data为例，有时候，data可能是一个URL字符串，有时候可能是一个JSON字符串，有时候可能只是一个数值，光是解析这些参数，都需要一个非常复杂的<code>if</code>语句…写到这里，「在OC和JS中定义能被对方调用的handler」的意义就不需要多讲了。</p>
+<p>关于「OC和JS互相调用」，WebViewJavascriptBridge也定义了一些约束。约束包括两部分：定义handler的姿势，调用handler的姿势。</p>
+<p><strong>OC定义和调用JS handler</strong></p>
+<p>所谓定义handler，其实是向bridge注册一个handler，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// API</span></div><div class="line"><span class="comment">// - (void)registerHandler:(NSString *)handlerName handler:(WVJBHandler)handler</span></div><div class="line">    </div><div class="line"><span class="comment">// eg:</span></div><div class="line">[<span class="keyword">self</span>.bridge registerHandler:<span class="string">@"OCHandlerName"</span></div><div class="line">                     handler:^(<span class="keyword">id</span> data, WVJBResponseCallback responseCallback) &#123;</div><div class="line">                         <span class="comment">// do something</span></div><div class="line">                         responseCallback(responseData);</div><div class="line">                 &#125;</div><div class="line"> ];</div></pre></td></tr></table></figure>
+<p>向bridge注册handler包括两部分内容：name和handler body。</p>
+<p>调用JS的handler也简单，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// APIs</span></div><div class="line"><span class="comment">// - (void)callHandler:(NSString *)handlerName;</span></div><div class="line"><span class="comment">// - (void)callHandler:(NSString*)handlerName data:(id)data;</span></div><div class="line"><span class="comment">// - (void)callHandler:(NSString*)handlerName data:(id)data responseCallback:(WVJBResponseCallback)responseCallback;</span></div><div class="line">    </div><div class="line"><span class="comment">// eg：</span></div><div class="line">[<span class="keyword">self</span>.bridge callHandler:<span class="string">@"JSHandlerName"</span> data:data];</div></pre></td></tr></table></figure>
+<p><strong>JS定义和调用OC handler</strong></p>
+<p>在JS定义（注册）handler的姿势如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bridge.registerHandler(<span class="string">"handlerName"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">responseData</span>) </span>&#123; ... &#125;)</div></pre></td></tr></table></figure>
+<p>调用OC的handler也简单，和OC调用JS handler类似。</p>
+<p>。。。。。。</p>
+<p>本文写得好啰嗦啊！</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li><a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge - github</a></li>
+<li><a href="http://dxldy.iteye.com/blog/2078350?utm_source=tuicool" target="_blank" rel="external">《WebViewJavascriptBridge使用说明（iOS）》</a></li>
+<li><a href="http://honglu.me/2014/09/27/WebViewJavascriptBridge使用/" target="_blank" rel="external">《WebViewJavascriptBridge使用》</a></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/06/22/ibinspectable-and-ibdesignable/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          IBInspectable和IBDesignable
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/06/16/uiwebview-load-local-html/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">UIWebView加载本地HTML文件</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

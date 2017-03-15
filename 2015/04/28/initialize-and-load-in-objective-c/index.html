@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>Objective-C中的+initialize和+load | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="写在前面近几天花了一些时间了解了一下Objective-C runtime相关的东西，其中涉及到了+load方法，譬如method swizzling通常在category的+load方法中完成。之前对initializer和load的使用就比较疑惑，但一直没有详细去对比了解，以此为契机，集各方资源，分析一下吧！
+关于了解+initialize和+load，个人感觉参考官方文档《NSObject">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C中的+initialize和+load">
+<meta property="og:url" content="http://shinemax1.github.io/2015/04/28/initialize-and-load-in-objective-c/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="写在前面近几天花了一些时间了解了一下Objective-C runtime相关的东西，其中涉及到了+load方法，譬如method swizzling通常在category的+load方法中完成。之前对initializer和load的使用就比较疑惑，但一直没有详细去对比了解，以此为契机，集各方资源，分析一下吧！
+关于了解+initialize和+load，个人感觉参考官方文档《NSObject">
+<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Objective-C中的+initialize和+load">
+<meta name="twitter:description" content="写在前面近几天花了一些时间了解了一下Objective-C runtime相关的东西，其中涉及到了+load方法，譬如method swizzling通常在category的+load方法中完成。之前对initializer和load的使用就比较疑惑，但一直没有详细去对比了解，以此为契机，集各方资源，分析一下吧！
+关于了解+initialize和+load，个人感觉参考官方文档《NSObject">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/iOS/">Android相关</a></li>
+				        
+							<li><a href="/categories/essay">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/iOS/">Android相关</a></li>
+		        
+					<li><a href="/categories/essay">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-initialize-and-load-in-objective-c" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/28/initialize-and-load-in-objective-c/" class="article-date">
+  	<time datetime="2015-04-28T06:14:13.000Z" itemprop="datePublished">2015-04-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Objective-C中的+initialize和+load
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>近几天花了一些时间了解了一下Objective-C runtime相关的东西，其中涉及到了<code>+load</code>方法，譬如method swizzling通常在category的<code>+load</code>方法中完成。之前对initializer和load的使用就比较疑惑，但一直没有详细去对比了解，以此为契机，集各方资源，分析一下吧！</p>
+<p>关于了解<code>+initialize</code>和<code>+load</code>，个人感觉参考官方文档《NSObject Class Reference》就够了。</p>
+<h2 id="initialize"><a href="#initialize" class="headerlink" title="+initialize"></a>+initialize</h2><p>关于<code>+initialize</code>方法，《NSObject Class Reference》的介绍如下：</p>
+<blockquote>
+<p>Initializes the class before it receives its first message.</p>
+</blockquote>
+<p>可以理解<code>+initialize</code>的作用是为了该Class在使用前创建合适的环境；</p>
+<p>关于其使用，《NSObject Class Reference》的说明如下：</p>
+<blockquote>
+<p>The runtime sends initialize to each class in a program just before the class, or any class that inherits from it, is sent its first message from within the program. The runtime sends the initialize message to classes in a thread-safe manner. Superclasses receive this message before their subclasses. The superclass implementation may be called multiple times if subclasses do not implement initialize—the runtime will call the inherited implementation—or if subclasses explicitly call [super initialize].</p>
+</blockquote>
+<p>这上面这段话，可以得出如下这么一些意思：</p>
+<ul>
+<li><code>+initialize</code>方法是在runtime被调用的；</li>
+<li>对于某个类，其类<code>+initialize</code>方法都会在该对象接受任何消息之前被调用；</li>
+<li>如果父类和子类的<code>+initialize</code>方法都被调用，父类的调用一定在子类之前，这是系统自动完成的，子类<code>+initialize</code>中没必要显式调用<code>[super initialize];</code>；</li>
+<li>runtime系统处理<code>+initialize</code>消息的方式是线程安全的，所以没必要在<code>+initialize</code>中为了保证线程安全而使用lock、mutex之类的线程安全工具；</li>
+<li>某个类的<code>+initialize</code>的方法不一定只被调用一次，至少有两种情况会被调用多次：<ul>
+<li>子类显式调用<code>[super initialize];</code>；</li>
+<li>子类没有实现<code>+initialize</code>方法；</li>
+</ul>
+</li>
+</ul>
+<p>下面以示例演示某个类的<code>+initialize</code>被多次执行的现象。</p>
+<p>定义三个类：<code>Person</code>、<code>Student</code>、<code>Teacher</code>，<code>Student</code>和<code>Teacher</code>继承自<code>Person</code>，<code>Person</code>继承自<code>NSObject</code>。<code>Person</code>和<code>Student</code>都实现了<code>+initialize</code>方法，<code>Teacher</code>没有实现该方法，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Person的+initialize方法的实现</span></div><div class="line">+ (<span class="keyword">void</span>)initialize &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Person initialize"</span>);</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="comment">// Student的+initialize方法的实现</span></div><div class="line">+ (<span class="keyword">void</span>)initialize &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Student initialize"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>执行效果如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    Student *aStudent = [[Student alloc] init];</div><div class="line">    Teacher *aTeacher = [[Teacher alloc] init];</div><div class="line">    </div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="comment">/* 输出：</span></div><div class="line">Person initialize</div><div class="line">Student initialize</div><div class="line">Person initialize</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>可以看到，对于<code>Student</code>，在其<code>+initialize</code>方法被调用之前，其super class（<code>Person</code>）的<code>+initialize</code>方法被率先调用；对于<code>Teacher</code>，没有定义<code>+initialize</code>方法，所以它会直接调用super class（Person）的<code>+initialize</code>方法，这就导致了Person的<code>+initialize</code>方法被执行两次。</p>
+<p>有没有办法避免<code>Person</code>的<code>+initialize</code>方法被多次调用？当然可以：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Person的+initialize方法的实现</span></div><div class="line">+ (<span class="keyword">void</span>)initialize &#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">BOOL</span> b = <span class="literal">false</span>;</div><div class="line">    <span class="keyword">if</span> (!b) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Person initialize"</span>);</div><div class="line">        b = <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>也可以这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Person的+initialize方法的实现</span></div><div class="line">+ (<span class="keyword">void</span>)initialize &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> == [Person <span class="keyword">class</span>]) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Person initialize"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>《NSObject Class Reference》中还对<code>+initialize</code>方法的使用做了一些警告：</p>
+<blockquote>
+<p>Because initialize is called in a thread-safe manner and the order of initialize being called on different classes is not guaranteed, it’s important to do the minimum amount of work necessary in initialize methods. Specifically, any code that takes locks that might be required by other classes in their initialize methods is liable to lead to deadlocks. Therefore you should not rely on initialize for complex initialization, and should instead limit it to straightforward, class local initialization.</p>
+</blockquote>
+<p>总结一下，就是这样：不要在<code>+initialize</code>中处理复杂的逻辑！</p>
+<p>那么<code>+initialize</code>可以做些什么事情呢？可以做一些简单的初始化工作，譬如对于某个继承自<code>UICollectionViewCell</code>的自定义类<code>PhotoViewCell</code>，<code>PhotoViewCell</code>的对象可能会有一些公用资源，譬如label color，label font等等，没必要在<code>-initXXOO</code>方法中创建这些完全一样的资源，此时就可以放在<code>PhotoViewCell</code>中的<code>+initialize</code>中完成，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)initialize &#123;</div><div class="line">    titleFont       = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">12</span>];</div><div class="line">    titleHeight     = <span class="number">20.0</span>f;</div><div class="line">    videoIcon       = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"CTAssetsPickerVideo"</span>];</div><div class="line">    titleColor      = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">    checkedIcon     = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"CTAssetsPickerChecked"</span>];</div><div class="line">    selectedColor   = [<span class="built_in">UIColor</span> colorWithWhite:<span class="number">1</span> alpha:<span class="number">0.3</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>+initialize</code>终究还是带来惊人的信息量，颇为失望。</p>
+<h2 id="load"><a href="#load" class="headerlink" title="+load"></a>+load</h2><p>关于<code>+load</code>方法，《NSObject Class Reference》的介绍如下：</p>
+<blockquote>
+<p>Invoked whenever a class or category is added to the Objective-C runtime; implement this method to perform class-specific behavior upon loading.</p>
+</blockquote>
+<p>关于其使用，《NSObject Class Reference》的说明如下：</p>
+<blockquote>
+<p>The load message is sent to classes and categories that are both dynamically loaded and statically linked, but only if the newly loaded class or category implements a method that can respond.</p>
+<p>The order of initialization is as follows:</p>
+<blockquote>
+<ol>
+<li>All initializers in any framework you link to.</li>
+<li>All +load methods in your image.</li>
+<li>All C++ static initializers and C/C++ <strong>attribute</strong>(constructor) functions in your image.</li>
+<li>All initializers in frameworks that link to you.</li>
+</ol>
+</blockquote>
+<p>In addition:</p>
+<ul>
+<li>A class’s +load method is called after all of its superclasses’ +load methods.</li>
+<li>A category +load method is called after the class’s own +load method.<br>In a custom implementation of load you can therefore safely message other unrelated classes from the same image, but any load methods implemented by those classes may not have run yet.</li>
+</ul>
+</blockquote>
+<p>从这段文字可以读出如下信息：</p>
+<ul>
+<li>在一个程序（main函数）运行之前，所用到的库被加载到runtime之后，被添加到的runtime系统的各种类和category的<code>+load</code>方法就被调用；（关于这点很容易通过打印语句来验证）；</li>
+<li>如果父类和子类的<code>+load</code>方法都被调用，父类的调用一定在子类之前，这是系统自动完成的，子类<code>+load</code>中没必要显式调用<code>[super load];</code>；</li>
+<li>文档没有讲明<code>+load</code>的执行是否是线程安全的，但考虑到它是在runtime之前就调用，所以谈论它是否是线程安全没啥必要，根据我的理解，多线程在runtime才有谈论意义；</li>
+<li>若某个类由一个主类和多个category组成，则允许主类和category中各自有自己的<code>+load</code>方法，只是category中的<code>+load</code>的执行在主类的<code>+load</code>之后；</li>
+</ul>
+<p>关于<code>+load</code>的使用场景，笔者知道的至少有一个，method swizzling的处理一般都在category的<code>+load</code>中完成的，参考<a href="/unstanding-objective-c-runtime-part-4/">这里</a>。</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li>《NSObject Class Reference》</li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2015/04/29/understanding-kvo/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          深入理解KVO
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2015/04/27/understanding-objective-c-runtime-part-4/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">理解Objective-C Runtime（四）Method Swizzling</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2017 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
