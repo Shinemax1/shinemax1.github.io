@@ -112,7 +112,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a>
 					</div>
 				</section>
 				
@@ -183,95 +183,6 @@
 </nav>
 
       <div class="body-wrap">
-  
-    <article id="post-using-afnetworking-part-2" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/05/using-afnetworking-part-2/" class="article-date">
-  	<time datetime="2015-04-04T18:04:32.000Z" itemprop="datePublished">2015-04-05</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/05/using-afnetworking-part-2/">AFNetworking使用笔记 第二弹</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>接着<a href="/using-afnetworking-part-1/">AFNetworking使用笔记 第一弹</a>继续写。本文分析两个问题：</p>
-<ul>
-<li>AFNetworking网络任务的创建是在哪个线程执行的？</li>
-<li>网络任务的completion handler在哪一个线程被调用？</li>
-</ul>
-<h2 id="发送请求消息"><a href="#发送请求消息" class="headerlink" title="发送请求消息"></a>发送请求消息</h2><p>这一部分内容的着重点在于回答「AFNetworking网络任务的创建是在哪个线程执行的？」这个问题。其实这个问题也可以这样问「AFNetworking网络任务的创建是在main thread中完成的吗？」。</p>
-<p>开始分析，以<code>AFHTTPSessionManager</code>的POST方法为例，如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSURLSessionDataTask</span> *)POST:(<span class="built_in">NSString</span> *)URLString</div><div class="line">                    parameters:(<span class="keyword">id</span>)parameters</div><div class="line">                       success:(<span class="keyword">void</span> (^)(<span class="built_in">NSURLSessionDataTask</span> *task, <span class="keyword">id</span> responseObject))success</div><div class="line">                       failure:(<span class="keyword">void</span> (^)(<span class="built_in">NSURLSessionDataTask</span> *task, <span class="built_in">NSError</span> *error))failure</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSURLSessionDataTask</span> *dataTask = [<span class="keyword">self</span> dataTaskWithHTTPMethod:<span class="string">@"POST"</span></div><div class="line">                                                        URLString:URLString</div><div class="line">                                                       parameters:parameters</div><div class="line">                                                          success:success</div><div class="line">                                                          failure:failure];</div><div class="line">    </div><div class="line">    [dataTask resume];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> dataTask;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>其所作的事情很简单，创建一个<code>NSURLSessionDataTask</code>实例，并将它激活（resume），然后返回它。</p>
-<p>进入<code>NSURLSessionDataTask</code>实例创建过程，最终进入如下方法：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSURLSessionDataTask</span> *)dataTaskWithRequest:(<span class="built_in">NSURLRequest</span> *)request</div><div class="line">                            completionHandler:(<span class="keyword">void</span> (^)(<span class="built_in">NSURLResponse</span> *response,</div><div class="line">                                                        <span class="keyword">id</span> responseObject,</div><div class="line">                                                        <span class="built_in">NSError</span> *error))completionHandler</div><div class="line">&#123;</div><div class="line">    __block <span class="built_in">NSURLSessionDataTask</span> *dataTask = <span class="literal">nil</span>;</div><div class="line">    <span class="built_in">dispatch_sync</span>(url_session_manager_creation_queue(), ^&#123;</div><div class="line">        dataTask = [<span class="keyword">self</span>.session dataTaskWithRequest:request];</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    [<span class="keyword">self</span> addDelegateForDataTask:dataTask completionHandler:completionHandler];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> dataTask;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>显然<code>url_session_manager_creation_queue()</code>是关键：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="built_in">dispatch_queue_t</span> url_session_manager_creation_queue() &#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_queue_t</span> af_url_session_manager_creation_queue;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        af_url_session_manager_creation_queue =</div><div class="line">        dispatch_queue_create(<span class="string">"com.alamofire.networking.session.manager.creation"</span>,</div><div class="line">                              DISPATCH_QUEUE_SERIAL);</div><div class="line">    &#125;);</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> af_url_session_manager_creation_queue;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>现在应该可以得出答案了：</p>
-<ul>
-<li>根据上述的<code>dataTaskWithRequest:completionHandler:</code>里的代码段<code>dispatch_sync(...)</code>可以知道，创建网络任务的过程是同步完成的；</li>
-<li>根据<code>url_session_manager_creation_queue()</code>的实现代码可以知道，创建网络任务的过程是并不是在main thread中完成的；</li>
-</ul>
-<p>这里分析的是基于POST请求消息的data task，其他task也是差不多，总之，我们可以得出结论，网络任务的创建并不是在main thread中进行的。</p>
-<h2 id="处理响应消息"><a href="#处理响应消息" class="headerlink" title="处理响应消息"></a>处理响应消息</h2><p>这一部分内容的着重点在于回答「网络任务的completion handler在哪一个线程被调用？」。</p>
-<p>依旧以POST请求消息的响应为例，<code>dataTaskWithHTTPMethod:URLString:parameters:success:failure:</code>方法代码如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div></pre></td><td class="code"><pre><div class="line">- (<span class="built_in">NSURLSessionDataTask</span> *)dataTaskWithHTTPMethod:(<span class="built_in">NSString</span> *)method</div><div class="line">                                       URLString:(<span class="built_in">NSString</span> *)URLString</div><div class="line">                                      parameters:(<span class="keyword">id</span>)parameters</div><div class="line">                                         success:(<span class="keyword">void</span> (^)(<span class="built_in">NSURLSessionDataTask</span> *, <span class="keyword">id</span>))success</div><div class="line">                                         failure:(<span class="keyword">void</span> (^)(<span class="built_in">NSURLSessionDataTask</span> *, <span class="built_in">NSError</span> *))failure</div><div class="line">&#123;</div><div class="line">    <span class="built_in">NSError</span> *serializationError = <span class="literal">nil</span>;</div><div class="line">    <span class="built_in">NSMutableURLRequest</span> *request =</div><div class="line">        [<span class="keyword">self</span>.requestSerializer requestWithMethod:method</div><div class="line">                                    URLString:[[<span class="built_in">NSURL</span> URLWithString:URLString</div><div class="line">                                                      relativeToURL:<span class="keyword">self</span>.baseURL] absoluteString]</div><div class="line">                                   parameters:parameters</div><div class="line">                                        error:&amp;serializationError];</div><div class="line">    <span class="keyword">if</span> (serializationError) &#123;</div><div class="line">        <span class="keyword">if</span> (failure) &#123;</div><div class="line">            <span class="built_in">dispatch_async</span>(<span class="keyword">self</span>.completionQueue ?: dispatch_get_main_queue(), ^&#123;</div><div class="line">                failure(<span class="literal">nil</span>, serializationError);</div><div class="line">            &#125;);</div><div class="line">        &#125;</div><div class="line">    </div><div class="line">        <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    __block <span class="built_in">NSURLSessionDataTask</span> *dataTask = <span class="literal">nil</span>;</div><div class="line">    dataTask = [<span class="keyword">self</span> dataTaskWithRequest:request</div><div class="line">                       completionHandler:^(<span class="built_in">NSURLResponse</span> * __unused response,</div><div class="line">                                           <span class="keyword">id</span> responseObject, <span class="built_in">NSError</span> *error) &#123;</div><div class="line">        <span class="keyword">if</span> (error) &#123;</div><div class="line">            <span class="keyword">if</span> (failure) &#123;</div><div class="line">                failure(dataTask, error);</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">if</span> (success) &#123;</div><div class="line">                success(dataTask, responseObject);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    <span class="keyword">return</span> dataTask;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>有上述代码可以看到，当构造请求消息失败时，会异步在main thread中调用completionHandler block。</p>
-<p>当接收到响应消息时，相应的处理在<code>AFURLSessionManager</code>类的<br><code>URLSession:task:didCompleteWithError:</code>方法中完成，该方法代码如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)URLSession:(__unused <span class="built_in">NSURLSession</span> *)session</div><div class="line">              task:(<span class="built_in">NSURLSessionTask</span> *)task</div><div class="line">didCompleteWithError:(<span class="built_in">NSError</span> *)error</div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (error) &#123;</div><div class="line">        dispatch_group_async(manager.completionGroup ?: url_session_manager_completion_group(), manager.completionQueue ?: dispatch_get_main_queue(), ^&#123;</div><div class="line">            <span class="keyword">if</span> (<span class="keyword">self</span>.completionHandler) &#123;</div><div class="line">                <span class="keyword">self</span>.completionHandler(task.response, responseObject, error);</div><div class="line">            &#125;</div><div class="line">    </div><div class="line">            <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">                [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:AFNetworkingTaskDidCompleteNotification object:task userInfo:userInfo];</div><div class="line">            &#125;);</div><div class="line">        &#125;);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">dispatch_async</span>(url_session_manager_processing_queue(), ^&#123;</div><div class="line">            <span class="built_in">NSError</span> *serializationError = <span class="literal">nil</span>;</div><div class="line">            responseObject = [manager.responseSerializer responseObjectForResponse:task.response data:[<span class="built_in">NSData</span> dataWithData:<span class="keyword">self</span>.mutableData] error:&amp;serializationError];</div><div class="line">    </div><div class="line">            <span class="keyword">if</span> (<span class="keyword">self</span>.downloadFileURL) &#123;</div><div class="line">                responseObject = <span class="keyword">self</span>.downloadFileURL;</div><div class="line">            &#125;</div><div class="line">    </div><div class="line">            <span class="keyword">if</span> (responseObject) &#123;</div><div class="line">                userInfo[AFNetworkingTaskDidCompleteSerializedResponseKey] = responseObject;</div><div class="line">            &#125;</div><div class="line">    </div><div class="line">            <span class="keyword">if</span> (serializationError) &#123;</div><div class="line">                userInfo[AFNetworkingTaskDidCompleteErrorKey] = serializationError;</div><div class="line">            &#125;</div><div class="line">    </div><div class="line">            dispatch_group_async(manager.completionGroup ?: url_session_manager_completion_group(), manager.completionQueue ?: dispatch_get_main_queue(), ^&#123;</div><div class="line">                <span class="keyword">if</span> (<span class="keyword">self</span>.completionHandler) &#123;</div><div class="line">                    <span class="keyword">self</span>.completionHandler(task.response, responseObject, serializationError);</div><div class="line">                &#125;</div><div class="line">    </div><div class="line">                <span class="built_in">dispatch_async</span>(dispatch_get_main_queue(), ^&#123;</div><div class="line">                    [[<span class="built_in">NSNotificationCenter</span> defaultCenter] postNotificationName:AFNetworkingTaskDidCompleteNotification object:task userInfo:userInfo];</div><div class="line">                &#125;);</div><div class="line">            &#125;);</div><div class="line">        &#125;);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>上述代码中出现了<code>url_session_manager_processing_queue()</code>方法，其定义如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="built_in">dispatch_queue_t</span> url_session_manager_processing_queue() &#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_queue_t</span> af_url_session_manager_processing_queue;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        af_url_session_manager_processing_queue = dispatch_queue_create(<span class="string">"com.alamofire.networking.session.manager.processing"</span>, DISPATCH_QUEUE_CONCURRENT);</div><div class="line">    &#125;);</div><div class="line"></div><div class="line">    <span class="keyword">return</span> af_url_session_manager_processing_queue;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>通过这段代码可以看到，当response出现错误时，AFNetworking会在main thread异步调用completionHandler block；若response没有错误时，就会在异步并行队列中对response进行处理，处理完之后，再在main thread中调用completionHandler block。</p>
-<p>总之，请求消息的构建工作是以同步形式在非main thread中进行的；对response的处理是以异步形式在非main thread中处理的；无论是哪个步骤的处理失败和成功，都会在main thread中执行completionHandler block。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AFNetworking/">AFNetworking</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
   
     <article id="post-using-afnetworking-part-1" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -721,6 +632,84 @@
 <h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
 <li><a href="http://www.raywenderlich.com/19788/how-to-use-nsoperations-and-nsoperationqueues" target="_blank" rel="external">How To Use NSOperations and NSOperationQueues</a>；</li>
 <li><a href="https://developer.apple.com/library/ios/documentation/General/Conceptual/ConcurrencyProgrammingGuide/Introduction/Introduction.html" target="_blank" rel="external">Concurrency Programming Guide</a></li>
+<li><a href="https://book.douban.com/subject/21370593/" target="_blank" rel="external">Effective Objective-C 2.0</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GCD/">GCD</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-using-gcd-part-3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/02/01/using-gcd-part-3/" class="article-date">
+  	<time datetime="2015-02-01T05:53:40.000Z" itemprop="datePublished">2015-02-01</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/02/01/using-gcd-part-3/">GCD实践（三）使用dispatch_once来执行只需运行一次的线程安全代码</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>单例模式（singleton）对Objective-C开发者而言并不陌生，常见的实现方式为：在类编写名为<code>sharedInstance</code>的方法，该方法只会返回全类共用的单例实例，而不会在每次调用时都创建新的实例。假设有一个类叫<code>TestClass</code>，那么这个共享实例一般会这么写：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">id</span>)sharedInstance &#123;</div><div class="line">    <span class="keyword">static</span> TestClass *sharedInstance = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">@synchronized</span>(<span class="keyword">self</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (!sharedInstance) &#123;</div><div class="line">            sharedInstance = [[<span class="keyword">self</span> alloc] init];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> sharedInstance;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>单例模式很容易引起激励讨论，Objective-C的单例尤其如此。线程安全是大家争论的主要问题。为了保证线程安全，上述代码将创建单例实例的代码包裹在<strong>同步块</strong>里。无论是好是坏，反正这种实现方式很常用，这样的代码也随处可见。</p>
+<p>不过，GCD引入了一项特性，能使单例实现起来更加容易。所用的函数是：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> <span class="built_in">dispatch_once</span>(<span class="built_in">dispatch_once_t</span> *token, dispatch_block_t block);</div></pre></td></tr></table></figure>
+<p>此函数接受类型为<code>dispatch_once_t</code>的特殊参数，称其为<strong>标记</strong>（token），此外还接受block参数，对于给定token来说，该函数保证相关的block必定会执行，且仅执行一次。首次调用该函数时，必然会执行block的代码，最重要的一点在于，此操作完全是线程安全的。请注意，对于只需执行一次的块来说，每次调用函数时传入的token都必须是完全相同的。因此，开发者通常将标记变量声明在<code>static</code>或<code>global</code>作用域里。</p>
+<p>上述实现单例模式所用的<code>sharedInstance</code>方法，可以用此函数来改写：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">id</span>)sharedInstance &#123;</div><div class="line">    <span class="keyword">static</span> TestClass *sharedInstance;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;   <span class="comment">// typedef long dispatch_once_t;</span></div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        sharedInstance = [[<span class="keyword">self</span> alloc] init];</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> sharedInstance;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>使用<code>disptch_once</code>可以简化代码并且彻底保证线程安全，开发者根本无须担心加锁或同步。所有问题都由GCD在底层处理。由于每次调用时都必须使用完全相同的token，所以token要声明成<code>static</code>。把该变量定义在<code>static</code>作用域中，可以保证编译器在每次执行<code>sharedInstance</code>方法时都会复用这个变量，而不会创建新变量。</p>
+<p>此外，<code>dispatch_once</code>更高效。它没有使用重量级的同步机制，若是那样做的话，每次运行代码前都要获取锁，相反，此函数采用原子访问（atomic access）来查询标记，以判断其所对应的代码原来是否已经执行过。《Effective Objective-C 2.0》的作者在装有64位的Mac OS X 10.8.2系统的电脑上简单测试了性能，分别采用<code>@synchronized</code>方式及<code>dispatch_once</code>方式来实现<code>sharedInstance</code>，结果显示，后者的速度几乎是前者的2倍。</p>
+<p>总结：</p>
+<ol>
+<li>经常需要编写<strong>只需执行一次的线程安全代码</strong>（thread-safe single-code execution），通过GCD提供的<code>dispatch_once</code>函数，很容易就能实现此功能。</li>
+<li>token应该声明在<code>static</code>或<code>global</code>中，这样的话，在把只需一次执行的块传给<code>dispatch_once</code>函数时，传进去的标记也是相同的。</li>
+</ol>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
 <li><a href="https://book.douban.com/subject/21370593/" target="_blank" rel="external">Effective Objective-C 2.0</a></li>
 </ul>
 
