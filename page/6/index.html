@@ -112,7 +112,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a>
 					</div>
 				</section>
 				
@@ -183,6 +183,375 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-ibinspectable-and-ibdesignable" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/06/22/ibinspectable-and-ibdesignable/" class="article-date">
+  	<time datetime="2015-06-22T02:50:45.000Z" itemprop="datePublished">2015-06-22</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/22/ibinspectable-and-ibdesignable/">IBInspectable和IBDesignable</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>第一次遇到<code>IBInspectable</code>是在<a href="https://github.com/romaonthego/RESideMenu" target="_blank" rel="external">RESideMenu</a>中，RESideMenu是github上非常著名的一个开源库，主要是实现侧滑菜单，到今天已经有四千多stars了；关于RESideMenu的更多信息，可以移步到github中去查找。</p>
+<p>在使用RESideMenu的过程中，看到这样的场景：</p>
+<div class="imagediv" style="width: 390px; height: 450px"></div>
+
+<p>当时就勾起了我的好奇心，因为我早就想着Apple啥时候能让自定义View或ViewController能够在Interface Builder中进行配置（编辑属性）。</p>
+<p>后来查看RESideMenu.h文件，看到一个从未见过的关键字<code>IBInspectable</code>：</p>
+<div class="imagediv" style="width: 670px; height: 510px"></div>
+
+<p>问题似乎变得很清晰了，<code>IBInspectable</code>指令能够让我们在Interface Builder中编辑对应类的属性。</p>
+<p>接着在搜索引擎中搜索<code>IBInspectable</code>关键字，才搞明白<code>IBInspectable</code>是Xcode6新引入的指令，同时引入的还有另外一个指令<code>IBDesignable</code>。</p>
+<p><strong>IBInspectable和IBDesignable</strong></p>
+<p>Apple的官方文档《<a href="https://developer.apple.com/library/prerelease/ios/documentation/Swift/Conceptual/BuildingCocoaApps/WritingSwiftClassesWithObjective-CBehavior.html" target="_blank" rel="external">Using Swift With Cocoa and Objective-C</a>》中有关于<code>IBInspectable</code>和<code>IBDesignable</code>的介绍，如下：</p>
+<div class="imagediv" style="width: 684px; height: 352px"></div>
+
+<p>简单来说，<code>IBInspectable</code>使得在Interface Builder的Attribute Inspector（属性检查器）中能够查看类的属性，而<code>IBDesignable</code>能实时更新视图，很厉害吧！</p>
+<p>P.S: inspectable表示「可视的」。</p>
+<p>下面将以实际例子更加生动说明<code>IBInspectable</code>和<code>IBDesignable</code>的使用方法和效果。</p>
+<p><strong>使用IBInspectable</strong></p>
+<p>举个栗子，定义一个继承自UIView的类CustomView，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CustomView</span> : <span class="title">UIView</span></span></div><div class="line">    </div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) IBInspectable <span class="built_in">CGFloat</span> customWidth;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) IBInspectable <span class="built_in">CGFloat</span> customHeight;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) IBInspectable <span class="built_in">NSString</span> *customTitle;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">strong</span>) IBInspectable <span class="built_in">UIColor</span> *customColor;</div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) IBInspectable <span class="built_in">BOOL</span> customHidden;</div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>再在Interface Builder中创建一个View，该View的Custom Class指向到刚刚创建的类Custom View，在其Attributes Inspector中果然能够实时看到如下信息：</p>
+<div class="imagediv" style="width: 304px; height: 143px"></div>
+
+<p>这使得我们能够添加一些自定义的运行时属性，这些属性将会在view加载时设置它的初始值。</p>
+<div class="imagediv" style="width: 304px; height: 151px"></div>
+
+<p><strong>使用IBDesignable</strong></p>
+<p>上文已经讲过：<code>IBDesignable</code>能实时更新视图。具体是怎么回事儿呢？</p>
+<p>关于<code>IBDesignable</code>的内容摘自[IBInspectable/IBDesignable]（<a href="http://www.cocoachina.com/ios/20150227/11202.html）" target="_blank" rel="external">http://www.cocoachina.com/ios/20150227/11202.html）</a></p>
+<p>当应用到UIView或NSView子类中的时候，IBDesignable让Interface Builder知道它应该在画布上直接渲染视图。你会看到你的自定义视图在每次更改后不必编译并运行你的应用程序就会显示。</p>
+<p>标记一个自定义视图为Designable，只需在类名前加上IBDesignable的前缀（Objective-C中加上IB_DESIGNABLE）。你的初始化、布置和绘制方法将被用来在画布上渲染你的自定义视图：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">IB_DESIGNABLE</div><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CustomView</span> : <span class="title">UIView</span></span></div><div class="line">    ...</div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<div class="imagediv" style="width: 452px; height: 148px"></div>
+
+<p>从这个功能上节约的时间是不能被低估的。加上<code>IBInspectable</code>，一个设计师或开发人员可以轻松地调整自定义控件的呈现，以得到她想要的确切的结果。任何改变，无论是从代码或属性检查器中，都将立即呈现在画布上。</p>
+<p>由于在Interface Builder中呈现自定义视图不会有应用程序的完整上下文，你可能需要生成模拟数据以便显示，例如一个默认用户头像图片或仿制的天气数据。有两种方法可以为这个特殊的上下文添加代码。</p>
+<p>第一种是使用<code>prepareForInterfaceBuilder()</code>方法。<br><code>prepareForInterfaceBuilder()</code>方法与你代码的其余部分一起编译，但只有当视图正在准备在Interface Builder显示时执行。</p>
+<p>第二种是使用<code>#if TARGET_INTERFACE_BUILDER</code>宏。<br><code>#if TARGET_INTERFACE_BUILDER</code>预处理宏在Objective-C或Swift下都是工作的，它会视情况编译正确代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#if !TARGET_INTERFACE_BUILDER</span></div><div class="line">    <span class="comment">// this code will run in the app itself</span></div><div class="line"><span class="meta">#else</span></div><div class="line">    <span class="comment">// this code will execute only in IB</span></div><div class="line"><span class="meta">#endif</span></div></pre></td></tr></table></figure>
+<p><strong>IBDesignable和IBInspectable结合使用</strong></p>
+<p>把自定义IBDesignable视图和视图里的IBInspectable属性结合在一起，你能干点啥？作为一个例子，让我们更新老式经典<a href="http://www.folklore.org/StoryView.py?story=Calculator_Construction_Set.txt" target="_blank" rel="external">Apple folklore</a>：在“Steve Jobs Roll Your Own Calculator Construction Set”，Xcode 6的风格：</p>
+<div class="imagediv" style="width: 445px; height: 460px"></div>
+
+<h2 id="写在最后"><a href="#写在最后" class="headerlink" title="写在最后"></a>写在最后</h2><p>介绍<code>IBDesignable</code>的内容完全摘自《<a href="http://www.cocoachina.com/ios/20150227/11202.html" target="_blank" rel="external">IBInspectable/IBDesignable</a>》，还不是非常理解，至少对<code>IBDesignable</code>的强大功能的体会还不够深，希望以后能够补充更多的示例说明。</p>
+<p>最后，再次让我感觉到iOS开发不是我想象中那么简单的，我甚至连很多工具都没使用好，路漫漫其修远兮！</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li><a href="http://www.cocoachina.com/industry/20140619/8883.html" target="_blank" rel="external">如何在iOS 8中使用Swift和Xcode 6制作精美的UI组件</a></li>
+<li><a href="http://www.weheartswift.com/make-awesome-ui-components-ios-8-using-swift-xcode-6/" target="_blank" rel="external">How to make awesome UI components in iOS 8 using Swift and XCode 6</a></li>
+<li><a href="http://www.cocoachina.com/ios/20150227/11202.html" target="_blank" rel="external">IBInspectable/IBDesignable</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Xcode/">Xcode</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-using-webviewjavascriptbridge" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/06/16/using-webviewjavascriptbridge/" class="article-date">
+  	<time datetime="2015-06-16T08:53:35.000Z" itemprop="datePublished">2015-06-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/16/using-webviewjavascriptbridge/">使用WebViewJavascriptBridge</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>在App中使用Web代替一些Native UI已经成为移动客户端开发的一种思潮。在App中嵌入Web有一个重要的基础问题：Objective-C和JavaScript的交互。</p>
+<p>近期的项目需要，笔者开始着手这方面的问题学习。很容易想到：一定存在某个引擎能够在OC和JS之间转换。去github中搜索关键字<code>iOS JavaScript</code>得到的选择并不多，第三方库<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>的Stars遥遥领先，自然选择它作为OC和JS的交互引擎了。</p>
+<p>本文是笔者了解WebViewJavascriptBridge过程中的一些学习记录，好记性不如烂笔头嘛！</p>
+<h2 id="使用WebViewJavascriptBridge"><a href="#使用WebViewJavascriptBridge" class="headerlink" title="使用WebViewJavascriptBridge"></a>使用WebViewJavascriptBridge</h2><p>WebViewJavascriptBridge的使用不难，<a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge</a>提供的Example比较直观的展示了各种接口的使用。</p>
+<p>App中嵌入Web一般需要使用UIWebView（除非你自己写一个），WebViewJavascriptBridge正是配合UIWebView进行工作的。</p>
+<p><strong>初始化</strong></p>
+<p>和其他第三库一样，使用WebViewJavascriptBridge需要做一些初始化，只是WebViewJavascriptBridge的初始化包括两部分：「Objective-C初始化」和「JavaScript初始化」。</p>
+<ul>
+<li>OC初始化</li>
+</ul>
+<p>OC中初始化WebViewJavascriptBridge的前提是存在一个UIWebView对象，每个WebViewJavascriptBridge对象都应该与一个UIWebView对象绑定。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建UIWebView对象</span></div><div class="line"><span class="built_in">UIWebView</span> * webView = [[<span class="built_in">UIWebView</span> alloc] initWithFrame:<span class="keyword">self</span>.view.bounds];</div><div class="line">    </div><div class="line"><span class="comment">// 配置logging</span></div><div class="line">[WebViewJavascriptBridge enableLogging];</div><div class="line">    </div><div class="line"><span class="comment">// 创建WebViewJavascriptBridge对象并与UIWebView对象绑定</span></div><div class="line"><span class="keyword">self</span>.bridge = (&#123;</div><div class="line">    WebViewJavascriptBridge* bridge =</div><div class="line">    [WebViewJavascriptBridge bridgeForWebView:webView</div><div class="line">                              webViewDelegate:<span class="keyword">self</span></div><div class="line">                                      handler:^(<span class="keyword">id</span> data, WVJBResponseCallback responseCallback) &#123;</div><div class="line">                                          <span class="comment">// do something</span></div><div class="line">                                          <span class="comment">// responseCallback(responseData)</span></div><div class="line">                                      &#125;</div><div class="line">     ];</div><div class="line">    bridge;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>使用类方法创建一个WebViewJavascriptBridge对象，其中有一个<code>block</code>类型的handler。这个handler用来处理来自于JavaScript发送的消息，<strong>handler的形参与JavaScript中的send方法的形参对应</strong>，一般有两个参数，第一个参数是JS send传入的参数（可以是任意类类型），第二个是JS send传入的回调handler。</p>
+<p>P.S：看客可能像我当初一样不太理解第二个参数：responseCallback，后文会对此进行详细说明。</p>
+<ul>
+<li>JS初始化</li>
+</ul>
+<p>除了OC外，JS中也得执行针对WebViewJavascriptBridge的初始化代码。这意味着，除了客户端（iOS开发人员）外，服务端（后端写JS的开发人员）也得对WebViewJavascriptBridge有所了解。好在需要理解的内容不多，十分钟就可以搞定。JavaScript对WebViewJavascriptBridge初始化过程（这部分代码几乎是固定的）如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 创建了一个connectWebViewJavascriptBridge方法，该方法名是固定的</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">connectWebViewJavascriptBridge</span>(<span class="params">callback</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.WebViewJavascriptBridge) &#123;</div><div class="line">        callback(WebViewJavascriptBridge)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="built_in">document</span>.addEventListener(<span class="string">'WebViewJavascriptBridgeReady'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            callback(WebViewJavascriptBridge)</div><div class="line">        &#125;, <span class="literal">false</span>)</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="comment">// 调用connectWebViewJavascriptBridge方法</span></div><div class="line">connectWebViewJavascriptBridge(<span class="function"><span class="keyword">function</span>(<span class="params">bridge</span>) </span>&#123;</div><div class="line">    bridge.init(<span class="function"><span class="keyword">function</span>(<span class="params">message, responseCallback</span>) </span>&#123;</div><div class="line">        <span class="comment">// do something</span></div><div class="line">        responseCallback(responseData)</div><div class="line">    &#125;)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>先创建了一个connectWebViewJavascriptBridge方法，该方法注册了一个WebViewJavascriptBridgeReady事件，同时声明了一个全局的WebViewJavascriptBridge变量，这样我们可以在外部通过WebViewJavascriptBridge调用相关方法。</p>
+<p>在<code>bridge.init</code>里面同样定义了一个匿名function，这个function用来接收Objective-C里面通过send方法发送的消息的，参数与OC里的send方法参数对应。同样，一般有两个参数，第一个参数是OC send传入的参数（可以是任意类类型），第二个是OC send传入的回调handler。</p>
+<p>可以简单总结一下。初始化的根本目的是啥？<br>根据我的理解，初始化的根本目的是：消息接收者定义<code>message handler</code>。</p>
+<p>P.S：请记住<code>message handler</code>这个名词，后文会经常用到。</p>
+<p><strong>发送消息</strong></p>
+<p>上述「初始化」操作的目的是为了确保OC和JS能够相互处理来自对方的消息。</p>
+<p>除了「初始化」操作之外，WebViewJavascriptBridge对发送消息也有所约束，这意味着OC和JS发送消息必须得遵守一定的格式。</p>
+<ul>
+<li>OC向JS发送消息</li>
+</ul>
+<p>OC向JS发送消息，定义了两个用于「发送消息」的接口：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// APIs</span></div><div class="line">- (<span class="keyword">void</span>)send:(<span class="keyword">id</span>)data;</div><div class="line">- (<span class="keyword">void</span>)send:(<span class="keyword">id</span>)data responseCallback: (WVJBResponseCallback)responseCallback;</div></pre></td></tr></table></figure>
+<p>两个接口的区别只是参数个数不同，参数data指的是「传给JS的参数」，responseCallback参数是一个<code>block</code>，给JS发送消息后，JS的<code>message handler</code>可能会返回一些值，responseCallback就是用来处理<strong><em>返回值</em></strong>的。</p>
+<p>P.S：data可以为空；这里的「返回值」并不是非常准确的说法，只是一种参考「函数」的说法，准确来讲应该叫<code>response data</code>。</p>
+<ul>
+<li>JS向OC发送消息</li>
+</ul>
+<p>JS向OC发送消息，WebViewJavascriptBridge也定义了两种格式：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">bridge.send(data)</div><div class="line">bridge.send(data, <span class="function"><span class="keyword">function</span> <span class="title">responseCallback</span>(<span class="params">responseData</span>) </span>&#123; ... &#125;)</div></pre></td></tr></table></figure>
+<p>显然，无论是「OC向JS发送消息」，还是「JS向OC发送消息」，都有两种格式，含有<code>responseCallback</code>和不含<code>responseCallback</code>。</p>
+<p>P.S：data可以为空；</p>
+<p><strong>理解responseCallback</strong></p>
+<p>上文已经多次提到了<code>responseCallback</code>，可能是由于笔者对跨平台了解得比较少，也可能是对函数式编程了解不多，刚开始对<code>responseCallback</code>不甚理解。这一小段将对<code>responseCallback</code>进行详细阐述。</p>
+<p>关于「消息处理」和「消息发送」，我是参考「函数定义」和「函数调用」这两个概念来理解的。「函数定义」定义了函数的具体工作（即说明这段代码块都干了些啥），「函数调用」指示执行具体代码块；根据我的理解，从概念上讲，「消息处理」对应「函数定义」，「消息发送」对应「函数调用」。</p>
+<p>这段话非常啰嗦，但引入这么一种对应关系是为了更好说明<code>responseCallback</code>。</p>
+<p>对于函数（广义上的「函数」，而不仅仅指JavaScript function）来说，函数可能有返回值，也可能没有返回值。当有返回值时，调用者往往会定义变量接收返回值，方便之后使用返回值…而上文中反复出现的<code>responseCallback</code>有些类似于对函数返回值的处理，消息发送方向消息接收方发出一个消息，除了希望对方处理某些事情之外，可能还期待对方返回一些数据（<code>response data</code>），这些数据往往会在后续的处理中起作用。</p>
+<p>因此，若「消息接收方」的<code>message handler</code>中可能有需要传给「消息发送方」的<code>response data</code>时，「消息发送方」还需要定义一个handler用来处理这些值，即所谓的<code>responseCallBack</code>。</p>
+<p>P.S：为什么函数处理返回值使用<code>ret = aFunction(variable)</code>这样的格式，而这里使用<code>responseCallBack</code>处理呢？我想是因为这里处理的是两种不同语言，过程中难免存在类型转换，况且，还有可能是由于并发。</p>
+<p>对于函数而言，若某个函数有返回值，但调用者不想要保存该返回值，此时往往不会定义变量接收该返回。这在大多属于语言中是被允许的。</p>
+<p>对于WebViewJavascriptBridge也一样，「消息发送方」发送消息时，可以不传入responseCallback参数，表示对「消息接收方」的<code>response data</code>不care。</p>
+<p>在定义<code>message handler</code>时，在handler的<code>responseCallback(responseData)</code>好比函数中<code>return ret</code>。</p>
+<p>P.S：在定义<code>message handler</code>时，并不要求一定有<code>responseCallback(responseData)</code>这么一句代码；只是个人觉得，有必要写上，哪怕没有任何<code>response data</code>需要返回，也得加上<code>responseCallback(null)</code>。类似于函数，若某个函数没有返回值，也没有显式调用<code>return</code>语句，在编译阶段，编译器也会帮助在末尾加上<code>return void</code>。</p>
+<p>理清了<code>responseCallback</code>这个概念，就基本上算是学会使用WebViewJavascriptBridge了。</p>
+<p><strong>OC和JS互相调用</strong></p>
+<p>「OC和JS互相调用」指的是OC和JS互相对应对方的handler（block或function）。</p>
+<p>笔者刚开始觉得啰嗦：既然「消息机制」能够解决OC和JS交互问题，为啥还需要OC和JS互相调用对方的handler呢？</p>
+<p>我还没有找到比较权威的的说法，但这里也谈谈自己的一点理解。</p>
+<p>先说「函数」，「函数」的本质不过是代码的一种组织结构，它使得代码块具有了更好的可读性，同时极大加强代码复用。</p>
+<p>基于「消息机制」，我们可以尽可能实现任何基于文本交互。可以做的事情非常丰富，譬如「消息发送者」传入参数<code>1</code>，<code>message handler</code>执行A段代码，传入参数<code>2</code>，执行B段代码。但问题是：基于「消息机制」，OC和JS之间的几乎所有交互任务都得写在<code>message handler</code>中。当交互任务变得复杂时，代码组织将是一种灾难（会充斥很长并且嵌套很深的<code>if</code>语句）。以消息的第一个参数data为例，有时候，data可能是一个URL字符串，有时候可能是一个JSON字符串，有时候可能只是一个数值，光是解析这些参数，都需要一个非常复杂的<code>if</code>语句…写到这里，「在OC和JS中定义能被对方调用的handler」的意义就不需要多讲了。</p>
+<p>关于「OC和JS互相调用」，WebViewJavascriptBridge也定义了一些约束。约束包括两部分：定义handler的姿势，调用handler的姿势。</p>
+<p><strong>OC定义和调用JS handler</strong></p>
+<p>所谓定义handler，其实是向bridge注册一个handler，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// API</span></div><div class="line"><span class="comment">// - (void)registerHandler:(NSString *)handlerName handler:(WVJBHandler)handler</span></div><div class="line">    </div><div class="line"><span class="comment">// eg:</span></div><div class="line">[<span class="keyword">self</span>.bridge registerHandler:<span class="string">@"OCHandlerName"</span></div><div class="line">                     handler:^(<span class="keyword">id</span> data, WVJBResponseCallback responseCallback) &#123;</div><div class="line">                         <span class="comment">// do something</span></div><div class="line">                         responseCallback(responseData);</div><div class="line">                 &#125;</div><div class="line"> ];</div></pre></td></tr></table></figure>
+<p>向bridge注册handler包括两部分内容：name和handler body。</p>
+<p>调用JS的handler也简单，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// APIs</span></div><div class="line"><span class="comment">// - (void)callHandler:(NSString *)handlerName;</span></div><div class="line"><span class="comment">// - (void)callHandler:(NSString*)handlerName data:(id)data;</span></div><div class="line"><span class="comment">// - (void)callHandler:(NSString*)handlerName data:(id)data responseCallback:(WVJBResponseCallback)responseCallback;</span></div><div class="line">    </div><div class="line"><span class="comment">// eg：</span></div><div class="line">[<span class="keyword">self</span>.bridge callHandler:<span class="string">@"JSHandlerName"</span> data:data];</div></pre></td></tr></table></figure>
+<p><strong>JS定义和调用OC handler</strong></p>
+<p>在JS定义（注册）handler的姿势如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">bridge.registerHandler(<span class="string">"handlerName"</span>, <span class="function"><span class="keyword">function</span>(<span class="params">responseData</span>) </span>&#123; ... &#125;)</div></pre></td></tr></table></figure>
+<p>调用OC的handler也简单，和OC调用JS handler类似。</p>
+<p>。。。。。。</p>
+<p>本文写得好啰嗦啊！</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li><a href="https://github.com/marcuswestin/WebViewJavascriptBridge" target="_blank" rel="external">WebViewJavascriptBridge - github</a></li>
+<li><a href="http://dxldy.iteye.com/blog/2078350?utm_source=tuicool" target="_blank" rel="external">《WebViewJavascriptBridge使用说明（iOS）》</a></li>
+<li><a href="http://honglu.me/2014/09/27/WebViewJavascriptBridge使用/" target="_blank" rel="external">《WebViewJavascriptBridge使用》</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-uiwebview-load-local-html" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/06/16/uiwebview-load-local-html/" class="article-date">
+  	<time datetime="2015-06-16T08:38:39.000Z" itemprop="datePublished">2015-06-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/06/16/uiwebview-load-local-html/">UIWebView加载本地HTML文件</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>写本文的原因是今天被要求「调研在iOS中加载本地HTML的相关技术」，好记性不如烂笔头，将一些东西给记录下来吧。</p>
+<p>应用场景是这样的：手头的iOS App有一部分UI需要使用HTML完成，好处是这部分UI可以更灵活，即可以在任何不需要升级App的情况下更新这部分UI（包括样式、操作等等）。当下非常火的技术 – Facebook的React Native – 正是用来解决这种问题的，毕竟在传统的开发模式下，更新UI必须要升级App，而升级App是一个非常耗时的过程。使用Web App部分代替Native App已经成为当下移动客户端开发的一种思潮了。为了简便起见，也为了不给项目的接盘者制造更高的门槛，暂时决定不使用React Native（原因是多方面的）等著名框架去这种事情，从0开始探究。话说胡来，也许走了这么一遭之后，以后学习React Native会有更多的体会呢！</p>
+<p>总之，目前的构想是这样的：</p>
+<ol>
+<li>App部分UI是由HTML+JS+CSS完成的，HTML+JS+CSS代码会随着App一起发布；</li>
+<li>当后端决定更新App的部分UI（HTML）时，客户端从服务器下载最新的HTML+JS+CSS包，解压后代替本地的、旧的HTML+JS+CSS资源，将最新的呈现给用户，至此完成UI的更新；</li>
+</ol>
+<p>因此有这么些问题需要考虑：</p>
+<ol>
+<li>加载本地HTML+JS+CSS资源（在iOS中，通常使用UIWebView）；</li>
+<li>解压从服务端下载的压缩文件（HTML+JS+   CSS包）；</li>
+<li>JS代码和OC代码的互相调用；</li>
+</ol>
+<p>本文主要探究第一个问题！</p>
+<h2 id="UIWebView介绍"><a href="#UIWebView介绍" class="headerlink" title="UIWebView介绍"></a>UIWebView介绍</h2><p>UIWebView是iOS中一个非常常用的控件，是内置的浏览器控件，可能也是最强大复杂的控件。可以用它来浏览网页、打开文档（譬如PDF文档）等等。</p>
+<p>UIWebView既可以用来显示本地文档，也可以用来显示网络文档。无论是显示本地文件还是网络文件，此过程都可以统称为「加载」。与「加载」相关的方法不多，只有三个：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Loading Local Content or Loading Content From the Network</span></div><div class="line">- (<span class="keyword">void</span>)loadRequest:(<span class="built_in">NSURLRequest</span> *)request;</div><div class="line">    </div><div class="line"><span class="comment">// 嵌入HTML结构的字符串</span></div><div class="line">- (<span class="keyword">void</span>)loadHTMLString:(<span class="built_in">NSString</span> *)string</div><div class="line">               baseURL:(<span class="built_in">NSURL</span> *)baseURL;</div><div class="line">    </div><div class="line"><span class="comment">// Loading Local Content</span></div><div class="line">- (<span class="keyword">void</span>)loadData:(<span class="built_in">NSData</span> *)data</div><div class="line">        MIMEType:(<span class="built_in">NSString</span> *)MIMEType</div><div class="line">textEncodingName:(<span class="built_in">NSString</span> *)textEncodingName</div><div class="line">         baseURL:(<span class="built_in">NSURL</span> *)baseURL;</div></pre></td></tr></table></figure>
+<p>与UIWebView相关的知识点并不多（从某种角度来看，也可以认为是Apple封装得比较好吧），除了上述的三个方法之外，还有必要了解的是UIWebViewDelegate定义的一些delegate方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 开始加载前调用</span></div><div class="line">- (<span class="built_in">BOOL</span>)webView:(<span class="built_in">UIWebView</span> *)webView shouldStartLoadWithRequest:(<span class="built_in">NSURLRequest</span> *)request</div><div class="line"> navigationType:(<span class="built_in">UIWebViewNavigationType</span>)navigationType;</div><div class="line"><span class="comment">// 开始加载时调用</span></div><div class="line">- (<span class="keyword">void</span>)webViewDidStartLoad:(<span class="built_in">UIWebView</span> *)webView;</div><div class="line"><span class="comment">// 加载成功时调用</span></div><div class="line">- (<span class="keyword">void</span>)webViewDidFinishLoad:(<span class="built_in">UIWebView</span> *)webView;</div><div class="line"><span class="comment">// 加载失败时调用</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">UIWebView</span> *)webView didFailLoadWithError:(<span class="built_in">NSError</span> *)error;</div></pre></td></tr></table></figure>
+<p>除此之外，UIWebView似乎有啥其他需要了解的内容，若有需要，以后再补充吧！</p>
+<h2 id="加载本地HTML文件"><a href="#加载本地HTML文件" class="headerlink" title="加载本地HTML文件"></a>加载本地HTML文件</h2><p>加载本地HTML文件不是多么难的事情，但再简单的事情也有一个1-2-3-4，不是嘛？何况笔者比较笨，参考<a href="http://blog.csdn.net/kaitiren/article/details/17115085" target="_blank" rel="external">UIWebView加载本地HTML5文件</a>，也分几个步骤：</p>
+<ol>
+<li>准备HTML文件及其资源文件（主要是CSS文件和JS文件以及image文件）；</li>
+<li>加载本地HTML文件；</li>
+</ol>
+<p>第一种：<br>loadRequest:<br>第二种：<br>loadHTMLString:baseURL:</p>
+<p><strong>第一步，准备HTML文件及其资源文件。</strong></p>
+<p>HTML及其资源文件比较容易获取，随便找个比较漂亮的web页面，将它保存起来即可！</p>
+<p>显然HTML文件及其资源文件是需要添加到工程的，问题是如何添加呢？如何组织管理这些文件呢？沙盒？Bundle？</p>
+<p><strong>Xcode工程添加文件有两种方式</strong></p>
+<p>向项目中添加已有的文件（或资源文件，或第三方库）不是什么稀罕的事情，只是平时都没怎么注意。实际上，将「文件」或者「目录」添加到项目时，Xcode给了我们两个选项：Create groups以及Create folder references，如下图：</p>
+<div class="imagediv" style="width: 730px; height: 126px;"></div>
+
+<p>简单来说，若选择Create groups的方式添加文件夹，则文件夹的颜色是黄色的；若选择Create folder references的，则发现添加的文件夹在工程目录中的的颜色是蓝色的：</p>
+<div class="imagediv" style="width: 400px; height: 120px;"></div>
+
+<p>当然不只是颜色上的区别！主要是Xcode对加入的文件的路径处理不一样。</p>
+<p>如果文件/文件夹以Create groups的方式添加到工程中，则不管加入项目的文件的目录结构如何，在APP中都可以通过mainBundlePath/filename这样结构来访问文件；反之，若文件/文件夹以Create folder references的方式添加到工程中，则会保留相对路径，访问文件的结构就变成了mainBundlePath/path/filename。</p>
+<p>理解Create groups以及Create folder references并不难，自己动手试试就能感受二者的不同了。</p>
+<p><strong>Bundle介绍</strong></p>
+<p>上文谈到了向工程添加文件的两种方式，由此延伸，不得不提bundle，一直以来对bundle的理解非常模糊，知道它的本质是一个目录，也知道在OS X中就有此概念，但一直没get到<code>bundle</code>的存在意义，总感觉它没必要存在，事实上也没主动使用它。</p>
+<p>借撰写本文这个机会，驱动一下自己，查查资料，争取对bundle理解更深入一点点吧！</p>
+<p>参考《<a href="http://avatar-matrix.lofter.com/post/e4689_236e82" target="_blank" rel="external">Bundle in iOS</a>》和《<a href="http://www.cnblogs.com/BigPolarBear/archive/2012/03/28/2421802.html" target="_blank" rel="external">iOS开发里的Bundle是个啥玩意</a>》。</p>
+<p>简单地讲，bundle就是一个内部结构按照标准规则组织的特殊目录，常用来存放一些资源文件，譬如图片，plist文件等，它不会成为编译的一部分，所以它不存放能够被编译的文件，譬如<code>.m</code>、<code>.h</code>文件等。</p>
+<p>Bundle的主要用途是软件的国际化，想象一个应用场景：软件有美国、中国版本，软件的logo等图片不同，这时候，我们把相应的图片资源放到一个文件夹下，然后修改文件夹的名字，以<code>.bundle</code>作为后缀，然后添加到xcode中。</p>
+<p>有过iOS开发经历的人都应该知道，每个project都有个mainBundle，那如何去获取自己定义的bundle内容呢？我们把自定义的bundle当成项目的一种资源，由mainBundle去获取<code>~</code>，然后我们用相同的方式获取自定义的bundle下的资源。即：</p>
+<p>1、通过mainBundle去加载自定义的bundle；<br>2、通过获取到的自定义bundle去获取资源；</p>
+<p>根据上述场景来写的demo项目结构如下：</p>
+<div class="imagediv" style="width: 340px; height: 280px;"></div>
+
+<p>此时，我容易联想到了在Windows世界经常使用的「汉化包」。根据我的理解，我们通过某种手段得到的「汉化包」和本文所谈及的bundle是类似的概念，它们的本质是一个目录，只是这个目录有些特别，特别之处在于它只存放一些资源文件，以及目录名后缀为<code>.bundle</code>，这让它看起来像个文件，但实际上又不是文件，开发者又特别想让普通用户以为它是一个文件…</p>
+<p>总之，bundle就是这么个东东。</p>
+<p>到了这里，应该弄清楚了该把HTML文件及其资源放在哪里了。</p>
+<p>沙盒？显然不可能，沙盒可是App到设备之后才有的概念；所以我们只能让HTML资源成为工程的一部分呢，编译打包时作为安装包的一部分。</p>
+<p>放在普通目录下还是组织成bundle，个人以为没必要组织成bundle，因为后者主要用来处理国际化问题，国际化问题面对的一般是图片资源、字符串资源等等，所以不需要组成成bundle，而是直接添加到工程的mainBundle中。</p>
+<p>上文已经提到了Xcode工程添加文件有两种方式：Create groups和Create folder references，个人以为应该选择后者！</p>
+<p>值得注意是，当被加入到项目中的文件包含js文件时，有可能因为操作不慎等原因，js文件成为了编译文件，若是这样，应该将它从<code>Compile Sources</code>给踢掉，让它成为<code>Copy Bundle Resources</code>的一部分，具体做法是在TARGETS-&gt;Build Phases中的<code>Compile Sources</code>中找到该js文件，并将其移到<code>Copy Bundle Resources</code>中，如下图所示：</p>
+<div class="imagediv" style="width: 699px; height: 364px;"></div>
+
+<p><strong>第二步，加载本地HTML。</strong></p>
+<p>本文示例中，HTML文件及其资源文件被组织在一个叫<code>html</code>的目录中，目录结构如下图，index.html是要被加载的目标文件，index.html中访问css、js以及图片资源的方式都是使用相对路径，实现代码也给展示在下图中。</p>
+<div class="imagediv" style="width: 926px; height: 400px;"></div>
+
+<p>上图右侧代码区域加载策略是，先获取本地HTML文本，转为字符串，然后使用<code>loadHTMLString:baseURL:</code>方法加载；当然也可以使用<code>loadRequest:</code>方法，哪个更好？我暂时也不知道！</p>
+<p><strong>关于baseURL</strong></p>
+<p>上文<code>loadHTMLString:baseURL:</code>方法的第二个参数是baseURL，baseURL是HTML字符串中引用到资源的查找路径，当HTML中没有引用外部资源时，可以指定为<code>nil</code>；若引用了外部资源，一般情况下使用mainBundle的路径即可。在实际操作中，常常会出现「文本显示正常，图片无法显示」等情况，若HTML文本中引用外部资源都是使用相对路径，则出现这种问题的原因一般都是baseURL参数错误（有时甚至是<code>nil</code>）。</p>
+<p>最后，本文的Demo详见<a href="https://github.com/sadjason/iOSDemos/tree/master/UIWebView%E9%9D%9E%E5%88%9D%E4%BD%93%E9%AA%8C" target="_blank" rel="external">这里</a>。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIWebView/">UIWebView</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-pragma" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -350,419 +719,9 @@
 
 
   
-    <article id="post-understanding-kvo" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/29/understanding-kvo/" class="article-date">
-  	<time datetime="2015-04-29T02:00:01.000Z" itemprop="datePublished">2015-04-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/29/understanding-kvo/">深入理解KVO</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>程序设计语言中有各种各样的设计模式（pattern）和与此对应的反设计模式（anti-pattern），譬如singleton、factory、observer、MVC等等。对于基于Objective-C的iOS开发而言，有些设计模式几乎已经成为开发环境的一部分，譬如MVC，自打我们设计第一个页面开始就已经开始与之打交道了；KVO，即Key-Value Observing（根据我的理解它属于observer设计模式）也一样，只是它已经成为Objective-C事实标准了，作为一个iOS开发者，必须对它有相当的了解。</p>
-<p>之前对KVO的了解仅限于使用层面，没有去想过它是如何实现的，更没有想过它会存在一些坑；甚至在刚接触它时，会尽可能创造机会使用它，譬如监听<code>UITextField#text</code>值的变化；但近几天接触了Objective-C的Runtime相关的知识，从Runtime层面了解到了KVO的实现原理（即KVO的消息转发机制），也通过阅读各位大神的博客了解到了它的坑。</p>
-<p>本文首先分析KVO和Runtime的关系，阐述KVO的实现原理；然后结合大神们的博客整理KVO存在的坑以及避免掉坑的正确使用姿势。</p>
-<h2 id="KVO和Runtime"><a href="#KVO和Runtime" class="headerlink" title="KVO和Runtime"></a>KVO和Runtime</h2><p>关于KVO，即Key-Value Observing，官方文档《Key-Value Observing Programming Guide》里的介绍比较简短明了：</p>
-<blockquote>
-<p>Key-value observing is a mechanism that allows objects to be notified of changes to specified properties of other objects.</p>
-</blockquote>
-<p><strong>KVO的实现</strong></p>
-<p>KVO的实现也依赖于Objective-C的Runtime，官方文档《Key-Value Observing Programming Guide》中在《<a href="https://developer.apple.com/library/prerelease/content/documentation/Cocoa/Conceptual/KeyValueObserving/Articles/KVOImplementation.html" target="_blank" rel="external">Key-Value Observing Implementation Details</a>》部分简单提到它的实现：</p>
-<blockquote>
-<p>Automatic key-value observing is implemented using a technique called isa-swizzling.<br>The isa pointer, as the name suggests, points to the object’s class which maintains a dispatch table. This dispatch table essentially contains pointers to the methods the class implements, among other data.<br>When an observer is registered for an attribute of an object the isa pointer of the observed object is modified, pointing to an intermediate class rather than at the true class. As a result the value of the isa pointer does not necessarily reflect the actual class of the instance.<br>You should never rely on the isa pointer to determine class membership. Instead, you should use the class method to determine the class of an object instance.</p>
-</blockquote>
-<p>简单概述下KVO的实现：<br>当你观察一个对象（称该对象为<strong>被观察对象</strong>）时，一个新的类会动态被创建。这个类继承自<strong>被观察对象</strong>所对应类的，并重写该被观察属性的setter方法；针对setter方法的重写无非是在赋值语句前后加上相应的通知（或曰方法调用）；最后，把被观察对象的<code>isa</code>指针（<code>isa</code>指针告诉Runtime系统这个对象的类是什么）指向这个新创建的中间类，对象就神奇变成了新创建类的实例。</p>
-<p>根据文档的描述，虽然被观察对象的<code>isa</code>指针被修改了，但是调用其<code>class</code>方法得到的类信息仍然是它之前所继承类的类信息，而不是这个新创建类的类信息。</p>
-<p>补充：下面对<code>isa</code>指针和类方法<code>class</code>作以更多的说明。</p>
-<p><code>isa</code>指针和类方法<code>class</code>的返回值都是<code>Class</code>类型，如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSObject</span> &lt;<span class="title">NSObject</span>&gt; </span>&#123;</div><div class="line">    Class isa  OBJC_ISA_AVAILABILITY;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">+ (Class)<span class="keyword">class</span>;</div></pre></td></tr></table></figure>
-<p>根据我的理解，一般情况下，<code>isa</code>指针和<code>class</code>方法返回值都是一样的；但KVO底层实现时，动态创建的类只是重写了被观察属性的setter方法，并未重写类方法<code>class</code>，因此向被观察者发送<code>class</code>消息实际上仍然调用的是被观察者原先类的类方法<code>+(Class)class</code>，得到的类型信息当然是原先类的类信息，根据我的猜测，<code>isKindOfClass:</code>和<code>isMemberOfClass:</code>与<code>class</code>方法紧密相关。</p>
-<p>国外的大神Mike Ash早在2009年就做了关于KVO的实现细节的探究，更多详细参考<a href="https://www.mikeash.com/pyblog/friday-qa-2009-01-23.html" target="_blank" rel="external">这里</a>。</p>
-<h2 id="KVO的槽点"><a href="#KVO的槽点" class="headerlink" title="KVO的槽点"></a>KVO的槽点</h2><p>AFNetworking作者Mattt Thompson在《<a href="http://nshipster.com/key-value-observing/" target="_blank" rel="external">Key-Value Observing</a>》中说：</p>
-<blockquote>
-<p>Ask anyone who’s been around the NSBlock a few times: Key-Value Observing has the worst API in all of Cocoa.</p>
-</blockquote>
-<p>另一位不认识的大神在《<a href="http://khanlou.com/2013/12/kvo-considered-harmful/" target="_blank" rel="external">KVO Considered Harmful</a>》中也写道：</p>
-<blockquote>
-<p>KVO, or key-value observing, is a pattern that Cocoa provides for us for subscribing to changes to the properties of other objects. It’s hands down the most poorly designed API in all of Cocoa, and even when implemented perfectly, it’s still an incredibly dangerous tool to use, reserved only for when no other technique will suffice.</p>
-</blockquote>
-<p>总之，两位大神都认为KVO的API非常差劲！</p>
-<p>其中《<a href="http://khanlou.com/2013/12/kvo-considered-harmful/" target="_blank" rel="external">KVO Considered Harmful</a>》中对KVO的槽点有比较详细的阐述，这一部分内容就取材于此。</p>
-<p>为了更好说明这些槽点，假设一个应用场景：<code>ZWTableViewController</code>继承自<code>UITableViewController</code>，它现在需要做一件事情，即监测<code>self.tableView.contentSize</code>的变化，现采用典型的方式（即KVO）处理这么个需求。</p>
-<p><strong>所有的observe处理都放在一个方法里</strong></p>
-<p>实现上述「监测<code>self.tableView.contentSize</code>的变化」的需求，最基本处理方式是：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// register observer</span></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    [_tableView addObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"contentSize"</span> options:<span class="number">0</span> context:<span class="literal">NULL</span>];</div><div class="line">    <span class="comment">/* ... */</span></div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="comment">// 处理observe</span></div><div class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath</div><div class="line">                      ofObject:(<span class="keyword">id</span>)object</div><div class="line">                        change:(<span class="built_in">NSDictionary</span> *)change</div><div class="line">                       context:(<span class="keyword">void</span> *)context &#123;</div><div class="line">    </div><div class="line">    [<span class="keyword">self</span> configureView];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>但考虑到<code>observeValueForKeyPath:ofObject:change:context:</code>中可能会很多其他的observe事务，所以<code>observeValueForKeyPath:ofObject:change:context:</code>更好的逻辑是：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath</div><div class="line">                      ofObject:(<span class="keyword">id</span>)object</div><div class="line">                        change:(<span class="built_in">NSDictionary</span> *)change</div><div class="line">                       context:(<span class="keyword">void</span> *)context &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (object == _tableView &amp;&amp; [keyPath isEqualToString:<span class="string">@"contentSize"</span>]) &#123;</div><div class="line">        [<span class="keyword">self</span> configureView];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>但如果KVO处理的事情种类多且繁杂，这会造成<code>observeValueForKeyPath:ofObject:change:context:</code>代码特别长，极不优雅。</p>
-<p><strong>严重依赖于string</strong></p>
-<p>KVO严重依赖string，换句话说，KVO中的keyPath必须是<code>NSString</code>这个事实使得编译器没办法在编译阶段将错误的keyPath给找出来；譬如很容易将「contentSize」写成「contentsize」；</p>
-<p><strong>需要自己处理superclass的observe事务</strong></p>
-<p>对于Objective-C，很多时候Runtime系统都会自动帮助处理superclass的方法。譬如对于<code>dealloc</code>，假设类<code>Father</code>继承自<code>NSObject</code>，而类<code>Son</code>继承自<code>Father</code>，创建一个<code>Son</code>的实例<code>aSon</code>，在<code>aSon</code>被释放的时候，Runtime会先调用<code>Son#dealloc</code>，之后会自动调用<code>Father#dealloc</code>，而无需在<code>Son#dealloc</code>中显式执行<code>[super dealloc];</code>。但KVO不会这样，所以为了保证父类（父类可能也会自己observe事务要处理）的observe事务也能被处理，上述<code>observeValueForKeyPath:ofObject:change:context:</code>代码得改成这样：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath</div><div class="line">                      ofObject:(<span class="keyword">id</span>)object</div><div class="line">                        change:(<span class="built_in">NSDictionary</span> *)change</div><div class="line">                       context:(<span class="keyword">void</span> *)context &#123;</div><div class="line">    </div><div class="line">    <span class="keyword">if</span> (object == _tableView &amp;&amp; [keyPath isEqualToString:<span class="string">@"contentSize"</span>]) &#123;</div><div class="line">        [<span class="keyword">self</span> configureView];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [<span class="keyword">super</span> observeValueForKeyPath:keyPath ofObject:object change:change context:context];</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><strong>多次相同的remove observer会导致crash</strong></p>
-<p>写过KVO代码的人都知道，对同一个对象执行两次remove observer操作会导致程序crash。</p>
-<p>在同一个文件中执行两次相同的remove observer属于粗心，比较容易debug出来；但是跨文件执行两次相同的remove observer就不是那么容易发现了。</p>
-<p>我们一般会在<code>dealloc</code>中进行remove observer操作（这也是Apple所推荐的）。</p>
-<p>譬如，假设上述的<code>ZWTableViewController</code>的父类<code>UITableViewController</code>也对<code>tableView.contentSize</code>注册了相同的监听；那么<code>UITableViewController#dealloc</code>中常常会写出如下这样的代码：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[_tableView removeObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@"contentSize"</span> context:<span class="literal">NULL</span>];</div></pre></td></tr></table></figure>
-<p>按照一般习惯，<code>ZWTableViewController#dealloc</code>也会有相同的处理；那么当<code>ZWTableViewController</code>对象被释放时，<code>ZWTableViewController</code>的<code>dealloc</code>和其父类<code>UITableViewController</code>的<code>dealloc</code>都被调用，这样会导致相同的remove observer被执行两次，自然会导致crash。</p>
-<p>《<a href="http://khanlou.com/2013/12/kvo-considered-harmful/" target="_blank" rel="external">KVO Considered Harmful</a>》中还有很多其他的槽点，《<a href="https://www.mikeash.com/pyblog/key-value-observing-done-right.html" target="_blank" rel="external">Key-Value Observing Done Right</a>》也描述了一些，这里就不多说了，更多信息还是建议看原文。</p>
-<p>不过好在上述的槽点「严重依赖于string」和「多次相同的remove observer会导致crash」有比较好的解决方案，如下会讲到。</p>
-<h2 id="使用KVO"><a href="#使用KVO" class="headerlink" title="使用KVO"></a>使用KVO</h2><p>这一部分将阐述KVO的使用方法。</p>
-<h3 id="订阅"><a href="#订阅" class="headerlink" title="订阅"></a>订阅</h3><p>KVO中与订阅相关的API只有一个：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)addObserver:(<span class="built_in">NSObject</span> *)observer</div><div class="line">         forKeyPath:(<span class="built_in">NSString</span> *)keyPath</div><div class="line">            options:(<span class="built_in">NSKeyValueObservingOptions</span>)options</div><div class="line">            context:(<span class="keyword">void</span> *)context;</div></pre></td></tr></table></figure>
-<p>对于这四个参数：</p>
-<ul>
-<li><strong>observer</strong>: The object to register for KVO notifications. The observer must implement the key-value observing method <code>observeValueForKeyPath:ofObject:change:context:</code>.</li>
-<li><strong>keyPath</strong>: The key path, relative to the receiver, of the property to observe. This value must not be nil.</li>
-<li><strong>options</strong>: A combination of the NSKeyValueObservingOptions values that specifies what is included in observation notifications. For possible values, see <code>NSKeyValueObservingOptions</code>.</li>
-<li><strong>context</strong>: Arbitrary data that is passed to observer in <code>observeValueForKeyPath:ofObject:change:context:</code>.</li>
-</ul>
-<p>大神们认为这个API丑陋的重要原因是因为后面两个参数：options和context。</p>
-<p>下面来对这两个参数进行详细介绍。</p>
-<p>首先是<strong>options</strong>。options可选值是一个<code>NSKeyValueObservingOptions</code>枚举值，到目前为止，一共包括四个值，在介绍这四个值各自表示的意思之前，先得有一个概念，即KVO响应方法有一个<code>NSDictionary</code>类型参数change（下面<strong>响应</strong>中可以看到），这个字典中会有一个与被监听属性相关的值，譬如被改变之前的值、新值等，<code>NSDictionary</code>中有啥值由订阅时的options值决定，options可取值如下：</p>
-<ul>
-<li><code>NSKeyValueObservingOptionNew</code>: 指示change字典中包含新属性值；</li>
-<li><code>NSKeyValueObservingOptionOld</code>: 指示change字典中包含旧属性值；</li>
-<li><code>NSKeyValueObservingOptionInitial</code>: 相对复杂一些，NSKeyValueObserving.h文件中有详细说明，此处略过；</li>
-<li><code>NSKeyValueObservingOptionPrior</code>: 相对复杂一些，NSKeyValueObserving.h文件中有详细说明，此处略过；</li>
-</ul>
-<p>现在细想，options这个参数也忒复杂了，难怪大神们觉得这个API丑陋（不过我等小民之前从未想过这个问题，=_=，没办法，Apple是个大帝国，我只是其中一个跪舔的小屁民）。</p>
-<p>不过更糟心的是下面的context参数。</p>
-<p>options信息量稍大，但其实蛮好理解的，然而对于context，在写这篇博客之前，一直不知道context参数有啥用（也没在意）。</p>
-<p>context作用大了去了，在上面的<strong>KVO的槽点</strong>中提到一个槽点「多次相同的remove observer会导致crash」。导致「多次调用相同的remove observer」一个很重要的原因是我们经常在add observer时为context参数赋值<code>NULL</code>，关于如何使用context参数，下面会提到。</p>
-<h3 id="响应"><a href="#响应" class="headerlink" title="响应"></a>响应</h3><p>iOS的UI交互（譬如<code>UIButton</code>的一次点击）有一个非常不错的消息转发机制 – Target-Action模型，简单来说，为指定的event指定target和action处理方法。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIButton</span> *button = [<span class="built_in">UIButton</span> new];</div><div class="line">[button addTarget:<span class="keyword">self</span> action:<span class="keyword">@selector</span>(buttonDidClicked:) forControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</div></pre></td></tr></table></figure>
-<p>这种target-action模型逻辑非常清晰。作为对比，KVO的响应处理就非常糟糕了，所有的响应都对应是同一个方法<code>observeValueForKeyPath:ofObject:change:context:</code>，其原型如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath</div><div class="line">                      ofObject:(<span class="keyword">id</span>)object</div><div class="line">                        change:(<span class="built_in">NSDictionary</span> *)change</div><div class="line">                       context:(<span class="keyword">void</span> *)context;</div></pre></td></tr></table></figure>
-<p>除了<code>NSDictionary</code>类型参数change之外，其余几个参数都能在<code>addObserver:forKeyPath:options:context:</code>找到对应。</p>
-<p>change参数上文已经讲过了，这里不多说了。下面将针对「严重依赖于string」和「多次相同的remove observer会导致crash」这两个槽点对keyPath和context参数进行阐述。</p>
-<p><strong>keyPath</strong>。keyPath的类型是<code>NSString</code>，这导致了我们使用了错误的keyPath而不自知，譬如将<code>@&quot;contentSize&quot;</code>错误写成<code>@&quot;contentsize&quot;</code>，一个更好的方法是不直接使用<code>@&quot;xxxoo&quot;</code>，而是积极使用<code>NSStringFromSelector(SEL aSelector)</code>方法，即改<code>@&quot;contentSize&quot;</code>为<code>NSStringFromSelector(@selector(contentSize))</code>。</p>
-<p><strong>context</strong>。对于context，上文已经提到一种场景：假如父类（设为<code>ClassA</code>）和子类（设为<code>ClassB</code>）都监听了同一个对象肿么办？是<code>ClassB</code>处理呢还是交给父类<code>ClassA</code>的<code>observeValueForKeyPath:ofObject:change:context:</code>处理呢？更复杂一点，如果子类的子类（设为<code>ClassC</code>）也监听了同一个对象，当<code>ClassB</code>接收到<code>ClassC</code>的<code>[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];</code>消息时又该如何处理呢？</p>
-<p>这么一想，KVO的API还真的是设计非常糟糕。一般来说，比较靠谱的做法是自己的屁股自己擦。<code>ClassB</code>的observe事务在<code>ClassB</code>中处理，怎么知道是自己的事务还是<code>ClassC</code>传上来的事务呢？用context参数判断！</p>
-<p>在add observer时为context参数设置一个独一无二的值即可，在responding处理时对这个context值进行检验。如此就解决了问题，但这需要靠用户（各个层级类的程序员用户）自觉遵守。</p>
-<h3 id="取消订阅"><a href="#取消订阅" class="headerlink" title="取消订阅"></a>取消订阅</h3><p>和<strong>订阅</strong>以及<strong>响应</strong>不同，取消订阅有两个方法：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)removeObserver:(<span class="built_in">NSObject</span> *)observer forKeyPath:(<span class="built_in">NSString</span> *)keyPath context:(<span class="keyword">void</span> *)context;</div><div class="line">- (<span class="keyword">void</span>)removeObserver:(<span class="built_in">NSObject</span> *)observer forKeyPath:(<span class="built_in">NSString</span> *)keyPath;</div></pre></td></tr></table></figure>
-<p>个人觉得应该尽可能使用第一个方法，保持「订阅-响应-取消订阅」的一致性嘛，养成好习惯！</p>
-<p>此外，为了避免取消订阅时造成的crash，可以把取消订阅代码放在<code>@try-@catch</code>语句中，如下是一个比较全面的的KVO使用示例：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">static</span> <span class="keyword">void</span> * zwContentSize = &amp;zwContentSize;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    </div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    </div><div class="line">    <span class="comment">// 1. subscribe</span></div><div class="line">    [_tableView addObserver:<span class="keyword">self</span></div><div class="line">                 forKeyPath:<span class="built_in">NSStringFromSelector</span>(<span class="keyword">@selector</span>(contentSize))</div><div class="line">                    options:<span class="built_in">NSKeyValueObservingOptionNew</span></div><div class="line">                    context:zwContentSize];</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="comment">// 2. responding</span></div><div class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath</div><div class="line">                      ofObject:(<span class="keyword">id</span>)object</div><div class="line">                        change:(<span class="built_in">NSDictionary</span> *)change</div><div class="line">                       context:(<span class="keyword">void</span> *)context &#123;</div><div class="line">    <span class="keyword">if</span> (context == zwContentSize) &#123;</div><div class="line">        <span class="comment">// configure view</span></div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        [<span class="keyword">super</span> observeValueForKeyPath:keyPath ofObject:object change:change context:context];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)dealloc &#123;</div><div class="line">    <span class="keyword">@try</span> &#123;</div><div class="line">        <span class="comment">// 3. unsubscribe</span></div><div class="line">        [_tableView removeObserver:<span class="keyword">self</span></div><div class="line">                        forKeyPath:<span class="built_in">NSStringFromSelector</span>(<span class="keyword">@selector</span>(contentSize))</div><div class="line">                           context:zwContentSize];</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">@catch</span> (<span class="built_in">NSException</span> *exception) &#123;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>总之，KVO很强大，但也挺坑，使用它要养成好习惯，避免入坑！</p>
-<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
-<li>《Key-Value Observing Programming Guide》</li>
-<li>《<a href="http://tech.glowing.com/cn/implement-kvo/" target="_blank" rel="external">如何自己动手实现KVO</a>》</li>
-<li>《<a href="https://www.mikeash.com/pyblog/friday-qa-2009-01-23.html" target="_blank" rel="external">KVO Implementation</a>》</li>
-<li>《<a href="https://www.mikeash.com/pyblog/friday-qa-2010-11-6-creating-classes-at-runtime-in-objective-c.html" target="_blank" rel="external">Creating Classes at Runtime in Objective-C</a>》</li>
-<li>《<a href="https://www.mikeash.com/pyblog/key-value-observing-done-right.html" target="_blank" rel="external">Key-Value Observing Done Right</a>》</li>
-<li>《<a href="http://khanlou.com/2013/12/kvo-considered-harmful/" target="_blank" rel="external">KVO Considered Harmful</a>》；</li>
-<li>《<a href="http://nshipster.com/key-value-observing/" target="_blank" rel="external">Key-Value Observing</a>》</li>
-<li>《<a href="http://objccn.io/issue-7-3/" target="_blank" rel="external">KVC和KVO</a>》</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/KVO/">KVO</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-initialize-and-load-in-objective-c" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/28/initialize-and-load-in-objective-c/" class="article-date">
-  	<time datetime="2015-04-28T06:14:13.000Z" itemprop="datePublished">2015-04-28</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/28/initialize-and-load-in-objective-c/">Objective-C中的+initialize和+load</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>近几天花了一些时间了解了一下Objective-C runtime相关的东西，其中涉及到了<code>+load</code>方法，譬如method swizzling通常在category的<code>+load</code>方法中完成。之前对initializer和load的使用就比较疑惑，但一直没有详细去对比了解，以此为契机，集各方资源，分析一下吧！</p>
-<p>关于了解<code>+initialize</code>和<code>+load</code>，个人感觉参考官方文档《NSObject Class Reference》就够了。</p>
-<h2 id="initialize"><a href="#initialize" class="headerlink" title="+initialize"></a>+initialize</h2><p>关于<code>+initialize</code>方法，《NSObject Class Reference》的介绍如下：</p>
-<blockquote>
-<p>Initializes the class before it receives its first message.</p>
-</blockquote>
-<p>可以理解<code>+initialize</code>的作用是为了该Class在使用前创建合适的环境；</p>
-<p>关于其使用，《NSObject Class Reference》的说明如下：</p>
-<blockquote>
-<p>The runtime sends initialize to each class in a program just before the class, or any class that inherits from it, is sent its first message from within the program. The runtime sends the initialize message to classes in a thread-safe manner. Superclasses receive this message before their subclasses. The superclass implementation may be called multiple times if subclasses do not implement initialize—the runtime will call the inherited implementation—or if subclasses explicitly call [super initialize].</p>
-</blockquote>
-<p>这上面这段话，可以得出如下这么一些意思：</p>
-<ul>
-<li><code>+initialize</code>方法是在runtime被调用的；</li>
-<li>对于某个类，其类<code>+initialize</code>方法都会在该对象接受任何消息之前被调用；</li>
-<li>如果父类和子类的<code>+initialize</code>方法都被调用，父类的调用一定在子类之前，这是系统自动完成的，子类<code>+initialize</code>中没必要显式调用<code>[super initialize];</code>；</li>
-<li>runtime系统处理<code>+initialize</code>消息的方式是线程安全的，所以没必要在<code>+initialize</code>中为了保证线程安全而使用lock、mutex之类的线程安全工具；</li>
-<li>某个类的<code>+initialize</code>的方法不一定只被调用一次，至少有两种情况会被调用多次：<ul>
-<li>子类显式调用<code>[super initialize];</code>；</li>
-<li>子类没有实现<code>+initialize</code>方法；</li>
-</ul>
-</li>
-</ul>
-<p>下面以示例演示某个类的<code>+initialize</code>被多次执行的现象。</p>
-<p>定义三个类：<code>Person</code>、<code>Student</code>、<code>Teacher</code>，<code>Student</code>和<code>Teacher</code>继承自<code>Person</code>，<code>Person</code>继承自<code>NSObject</code>。<code>Person</code>和<code>Student</code>都实现了<code>+initialize</code>方法，<code>Teacher</code>没有实现该方法，如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Person的+initialize方法的实现</span></div><div class="line">+ (<span class="keyword">void</span>)initialize &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Person initialize"</span>);</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="comment">// Student的+initialize方法的实现</span></div><div class="line">+ (<span class="keyword">void</span>)initialize &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Student initialize"</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>执行效果如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    Student *aStudent = [[Student alloc] init];</div><div class="line">    Teacher *aTeacher = [[Teacher alloc] init];</div><div class="line">    </div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="comment">/* 输出：</span></div><div class="line">Person initialize</div><div class="line">Student initialize</div><div class="line">Person initialize</div><div class="line">*/</div></pre></td></tr></table></figure>
-<p>可以看到，对于<code>Student</code>，在其<code>+initialize</code>方法被调用之前，其super class（<code>Person</code>）的<code>+initialize</code>方法被率先调用；对于<code>Teacher</code>，没有定义<code>+initialize</code>方法，所以它会直接调用super class（Person）的<code>+initialize</code>方法，这就导致了Person的<code>+initialize</code>方法被执行两次。</p>
-<p>有没有办法避免<code>Person</code>的<code>+initialize</code>方法被多次调用？当然可以：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Person的+initialize方法的实现</span></div><div class="line">+ (<span class="keyword">void</span>)initialize &#123;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">BOOL</span> b = <span class="literal">false</span>;</div><div class="line">    <span class="keyword">if</span> (!b) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Person initialize"</span>);</div><div class="line">        b = <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>也可以这样：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Person的+initialize方法的实现</span></div><div class="line">+ (<span class="keyword">void</span>)initialize &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">self</span> == [Person <span class="keyword">class</span>]) &#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"Person initialize"</span>);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>《NSObject Class Reference》中还对<code>+initialize</code>方法的使用做了一些警告：</p>
-<blockquote>
-<p>Because initialize is called in a thread-safe manner and the order of initialize being called on different classes is not guaranteed, it’s important to do the minimum amount of work necessary in initialize methods. Specifically, any code that takes locks that might be required by other classes in their initialize methods is liable to lead to deadlocks. Therefore you should not rely on initialize for complex initialization, and should instead limit it to straightforward, class local initialization.</p>
-</blockquote>
-<p>总结一下，就是这样：不要在<code>+initialize</code>中处理复杂的逻辑！</p>
-<p>那么<code>+initialize</code>可以做些什么事情呢？可以做一些简单的初始化工作，譬如对于某个继承自<code>UICollectionViewCell</code>的自定义类<code>PhotoViewCell</code>，<code>PhotoViewCell</code>的对象可能会有一些公用资源，譬如label color，label font等等，没必要在<code>-initXXOO</code>方法中创建这些完全一样的资源，此时就可以放在<code>PhotoViewCell</code>中的<code>+initialize</code>中完成，如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">void</span>)initialize &#123;</div><div class="line">    titleFont       = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">12</span>];</div><div class="line">    titleHeight     = <span class="number">20.0</span>f;</div><div class="line">    videoIcon       = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"CTAssetsPickerVideo"</span>];</div><div class="line">    titleColor      = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">    checkedIcon     = [<span class="built_in">UIImage</span> imageNamed:<span class="string">@"CTAssetsPickerChecked"</span>];</div><div class="line">    selectedColor   = [<span class="built_in">UIColor</span> colorWithWhite:<span class="number">1</span> alpha:<span class="number">0.3</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><code>+initialize</code>终究还是带来惊人的信息量，颇为失望。</p>
-<h2 id="load"><a href="#load" class="headerlink" title="+load"></a>+load</h2><p>关于<code>+load</code>方法，《NSObject Class Reference》的介绍如下：</p>
-<blockquote>
-<p>Invoked whenever a class or category is added to the Objective-C runtime; implement this method to perform class-specific behavior upon loading.</p>
-</blockquote>
-<p>关于其使用，《NSObject Class Reference》的说明如下：</p>
-<blockquote>
-<p>The load message is sent to classes and categories that are both dynamically loaded and statically linked, but only if the newly loaded class or category implements a method that can respond.</p>
-<p>The order of initialization is as follows:</p>
-<blockquote>
-<ol>
-<li>All initializers in any framework you link to.</li>
-<li>All +load methods in your image.</li>
-<li>All C++ static initializers and C/C++ <strong>attribute</strong>(constructor) functions in your image.</li>
-<li>All initializers in frameworks that link to you.</li>
-</ol>
-</blockquote>
-<p>In addition:</p>
-<ul>
-<li>A class’s +load method is called after all of its superclasses’ +load methods.</li>
-<li>A category +load method is called after the class’s own +load method.<br>In a custom implementation of load you can therefore safely message other unrelated classes from the same image, but any load methods implemented by those classes may not have run yet.</li>
-</ul>
-</blockquote>
-<p>从这段文字可以读出如下信息：</p>
-<ul>
-<li>在一个程序（main函数）运行之前，所用到的库被加载到runtime之后，被添加到的runtime系统的各种类和category的<code>+load</code>方法就被调用；（关于这点很容易通过打印语句来验证）；</li>
-<li>如果父类和子类的<code>+load</code>方法都被调用，父类的调用一定在子类之前，这是系统自动完成的，子类<code>+load</code>中没必要显式调用<code>[super load];</code>；</li>
-<li>文档没有讲明<code>+load</code>的执行是否是线程安全的，但考虑到它是在runtime之前就调用，所以谈论它是否是线程安全没啥必要，根据我的理解，多线程在runtime才有谈论意义；</li>
-<li>若某个类由一个主类和多个category组成，则允许主类和category中各自有自己的<code>+load</code>方法，只是category中的<code>+load</code>的执行在主类的<code>+load</code>之后；</li>
-</ul>
-<p>关于<code>+load</code>的使用场景，笔者知道的至少有一个，method swizzling的处理一般都在category的<code>+load</code>中完成的，参考<a href="/unstanding-objective-c-runtime-part-4/">这里</a>。</p>
-<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
-<li>《NSObject Class Reference》</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-understanding-objective-c-runtime-part-4" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/27/understanding-objective-c-runtime-part-4/" class="article-date">
-  	<time datetime="2015-04-27T13:10:53.000Z" itemprop="datePublished">2015-04-27</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/27/understanding-objective-c-runtime-part-4/">理解Objective-C Runtime（四）Method Swizzling</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Objective-C对象收到消息之后，究竟会调用何种方法需要在运行期间才能解析出来。那你也许会问：与给定的选择子名称相应的方法是不是也可以在runtime改变呢？没错，就是这样。<strong>若能善用此特性，则可发挥出巨大优势，因为我们既不需要源代码，也不需要通过继承子类来覆写方法就能改变这个类本身的功能</strong>。这样一来，新功能将在本类的所有实例中生效，而不仅限于覆写了相关方法的那些子类实例。此方案就是大名鼎鼎的<strong>method swizzling</strong>，中文常称之为「方法调配」或「方法调和」或「方法混合」。</p>
-<h2 id="Method-Swizzling"><a href="#Method-Swizzling" class="headerlink" title="Method Swizzling"></a>Method Swizzling</h2><p><strong>类的方法列表会把选择子的名称映射到相关的方法实现之上</strong>，使得<strong>动态消息派发系统</strong>（dynamic message-dispatch system）能够据此找到应该调和的方法。这些方法均以函数指针的形式来表示，这种指针叫IMP（IMP在《<a href="/understanding-objective-c-runtime-part-1/">理解Objective-C Runtime（一）预备知识</a>》已有说明）。</p>
-<p>举个栗子，<code>NSString</code>类可以响应<code>lowercaseString</code>、<code>uppercaseString</code>、<code>capitalizedString</code>等选择子。这张映射表（selector table，也常称为<strong>选择器表</strong>）中的每个选择子都映射到不同的IMP之上，如下图所示：</p>
-<div class="imagediv" style="width: 500px; height: 200px"></div>
-
-<p>Objective-C runtime系统提供的几个方法都能够用来操作这张表。开发者可以向其中新增selector，也可以改变某个selector所对应的方法实现，还可以交换两个selector所映射到的指针。经过几次操作之后，类的方法就会变成如下图所示：</p>
-<div class="imagediv" style="width: 500px; height: 250px"></div>
-
-<p>在新的映射表中，多了一个名为newSelector的选择子，lowercaseString和uppercaseString的实现则互换了。上述修改均无需编写子类，只要修改<strong>方法表</strong>的布局即可，就会反映到程序中所有的NSString实例之上。</p>
-<h2 id="交换两个方法的实现"><a href="#交换两个方法的实现" class="headerlink" title="交换两个方法的实现"></a>交换两个方法的实现</h2><p>现在通过示例代码演绎「调换<code>NSString</code>的<code>lowercaseString</code>和<code>uppercaseString</code>的方法实现」，具体实现操作是这样的：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    </div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    </div><div class="line">    <span class="built_in">NSString</span> *aString = <span class="string">@"AbcDEfg"</span>;</div><div class="line">    </div><div class="line">    <span class="comment">// lowercaseString和uppercaseString交换前：</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercaseString和uppercaseString交换前："</span>);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercase of the string : %@"</span>, [aString lowercaseString]);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"uppercase of the string : %@"</span>, [aString uppercaseString]);</div><div class="line">    </div><div class="line">    <span class="comment">// class_getInstanceMethod方法得到Method类型</span></div><div class="line">    Method originalMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(lowercaseString));</div><div class="line">    Method swappedMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(uppercaseString));</div><div class="line">    </div><div class="line">    <span class="comment">// method_exchangeImplementations交换映射指针</span></div><div class="line">    method_exchangeImplementations(originalMethod, swappedMethod);</div><div class="line">    </div><div class="line">    <span class="comment">// lowercaseString和uppercaseString交换后：</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercaseString和uppercaseString交换后："</span>);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercase of the string : %@"</span>, [aString lowercaseString]);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"uppercase of the string : %@"</span>, [aString uppercaseString]);</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="comment">/* 输出结果：</span></div><div class="line">lowercaseString和uppercaseString交换前：</div><div class="line">lowercase of the string : abcdefg</div><div class="line">uppercase of the string : ABCDEFG</div><div class="line">lowercaseString和uppercaseString交换后：</div><div class="line">lowercase of the string : ABCDEFG</div><div class="line">uppercase of the string : abcdefg</div><div class="line">*/</div></pre></td></tr></table></figure>
-<p>这演示了如何交换两个方法的实现，然而在实际应用中，像这样直接交换两个方法实现，其意义不大，除非闲得蛋疼。但是，可以通过这一手段来为既有的方法实现增添新功能。</p>
-<h2 id="修改既有方法的行为"><a href="#修改既有方法的行为" class="headerlink" title="修改既有方法的行为"></a>修改既有方法的行为</h2><p>介绍一个技巧，最好的方式就是提出具体的需求，然后用它跟其他的解决方法做比较。</p>
-<p>所以，先来看看我们的需求：对 App 的用户行为进行追踪和分析。简单说，就是当用户看到某个View或者点击某个Button的时候，就把这个事件记下来。</p>
-<p><strong>手动添加</strong></p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">MyViewController</span> ()</span></div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)viewDidAppear:(<span class="built_in">BOOL</span>)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidAppear:animated];</div><div class="line">    </div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="string">@"my view did appear"</span>];</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)myButtonClicked:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="string">@"my button clicked"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这种方式的缺点也很明显：它破坏了代码的干净整洁。因为Logging的代码本身并不属于View Controller里的主要逻辑。随着项目扩大、代码量增加，你的View Controller里会到处散布着Logging的代码。这时，要找到一段事件记录的代码会变得困难，也很容易忘记添加事件记录的代码。</p>
-<p>你可能会想到用继承或类别，在重写的方法里添加事件记录的代码。代码可以是长的这个样子：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)myViewDidAppear:(<span class="built_in">BOOL</span>)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidAppear:animated];</div><div class="line">    </div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>])];</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)myButtonClicked:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    <span class="built_in">NSString</span> *name = [<span class="built_in">NSString</span> stringWithFormat:@“my button <span class="keyword">in</span> %@ is clicked”, <span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>])];</div><div class="line">    [Logging logWithEventName:name];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>Logging 的代码都很相似，通过继承或类别重写相关方法是可以把它从主要逻辑中剥离出来。但同时也带来新的问题：</p>
-<ol>
-<li>你需要继承<code>UIViewController</code>，<code>UITableViewController</code>，<code>UICollectionViewController</code>所有这些View Controller，或者给他们添加类别；</li>
-<li>每个View Controller里的ButtonClick方法命名不可能都一样；</li>
-<li>你不能控制别人如何去实例化你的子类；</li>
-<li>对于类别，你没办法调用到原来的方法实现，大多时候，我们重写一个方法只是为了添加一些代码，而不是完全取代它；</li>
-<li>如果有两个类别都实现了相同的方法，运行时没法保证哪一个类别的方法会给调用。</li>
-</ol>
-<p><strong>Method Swizzling的做法</strong></p>
-<p>Method Swizzling的做法是新增一个方法<code>log_viewDidAppear:</code>，在这个方法体中调用<code>viewDidAppear:</code>的方法体；然后将<code>log_viewDidAppear:</code>和<code>viewDidAppear:</code>进行调换。呃，有些绕，看图吧：</p>
-<div class="imagediv" style="width: 505px; height: 154px"></div>
-
-<p>新增方法<code>log_viewDidAppear:</code>的实现代码可以这样写：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)log_viewDidAppear:(<span class="built_in">BOOL</span>)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span> log_viewDidAppear:animated];</div><div class="line">        </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>])];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>看起来，这段代码好像会陷入递归使用的死循环，不过要记住，此方法是准备和<code>viewDidAppear:</code>方法互换的。所以，在runtime，<code>log_viewDidAppear:</code>选择子对应的是原来<code>viewDidAppear:</code>方法的实现；同样，当向对象发送<code>viewDidAppear:</code>消息时，如上这段代码会被调用，而这段代码的第一句是<code>[self log_viewDidAppear:animated];</code>，这其实是调用原来<code>viewDidAppear:</code>方法的实现代码…</p>
-<p>定义了<code>log_viewDidAppear:</code>的实现后，还得与<code>viewDidAppear:</code>进行交换：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// class_getInstanceMethod方法得到Method类型</span></div><div class="line">Method originalMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(viewDidAppear:));</div><div class="line">Method swappedMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(log_viewDidAppear:));</div><div class="line">    </div><div class="line"><span class="comment">// method_exchangeImplementations交换映射指针</span></div><div class="line">method_exchangeImplementations(originalMethod, swappedMethod);</div></pre></td></tr></table></figure>
-<p>如何安排method swizzling相关的代码？</p>
-<p>一般来说，runtime相关的代码都会以category的形式组织，所以上述<code>log_viewDidAppear:</code>方法的实现会写在一个UIViewController category中，比如<code>UIViewController+log.h</code>。而<strong>交换方法</strong>相关的代码会写在category的load中。因为load方法是在runtime之前就被执行的，只要category所在的头文件被引用，load方法就会被调用，并且同一个class在不同category之间允许有多个load方法，这些load方法都会被调用（唯一的问题是谁先谁后）。</p>
-<p>通过method swizzling方案，开发者可以为那些完全不知道具体实现的（completely opaque，完全不透明）黑盒方法增加日志记录功能，这非常有助于程序调试，然而，此做法只在调试程序时有用。很少有人在调试程序之外的场合用上述<strong>方法调配技术</strong>来永久改变某个类的功能，因为如果使用不慎，它造成的破坏太大了，并且很难Debug。不能仅仅因为Objective-C语言里有这个特性就一定要用它。若是滥用，反而会令代码变得不易读懂且难于维护。</p>
-<p>总之，Method Swizzling只一个挺有争议的技术，对此有很多分析的文章，底部的参考资料中有链接。</p>
-<p><strong>补充</strong></p>
-<p>后来终于有机会在实际项目中使用到method swizzling。应用场景是这样的，接手了一个完整的项目，我的任务是在该项目基础上添加一些功能，顺便将项目整理一下，尽可能清理没有用的内容和过时的技术。项目页面非常多，各种文件的命名非常糟糕，我首先需要做的事情是将页面逻辑给整理出来（各种View Controller之间的逻辑关系），简单来说，我需要结合所看到的运行页面（譬如首页），将它的View Controller类给找出来。</p>
-<p>比较蠢的做法当然是去查看代码了。好在我比较机灵，决定使用method swizzling技术，让每个页面将它的View Controller类名自己喊出来。</p>
-<p>我的思路：定义一个UIViewController category，添加一个方法，该方法调用<code>viewDidAppear:</code>，并且将该类的名字给打印出来，然后将该方法的SEL和<code>viewDidAppear:</code>方法的SEL调换，这样系统在回调<code>viewDidAppear:</code>时会定义该方法代码，如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIViewController</span> (<span class="title">sayHello</span>)</span></div><div class="line"> </div><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    SEL originalSelector = <span class="keyword">@selector</span>(viewDidAppear:);</div><div class="line">    SEL swizzledSelector = <span class="keyword">@selector</span>(swizzled_viewDidAppear:);</div><div class="line">    </div><div class="line">    <span class="comment">// class_getInstanceMethod方法得到Method类型</span></div><div class="line">    Method originalMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], originalSelector);</div><div class="line">    Method swizzledMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], swizzledSelector);</div><div class="line"> </div><div class="line">    <span class="comment">// method_exchangeImplementations交换映射指针</span></div><div class="line">    method_exchangeImplementations(originalMethod, swizzledMethod);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="keyword">void</span>)swizzled_viewDidAppear:(<span class="built_in">BOOL</span>)animated &#123;</div><div class="line">    [<span class="keyword">self</span> swizzled_viewDidAppear:animated];</div><div class="line">    </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"hello, my name is %@"</span>, <span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]));</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<h2 id="AOP-Aspect-Oriented-Programming"><a href="#AOP-Aspect-Oriented-Programming" class="headerlink" title="AOP(Aspect Oriented Programming)"></a>AOP(Aspect Oriented Programming)</h2><p>在阅读博客《<a href="http://tech.glowing.com/cn/method-swizzling-aop/" target="_blank" rel="external">Method Swizzling和AOP实践</a>》时了解到了一个新概念 – <code>AOP</code>。</p>
-<p>简单来说，在Objective-C世界中，AOP就是利用Runtime特性给指定的方法添加自定义代码，Method Swizzling是其中一种实现AOP的方式之一。</p>
-<p>Mark一下，暂不多讲。</p>
-<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
-<li>《Effective Objective-C 2.0》</li>
-<li>《iOS开发进阶》</li>
-<li>《<a href="http://tech.glowing.com/cn/method-swizzling-aop/" target="_blank" rel="external">Method Swizzling和AOP实践</a>》</li>
-<li>大神Mattt Thompson（AFNetworking作者）的《<a href="http://nshipster.com/method-swizzling/" target="_blank" rel="external">Method Swizzling</a>》</li>
-<li>《<a href="http://blog.csdn.net/yiyaaixuexi/article/details/9374411" target="_blank" rel="external">Objective-C的hook方案（一）: Method Swizzling</a>》</li>
-<li><a href="http://stackoverflow.com/questions/5339276/what-are-the-dangers-of-method-swizzling-in-objective-c" target="_blank" rel="external">What are the Dangers of Method Swizzling in Objective C?</a>；</li>
-<li>《<a href="http://yulingtianxia.com/blog/2014/11/05/objective-c-runtime/#Method_Swizzling" target="_blank" rel="external">Objective-C Runtime</a>》</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Runtime/">Runtime</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/5/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><a class="page-number" href="/page/8/">8</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/7/">Next &raquo;</a>
     </nav>
   
 </div>

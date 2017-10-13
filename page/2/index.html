@@ -112,7 +112,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a>
 					</div>
 				</section>
 				
@@ -183,6 +183,472 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-reactive-cocoa-part-2" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/28/reactive-cocoa-part-2/" class="article-date">
+  	<time datetime="2016-07-28T14:39:41.000Z" itemprop="datePublished">2016-07-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/28/reactive-cocoa-part-2/">RACSignal实践</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>接着<a href="/reactive-cocoa-part-1/">初识ReactiveCocoa</a>继续写，本文总结<code>RACSignal</code>的简单使用以及基本操作。</p>
+<p>Signal传递的data是event，它所传递的event包括3种：<strong>值事件</strong>、<strong>完成事件</strong>和<strong>错误事件</strong>。其中在传递值事件时，可以携带数据。落实到代码层面，传递<strong>值事件</strong>、<strong>完成事件</strong>以及<strong>错误事件</strong>的本质就是向subscriber发送<code>sendNext:</code>、<code>sendComplete</code>以及<code>sendError:</code>消息。</p>
+<p>为了更形象对各种操作进行表述，下文会大量使用图例，绿色圆圈代表值事件，红色叉代表错误事件，红色杠代表完成事件，灰色带箭头直线代表时间线，如下：</p>
+<div class="imagediv" style="width:580px; heiht:69px"></div>
+
+<p>Signal在其生命周期内，可以传递任意多个值事件，但最多只能传递一个完成事件或错误事件；换句话说，一旦Signal的事件流中出现了错误事件或者完成事件，之后产生的任何事件都是无效的。</p>
+<h2 id="信号的简单使用"><a href="#信号的简单使用" class="headerlink" title="信号的简单使用"></a>信号的简单使用</h2><p>这一部分将从3个方面介绍信号的简单实用，包括：创建信号、订阅信号、订阅过程。</p>
+<h3 id="获取信号"><a href="#获取信号" class="headerlink" title="获取信号"></a>获取信号</h3><p>获取信号的方式有很多种：</p>
+<ul>
+<li>创建单元信号</li>
+<li>创建动态信号</li>
+<li>通过Cocoa桥接</li>
+<li>从别的信号变换而来</li>
+<li>由序列变换而来</li>
+</ul>
+<p><strong>单元信号</strong></p>
+<p>最简单的信号是单元信号，有4种：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// return信号：被订阅后，立马产生一个值事件，然后产生一个完成事件</span></div><div class="line">RACSignal *signal1 = [RACSignal <span class="keyword">return</span>:someObject];</div><div class="line"><span class="comment">// error信号：被订阅后，立马产生一个错误事件</span></div><div class="line">RACSignal *signal2 = [RACSignal error:someError];</div><div class="line"><span class="comment">// empty信号：被订阅后，立马产生一个完成事件</span></div><div class="line">RACSignal *signal3 = [RACSignal empty];</div><div class="line"><span class="comment">// never信号：永远不产生事件</span></div><div class="line">RACSignal *signal4 = [RACSignal never];</div></pre></td></tr></table></figure>
+<p>可以用图例描述这4个信号：</p>
+<div class="imagediv" style="width: 472px; height: 76px;"></div>
+
+<p><strong>动态信号</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal5 = [RACSignal createSignal:^RACDisposable *(<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) &#123;</div><div class="line">    [subscriber sendNext:<span class="string">@"1"</span>];</div><div class="line">    [subscriber sendNext:<span class="string">@"2"</span>];</div><div class="line">    [subscriber sendCompleted];</div><div class="line">    <span class="keyword">return</span> [RACDisposable disposableWithBlock:^&#123;</div><div class="line">        </div><div class="line">    &#125;];</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p><strong>Cocoa桥接</strong></p>
+<p>RAC为大量的Cocoa类型提供便捷的信号桥接工具，如下是一些常见的桥接方式：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal6 = [object rac_signalForSelector:<span class="keyword">@selector</span>(setFrame:)];</div><div class="line">RACSignal *signal7 = [control rac_signalForControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>];</div><div class="line">RACSignal *signal8 = [object rac_willDeallocSignal];</div><div class="line">RACSignal *signal9 = RACObserve(object, keyPath);</div><div class="line"><span class="comment">// 还有更多</span></div></pre></td></tr></table></figure>
+<p><strong>信号变换</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal10 = [signal1 map:^<span class="keyword">id</span>(<span class="keyword">id</span> value) &#123;</div><div class="line">    <span class="keyword">return</span> someObject;</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p><strong>序列变换</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal11 = sequence.signal;</div></pre></td></tr></table></figure>
+<h3 id="订阅信号"><a href="#订阅信号" class="headerlink" title="订阅信号"></a>订阅信号</h3><p>订阅信号的方式有3种：</p>
+<ul>
+<li>通过<code>subscribeNext:error:completed:</code>方法订阅</li>
+<li>RAC宏绑定</li>
+<li>Cocoa桥接</li>
+</ul>
+<p><strong>通过subscribeNext:error:completed:方法订阅</strong></p>
+<p><code>subscribeNext:error:completed:</code>是最基础的信号订阅方法，相关的方法原型如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (RACDisposable *)subscribeNext:(<span class="keyword">void</span> (^)(<span class="keyword">id</span> x))nextBlock</div><div class="line">                           error:(<span class="keyword">void</span> (^)(<span class="built_in">NSError</span> *error))errorBlock</div><div class="line">                       completed:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>));</div></pre></td></tr></table></figure>
+<p><strong>RAC宏绑定</strong></p>
+<p>可以使用<code>RAC()</code>宏（和上述的<code>RACObserve()</code>宏不一样）绑定：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">RAC(view, backgroundColor) = signal10;</div><div class="line"><span class="comment">// 每当signal10产生一个值事件，就将view.backgroundColor设为相应的值</span></div></pre></td></tr></table></figure>
+<p><strong>Cocoa桥接</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">[object rac_liftSelector:<span class="keyword">@selector</span>(someSelector:) withSignals:signal1, signal2, <span class="literal">nil</span>];</div><div class="line">[object rac_liftSelector:<span class="keyword">@selector</span>(someSelector:) withSignalsFromArray:@[signal1, signal2]];</div><div class="line">[object rac_liftSelector:<span class="keyword">@selector</span>(someSelector:) withSignalOfArguments:signal1];</div></pre></td></tr></table></figure>
+<h3 id="订阅过程"><a href="#订阅过程" class="headerlink" title="订阅过程"></a>订阅过程</h3><p>所谓订阅过程指的是信号被订阅的处理逻辑，如下是简单的例子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal = [RACSignal createSignal:^RACDisposable *(<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) &#123;</div><div class="line">    [subscriber sendNext:<span class="string">@"1"</span>];</div><div class="line">    [subscriber sendNext:<span class="string">@"2"</span>];</div><div class="line">    [subscriber sendCompleted];     </div><div class="line">    [subscriber sendNext:<span class="string">@"3"</span>];  <span class="comment">// 无效</span></div><div class="line">    <span class="keyword">return</span> [RACDisposable disposableWithBlock:^&#123;</div><div class="line">        <span class="built_in">NSLog</span>(<span class="string">@"dispose"</span>);       <span class="comment">// 当错误事件或者完成事件产生时，该block被调用</span></div><div class="line">    &#125;];</div><div class="line">&#125;];</div><div class="line"></div><div class="line">[signal subscribeNext:^(<span class="keyword">id</span> x) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"next value is :  %@"</span>, x);</div><div class="line">&#125; error:^(<span class="built_in">NSError</span> *error) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"error : %@"</span>, error);</div><div class="line">&#125; completed:^&#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"completed"</span>);</div><div class="line">&#125;];</div><div class="line"></div><div class="line"><span class="comment">/* prints:</span></div><div class="line">next value is :  1</div><div class="line">next value is :  2</div><div class="line">completed</div><div class="line">dispose</div><div class="line">*/</div></pre></td></tr></table></figure>
+<h2 id="信号的各类操作"><a href="#信号的各类操作" class="headerlink" title="信号的各类操作"></a>信号的各类操作</h2><p>这一部分将介绍信号的各类操作，内容比较多。参考大神臧成威的说法，将信号的操作分为两类：单个信号的变换、多个信号的组合。</p>
+<h3 id="单个信号的变换"><a href="#单个信号的变换" class="headerlink" title="单个信号的变换"></a>单个信号的变换</h3><p>单个信号的变换也可以分为几类：</p>
+<ul>
+<li>值操作</li>
+<li>数量操作</li>
+<li>时间操作</li>
+</ul>
+<p>下文结合图例对各种操作进行说明。</p>
+<p><strong>值操作 – Map</strong></p>
+<div class="imagediv" style="width:350px; heiht:130px"></div>
+
+<ul>
+<li>当<code>signalA</code>事件流出现完成事件时，<code>signalB</code>的事件流也会出现完成事件</li>
+<li>当<code>signalA</code>事件流出现错误事件时，<code>signalB</code>也会将该错误原封不动地释放出来</li>
+</ul>
+<p><code>map:</code>操作还有一个简化版：<code>mapReplace:</code>，<code>[signalA mapReplace:@886];</code>等价于<code>[signalA map:^id(id value) { return @886; }];</code>。</p>
+<p><strong>值操作 – ReduceEach</strong></p>
+<div class="imagediv" style="width:400px; heiht:130px"></div>
+
+<p><code>reduceEach:</code>这个操作的名字不太容易理解，但是操作本身还是非常简单，是<code>map:</code>的变体。当<code>signalA</code>的值事件包裹的数据是<code>RACTuple</code>类型时，才可以使用该操作；稍微读一下该操作的实现源码即可明白。</p>
+<p>此外，<code>reduceEach:</code>的block中，可以传入的参数是任意数量。</p>
+<p>P.S: 如何理解「reduce」？</p>
+<p><strong>值操作 – 其他的Map变体操作</strong></p>
+<p>除了<code>reduceEach:</code>，<code>map:</code>还有其他的一些变体操作：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">- (RACSignal *)not;</div><div class="line">- (RACSignal *)and;</div><div class="line">- (RACSignal *)or;</div><div class="line">- (RACSignal *)reduceApply;</div></pre></td></tr></table></figure>
+<p>前面3个都比较容易理解，<code>reduceApply</code>也要求值事件包裹的数据类型是<code>RACTuple</code>，并且该<code>RACTuple</code>的第一个元素是一个block，后面的元素作为该block的参数传入，返回该block的执行结果。</p>
+<p><strong>值操作 – Materialize和Dematerialize</strong></p>
+<p>对于<code>signalB = [signalA materialize];</code>，<code>signalA</code>产生的值事件包裹的数据都被转化为<code>RACEvent</code>对象，错误事件和完成事件亦然：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">signalA -- sendNext:x</div><div class="line">=&gt;</div><div class="line">signalB -- sendNext:[RACEvent eventWithValue:x]</div><div class="line"></div><div class="line">signalA -- sendError:error</div><div class="line">=&gt;</div><div class="line">signalB --  sendNext:[RACEvent eventWithError:error]</div><div class="line">signalB --  sendCompleted</div><div class="line"></div><div class="line">signalA -- sendCompleted</div><div class="line">=&gt;</div><div class="line">signalB -- sendNext:RACEvent.completedEvent</div><div class="line">signalB -- sendCompleted</div></pre></td></tr></table></figure>
+<p><code>dematerialize</code>操作与<code>materialize</code>相反，写代码体会一下就明白了。这两个操作似乎很少被用到。</p>
+<p><strong>数量操作 – Filter</strong></p>
+<div class="imagediv" style="width:350px; heiht:130px"></div>
+
+<p>和<code>map:</code>一样：</p>
+<ul>
+<li>当<code>signalA</code>产生完成事件时，<code>signalB</code>也会产生完成事件</li>
+<li>当<code>signalA</code>产生错误事件时，<code>signalB</code>也会将该错误原封不动地释放出来</li>
+</ul>
+<p><strong>数量操作 – Ignore</strong></p>
+<p><code>ignore:</code>是<code>filter:</code>的变体操作：</p>
+<div class="imagediv" style="width:349px; heiht:130px"></div>
+
+<p>还有其他的变体版本：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">- (RACSignal *)ignoreValues;</div></pre></td></tr></table></figure>
+<p><strong>数量操作 – Distinct</strong></p>
+<p><code>distinctUntilChanged</code>去掉连续相同的值事件。</p>
+<div class="imagediv" style="width:345px; heiht:127px"></div>
+
+<p><strong>数量操作 – Take和Skip</strong></p>
+<p><code>take:</code>操作只取前<code>n</code>（传入的参数）个事件。</p>
+<div class="imagediv" style="width:352px; heiht:129px"></div>
+
+<p>假设<code>signalA</code>第一次出现错误事件/完成事件的index（从1开始）为<code>k</code>：</p>
+<ul>
+<li>当<code>k</code> &gt; <code>n</code>时，<code>signalB</code>中就不会出现错误事件/完成事件</li>
+<li>当<code>k</code> &lt;= <code>n</code>时，错误事件/完成事件也会出现<code>signalB</code>中</li>
+</ul>
+<p><code>skip:</code>与<code>take:</code>相反，它会将前<code>n</code>（传入的参数）个事件给过过滤掉。</p>
+<div class="imagediv" style="width:340px; heiht:129px"></div>
+
+<p><code>signalA</code>的前<code>n</code>个事件中可能会出现错误事件/完成事件，这种情况下，<code>signalB</code>的第一个信号就是错误事件/完成事件，且不会有任何的值事件。</p>
+<p><code>take:</code>和<code>skip:</code>也有几个变体：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (RACSignal *)takeLast:(<span class="built_in">NSUInteger</span>)count;</div><div class="line">- (RACSignal *)takeUntilBlock:(<span class="built_in">BOOL</span> (^)(<span class="keyword">id</span> x))predicate;</div><div class="line">- (RACSignal *)takeWhileBlock:(<span class="built_in">BOOL</span> (^)(<span class="keyword">id</span> x))predicate;</div><div class="line">- (RACSignal *)skipUntilBlock:(<span class="built_in">BOOL</span> (^)(<span class="keyword">id</span> x))predicate;</div><div class="line">- (RACSignal *)skipWhileBlock:(<span class="built_in">BOOL</span> (^)(<span class="keyword">id</span> x))predicate;</div></pre></td></tr></table></figure>
+<p>P.S: 还有两个操作也以「take」作为前缀，即<code>takeUntil:</code>和<code>takeUntilReplacement:</code>，但属于组合操作，详见下文。</p>
+<p><strong>数量操作 – Start With</strong></p>
+<p><code>startWith:</code>操作的作用是在事件流的开始新增一个值事件。</p>
+<div class="imagediv" style="width:370px; heiht:129px"></div>
+
+<p><strong>数量操作 – Repeat</strong></p>
+<div class="imagediv" style="width:430px; heiht:129px"></div>
+
+<p>从图中可以看到，<code>repeat</code>操作会忽略<code>signalA</code>的完成事件，但它不会忽略错误事件，换句话说，如果<code>signalA</code>的事件流中含有错误事件，那么<code>signalB</code>的事件流会和<code>signalA</code>完全一致。</p>
+<p><strong>数量操作 – Retry</strong></p>
+<div class="imagediv" style="width:439px; heiht:130px"></div>
+
+<p>然而，当<code>signalA</code>事件流中含有完成事件时，那么<code>signalA</code>的事件流会和<code>signalA</code>完全一致。</p>
+<p><code>retry</code>操作还有带参数版本<code>retry:</code>，该版本可以指定次数。这种操作在处理网络任务时非常有用。</p>
+<p><strong>数量操作 – Collect</strong></p>
+<div class="imagediv" style="width:360px; heiht:130px"></div>
+
+<p><strong>Aggregate和Scan</strong></p>
+<p>Aggregate（译作「合计」）和Scan这两个操作有些类似，但明显有区别，前者改变了事件流的事件数量，后者没有，看如下图例就明白。</p>
+<div class="imagediv" style="width:380px; heiht:260px"></div>
+
+<div class="imagediv" style="width:450px; heiht:264px"></div>
+
+
+<p>Aggregate和Scan还有一些其他变种方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">- (RACSignal *)aggregateWithStartFactory:(<span class="keyword">id</span> (^)(<span class="keyword">void</span>))startFactory reduce:(<span class="keyword">id</span> (^)(<span class="keyword">id</span> running, <span class="keyword">id</span> next))reduceBlock;</div><div class="line">- (RACSignal *)aggregateWithStart:(<span class="keyword">id</span>)start reduceWithIndex:(<span class="keyword">id</span> (^)(<span class="keyword">id</span>, <span class="keyword">id</span>, <span class="built_in">NSUInteger</span>))reduceBlock;</div><div class="line">- (RACSignal *)scanWithStart:(<span class="keyword">id</span>)startingValue reduceWithIndex:(<span class="keyword">id</span> (^)(<span class="keyword">id</span>, <span class="keyword">id</span>, <span class="built_in">NSUInteger</span>))reduceBlock;</div></pre></td></tr></table></figure>
+<p><strong>时间操作 – 常会用到的时间信号</strong></p>
+<p>经常会有这样的需求：定时产生一个事件。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">+ (RACSignal *)interval:(<span class="built_in">NSTimeInterval</span>)interval onScheduler:(RACScheduler *)scheduler;</div><div class="line">+ (RACSignal *)interval:(<span class="built_in">NSTimeInterval</span>)interval onScheduler:(RACScheduler *)scheduler withLeeway:(<span class="built_in">NSTimeInterval</span>)leeway;</div></pre></td></tr></table></figure>
+<p>这两个类方法都会产生一个时间信号，时间信号会以一定频率产生一个值事件，值事件包裹的是<code>NSDate</code>对象。第二个方法中的参数<code>leeway</code>是「缓冲」、「余地」的意思，还不太明白其作用。</p>
+<p><strong>时间操作 – Delay</strong></p>
+<div class="imagediv" style="width:380px; heiht:130px"></div>
+
+<p><strong>时间操作 – Throttle</strong></p>
+<p>Throttle信号理解起来相对比较繁琐些。在下图中，<code>signalA</code>事件流中一共有5个值事件和1个完成事件，其中1号和2号事件间隔2s，2、3、4号事件间隔1s，5号值事件比4号值事件晚3s，完成事件比5号事件晚1s。</p>
+<div class="imagediv" style="width:510px; heiht:220px"></div>
+
+<p><code>signalB</code>由<code>[signalA throttle:1.5]</code>得到，throttle表示门限，其作用效果是：</p>
+<ul>
+<li>当<code>signalA</code>事件流产生一个值事件时，若1.5s内没有其他的值事件产生，则<code>signalB</code>事件流中也会产生该值事件；比如上图中的1号值事件，下一个值事件（2号）在其2s后产生，满足要求，故而在1.5s后，<code>signalB</code>的事件流也产生该信号；</li>
+<li>当<code>signalA</code>事件流产生一个值事件时，若1.5s内有其他的值事件产生，则<code>signalB</code>会过滤掉该值事件；比如上图中的2号和3号值事件，在1s后分别有3号和4号信号产生，不满足要求，故而都不会出现在<code>signalB</code>的事件流中；</li>
+<li>对于<code>signalA</code>中的最后一个值事件，<code>signalB</code>事件流中总会也包含它。</li>
+</ul>
+<p>这种信号有什么用呢？有一个常用的应用场景：在App内经常需要搜索，为了确保实时性，简单的做法是每输入一个字符就检索一下，但是若用户输入字符比较快，这种检索策略会比较浪费流量，因此比较好的做法是，用户输入某个字符后，1s（参考值）内没有再输入别的字符，就检索一次搜索结果。此时throttle就有了用武之地。</p>
+<p><code>throttle:</code>还有一个变体<code>throttle:valuesPassingTest:</code>；及类似操作：<code>bufferWithTime:onScheduler:</code>。</p>
+<p><strong>副作用操作</strong></p>
+<p>再补充一些RAC提供的副作用操作：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">- (RACSignal *)doNext:(<span class="keyword">void</span> (^)(<span class="keyword">id</span> x))block;</div><div class="line">- (RACSignal *)doError:(<span class="keyword">void</span> (^)(<span class="built_in">NSError</span> *error))block;</div><div class="line">- (RACSignal *)doCompleted:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</div><div class="line">- (RACSignal *)initially:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</div><div class="line">- (RACSignal *)finally:(<span class="keyword">void</span> (^)(<span class="keyword">void</span>))block;</div></pre></td></tr></table></figure>
+<p>这5个副作用操作，稍微查看一下源码立马能知道它们的作用；其中<code>initially:</code>的作用是让信号在第一次被订阅是调用其block；<code>finally:</code>的作用是在信号的事件流结束（出现完成事件或错误事件）时调用传入的block。</p>
+<h3 id="多个信号的组合"><a href="#多个信号的组合" class="headerlink" title="多个信号的组合"></a>多个信号的组合</h3><p>上面介绍的都是单信号操作，这部分介绍多信号组合操作，在熟悉这些组合操作时，以<code>signalA + signalB =&gt; signalC</code>为例，需要留意几个问题：</p>
+<ul>
+<li>组合得到<code>signalC</code>的信号受哪个信号终止而终止，<code>signalA</code> or <code>signalB</code>？</li>
+<li>当<code>signalA</code>或<code>signalB</code>事件流中出现错误信号，会如何？</li>
+<li>各个信号何时开始被订阅？</li>
+</ul>
+<p><strong>组合操作 – Concat</strong></p>
+<div class="imagediv" style="width:460px; heiht:349px"></div>
+
+<p>在上图中，当<code>signalA</code>的事件流中出现完成事件时，立马订阅<code>signalB</code>，<code>signalC</code>事件流的完成事件与<code>signalB</code>的完成事件对应。同时，注意到当<code>signalA</code>中出现错误事件时，<code>signalC</code>中的事件流与<code>signalA</code>的事件流完全保持一致，就没<code>signalB</code>什么事儿了。</p>
+<p><strong>组合操作 – Merge</strong></p>
+<p>Merge操作比较简单，看图就明白。</p>
+<div class="imagediv" style="width:460px; heiht:349px"></div>
+
+<p>除了<code>signalC = [signalA merge:signalB]</code>这种用法外，还可以这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">signalC = [RACSignal merge:@[signalA, signalB]];</div><div class="line">signalC = [RACSignal merge:RACTuplePack(signalA, signalB)];</div></pre></td></tr></table></figure>
+<p><strong>组合操作 – Zip</strong></p>
+<div class="imagediv" style="width:344px; heiht:344px"></div>
+
+<p>除了<code>signalC = [signalA zip:signalB]</code>这种用法外，还可以这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">signalC = [RACSignal zip:@[signalA, signalB]];</div><div class="line">signalC = [RACSignal zip:RACTuplePack(signalA, signalB)];</div></pre></td></tr></table></figure>
+<p><strong>组合操作 – CombineLatest</strong></p>
+<div class="imagediv" style="width:370px; heiht:339px"></div>
+
+<p>除了<code>signalC = [signalA combineLatest:signalB]</code>这种用法外，还可以这样：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">signalC = [RACSignal combineLatest:@[signalA, signalB]];</div><div class="line">signalC = [RACSignal combineLatest:RACTuplePack(signalA, signalB)];</div></pre></td></tr></table></figure>
+<p><strong>组合操作 – Sample</strong></p>
+<div class="imagediv" style="width:370px; heiht:170px"></div>
+
+<p>在<code>signalC = [signalA sample:signalB]</code>中，<code>signalB</code>充当<code>signalA</code>的采样信号，一旦<code>signalA</code>或<code>signalB</code>先产生完成事件或者错误事件，<code>signalC</code>的事件流就被终止。</p>
+<p><strong>组合操作 – Take Until</strong></p>
+<div class="imagediv" style="width:370px; heiht:170px"></div>
+
+<p><code>signalC</code>事件流中的事件和<code>signalA</code>一一对应，直到<code>signalB</code>事件流中出现了信号，事件流就终结。</p>
+<p><strong>组合操作 – Take Until Replacement</strong></p>
+<div class="imagediv" style="width:370px; heiht:170px"></div>
+
+<p><code>signalC</code>事件流中的事件和<code>signalA</code>一一对应，一旦<code>signalB</code>事件流中出现了信号，<code>signalC</code>的事件就和<code>signalB</code>形成呼应，当然前提是<code>signalC</code>的事件流还没有终结。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-reactive-cocoa-part-1" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/28/reactive-cocoa-part-1/" class="article-date">
+  	<time datetime="2016-07-28T14:31:28.000Z" itemprop="datePublished">2016-07-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/28/reactive-cocoa-part-1/">初识ReactiveCocoa</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="关于ReactiveCocoa"><a href="#关于ReactiveCocoa" class="headerlink" title="关于ReactiveCocoa"></a>关于ReactiveCocoa</h2><p>ReactiveCocoa是iOS环境下的一个函数式响应式编程框架。<strong>函数式响应式编程</strong>（Functional Reactive Programming, FRP）这个概念由微软的牛X<a href="http://reactivex.io/" target="_blank" rel="external">团队</a>提出，ReactiveCocoa是受其<a href="https://msdn.microsoft.com/en-us/data/gg577609.aspx" target="_blank" rel="external">启发</a>而诞生的框架，应用范围非常广泛。</p>
+<p>ReactiveCocoa至今已经发展出第4个版本了，而本文所针对的ReactiveCocoa版本是v2.5；照常例，下文将使用RAC代替ReactiveCocoa。</p>
+<p>P.S: ReactiveCocoa 3.0已经放弃对iOS 7的支持，因此如果支持iOS 7，必须得使用更低的版本。因此，若想通过CocoaPods安装ReactiveCocoa v2.5，需要指明platform是低于v8.0的版本，譬如<code>platform :ios, &#39;7.0&#39;</code>。如果使用Swift语言，<a href="RxSwift">RxSwift</a>似乎是更好的选择。</p>
+<p>在本文中，理解Signal是重头戏，个人认为，结合Sequence理解信号（Signal）比较容易一些，因此会花一些篇幅阐述Sequence；除此之外，还有必要介绍高阶函数和函数式编程。</p>
+<p>P.S: Sequence在RAC中的地位越来越低，在Swift环境中，干脆被干掉了。</p>
+<h2 id="高阶函数和函数式编程"><a href="#高阶函数和函数式编程" class="headerlink" title="高阶函数和函数式编程"></a>高阶函数和函数式编程</h2><p>从维基百科的<a href="https://en.wikipedia.org/wiki/Higher-order_function" target="_blank" rel="external">解释</a>来看，一个高阶函数需要满足如下两个条件：</p>
+<ul>
+<li>一个或者多个函数作为输入；</li>
+<li>有一个函数作为输出。</li>
+</ul>
+<p>P.S: 维基百科代表不了权威，至少在高阶函数这个问题上，网友存在分歧，有的人认为这两个条件满足一个即可；另一部分人认为二者皆不可缺。为了配合我所参考的资料 – <a href="https://www.gitbook.com/book/kevinhm/functionalreactiveprogrammingonios/details" target="_blank" rel="external">iOS的函数响应型编程</a> – 的说法，我只好选择后者。</p>
+<p>有必要在了解ReactiveCocoa之前认识一下函数式编程，可以参考<a href="http://www.ruanyifeng.com/blog/2012/04/functional_programming.html" target="_blank" rel="external">函数式编程初探</a>和<a href="https://kevinhm.gitbooks.io/functionalreactiveprogrammingonios/content/chapter3/functional_programming_with_RXCollections.html" target="_blank" rel="external">用RXCollections进行函数式编程</a>。</p>
+<h2 id="流和序列"><a href="#流和序列" class="headerlink" title="流和序列"></a>流和序列</h2><p>RAC有一个核心概念叫<strong>流</strong>（Stream），它是data的序列化抽象。下文提到的<a href="http://limboy.me/" target="_blank" rel="external">LimBoy</a>把Signal比喻成水管，我认为完全可以把Stream也比喻成水管，data就好像流淌在水管中的玻璃球，玻璃球直径和水管内径相仿，只能依次流过。以我们当前的认知水平，data的序列化就好像是一个数组或者列表。Data在序列中依次被排好序，它们能像水管中的玻璃球一样流出来。</p>
+<p>P.S: 「水管」和「玻璃球」比喻，我所知道的出处是<a href="http://limboy.me/" target="_blank" rel="external">LimBoy</a>，下文再解释Signal时会再次说明。</p>
+<p>在RAC中，使用类<code>RACStream</code>抽象Stream，该类是个抽象类，本身不能被用来定义实例，用得更多的是它的两个子类：<code>RACSequence</code>和<code>RACSignal</code>。换句话说，在RAC中，有两种特定的流：序列（<code>RACSequence</code>）和信号（<code>RACSignal</code>）。</p>
+<p>可以使用RAC为<code>NSArray</code>定义的category方法<code>rac_sequence</code>，将数组桥接为一个序列：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSArray</span> *array = @[@<span class="number">1</span>, @<span class="number">2</span>, @<span class="number">3</span>, @<span class="number">4</span>];</div><div class="line">RACSequence *sequence1 = [array rac_sequence];</div></pre></td></tr></table></figure>
+<p>可以对生成的<code>sequence1</code>进行map、filter等处理，得到一个新的序列，前者对序列中的每个data进行处理，后者将序列中的data进行匹配过滤。下面例子先进行map处理，对序列中的data进行平方处理，得到一个新的序列<code>sequence2</code>，然后再对新序列进行filter处理，将偶数给剔除掉，得到<code>sequence3</code>，最后，再将<code>sequence3</code>还原为<code>NSArray</code>，并将所有元素给打印出来：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">RACSequence *sequence2 = [sequence1 map:^<span class="keyword">id</span>(<span class="built_in">NSNumber</span> * value) &#123;</div><div class="line">    <span class="keyword">return</span> [<span class="built_in">NSNumber</span> numberWithInteger:value.integerValue*value.integerValue];</div><div class="line">&#125;];</div><div class="line">RACSequence *sequence3 = [sequence2 filter:^<span class="built_in">BOOL</span>(<span class="built_in">NSNumber</span> * value) &#123;</div><div class="line">    <span class="keyword">return</span> value.integerValue % <span class="number">2</span> == <span class="number">1</span>;</div><div class="line">&#125;];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, sequence3.array);</div><div class="line"><span class="comment">// print: (1, 9)</span></div></pre></td></tr></table></figure>
+<p>显然，上述的两个步骤其实可以链式串起来，这样至少可以将<code>sequence2</code>这个临时变量给省掉。</p>
+<p>到了这里，应该对Sequence有了基本的理解了。</p>
+<p>P.S: 文笔不佳，阅读《<a href="https://www.gitbook.com/book/kevinhm/functionalreactiveprogrammingonios/details" target="_blank" rel="external">iOS的函数响应型编程</a>》的前两章效果会更好。</p>
+<p>P.S: 除了<code>NSArray</code>，还可以桥接为<code>RACSequence</code>的类型包括：<code>NSDictionary</code>、<code>NSEnumerator</code>、<code>NSIndexSet</code>、<code>NSSet</code>、<code>RACSequence</code>、<code>RACTuple</code>（RAC定义的一种类型，和其他语言譬如Swift中的<code>Tuple</code>类似）。</p>
+<p>除了上面提到的map、filter，RAC的Stream还定义了其他很多基本操作：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">instancetype</span>)flattenMap:(RACStream * (^)(<span class="keyword">id</span> value))block;</div><div class="line">- (<span class="keyword">instancetype</span>)flatten;</div><div class="line">- (<span class="keyword">instancetype</span>)map:(<span class="keyword">id</span> (^)(<span class="keyword">id</span> value))block;</div><div class="line">- (<span class="keyword">instancetype</span>)filter:(<span class="built_in">BOOL</span> (^)(<span class="keyword">id</span> value))block;</div><div class="line">- (<span class="keyword">instancetype</span>)ignore:(<span class="keyword">id</span>)value;</div><div class="line">- (<span class="keyword">instancetype</span>)skip:(<span class="built_in">NSUInteger</span>)skipCount;</div><div class="line">- (<span class="keyword">instancetype</span>)take:(<span class="built_in">NSUInteger</span>)count;</div><div class="line">+ (<span class="keyword">instancetype</span>)zip:(<span class="keyword">id</span>&lt;<span class="built_in">NSFastEnumeration</span>&gt;)streams;</div></pre></td></tr></table></figure>
+<p>如上只是其中一部分，更过基本操作详见<code>RACStream.h</code>。需要说明的是，上述的基本操作都是建立在如下API基础之上，<code>RACStream</code>并未实现这些API，得由子类（即<code>RACSequence</code>和<code>RACSignal</code>）自己实现。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">instancetype</span>)empty;</div><div class="line">+ (<span class="keyword">instancetype</span>)<span class="keyword">return</span>:(<span class="keyword">id</span>)value;</div><div class="line">- (<span class="keyword">instancetype</span>)bind:(RACStreamBindBlock (^)(<span class="keyword">void</span>))block;</div><div class="line">- (<span class="keyword">instancetype</span>)concat:(RACStream *)stream;</div><div class="line">- (<span class="keyword">instancetype</span>)zipWith:(RACStream *)stream;</div></pre></td></tr></table></figure>
+<p>P.S: <code>RACStream</code>定义的如上5个抽象方法，sunnyxx在其博客<a href="http://blog.sunnyxx.com/2014/03/06/rac_2_racstream/]" target="_blank" rel="external">Reactive Cocoa Tutorial [2] = 百变RACStream</a>里已有比较好的说明，可以参考一下。</p>
+<p>如何看待上述的基本方法呢？这些方法（无论是类方法还是实例方法）都返回<code>RACStream</code>对象，这意味着可以在它们的基础上进行<strong>链式调用</strong>，事实上达成了函数式编程的目的。</p>
+<p>想想数学分支中的代数，最基础的运算无非是加减，在加减的基础上引出了乘除，然后有了各种各样更复杂的数学运算，譬如求导、微分、积分、卷积等等。对于Stream也一样，在理解这些基本操作后，我们就可以基于链式调用实现各种复杂的逻辑。</p>
+<p>至于这些操作的具体意义及用法，本文先略过，以后再说。</p>
+<h2 id="信号"><a href="#信号" class="headerlink" title="信号"></a>信号</h2><p>在RAC中，Signal也是一种Stream，可以被绑定和传递。把Sequence想象成Stream并不是很难，但把Signal理解成Stream还是蛮有挑战的。</p>
+<p>如何理解Signal呢？能力有限，我也没有更好的表述。如下是一段在ReactiveCocoa的中文世界里被广泛传播的解释：</p>
+<blockquote>
+<p>可以把信号想象成水龙头，只不过里面不是水，而是玻璃球(data)，直径跟水管的内径一样，这样就能保证玻璃球是依次排列，不会出现并排的情况(数据都是线性处理的，不会出现并发情况)。水龙头的开关默认是关的，除非有了接收方(subscriber)，才会打开。这样只要有新的玻璃球进来，就会自动传送给接收方。可以在水龙头上加一个过滤嘴(filter)，不符合的不让通过，也可以加一个改动装置，把球改变成符合自己的需求(map)。也可以把多个水龙头合并成一个新的水龙头(combineLatest:reduce:)，这样只要其中的一个水龙头有玻璃球出来，这个新合并的水龙头就会得到这个球。</p>
+</blockquote>
+<p>P.S: 这段摘自LimBoy的博文<a href="http://limboy.me/tech/2013/06/19/frp-reactivecocoa.html" target="_blank" rel="external">ReactiveCocoa与Functional Reactive Programming</a>。</p>
+<h3 id="Sequence-v-s-Signal"><a href="#Sequence-v-s-Signal" class="headerlink" title="Sequence v.s Signal"></a>Sequence v.s Signal</h3><p>Sequence和Signal都是Stream，但它们是不同类型的流。前者是pull-driven，后者是push-driven。所谓pull-driven，可以类比获取网页的方式，发起一个正确的HTTP请求，我们总会得到一些数据，因为数据就在服务端的数据库中躺着；而push-driven，可以类比推送（Push），数据并不是随时都有的，客户端也不知道什么时候该去获取，只能与服务端保持长连接，当服务端有新数据时，就主动推送（Push）过来。</p>
+<p>对于初学者，理解pull-driven和push-driven这两个名词不是很容易，但理解Sequence和Signal的区别还是不难：对于Sequence而言，在它被创立之初，其中的data（玻璃球）是被确定的，可以从流中把它们一个一个查询出来；但对于Signal而言，在它（水管）被创立的时候，其中是没有data（玻璃球）的，data是之后在某个时刻（譬如notification发生时、网络请求完成时）才被放入的。</p>
+<p>除了data驱动方式不同，Sequence和Signal所传递的data类型还不同，Sequence传递的是对象，Signal传递的是事件，无论是对象还是事件，在本文中都以data概述。</p>
+<p>P.S: <code>RACSequence</code>和<code>RACSignal</code>可以互相转化，详见<a href="http://rcdp.io/Signal.html" target="_blank" rel="external">Signal</a>。</p>
+<h3 id="Signal和Subscriber"><a href="#Signal和Subscriber" class="headerlink" title="Signal和Subscriber"></a>Signal和Subscriber</h3><p>对于Sequence而言，在其创立之初，其中的data就是确定的，经过一系列的操作（譬如map、filter）便可将同步将结果给取出来。</p>
+<p>但对于Signal，不晓得什么时候才有data被放进去，显然不能同步等待处理结果。因而需要有一种机制来解决这个问题。</p>
+<p>Subscription就是来解决这个问题的，Subscriber是Subscription中的核心概念，RAC定义<code>RACSubscriber</code>来描述它。关于Subscription和Subscriber，官方文档已经有非常清晰的表述，详见<a href="https://github.com/ReactiveCocoa/ReactiveCocoa/blob/v2.5/Documentation/FrameworkOverview.md#subscription" target="_blank" rel="external">这里</a>和<a href="https://github.com/ReactiveCocoa/ReactiveCocoa/blob/v2.5/Documentation/BasicOperators.md#subscription" target="_blank" rel="external">这里</a>。</p>
+<p>P.S: 当把<strong>信号</strong>理解成<strong>流</strong>时，「signal」这个名词怎么看都觉得别扭，但当它和subscriber搭配时，却又显得那么和谐。</p>
+<p>在描述signal和subscriber的关系时，<a href="http://limboy.me/tech/2013/12/27/reactivecocoa-2.html" target="_blank" rel="external">Limboy</a>使用插座和插头分别来类比它们，插座（signal）负责取电，插头（subscriber）负责使用电，一个插座可以插任意数量的插头。当一个插座没有插头时，什么都不会干，处于冷（cold）状态，只有插了插头才会去获取电，此时处于热（hot）状态。</p>
+<p>上文已经提到Signal传递的data是event，它所传递的event包括3种：<strong>值事件</strong>、<strong>完成事件</strong>和<strong>错误事件</strong>。其中在传递值事件时，可以携带数据。</p>
+<p>落实到代码层面，传递<strong>值事件</strong>、<strong>完成事件</strong>以及<strong>错误事件</strong>的本质就是向subscriber发送<code>sendNext:</code>、<code>sendComplete</code>以及<code>sendError:</code>消息，如下代码可以简单描述它们的关系：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1. 创建信号（冷信号）</span></div><div class="line">RACSignal *signal = [RACSignal createSignal:^RACDisposable *(<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) &#123;</div><div class="line">    <span class="comment">// block在什么时候被调用: 当信号被订阅时调用；</span></div><div class="line">  </div><div class="line">    <span class="comment">// 3. 模拟data（值事件）的产生</span></div><div class="line">    [subscriber sendNext:<span class="string">@"Hello"</span>];</div><div class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">&#125;];</div><div class="line"></div><div class="line"><span class="comment">// 2. 订阅信号（冷信号变热信号）</span></div><div class="line">[signal subscribeNext:^(<span class="keyword">id</span> x) &#123;</div><div class="line">    <span class="comment">// block什么时候被调用：当subscriber接收到sendNext:消息时；</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"%@"</span>, x);</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p>上述代码中，步骤<code>2</code>在内部实现里创建一个<code>RACSubscriber</code>对象，该对象会被传入到步骤<code>3</code>所对应的block中。</p>
+<h3 id="冷信号和热信号"><a href="#冷信号和热信号" class="headerlink" title="冷信号和热信号"></a>冷信号和热信号</h3><p>没有被订阅的信号被称为<strong>冷信号</strong>，冷信号默认情况下什么都不干，换句话说，冷信号的subscription block永远都不会被执行，譬如：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">RACSignal *coldSignal = [RACSignal createSignal:^RACDisposable *(<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"triggered"</span>);</div><div class="line">    [subscriber sendNext:<span class="string">@"hello, next"</span>];</div><div class="line">    [subscriber sendCompleted];</div><div class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p>这段代码创建了一个signal，但因为没有被subscribed，所以什么也不会发生。代码中使用类方法<code>createSignal:</code>创建一个<code>RACDynamicSignal</code>（<code>RACSignal</code>的子类）对象，后者有一个名为<code>didSubscribe</code>的Block属性，调用<code>createSignal:</code>传入的实参block被赋予该属性，当<code>RACDynamicSignal</code>被订阅（subscribe）时，会回调该block。</p>
+<p>P.S: RAC中的<code>RACSignal</code>以类簇的方式实现，有点类似于Foundation中<code>NSString</code>、<code>NSArray</code>等，它定义了很多<code>RACSignal</code>子类，暂时不用理会这些子类，以后的博客中再详细介绍。</p>
+<h3 id="Side-Effect"><a href="#Side-Effect" class="headerlink" title="Side Effect"></a>Side Effect</h3><p>如果某个<code>RACSignal</code>（以<code>RACDynamicSignal</code>为例）被多个subscriber订阅，那么它的<code>didSubscribe</code>会被多次调用吗？默认情况下是的，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal = [RACSignal createSignal:^RACDisposable *(<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) &#123;</div><div class="line">    <span class="comment">// didSubscribe block</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"triggered"</span>);</div><div class="line">    [subscriber sendNext:<span class="string">@"test"</span>];</div><div class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">&#125;];</div><div class="line"></div><div class="line">[signal subscribeNext:^(<span class="keyword">id</span> x) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"subscriber No.1: %@"</span>, x);</div><div class="line">&#125;];</div><div class="line"></div><div class="line">[signal subscribeNext:^(<span class="keyword">id</span> x) &#123;</div><div class="line">  <span class="built_in">NSLog</span>(<span class="string">@"subscriber No.2: %@"</span>, x);</div><div class="line">&#125;];</div><div class="line"></div><div class="line"><span class="comment">/* prints:</span></div><div class="line">triggered</div><div class="line">subscriber No.1: test</div><div class="line">triggered</div><div class="line">subscriber No.2: test</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>显然，<code>didSubscribe</code>被调用了两次。或许这是你想要的结果，或许不是；更多的时候这不是我们想要的结果，即所谓的<strong>副作用</strong>（side effect）。如果想要避免这种情况的发生，可以使用<code>reply</code>方法，它的作用是保证signal只被触发一次，然后把<code>sendNext:</code>的value给缓存起来，下一次再有新的subscriber时。直接发送缓存的value。如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line">RACSignal *signal = [RACSignal createSignal:^RACDisposable *(<span class="keyword">id</span>&lt;RACSubscriber&gt; subscriber) &#123;</div><div class="line">    <span class="comment">// didSubscribe block</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"triggered"</span>);</div><div class="line">    [subscriber sendNext:<span class="string">@"test"</span>];</div><div class="line">    <span class="keyword">return</span> <span class="literal">nil</span>;</div><div class="line">&#125;];</div><div class="line"></div><div class="line">signal = [signal replay];</div><div class="line"></div><div class="line">[signal subscribeNext:^(<span class="keyword">id</span> x) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"subscriber No.1: %@"</span>, x);</div><div class="line">&#125;];</div><div class="line"></div><div class="line">[signal subscribeNext:^(<span class="keyword">id</span> x) &#123;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"subscriber No.2: %@"</span>, x);</div><div class="line">&#125;];</div><div class="line"></div><div class="line"><span class="comment">/* prints:</span></div><div class="line">triggered</div><div class="line">subscriber No.1: test</div><div class="line">subscriber No.2: test</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>P.S: 我对side effects的理解有问题，把它单纯想象成应该避免的负面东西，这是不对的。需要有更深刻的理解，得重写一下！还得思考「side effects里一般放什么样的代码？」。</p>
+<p>To be continue…</p>
+<h2 id="学习资料"><a href="#学习资料" class="headerlink" title="学习资料"></a>学习资料</h2><p>时至今日，ReactiveCocoa已经和AFNetWorking一样，变得非常大众了，关于它的学习资料也不像前两年那样稀缺，如下是我认为质量比较高的学习资料：</p>
+<ul>
+<li><a href="https://github.com/ReactiveCocoa/ReactiveCocoa/tree/v2.5/Documentation" target="_blank" rel="external">ReactiveCocoa v2.5官方说明文档</a></li>
+<li>LeeBoy的几篇ReactiveCocoa博文<ul>
+<li><a href="http://limboy.me/tech/2013/06/19/frp-reactivecocoa.html" target="_blank" rel="external">ReactiveCocoa与Functional Reactive Programming</a></li>
+<li><a href="http://limboy.me/tech/2013/12/27/reactivecocoa-2.html" target="_blank" rel="external">说说ReactiveCocoa 2</a></li>
+<li><a href="http://limboy.me/tech/2014/06/06/deep-into-reactivecocoa2.html" target="_blank" rel="external">ReactiveCocoa2实战</a></li>
+</ul>
+</li>
+<li><a href="https://www.gitbook.com/book/kevinhm/functionalreactiveprogrammingonios/details" target="_blank" rel="external">iOS的函数响应型编程</a>，非常浅显易懂。</li>
+<li><a href="http://rcdp.io/" target="_blank" rel="external">ReactiveCocoa Design Patterns</a></li>
+<li>美团点评技术团队分享的几篇关于冷信号和热信号的博客<ul>
+<li><a href="http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-1.html" target="_blank" rel="external">细说ReactiveCocoa的冷信号与热信号（一）</a></li>
+<li><a href="http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-2.html" target="_blank" rel="external">细说ReactiveCocoa的冷信号与热信号（二）</a></li>
+<li><a href="http://tech.meituan.com/talk-about-reactivecocoas-cold-signal-and-hot-signal-part-3.html" target="_blank" rel="external">细说ReactiveCocoa的冷信号与热信号（三）</a></li>
+</ul>
+</li>
+<li>Sunnyxx系列博客<ul>
+<li><a href="http://blog.sunnyxx.com/2014/03/06/rac_0_overview/" target="_blank" rel="external">Reactive Cocoa Tutorial [0] = Overview</a></li>
+<li><a href="http://blog.sunnyxx.com/2014/03/06/rac_1_macros/" target="_blank" rel="external">Reactive Cocoa Tutorial [1] = 神奇的Macros</a></li>
+<li><a href="http://blog.sunnyxx.com/2014/03/06/rac_2_racstream/" target="_blank" rel="external">Reactive Cocoa Tutorial [2] = 百变RACStream</a></li>
+<li><a href="http://blog.sunnyxx.com/2014/03/06/rac_3_racsignal/" target="_blank" rel="external">Reactive Cocoa Tutorial [3] = RACSignal的巧克力工厂</a></li>
+<li><a href="http://blog.sunnyxx.com/2014/04/19/rac_4_filters/" target="_blank" rel="external">Reactive Cocoa Tutorial [4] = 只取所需的Filters</a></li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
+    <article id="post-mvvm" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/11/mvvm/" class="article-date">
+  	<time datetime="2016-07-11T12:27:33.000Z" itemprop="datePublished">2016-07-11</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/11/mvvm/">mvvm</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <ul>
+<li><a href="https://www.raywenderlich.com/74106/mvvm-tutorial-with-reactivecocoa-part-1" target="_blank" rel="external">https://www.raywenderlich.com/74106/mvvm-tutorial-with-reactivecocoa-part-1</a></li>
+<li><a href="https://www.raywenderlich.com/74131/mvvm-tutorial-with-reactivecocoa-part-2" target="_blank" rel="external">https://www.raywenderlich.com/74131/mvvm-tutorial-with-reactivecocoa-part-2</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MVVM/">MVVM</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-functional-programming-basics" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -422,448 +888,9 @@
 
 
   
-    <article id="post-explicit-animations" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/26/explicit-animations/" class="article-date">
-  	<time datetime="2016-06-26T02:16:26.000Z" itemprop="datePublished">2016-06-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/26/explicit-animations/">显式动画</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>隐式动画</strong>是在iOS平台创建动态用户界面的一种直接方式，也是<code>UIKit</code>动画机制的基础，不过它并不能涵盖所有的动画类型。本文旨在要研究<strong>显式动画</strong>，它能够对一些属性做指定的自定义动画，或者创建非线性动画，比如沿着任意一条曲线移动。</p>
-<h2 id="CAAnimation简介"><a href="#CAAnimation简介" class="headerlink" title="CAAnimation简介"></a>CAAnimation简介</h2><p>研究显式动画的关键是分析<code>CAAnimation</code>及其子类，<code>CAAnimation</code>和其子类的继承体系如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">|--CAAnimation: CAMediaTiming</div><div class="line">   |--CAPropertyAnimation</div><div class="line">      |--CABasicAnimation</div><div class="line">      |--CAKeyframeAnimation</div><div class="line">   |--CATransition</div><div class="line">   |--CAAnimationGroup</div></pre></td></tr></table></figure>
-<p>一般情况下不直接使用<code>CAAnimation</code>，而使用其子类；并且<code>CAPropertyAnimation</code>也不能直接使用。</p>
-<p><code>CAAnimation</code>遵循<code>CAMediaTiming</code>协议，常用属性包括：</p>
-<ul>
-<li><code>beginTime</code> – 控制动画开始时间，譬如<code>CACurrentMediaTime()+1.0</code>对应的是1秒的delay；</li>
-<li><code>duration</code> – 控制动画的持续时间；</li>
-<li><code>repeatCount</code> – 动画的重复次数，永久重复对应<code>HUGE_VALF</code>，<code>1</code>表不重复；</li>
-<li><code>timingFunction</code> – 控制动画运行的节奏，一般使用<code>CAMediaTimingFunction(name:)</code>赋值，<code>name</code>可设置为：<ul>
-<li><code>kCAMediaTimingFunctionLinear</code></li>
-<li><code>kCAMediaTimingFunctionEaseIn</code></li>
-<li><code>kCAMediaTimingFunctionEaseOut</code></li>
-<li><code>kCAMediaTimingFunctionEaseInEaseOut</code></li>
-<li><code>kCAMediaTimingFunctionDefault</code></li>
-</ul>
-</li>
-<li><code>delegate</code> – 动画代理，用来监听动画的执行过程，两个方法：<ul>
-<li><code>func animationDidStart(animation: CAAnimation)</code></li>
-<li><code>func animationDidStop(animation: CAAnimation, finished flag: Bool)</code></li>
-</ul>
-</li>
-<li><code>removedOnCompletion</code> – 当设置为<code>true</code>时，动画完成后，layer又会回到原处；当设置为<code>false</code>，且<code>fillMode</code>设置为<code>kCAFillModeForwards</code>时，layer动画完成后不动；</li>
-<li><code>fillMode</code> – determine how the timed object behaves once its active duration has completed.</li>
-</ul>
-<p>额外阐述一下<code>fillMode</code>属性。在此之前先引入几个概念，经历一个完整动画的layer的时间线可分为3个部分：</p>
-<ul>
-<li><strong>动画前</strong> – 添加动画到动画开始前的时间段；</li>
-<li><strong>动画中</strong> – 动画开始到结束的时间段；</li>
-<li><strong>动画后</strong> – 动画结束后的时间；</li>
-</ul>
-<p>动画的实质是layer的属性值从某个值到另一个值的变化过程，站在属性值的角度同样有3个概念：</p>
-<ul>
-<li>origin value – 添加动画前的属性值</li>
-<li>from value – 动画的初始值</li>
-<li>to value – 动画的结束值</li>
-</ul>
-<p><code>fillMode</code>的属性值会影响layer在<strong>动画前</strong>和<strong>动画后</strong>的行为，有4种可设置的属性值：</p>
-<ul>
-<li><code>kCAFillModeRemoved</code> – 此为默认值，layer在<strong>动画前</strong>的属性值一直未origin value，动画开始时属性值立马切换到from value，然后动画变化到to value，动画结束时属性值又立马切换到origin value；</li>
-<li><code>kCAFillModeForwards</code> – 相对于<code>kCAFillModeRemoved</code>，layer在动画结束时仍然保持属性值为to value；</li>
-<li><code>kCAFillModeBackwards</code> – 相对于<code>kCAFillModeRemoved</code>，layer在动画前就将属性值切换到origin value；</li>
-<li><code>kCAFillModeBoth</code> – <code>kCAFillModeForwards</code>和<code>kCAFillModeBackwards</code>的合体；</li>
-</ul>
-<blockquote>
-<p>Note: <code>kCAFillModeForwards</code>起作用的前提是<code>removedOnCompletion</code>的属性值被设置为<code>false</code>，<code>kCAFillModeBackwards</code>的作用在delay不为0时才能直观感受到，更多内容参考<a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CAMediaTiming_protocol/index.html#//apple_ref/doc/constant_group/Fill_Modes" target="_blank" rel="external">CAMediaTiming – Fill Modes</a>。</p>
-</blockquote>
-<p><strong>使用CAAnimation的基本套路</strong></p>
-<p>使用<code>CAAnimation</code>（或者其子类）的基本套路是：</p>
-<ol>
-<li>初始化一个<code>CAAnimation</code>对象，并设置一些动画相关属性；</li>
-<li>调用<code>CALayer#addAnimation(_:forKey:)</code>方法添加<code>CAAnimation</code>对象到<code>CALayer</code>中，这样就能开始执行动画了；</li>
-<li>调用<code>CALayer#removeAnimationForKey(_:)</code>方法停止动画；</li>
-</ol>
-<p><code>CALayer#addAnimation(_:forKey:)</code>里的参数<code>forkey</code>没有太多别的要求，可以是任意字符串，甚至可以是<code>nil</code>。</p>
-<p><strong>CAPropertyAnimation</strong></p>
-<p><code>CAPropertyAnimation</code>继承<code>CAAnimation</code>，额外定义了一些属性：</p>
-<ul>
-<li><code>keyPath</code> – Specifies animated property. 譬如<code>&quot;frame&quot;</code>、<code>&quot;position&quot;</code>等；</li>
-<li><code>additive</code> – Determines if the value of the property is the value at the end of the previous repeat cycle, plus the value of the current repeat cycle. 不太懂！</li>
-<li><code>cumulative</code> – Determines if the value specified by the animation is added to the current render tree value to produce the new render tree value. 不太懂！</li>
-<li><code>valueFunction</code> – An optional value function that is applied to interpolated values. 很少会用到！</li>
-</ul>
-<blockquote>
-<p>Note: <code>CAPropertyAnimation</code>里的<code>keyPath</code>和<code>CALayer#addAnimation(_:forKey:)</code>里的<code>key</code>不一样，前者只能是<code>&quot;frame&quot;</code>、<code>&quot;position&quot;</code>之类的对应<code>CALayer</code>属性的字符串，后者可以是任意字符串，可以认为是给animation贴个ID标签。</p>
-</blockquote>
-<h2 id="CABasicAnimation"><a href="#CABasicAnimation" class="headerlink" title="CABasicAnimation"></a>CABasicAnimation</h2><p><code>CABasicAnimation</code>在继承<code>CAPropertyAnimation</code>的基础上又定义了三个属性：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">CABasicAnimation</span> : <span class="title">CAPropertyAnimation</span></span></div><div class="line"></div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nullable</span>, <span class="keyword">strong</span>) <span class="keyword">id</span> fromValue;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nullable</span>, <span class="keyword">strong</span>) <span class="keyword">id</span> toValue;</div><div class="line"><span class="keyword">@property</span>(<span class="keyword">nullable</span>, <span class="keyword">strong</span>) <span class="keyword">id</span> byValue;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p><code>CAAnimation.h</code>里介绍了几种使用模式，一般来说，使用<code>fromValue</code>/<code>toValue</code>或<code>fromValue</code>/<code>byValue</code>组合即可，或者直接使用<code>byValue</code>或<code>toValue</code>。</p>
-<h2 id="CAKeyframeAnimation"><a href="#CAKeyframeAnimation" class="headerlink" title="CAKeyframeAnimation"></a>CAKeyframeAnimation</h2><p>Key frame animation常被翻译为：<strong>关键帧动画</strong>。顾名思义，<code>CAKeyframeAnimation</code>可以实现让animated properties按照一串数值进行动画，就好像逐帧制作动画一样。</p>
-<blockquote>
-<p>P.S: 不要被<code>CAKeyframeAnimation</code>中的frame所迷惑，它和<code>CALayer#frame</code>中的frame不是一回事儿。</p>
-</blockquote>
-<p>相较而言，<code>CABasicAnimation</code>处理动画更粗糙一些，只是单纯地让layer的属性值从a到b；考虑到<code>CAKeyframeAnimation</code>的复杂性，这一部分对它的阐述会更详细一些。</p>
-<p><strong>Providing Keyframe Values</strong></p>
-<p>动画处理的本质是改变属性值，<code>CABasicAnimation</code>提供了<code>fromValue</code>、<code>byValue</code>、<code>toValue</code>来「装载」待处理的属性值。</p>
-<p><code>CAKeyframeAnimation</code>处理动画更精细一些，动画过程中所需要指定的属性值自然更多（一般来说），因此提供了数组类型属性<code>values</code>来「装载」待处理的属性值。</p>
-<p>举个例子，现在沿正方形路径移动一个view，所经过的路径是<code>(100, 100)</code>-&gt;<code>(200, 100)</code>-&gt;<code>(200, 200)</code>-&gt;<code>(100, 200)</code>-&gt;<code>(100, 100)</code>，代码如下：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> kfa = <span class="type">CAKeyframeAnimation</span>(keyPath: <span class="string">"position"</span>)</div><div class="line"></div><div class="line">kfa.values = [<span class="type">NSValue</span>(<span class="type">CGPoint</span>: <span class="type">CGPoint</span>(x: <span class="number">100</span>, y: <span class="number">100</span>)),    <span class="comment">// 左上角</span></div><div class="line">              <span class="type">NSValue</span>(<span class="type">CGPoint</span>: <span class="type">CGPoint</span>(x: <span class="number">200</span>, y: <span class="number">100</span>)),    <span class="comment">// 右上角</span></div><div class="line">              <span class="type">NSValue</span>(<span class="type">CGPoint</span>: <span class="type">CGPoint</span>(x: <span class="number">200</span>, y: <span class="number">200</span>)),    <span class="comment">// 右下角</span></div><div class="line">              <span class="type">NSValue</span>(<span class="type">CGPoint</span>: <span class="type">CGPoint</span>(x: <span class="number">100</span>, y: <span class="number">200</span>)),    <span class="comment">// 左下角</span></div><div class="line">              <span class="type">NSValue</span>(<span class="type">CGPoint</span>: <span class="type">CGPoint</span>(x: <span class="number">100</span>, y: <span class="number">100</span>))]    <span class="comment">// 左上角</span></div><div class="line">kfa.duration = <span class="number">4.0</span></div><div class="line">kfa.removedOnCompletion = <span class="literal">false</span></div><div class="line">kfa.fillMode = kCAFillModeBoth</div><div class="line"></div><div class="line">animationView.layer.addAnimation(kfa, forKey: <span class="literal">nil</span>)</div></pre></td></tr></table></figure>
-<p>除了<code>values</code>，<code>CAKeyframeAnimation</code>还提供了<code>path</code>属性，当使用<code>CAKeyframeAnimation</code>构建point-based的动画时，使用<code>path</code>是个不错的选择。</p>
-<blockquote>
-<p>P.S: 显然，<code>values</code>和<code>path</code>只需要使用一个即可，然而，当同时赋予<code>values</code>和<code>path</code>以有效值，哪个会起作用呢？验证发现，当给<code>path</code>设置了有效值后，<code>values</code>的值就不会起作用。</p>
-</blockquote>
-<p><strong>Keyframe Timing</strong></p>
-<p><code>values</code>将一个完整的动画分为n个关键帧（假设数组长度为n），默认情况下，相邻帧之间的时间间隔为：duration/(n-1)。</p>
-<p>但是<code>CAKeyframeAnimation</code>提供了丰富的接口以便进行更精密更丰富的自定义，相关属性包括：<code>keyTimes</code>、<code>calculationMode</code>以及<code>timingFunctions</code>。</p>
-<p><code>keyTimes</code>也是数组类型，简单来说，<code>keyTimes</code>中的元素将动画时间切割成几部分，譬如<code>[0, 0.5, 1.0]</code>将时间切割为两部分：0-0.5<em>duration、0.5</em>duration-1.0*duration。</p>
-<blockquote>
-<p>Note: 一般来说，<code>keyTimes</code>的元素个数和<code>values</code>的元素个数一致，或者与<code>path</code>的点的个数一致，否则，动画会出现想象不到的结果；但有特殊情况，下文会提到。</p>
-</blockquote>
-<p><code>calculationMode</code>指示了关键帧之间的值如何计算，可选的值包括：</p>
-<ul>
-<li><code>kCAAnimationLinear</code>，默认值，线性过渡；</li>
-<li><code>kCAAnimationDiscrete</code>，从一个关键帧跳到下一个关键帧，直接跳跃，无过渡；</li>
-<li><code>kCAAnimationPaced</code></li>
-<li><code>kCAAnimationCubic</code></li>
-<li><code>kCAAnimationCubicPaced</code></li>
-</ul>
-<blockquote>
-<p>P.S: <code>kCAAnimationLinear</code>和<code>kCAAnimationDiscrete</code>相对比较容易理解，后3种没怎么用到过，理解不深刻，希望以后能够补充。</p>
-</blockquote>
-<p>第三个属性<code>timingFunctions</code>和上文提到的<code>timingFunction</code>类似，只是这里是一个数组类型，它的每个元素控制的是两个相邻关键帧之间timing curve。</p>
-<blockquote>
-<p>Note: 若属性<code>values</code>中指定的关键帧个数为<code>n</code>（元素个数），则<code>timingFunctions</code>的元素个数应该为<code>n-1</code>。</p>
-</blockquote>
-<p>再着重介绍<code>keyTimes</code>配合<code>calculationMode</code>使用的注意事项：</p>
-<ul>
-<li>如果<code>calculationMode</code>的值为<code>kCAAnimationLinear</code>或<code>kCAAnimationCubic</code>，<code>keyTimes</code>的第一个元素值必须为<code>0.0</code>，最后一个元素值必须为<code>1.0</code>，其他的元素值（如果有）范围在<code>0.0-1.0</code>之间；</li>
-<li>如果<code>calculationMode</code>的值为<code>kCAAnimationDiscrete</code>，<code>keyTimes</code>的第一个元素值必须为<code>0.0</code>，最后一个元素值必须为<code>1.0</code>；此外，若<code>value</code>元素个数为<code>n</code>，则<code>keyTimes</code>的元素数量应该为<code>n+1</code>；</li>
-<li>如果<code>calculationMode</code>的值为<code>kCAAnimationPaced</code>或<code>kCAAnimationCubicPaced</code>，<code>keyTimes</code>的值会被忽略。</li>
-</ul>
-<p><strong>Rotation Mode Attribute</strong></p>
-<p><code>rotationMode</code>, it determines whether objects animating along the path rotate to match the path tangent.</p>
-<p>该属性配合<code>path</code>使用，有三个可选值：<code>nil</code>、<code>kCAAnimationRotateAuto</code>以及<code>kCAAnimationRotateAutoReverse</code>。设置一段曲线，配置相应的属性值，能较直观的感受到它们的作用。</p>
-<p><strong>Cubic Mode Attributes</strong></p>
-<p>还有三个不常用到的属性：<code>tensionValues</code>、<code>continuityValues</code>、<code>biasValues</code>。</p>
-<p>它们仅在<code>calculationMode</code>属性值为<code>kCAAnimationCubic</code>或<code>kCAAnimationCubicPaced</code>时起作用。还没详细体会过，暂时略过。</p>
-<p>关于<code>CAKeyframeAnimation</code>的更多内容参考<a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CAKeyframeAnimation_class/" target="_blank" rel="external">CAKeyframeAnimation Class Reference</a>。</p>
-<h2 id="CATransition"><a href="#CATransition" class="headerlink" title="CATransition"></a>CATransition</h2><p>暂时略过，详细内容参考<a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CATransition_class/" target="_blank" rel="external">CATransition Class Reference</a>。</p>
-<p><a href="http://www.cnblogs.com/ludashi/p/4160208.html" target="_blank" rel="external">iOS开发之各种动画各种页面切面效果</a>中还介绍了更多，只是使用这些私有资源会存在被Apple Store打回的风险。</p>
-<blockquote>
-<p>P.S: 曾以为<code>CATransition</code>在转场动画中会用得比较多，但事实上，似乎用得并不多。</p>
-</blockquote>
-<h2 id="CAAnimationGroup"><a href="#CAAnimationGroup" class="headerlink" title="CAAnimationGroup"></a>CAAnimationGroup</h2><p>每个<code>CAAnimation</code>只能处理一个animated property，但有时候需要同时处理多个animated properties，此时就会用到<code>CAAnimationGroup</code>。其定义非常简单：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">CAAnimationGroup</span> : <span class="title">CAAnimation</span> </span>&#123;  </div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> animations: [<span class="type">CAAnimation</span>]?</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>其用法就不消多说了，easy。</p>
-<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
-<li><a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CAMediaTiming_protocol/" target="_blank" rel="external">CAMediaTiming Protocol Reference</a></li>
-<li><a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CAAnimation_class/" target="_blank" rel="external">CAAnimation Class Reference</a></li>
-<li><a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CABasicAnimation_class/" target="_blank" rel="external">CABasicAnimation Class Reference</a></li>
-<li><a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CAKeyframeAnimation_class/" target="_blank" rel="external">CAKeyframeAnimation Class Reference</a></li>
-<li><a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CATransition_class/" target="_blank" rel="external">CATransition Class Reference</a></li>
-<li><a href="https://developer.apple.com/library/mac/documentation/GraphicsImaging/Reference/CAAnimationGroup_class/" target="_blank" rel="external">CAAnimationGroup Class Reference</a></li>
-<li><a href="http://www.cnblogs.com/ludashi/p/4160208.html" target="_blank" rel="external">iOS开发之各种动画各种页面切面效果</a></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-layer-geometry-in-ios" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/13/layer-geometry-in-ios/" class="article-date">
-  	<time datetime="2016-06-13T11:41:36.000Z" itemprop="datePublished">2016-06-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/13/layer-geometry-in-ios/">iOS图层几何学</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="frame-v-s-bounds-v-s-center"><a href="#frame-v-s-bounds-v-s-center" class="headerlink" title="frame v.s bounds v.s center"></a>frame v.s bounds v.s center</h2><p>视图（<code>UIView</code>）有三种比较重要的布局属性：<code>frame</code>，<code>bounds</code>，<code>center</code>，图层（<code>CALayer</code>）对应叫做：<code>frame</code>，<code>bounds</code>，<code>position</code>。众所周知，视图是对图层的包装，名称虽然不完全相同，但都是指向相同的值，本文中<code>position</code>和<code>center</code>表示一个意思。</p>
-<p><code>bounds</code>和<code>position</code>是存储型属性，<code>bounds</code>标识了两个重要讯息：自身坐标系的起点（一般<code>(0, 0)</code>对应左上角）和图层的固有size；而<code>position</code>标识了图层中心点相对于父图层坐标系的位置。</p>
-<p><code>frame</code>是计算型属性（虚拟属性），它的值根据<code>bounds</code>、<code>position</code>和<code>transform</code>计算而来。</p>
-<blockquote>
-<p>Note: 这里的<code>transform</code>指的是图层（<code>CALayer</code>）的<code>transform</code>属性，而不是视图的<code>transform</code>属性。<code>UIView#transform</code>是<code>CATransform3D</code>类型，而<code>CALayer#transform</code>是<code>CGAffineTransform</code>类型，虽然类型不同，但根据我的理解，视图的<code>transform</code>和其图层的<code>transform</code>直接相关，换句话说，<code>UIView#transform</code>是<code>CALayer#transform</code>的简化版。</p>
-</blockquote>
-<p>当<code>CALayer#transform</code>的值等于<code>CATransform3DIdentity</code>，或者当<code>UIView#transform</code>的值等于<code>CGAffineTransformIdentity</code>时，<code>frame</code>、<code>position</code>和<code>bounds</code>存在着如下关系：</p>
-<ul>
-<li>frame.origin = position - (bounds.size / 2.0)</li>
-<li>frame.size = bounds.size</li>
-</ul>
-<p>在这种情况下：</p>
-<ul>
-<li><code>position</code>和<code>bounds</code>彼此独立，改变任意一个值不会影响另外一个；</li>
-<li><code>frame.size</code>和<code>bounds.size</code>直接相关，修改任何一个会影响另外一个；</li>
-<li><code>frame.origin</code>和<code>position</code>直接相关，修改任何一个会影响另外一个；</li>
-<li><code>bounds.origin</code>不会对<code>frame</code>和<code>center</code>产生影响，但会影响到子图层的位置；</li>
-</ul>
-<p>当视图发生仿射变换时，比如平移、旋转、缩放，经验证发现：<code>position</code>和<code>bounds</code>都不会改变，而<code>frame</code>会改变。并且当对图层进行缩放时，<code>frame.size</code>会和<code>bounds.size</code>不一致，详细说明参考<a href="https://zsisme.gitbooks.io/ios-/content/chapter3/layout.html" target="_blank" rel="external">《iOS核心动画高级技巧》</a>。</p>
-<blockquote>
-<p>P.S: 还没测试图层3D变换时<code>bounds</code>和<code>position</code>的变化情况，但我估计结果是一样的。</p>
-</blockquote>
-<p>我认为：把视图和图层的<code>frame</code>属性拿掉，iOS布局系统也能照样运转，<code>frame</code>的作用不过是为了迎合大部分人的布局惯性思维罢了。</p>
-<h2 id="anchorPoint"><a href="#anchorPoint" class="headerlink" title="anchorPoint"></a>anchorPoint</h2><p>按理说，图层的<code>position</code>和<code>bounds.size</code>就足以告诉布局系统它在父图层中所占据的位置和面积了，前者指示了其<strong>中心点</strong>的坐标，后者指示了其大小。</p>
-<p>但问题出在<strong>中心点</strong>上，图层的<code>position</code>之所以叫<code>position</code>而不叫<code>center</code>是有原因的。</p>
-<p>可以想象图层和很多其他现实物体一样，有一个<em>把柄</em>，布局系统在摆放图层时，直接“拖”着这个<em>把柄</em>，把它杵到<code>position</code>对应的坐标上即可。在大多数时候，这个<em>把柄</em>所在的位置就是图层的中心点。然而，iOS允许自定义图层的<em>把柄</em>位置，修改<code>CALayer#anchorPoint</code>值即可，<code>anchorPoint</code>是<code>CGPoint</code>类型，其默认值为<code>(0.5, 0.5)</code>（归一化值），当修改其值为<code>(0, 0)</code>，这意味着图层的<em>把柄</em>被移到左上角。换句话说，图层的<code>anchorPoint</code>属性值会影响到它的摆放位置，但该值和<code>position</code>、<code>bounds</code>彼此独立，没有任何关系，和<code>frame</code>更是谈不上啥关系了。</p>
-<p>在什么时候需要修改<code>anchorPoint</code>属性值呢？<a href="https://zsisme.gitbooks.io/ios-/content/chapter3/anchor.html" target="_blank" rel="external">《ios核心动画高级技巧》</a>有一个非常不错的应用实例。</p>
-<p><code>anchorPoint</code>所对应的位置，常常被称为图层的<strong>锚点</strong>。</p>
-<p>更值得一提的是，视图的仿射变换和图层的3D变换，都是围绕图层的锚点进行的。</p>
-<p>具体来说，当<code>anchorPoint</code>的值为默认值时，对视图进行缩放或旋转，其中心点都不会发生迁移，如下：</p>
-<div class="imagediv" style="width: 316px; height: 142px"></div>
-
-<p>当修改两个view的<code>anchorPoint</code>属性值为<code>(0.0, 0.0)</code>后，结果如下：</p>
-<div class="imagediv" style="width: 318px; height: 126px"></div>
-
-<p>显然，此时视图的缩放和旋转都以左上角为基准点。</p>
-<h2 id="Z坐标轴"><a href="#Z坐标轴" class="headerlink" title="Z坐标轴"></a>Z坐标轴</h2><p><code>UIView</code>使用的是严格的二维坐标系，而<code>CALayer</code>存在于一个三维空间中。</p>
-<h2 id="Hit-Testing"><a href="#Hit-Testing" class="headerlink" title="Hit Testing"></a>Hit Testing</h2><p>在什么情况下需要使用hit testing？<br>未完待续。</p>
-<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
-<li><a href="http://stackoverflow.com/questions/5361369/uiview-frame-bounds-and-center" target="_blank" rel="external">UIView frame, bounds and center</a></li>
-<li><a href="https://zsisme.gitbooks.io/ios-/content/" target="_blank" rel="external">iOS核心动画高级技巧</a></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-non-interactive-animation-basics-in-ios" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/13/non-interactive-animation-basics-in-ios/" class="article-date">
-  	<time datetime="2016-06-13T01:35:14.000Z" itemprop="datePublished">2016-06-13</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/13/non-interactive-animation-basics-in-ios/">非交互式动画基础</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Animation-Properties"><a href="#Animation-Properties" class="headerlink" title="Animation Properties"></a>Animation Properties</h2><p>所谓的动画，其本质是物体（譬如view）的某些属性或属性组合在时间线上的变化。<a href="https://dn-motion-design.qbox.me/" target="_blank" rel="external">Motion Design for iOS</a>将这些属性总结为6种：position、opacity、color、scale、rotation、3D。</p>
-<p>这种说法对iOS环境下<code>UIView</code>同样适合，<code>UIView</code>中与animation相关的属性包括：</p>
-<ol>
-<li><code>UIView#frame</code>/<code>UIView#center</code>/<code>UIView#bounds</code>: position</li>
-<li><code>UIView#alpha</code>: alpha</li>
-<li><code>UIView#backgroundColor</code>: color</li>
-<li><code>UIView#transform</code>: position, scale, rotation</li>
-<li><code>UIView#layer.transform</code>: 3D</li>
-</ol>
-<p>最后一个，<code>UIView#layer.transform</code>的类型是<code>CATransform3D</code>，能够控制layer级别的3D变换；其余几种能够控制<code>UIView</code>的2D变换，其中第4个，<code>UIView#transform</code>的类型是<code>CGAffineTransform</code>，能够控制<code>UIView</code>的平移、缩放、旋转。</p>
-<p>这一部分内容着重于分析<code>CGAffineTransform</code>和<code>CATransform3D</code>，其他几个属性相对简单得多。</p>
-<h2 id="Affine-Transforms"><a href="#Affine-Transforms" class="headerlink" title="Affine Transforms"></a>Affine Transforms</h2><p>国内博客在谈及<code>CGAffineTransform</code>时，常常会讲到一个词语：<strong>仿射变换</strong>，它是affine transformation的中文翻译。</p>
-<p><code>CGAffineTransform</code>是个结构体类型，属于Core Graphics框架，它有6个变量：a、b、c、d、tx、ty。这6个变量和另外3个固定值构成了一个3x3矩阵，如下图：</p>
-<div class="imagediv" style="width: 232px; height: 206px"></div>
-
-<p><code>UIView</code>的本质是由像素点组成的矩形块，每个像素点的相对位置可以抽象为坐标<code>(x, y)</code>，将这个坐标称之为某像素点的<strong>原坐标</strong>，<strong>原坐标</strong>的<code>x</code>、<code>y</code>以及<code>1</code>构成一个1x3的向量<code>(x, y, 1)</code>，所谓的仿射变换指的是让该1x3向量与3x3矩阵进行相乘，得到一个新的1x3向量，称之为<code>(_x, _y, 1)</code>，而<code>(_x, _y)</code>即<code>(x, y)</code>反射变换后的新坐标。将<code>UIView</code>的每一个像素点都进行这样的处理，即可完成整个<code>UIView</code>的反射变换。更形象的描述如下图所示：</p>
-<div class="imagediv" style="width: 676px; height: 220px"></div>
-
-<p>显然，仿射变换的关键是生成<code>CGAffineTransform</code>实例了，如果没学过计算机图形学，计算<code>CGAffineTransform</code>的参数值还是蛮麻烦的，不过好在iOS已经为我们提供了快捷API。</p>
-<p>仿射变换实现的效果包括平移、缩放、旋转以及它们的组合，如下是这三种仿射变换的快速生成APIs：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 平移</span></div><div class="line"><span class="type">CGAffineTransformMakeTranslation</span>(<span class="number">_</span>:<span class="number">_</span>:)</div><div class="line"><span class="comment">// CGAffineTransformMakeTranslation(tx, ty)</span></div><div class="line"></div><div class="line"><span class="comment">// 缩放</span></div><div class="line"><span class="type">CGAffineTransformMakeScale</span>(<span class="number">_</span>:<span class="number">_</span>:)</div><div class="line"><span class="comment">// CGAffineTransformMakeScale(sx, sy)</span></div><div class="line"></div><div class="line"><span class="comment">// 旋转</span></div><div class="line"><span class="type">CGAffineTransformMakeRotation</span>(<span class="number">_</span>:)</div><div class="line"><span class="comment">// CGAffineTransformMakeRotation(angle)</span></div></pre></td></tr></table></figure>
-<p>除此之外还有一个其他APIs，此处略过。Wiki还提供了一些常见反射变换及对应的矩阵值，如下图：</p>
-<div class="imagediv" style="width: 512px; height: 683px"></div>
-
-<blockquote>
-<p>Note: 在iOS环境中，对<code>UIView</code>进行反射变换所参考的坐标点是<code>UIView.layer.archorPoint</code>，<a href="layer-geometry-in-ios.md">《iOS图层几何学》</a>里有阐述。</p>
-</blockquote>
-<h2 id="3D-Transforms"><a href="#3D-Transforms" class="headerlink" title="3D Transforms"></a>3D Transforms</h2><p>3D变换要复杂得多，恐怕得花很多时间才能搞清楚，暂时略过。</p>
-<p><a href="https://zsisme.gitbooks.io/ios-/content/chapter5/3d-transform.html" target="_blank" rel="external">iOS核心动画高级技巧–3D变换</a>有比较好的介绍。</p>
-<p><code>UIView#transform</code>和<code>UIView#layer.transform</code>的关系？将一个归位后另外一个会是啥变化？</p>
-<h2 id="Planning-Animations"><a href="#Planning-Animations" class="headerlink" title="Planning Animations"></a>Planning Animations</h2><p>如何规划动画？先问自己这么几个问题：</p>
-<ul>
-<li>What are the initial properties of the item?</li>
-<li>What are the final properties of the item?</li>
-<li>How long should the animation take?</li>
-<li>What’s happening while this item is animating?</li>
-<li>What will happen once this item is done animating?</li>
-</ul>
-<h2 id="Animation-Curve-of-An-Easing-type-Motion"><a href="#Animation-Curve-of-An-Easing-type-Motion" class="headerlink" title="Animation Curve of An Easing-type Motion"></a>Animation Curve of An Easing-type Motion</h2><p>所谓的动画，无非是animation properties在时间轴上的变化过程。</p>
-<p>以时间为x轴，属性值为y轴，可以构建一个二维坐标系，属性值从<code>a</code>到<code>b</code>，有无数种走向。换句话说，动画类型的丰富程度是无限的。</p>
-<p>但在实际应用中，可接受的（看起来比较爽的）动画类型是不多的，其中一种类型叫：<strong>easing-type motion</strong>，一图胜千言：</p>
-<div class="imagediv" style="width: 460px; height: 340px"></div>
-
-<p>图中所展示的是4种最为常见的easing-type motion曲线，<a href="http://easings.net/zh-cn" target="_blank" rel="external">缓动函数速查表</a>里能够看到更多。</p>
-<p>在iOS中使用<code>UIView.animateWithDuration(...)</code>系列方法处理动画时，可以通过设置<code>options</code>来选择对应的easing type，比如：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">UIView</span>.animateWithDuration(<span class="number">0.2</span>, delay: <span class="number">0.0</span>, options: .<span class="type">CurveEaseInOut</span>, animations: &#123; <span class="comment">/*...*/</span> &#125;, completion: <span class="literal">nil</span>)</div></pre></td></tr></table></figure>
-<p><code>options</code>可以设置结构体类型<code>UIViewAnimationOptions</code>的变量值，该类型有很多变量值，easing-type motion相关的有四个：</p>
-<ul>
-<li><code>CurveLinear</code>, linear</li>
-<li><code>CurveEaseInOut</code>, ease in, ease out</li>
-<li><code>CurveEaseIn</code>, ease in</li>
-<li><code>CurveEaseOut</code>, ease out</li>
-</ul>
-<blockquote>
-<p>Note: 这些easing curves本质上是3次贝塞尔曲线（cubic Bézier curve），通过控制4个变量可以得到各种各样的3次贝塞尔曲线，只是iOS貌似没有提供控制这些参数的API，<a href="http://cubic-bezier.com/" target="_blank" rel="external">Cubic Bezier On Line</a>提供了更为丰富的体验。</p>
-</blockquote>
-<h2 id="Animation-Curve-of-A-Spring-like-Motion"><a href="#Animation-Curve-of-A-Spring-like-Motion" class="headerlink" title="Animation Curve of A Spring-like Motion"></a>Animation Curve of A Spring-like Motion</h2><p>另一种动画类型叫：<strong>spring-like motion</strong>。<a href="https://dn-motion-design.qbox.me/guide-3.html" target="_blank" rel="external">这里</a>对spring-like motion有较为细致的描述，此处就不再赘述，这一部分重点在于分析控制spring-like motion的关键参数。</p>
-<p>参考<a href="https://dn-motion-design.qbox.me/guide-3.html" target="_blank" rel="external">Natural Motion</a>的分析，控制spring-like motion的关键参数有三个：</p>
-<ul>
-<li><strong>Mass</strong>. The mass is the weight or heft of the object attached to the end of the spring.</li>
-<li><strong>stiffness.</strong> The stiffness is how difficult it is to stretch out the spring, which typically corresponds to its thickness and how tightly it’s coiled. </li>
-<li><strong>damping.</strong> The damping is the resistive force or friction, like when you drag your hand through water and feel the forces pushing against it as you try to move quicker through the water.</li>
-</ul>
-<p>iOS自iOS 7起引入了支持spring-like motion的API：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="type">UIView</span>.animateWithDuration(duration: <span class="type">NSTimeInterval</span>,</div><div class="line">                           delay: <span class="type">NSTimeInterval</span>, </div><div class="line">                           usingSpringWithDamping dampingRatio: <span class="type">CGFloat</span>,</div><div class="line">                           initialSpringVelocity velocity: <span class="type">CGFloat</span>,</div><div class="line">                           options: <span class="type">UIViewAnimationOptions</span>,</div><div class="line">                           animations: () -&gt; <span class="type">Void</span>,</div><div class="line">                           completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)?)</div></pre></td></tr></table></figure>
-<p>相对而言，该Spring Animation API对spring-like motion的控制简化了，只提供了两个参数：<code>dampingRatio</code>和<code>velocity</code></p>
-<p><code>dampingRatio</code>的取值范围是0.0-1.0，数值越小，「弹簧」的震动效果越明显。下图演示了在<code>dampingRatio</code>为<code>0.0</code>的情况下，<code>dampingRatio</code>分别取<code>0.2</code>，<code>0.5</code>和<code>1.0</code>的情况。</p>
-<div class="imagediv" style="width: 314px; height: 321px"></div>
-
-<p><code>velocity</code>表示初识的速度，数值越大一开始移动越快。下图演示了在<code>dampingRatio</code>为<code>1.0</code>时，<code>velocity</code>分别取<code>5.0</code>，<code>15.0</code>和<code>25.0</code>的情况。值得注意的是，初始速度取值较高而时间较短时，也会出现反弹情况。</p>
-<div class="imagediv" style="width: 314px; height: 321px"></div>
-
-<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
-<li><a href="https://dn-motion-design.qbox.me/" target="_blank" rel="external">Motion Design for iOS</a></li>
-<li><a href="http://www.jianshu.com/p/6c09d138b31d" target="_blank" rel="external">iOS仿射变换CGAffineTransform详解</a></li>
-<li><a href="https://zh.wikipedia.org/wiki/%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2" target="_blank" rel="external">仿射变换</a></li>
-<li><a href="https://zsisme.gitbooks.io/ios-/content/chapter5/affine-fransforms.html" target="_blank" rel="external">iOS核心动画高级技巧–仿射变换</a></li>
-<li><a href="https://zsisme.gitbooks.io/ios-/content/chapter5/3d-transform.html" target="_blank" rel="external">iOS核心动画高级技巧–3D变换</a></li>
-<li><a href="http://easings.net/zh-cn" target="_blank" rel="external">缓动函数速查表</a></li>
-<li><a href="http://cubic-bezier.com/" target="_blank" rel="external">Cubic Bezier On Line</a></li>
-<li><a href="https://www.renfei.org/blog/ios-8-spring-animation.html" target="_blank" rel="external">使用iOS 8 Spring Animation API创建动画</a></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 </div>
