@@ -26,6 +26,28 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2017/10/12/2015-09-14-what-i-give-is-what-i-get/</loc>
+    <lastmod>2017-10-12T07:01:08.435Z</lastmod>
+    <data>
+        <display>
+        <title>写就是写本身的报酬</title>
+        <pubTime>2017-10-11T16:00:00.000Z</pubTime>
+        
+        <tag>写作</tag>
+         
+        <tag>千字文</tag>
+         
+         
+           
+             
+              <breadCrumb title="blog" url="http://shinemax1.github.io/categories/blog/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2017/10/12/android-other/</loc>
     <lastmod>2017-10-12T06:32:53.240Z</lastmod>
     <data>
@@ -50,26 +72,6 @@
         
          
            
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2015/07/16/beginning-auto-layout-part-1/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>深入理解Auto Layout 第一弹</title>
-        <pubTime>2015-07-16T01:10:31.000Z</pubTime>
-        
-        <tag>Auto Layout</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
         </display>
     </data>
     </url>
@@ -491,6 +493,26 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2015/06/26/objective-c-new-features-in-2015/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>2015 Objective-C新特性</title>
+        <pubTime>2015-06-26T06:39:28.000Z</pubTime>
+        
+        <tag>Objective-C</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2015/04/29/associated-object/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
@@ -502,26 +524,6 @@
            
              
               <breadCrumb title="Objective-C" url="http://shinemax1.github.io/categories/Objective-C/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2016/05/21/practice-in-uiscrollview/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>使用UIScrollView</title>
-        <pubTime>2016-05-21T05:41:28.000Z</pubTime>
-        
-        <tag>UIScrollView</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
           
         </display>
     </data>
@@ -999,14 +1001,34 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/06/26/objective-c-new-features-in-2015/</loc>
+    <loc>http://shinemax1.github.io/2015/07/16/beginning-auto-layout-part-1/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>2015 Objective-C新特性</title>
-        <pubTime>2015-06-26T06:39:28.000Z</pubTime>
+        <title>深入理解Auto Layout 第一弹</title>
+        <pubTime>2015-07-16T01:10:31.000Z</pubTime>
         
-        <tag>Objective-C</tag>
+        <tag>Auto Layout</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2016/05/21/practice-in-uiscrollview/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用UIScrollView</title>
+        <pubTime>2016-05-21T05:41:28.000Z</pubTime>
+        
+        <tag>UIScrollView</tag>
          
          
            
