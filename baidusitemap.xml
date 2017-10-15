@@ -4,6 +4,21 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2017/10/15/android%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
+    <lastmod>2017-10-15T14:59:05.991Z</lastmod>
+    <data>
+        <display>
+        <title>android设计模式</title>
+        <pubTime>2017-10-15T02:27:43.000Z</pubTime>
+        
+         
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2017/10/12/2015-03-02-how-to-write/</loc>
     <lastmod>2017-10-12T07:02:10.480Z</lastmod>
     <data>
@@ -48,42 +63,12 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2017/10/12/android-other/</loc>
-    <lastmod>2017-10-12T06:32:53.240Z</lastmod>
-    <data>
-        <display>
-        <title>android-other</title>
-        <pubTime>2017-10-12T02:27:43.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://shinemax1.github.io/2016/07/29/reactive-cocoa-part-4/</loc>
     <lastmod>2017-10-12T06:28:09.474Z</lastmod>
     <data>
         <display>
         <title>reactive-cocoa-part-4</title>
         <pubTime>2016-07-29T02:27:43.000Z</pubTime>
-        
-         
-           
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2015/01/01/blog-rules/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>约定</title>
-        <pubTime>2014-12-31T16:00:00.000Z</pubTime>
         
          
            
@@ -513,17 +498,19 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/29/associated-object/</loc>
+    <loc>http://shinemax1.github.io/2016/05/21/practice-in-uiscrollview/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>关联对象</title>
-        <pubTime>2015-04-29T06:47:10.000Z</pubTime>
+        <title>使用UIScrollView</title>
+        <pubTime>2016-05-21T05:41:28.000Z</pubTime>
         
+        <tag>UIScrollView</tag>
+         
          
            
              
-              <breadCrumb title="Objective-C" url="http://shinemax1.github.io/categories/Objective-C/"/>
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
           
         </display>
     </data>
@@ -531,13 +518,15 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/29/pragma/</loc>
+    <loc>http://shinemax1.github.io/2015/04/12/basics-in-objective-c/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>预处理指令#pragma</title>
-        <pubTime>2015-04-29T08:12:35.000Z</pubTime>
+        <title>Objective-C基础知识</title>
+        <pubTime>2015-04-12T14:27:32.000Z</pubTime>
         
+        <tag>Objective-C</tag>
+         
          
            
              
@@ -609,19 +598,17 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/12/basics-in-objective-c/</loc>
+    <loc>http://shinemax1.github.io/2015/04/29/associated-object/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>Objective-C基础知识</title>
-        <pubTime>2015-04-12T14:27:32.000Z</pubTime>
+        <title>关联对象</title>
+        <pubTime>2015-04-29T06:47:10.000Z</pubTime>
         
-        <tag>Objective-C</tag>
-         
          
            
              
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+              <breadCrumb title="Objective-C" url="http://shinemax1.github.io/categories/Objective-C/"/>
           
         </display>
     </data>
@@ -1021,15 +1008,28 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2016/05/21/practice-in-uiscrollview/</loc>
+    <loc>http://shinemax1.github.io/2015/01/01/blog-rules/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>使用UIScrollView</title>
-        <pubTime>2016-05-21T05:41:28.000Z</pubTime>
+        <title>约定</title>
+        <pubTime>2014-12-31T16:00:00.000Z</pubTime>
         
-        <tag>UIScrollView</tag>
          
+           
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2015/04/29/pragma/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>预处理指令#pragma</title>
+        <pubTime>2015-04-29T08:12:35.000Z</pubTime>
+        
          
            
              
