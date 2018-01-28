@@ -343,6 +343,8 @@
 <p>他们的主要用途是拷贝其他构造函数的用途，变量给自己。</p>
 </blockquote>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line">function Person(name,sex,age) &#123;</div><div class="line">	<span class="keyword">this</span>.name = name;</div><div class="line">	<span class="keyword">this</span>.sex = sex;</div><div class="line">	<span class="keyword">this</span>.age = age;</div><div class="line">&#125;</div><div class="line"></div><div class="line">function Docoter(name,sex,age,job) &#123;</div><div class="line">	Person.call(<span class="keyword">this</span>,name,sex,age);</div><div class="line">	<span class="keyword">this</span>.job = job;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//不new就call方法就没什么用,因为需要传this</span></div><div class="line">var doctor = new Doctor(<span class="string">"陈侑"</span>,<span class="string">"男"</span>,<span class="string">"23"</span>,<span class="string">"医生"</span>);</div></pre></td></tr></table></figure>
+<p><img src="http://upload-images.jianshu.io/upload_images/32598-b9ab149f1f314228.png" alt=""></p>
+
       
     </div>
     
