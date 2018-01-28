@@ -217,7 +217,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/28/js学习/">javascript</a>
+      <a class="article-title" href="/2018/01/28/js学习/">javascript基础学习笔记</a>
     </h1>
   
 
@@ -232,7 +232,7 @@
 <li>找形参和变量声明，将变量和形参名作为AO属性名，值为undefined</li>
 <li>将实参值和形参统一</li>
 <li>在函数体里面找函数证明，值赋予函数体</li>
-<li><code>AO有就用AO，（GO现有，AO后有）</code><br><strong>[[scoped]]</strong></li>
+<li><code>AO有就用AO，（GO现有，AO后有）</code><h3 id="scoped"><a href="#scoped" class="headerlink" title="[[scoped]]"></a>[[scoped]]</h3></li>
 <li>作用域链，里面有多个AO,GO<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">function a()&#123;</div><div class="line">	function b()&#123;</div><div class="line">		function c()&#123;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">		c();</div><div class="line">	&#125;</div><div class="line">	b();</div><div class="line">&#125;</div><div class="line">a();</div><div class="line">a:defined [[scoped]] ---- <span class="number">0</span>:GO</div><div class="line">a:doing   [[scoped]] ---- <span class="number">0</span>:aAO , <span class="number">1</span>:GO</div><div class="line">b:defined [[scoped]] ---- <span class="number">0</span>:aAO , <span class="number">1</span>:GO</div><div class="line">b:doing   [[scoped]] ---- <span class="number">0</span>:bAO , <span class="number">1</span>:aAO , <span class="number">2</span>:GO</div><div class="line">c:defined [[scoped]] ---- <span class="number">0</span>:bAO , <span class="number">1</span>:aAO , <span class="number">2</span>:GO</div><div class="line">c:doing   [[scoped]] ---- <span class="number">0</span>:cAO , <span class="number">1</span>:bAO , <span class="number">2</span>:aAO , <span class="number">3</span>:GO</div></pre></td></tr></table></figure>
 </li>
 </ol>
