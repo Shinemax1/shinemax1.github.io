@@ -34,7 +34,7 @@ AO有就用AO，（GO现有，AO后有）
 作用域链，里面有多个AO,GO
 
 12345678910111213141516function a">
-<meta property="og:updated_time" content="2018-01-28T06:21:57.314Z">
+<meta property="og:updated_time" content="2018-01-28T06:26:22.172Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript基础学习笔记">
 <meta name="twitter:description" content="预编译
@@ -289,22 +289,19 @@ AO有就用AO，（GO现有，AO后有）
 <p>当内部函数被保存到外部时，将会产生<code>闭包</code>。闭包会导致原有作用域链不释放，造成<code>内存泄露</code>。</p>
 </blockquote>
 <ol>
-<li>实现公有变量</li>
-</ol>
-<p>函数累加器</p>
-<ol>
-<li>可以做<code>缓存</code>(存储结构)</li>
-</ol>
-<p>eater</p>
-<ol>
-<li>可以实现封装，属性私有化</li>
-</ol>
-<p>Person()</p>
-<ol>
+<li>实现公有变量<br><strong>函数累加器</strong></li>
+<li>可以做<code>缓存</code>(存储结构)<br><strong>eater</strong></li>
+<li>可以实现封装，属性私有化<br><strong>Person()</strong></li>
 <li>模块化开发，防止污染全局变量</li>
 </ol>
-<p><strong>函数累加器</strong></p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">function a()&#123;</div><div class="line">	var i=<span class="number">0</span>;</div><div class="line">	function b()&#123;</div><div class="line">		i++;</div><div class="line">		console.log(i);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> b;</div><div class="line">&#125;</div><div class="line">var demo = a();</div><div class="line">demo();</div><div class="line">demo();</div><div class="line">**eater**</div><div class="line">function eater()&#123;</div><div class="line">	var food=<span class="string">""</span>；</div><div class="line">	var object=&#123;</div><div class="line">		eat:function()&#123;</div><div class="line">			</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>函数累加器</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">function a()&#123;</div><div class="line">	var i=<span class="number">0</span>;</div><div class="line">	function b()&#123;</div><div class="line">		i++;</div><div class="line">		console.log(i);</div><div class="line">	&#125;</div><div class="line">	<span class="keyword">return</span> b;</div><div class="line">&#125;</div><div class="line">var demo = a();</div><div class="line">demo();</div><div class="line">demo();</div></pre></td></tr></table></figure>
+<blockquote>
+<p>eater</p>
+</blockquote>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">function eater()&#123;</div><div class="line">	var food=<span class="string">""</span>；</div><div class="line">	var object=&#123;</div><div class="line">		eat:function()&#123;</div><div class="line">			</div><div class="line">		&#125;</div><div class="line">	&#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 
       
     </div>
