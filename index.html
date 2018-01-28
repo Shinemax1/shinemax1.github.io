@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -199,6 +199,112 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-js学习" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/01/28/js学习/" class="article-date">
+  	<time datetime="2018-01-28T04:00:43.000Z" itemprop="datePublished">2018-01-28</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/28/js学习/">javascript</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#预编译<br>    <em>执行AO对象（Activation Object）
+    </em>GO全局对象（Gloable Object）<br>    <em>找形参和变量声明，将变量和形参名作为AO属性名，值为undefined
+    </em>将实参值和形参统一<br>    <em>在函数体里面找函数证明，值赋予函数体
+    </em><code>AO有就用AO，（GO现有，AO后有）</code><br>    <strong>[[scoped]]</strong><br>    *作用域链，里面有多个AO,GO<br>    function a(){<br>        function b(){<br>            function c(){</p>
+<pre><code>        }
+        c();
+    }
+    b();
+}
+a();
+&gt;a:defined [[scoped]] ---- 0:GO
+&gt;a:doing   [[scoped]] ---- 0:aAO , 1:GO
+&gt;b:defined [[scoped]] ---- 0:aAO , 1:GO
+&gt;b:doing   [[scoped]] ---- 0:bAO , 1:aAO , 2:GO
+&gt;c:defined [[scoped]] ---- 0:bAO , 1:aAO , 2:GO
+&gt;c:doing   [[scoped]] ---- 0:cAO , 1:bAO , 2:aAO , 3:GO
+</code></pre><p>#闭包</p>
+<pre><code>##当内部函数被保存到外部时，将会产生`闭包`。闭包会导致原有作用域链不释放，造成`内存泄露`。
+*实现公有变量
+ &gt;函数累加器
+*可以做缓存(存储结构)
+ &gt;eater
+*可以实现封装，属性私有化
+ &gt;Person()
+*模块化开发，防止污染全局变量
+**函数累加器**
+function a(){
+    var i=0;
+    function b(){
+        i++;
+        console.log(i);
+    }
+    return b;
+}
+var demo = a();
+demo();
+demo();
+**eater**
+function eater(){
+    var food=&quot;&quot;；
+    var object={
+        eat:function(){
+
+        }
+    }
+}
+</code></pre>
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/web/">web</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-android设计模式" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -821,103 +927,6 @@
 
 
   
-    <article id="post-reactive-cocoa-part-3" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/07/29/reactive-cocoa-part-3/" class="article-date">
-  	<time datetime="2016-07-29T02:23:41.000Z" itemprop="datePublished">2016-07-29</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/29/reactive-cocoa-part-3/">ReactiveCocoa实践</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>接着<a href="/reactive-cocoa-part-2/">RACSignal实践</a>继续写，本文介绍ReactiveCocoa的简单应用。</p>
-<h2 id="使用ReactiveCocoa代替原生的消息传递机制"><a href="#使用ReactiveCocoa代替原生的消息传递机制" class="headerlink" title="使用ReactiveCocoa代替原生的消息传递机制"></a>使用ReactiveCocoa代替原生的消息传递机制</h2><p>Cocoa框架为对象之间的通信提供了各种消息传递机制，包括：target-action、delegate、notification、KVO以及block。ReactiveCocoa可以代替它们所有，换句话说，ReactiveCocoa为这些通信方式提供了统一的消息传递机制。</p>
-<p>P.S: Objc的<a href="https://www.objccn.io/issue-7-4/" target="_blank" rel="external">消息传递机制</a>介绍了各种消息传递机制之间的差异性。</p>
-<p>使用ReactiveCocoa代替这些消息传递机制的本质是在它们的基础上进行了进一步包装，全部都包装成signal-subscriber模式。</p>
-<p>在我看来，除了对delegation稍微需要点耐心，大部分都比较容易理解。</p>
-<h3 id="代替Delegation"><a href="#代替Delegation" class="headerlink" title="代替Delegation"></a>代替Delegation</h3><p>Objective-C中一个典型的delegation应用套路如下：</p>
-<ol>
-<li>创建一个协议<code>P</code>；</li>
-<li>在类<code>A</code>中声明一个遵守<code>P</code>的delegate属性；</li>
-<li>在类<code>B</code>中创建一个<code>A</code>类型实例<code>a</code>，并设置<code>a.delegate = self</code>；</li>
-<li><code>B</code>遵守协议<code>P</code>；</li>
-<li>在<code>A</code>的实现逻辑中回调delegation；</li>
-</ol>
-<p>伪代码如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************* P *******************/</span></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">P</span>                                     // 1</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)protocolMethod;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">/******************* A *******************/</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> ()</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">id</span>&lt;P&gt; delegate      <span class="comment">// 2</span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">A</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)someMethod &#123;</div><div class="line">    [<span class="keyword">self</span>.delegate protocolMethod];             <span class="comment">// 5</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">/******************* B *******************/</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">B</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)createInstanceA &#123;</div><div class="line">    A *a = [A new];                             <span class="comment">// 3</span></div><div class="line">    a.delegate = <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)protocolMethod &#123; <span class="comment">/* ... */</span> &#125;            <span class="comment">// 4</span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p>那么如何使用RAC代替delegation呢？RAC能够压缩上述的5个步骤吗，甚至一行代码解决？</p>
-<p>RAC并不能让上述的传统delegation实现逻辑更简单，在RAC的基础上实现一个delegation的步骤大概也是上述的5步，只是步骤<code>4</code>略有不同。</p>
-<p><strong>使用RAC不需要显式遵守协议</strong>，即无需实现协议的方法，让RAC帮忙完成即可。简单来说，上述<code>B</code>的实现逻辑可改为：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************* B *******************/</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">B</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)createInstanceA &#123;</div><div class="line">    A *a = [A new];                               <span class="comment">// 3</span></div><div class="line">    a.delegate = <span class="keyword">self</span>;</div><div class="line">    [[<span class="keyword">self</span> rac_signalForSelector:<span class="keyword">@selector</span>(protocolMethod)</div><div class="line">                    fromProtocol:<span class="class"><span class="keyword">@protocol</span>(<span class="title">P</span>)]</span></div><div class="line">        subscribeNext:^(<span class="keyword">id</span> x) &#123;</div><div class="line">        <span class="comment">/* ... */</span></div><div class="line">    &#125;];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 注释掉</span></div><div class="line"><span class="comment">// - (void)protocolMethod &#123; /* ... */ &#125;         // 4</span></div><div class="line"><span class="comment">// 哪怕不将protocolMethod注释掉，其中的代码也不会被调用。</span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p><code>rac_signalForSelector:fromProtocol:</code>在底层实现里为<code>B</code>自动添加了<code>protocolMethod</code>的实现逻辑，因此无需再显式编写<code>protocolMethod</code>方法的实现代码。原来需要放在<code>protocolMethod</code>的代码可以搬到<code>subscribeNext:</code>引导的block中。</p>
-<blockquote>
-<p>P.S: 在理解「RAC代替delegation」时，不要期待RAC会将「声明protocol」「设置delegate」「回调delegate方法」等步骤全部省掉。</p>
-</blockquote>
-<p>单个方面来看，RAC把delegation的实现搞复杂了，也变得不那么容易理解了，这样有什么好处呢？</p>
-<p>当<code>protocolMethod</code>方法独立完成某项工作，不会和其他逻辑耦合在一起时，使用RAC代替delegation纯属蛋疼行为，实在没有意义；但是当<code>protocolMethod</code>方法实现的逻辑和别的逻辑耦合在一起时（譬如它维护的某个属性在别的地方也会用到），或者用更专业的话来讲，当<code>protocolMethod</code>维护的状态和其他逻辑维护的状态有依赖关系时，RAC能够让这些杂乱的依赖关系显得更清晰可控。<a href="https://spin.atomicobject.com/2014/02/03/objective-c-delegate-pattern/" target="_blank" rel="external">Replacing the Objective-C “Delegate Pattern” with ReactiveCocoa</a>中的示例能够更生动地说明这一点！</p>
-<p>RAC提供了<code>rac_signalForSelector:</code>和<code>rac_signalForSelector:fromProtocol:</code>这两个方法来帮助实现「代替传统的delegation」。这两个方法的实现逻辑差不多，只是后者会帮助做一下逻辑校验，以防将selector写错了。</p>
-<p>最后，需要说明的是，<code>rac_signalForSelector:</code>和<code>rac_signalForSelector:fromProtocol:</code>返回的signal类型是<code>RACSubject</code>；<code>subscribeNext:^(id x) {}</code>传入的参数x的类型是<code>RACTuple</code>，有点类似于数组，delegation参数就被盛装于此。</p>
-<p>P.S: 不太明白，为什么不使用<code>NSArray</code>，而另外弄一个<code>RACTuple</code>？</p>
-<h3 id="代替Target-Action"><a href="#代替Target-Action" class="headerlink" title="代替Target-Action"></a>代替Target-Action</h3><p>使用RAC的<code>rac_signalForControlEvents:</code>非常容易实现监听事件，如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIButton</span> *btn = [<span class="built_in">UIButton</span> new];</div><div class="line">[[btn rac_signalForControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>] subscribeNext:^(<span class="keyword">id</span> x) &#123;</div><div class="line">    <span class="comment">// 监听touch up inside事件</span></div><div class="line">    <span class="comment">// x是UIButton类型，即btn本身</span></div><div class="line">&#125;];</div></pre></td></tr></table></figure>
-<p><code>rac_signalForControlEvents:</code>返回的信号类型为<code>RACDynamicSignal</code>。</p>
-<h3 id="代替KVO"><a href="#代替KVO" class="headerlink" title="代替KVO"></a>代替KVO</h3><p><code>rac_valuesAndChangesForKeyPath:options:observer:</code>和<code>rac_valuesForKeyPath:observer:</code>可用来监听对象属性的变化，这两个方法差不多，只是后者默认将option值设置为<code>NSKeyValueObservingOptionInitial</code>。</p>
-<p>这俩方法中都有<code>observer</code>参数，有什么用呢？</p>
-<p>主要是为了解决KVO的remove observer痛点！众所周知，<code>addObserver:forKeyPath:options:context:</code>和<code>removeObserver:forKeyPath:</code>是对应关系，忘记了后者会造成内存泄漏问题（是内存泄漏问题吗？不太记得了）。</p>
-<p>使用RAC代替KVO的好处之一就是不用再手动remove observer了。</p>
-<p><code>rac_valuesAndChangesForKeyPath:options:observer:</code>和<code>rac_valuesForKeyPath:observer:</code>的使用非常简单，此处略过。</p>
-<h3 id="代替Notification"><a href="#代替Notification" class="headerlink" title="代替Notification"></a>代替Notification</h3><p><code>rac_addObserverForName:object:</code>可用来监听通知，其使用也非常简单，使用它后也无需再自己手动remove observer了。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -928,7 +937,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 陈旭锋
+    		&copy; 2018 陈旭锋
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten

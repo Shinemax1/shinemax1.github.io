@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2018/01/28/js%E5%AD%A6%E4%B9%A0/</loc>
+    <lastmod>2018-01-28T05:29:48.205Z</lastmod>
+    <data>
+        <display>
+        <title>javascript</title>
+        <pubTime>2018-01-28T04:00:43.000Z</pubTime>
+        
+        <tag>js基础</tag>
+         
+         
+           
+             
+              <breadCrumb title="web" url="http://shinemax1.github.io/categories/web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2017/10/15/android%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</loc>
     <lastmod>2017-10-16T03:32:05.045Z</lastmod>
     <data>
@@ -77,24 +97,6 @@
         
          
            
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2015/02/11/common-code-snipperts-in-ios/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>iOS常用代码片段</title>
-        <pubTime>2015-02-11T07:51:12.000Z</pubTime>
-        
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
         </display>
     </data>
     </url>
@@ -1022,6 +1024,24 @@
         
          
            
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2015/02/11/common-code-snipperts-in-ios/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>iOS常用代码片段</title>
+        <pubTime>2015-02-11T07:51:12.000Z</pubTime>
+        
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
         </display>
     </data>
     </url>
