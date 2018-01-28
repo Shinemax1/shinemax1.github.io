@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -199,6 +199,281 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-git-basics" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/12/05/git-basics/" class="article-date">
+  	<time datetime="2015-12-05T03:04:04.000Z" itemprop="datePublished">2015-12-05</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/12/05/git-basics/">Git基础</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Git起步"><a href="#Git起步" class="headerlink" title="Git起步"></a>Git起步</h2><p>目前市场上主流的<strong>版本控制系统</strong>（Version Control Systems，简称VCS）有两种：<strong>集中式版本控制系统</strong>（Centralized Version Control Systems，简称CVCS）、分布式版本控制系统（Distributed Version Control System，简称DVCS）。其中CVCS包括CVS、Subversion以及Perforce。</p>
+<p>Git是分布式版本控制系统（除了Git，DVCS还包括Mercurial、Bazaar以及Darcs等）。这一部分阐述Git的工作特点，并介绍一些基本概念。</p>
+<p><strong>分布式 v.s 集中式</strong></p>
+<p>分布式版本控制系统与集中式版本控制系统有何不同呢？</p>
+<p>首先，不同于集中式版本控制系统，分布式版本控制系统没有所谓的「中央服务器」，每个人的电脑上都是一个完整的版本库，这样，你工作的时候，就不需要联网了，因为版本库就在你自己的电脑上。既然每个人电脑上都有一个完整的版本库，那多个人如何协作呢？比方说你在自己电脑上改了文件A，你的同事也在他的电脑上改了文件A，这时，你们俩之间只需把各自的修改推送给对方，就可以互相看到对方的修改了。</p>
+<p>和集中式版本控制系统相比，分布式版本控制系统的安全性要高很多，因为每个人电脑里都有完整的版本库，某一个人的电脑坏掉了不要紧，随便从其他人那里复制一个就可以了。而集中式版本控制系统的中央服务器要是出了问题，所有人都没法干活了。</p>
+<p>在实际使用分布式版本控制系统的时候，其实很少在两人之间的电脑上推送版本库的修改，因为可能你们俩不在一个局域网内，两台电脑互相访问不了，也可能今天你的同事病了，他的电脑压根没有开机。因此，分布式版本控制系统通常也有一台充当「中央服务器」的电脑，但这个服务器的作用仅仅是用来方便交换大家的修改，没有它大家也一样干活，只是交换修改不方便而已。</p>
+<p><strong>直接记录快照，而非差异比较</strong></p>
+<p>Git和其他版本控制系统不同，Git只关心文件数据的整体是否发生变化，而大多数其他系统则只关心文件内容的具体差异。这类系统（CVS、Subversion、Perforce等等）每次记录有哪些文件作了更新，以及都更新了哪些行的什么内容，如下图。</p>
+<div class="imagediv" style="width: 400px; height: 155px"></div>
+
+<p>Git并不保存这些前后变化的差异数据。实际上，Git更像是把变化的文件作快照后，记录在一个微型的文件系统中。每次提交更新时，它会纵览一遍所有文件的指纹信息（即根据文件信息，使用SHA-1算法计算得到的一个40位字串），并对文件作一快照，然后保存一个指向这次快照的索引。为提高性能，若文件没有变化，Git不会再次保存，而只对上次保存的快照作一链接。Git对待数据更像是一个快照流。Git的工作方式如下图所示。</p>
+<div class="imagediv" style="width: 400px; height: 150px"></div>
+
+<p><strong>近乎所有操作都是本地执行</strong></p>
+<p>CVCS的几乎所有操作都需要连接网络，譬如使用Subversion和CVS，你能修改文件，但不能向数据库提交修改（因为本地数据库离线了）。</p>
+<p>而Git中的绝大多数操作都只需要访问本地文件和资源，不用联网。举个例子，要浏览项目的历史，Git不需外连到服务器去获取历史，然后再显示出来——它只需直接从本地数据库中读取。你能立即看到项目历史。如果你想查看当前版本与一个月前的版本之间引入的修改，Git会查找到一个月前的文件做一次本地的差异计算，而不是由远程服务器处理或从远程服务器拉回旧版本文件再来本地处理。</p>
+<p><strong>时刻保持数据完整性</strong></p>
+<p>在保存到Git之前，所有数据都要进行内容的校验和（checksum）计算，并将此结果作为数据的唯一标识和索引。换句话说，不可能在你修改了文件或目录之后Git一无所知。这项特性作为Git的设计哲学，建在整体架构的最底层。所以如果文件在传输时变得不完整，或者磁盘损坏导致文件数据缺失，Git都能立即察觉。Git使用SHA-1算法计算数据的校验和，通过对文件的内容或目录的结构计算出一个SHA-1哈希值，作为<strong>指纹字符串</strong>。该字串由40个十六进制字符（0-9及a-f）组成，看起来就像是：<code>24b9da6552252987aa493b52f8696cd6d3b00373</code>。</p>
+<p>Git的工作完全依赖于这类指纹字串，所以你会经常看到这样的哈希值。实际上，所有保存在Git数据库中的东西都是用此哈希值来作索引的，而不是靠文件名。</p>
+<p><strong>多数操作仅添加数据</strong></p>
+<p>常用的Git操作大多仅仅是把数据添加到数据库。因为任何一种不可逆的操作，比如删除数据，都会使回退或重现历史版本变得困难重重。在别的VCS中，若还未提交更新，就有可能丢失或者混淆一些修改的内容，但在Git里，一旦提交快照之后就完全不用担心丢失数据，特别是在养成定期推送到其他仓库的习惯的情况下。</p>
+<p><strong>工作区、版本库以及暂存区</strong></p>
+<p>所谓工作区（working directory，又常称之为「工作目录」），就是Git目录（一般是<code>.git</code>目录）之外的区间。</p>
+<blockquote>
+<p>P.S: 每个项目都有一个<strong>Git目录</strong>（如果<code>git clone</code>出来的话，就是其中的<code>.git</code>目录；如果<code>git clone --bare</code>的话，新建的目录本身就是Git目录），它是Git用来保存元数据和对象数据库的地方。该目录非常重要，每次克隆镜像仓库的时候，实际拷贝的就是这个目录里面的数据。</p>
+</blockquote>
+<p>所谓的暂存区只不过是个简单的文件，一般都放在Git目录中。有时候人们会把这个文件叫做index文件，不过标准说法还是叫暂存区。</p>
+<p>Git目录里除了index文件（暂存区）之外，还有Git为我们自动创建的第一个分支<code>master</code>，以及指向<code>master</code>的一个指针<code>HEAD</code>。</p>
+<div class="imagediv" style="width: 429px; height: 300px"></div>
+
+<p><strong>文件的三种状态</strong></p>
+<p>被Git管理的任何一个文件，在Git内都有三种状态：</p>
+<ul>
+<li>已提交（committed），表示数据已经安全的保存在本地数据库中；</li>
+<li>已修改（modified），表示修改了文件，但还没保存到数据库中；</li>
+<li>已暂存（staged），表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中；</li>
+</ul>
+<p>由此可以看到Git管理项目时，文件流转的三个区域：</p>
+<div class="imagediv" style="width: 400px; height: 220px"></div>
+
+<p>基本的Git工作流程如下：</p>
+<ol>
+<li>在工作区中修改某些文件；</li>
+<li>对修改后的文件进行快照，然后保存到暂存区；</li>
+<li>提交更新，将保存在暂存区的文件快照永久转储到版本库中。</li>
+</ol>
+<h2 id="Git基础"><a href="#Git基础" class="headerlink" title="Git基础"></a>Git基础</h2><p>这一部分将介绍几个最基本的，也是最常用的的Git命令；相对比较复杂的分支管理和远程操作，会在后续的博客中补充。</p>
+<h3 id="取得项目的Git仓库"><a href="#取得项目的Git仓库" class="headerlink" title="取得项目的Git仓库"></a>取得项目的Git仓库</h3><p>有两种取得Git项目仓库的方法。第一种是在现存的目录下，通过导入所有文件来创建新的Git仓库。第二种是从已有的Git仓库克隆出一个新的镜像仓库来。</p>
+<p><strong>从现有仓库克隆 – git clone</strong></p>
+<p>如果想对某个开源项目出一份力，可以先把该项目的Git仓库复制一份出来，这就需要用到<code>git clone</code>命令。注意，这里用的是<code>clone</code>，而不是像其他CVCS（譬如Subversion）里用到的<code>checkout</code>。这是个非常重要的差别，Git获取的是项目历史的所有数据（每个文件的每一个版本），服务器上有的数据经过<code>git clone</code>后，本地也都有了；换句话说，即使服务器的磁盘发生故障，任何一个克隆出来的镜像都可以重建服务器上的仓库，回到当初克隆时的状态。</p>
+<p>克隆仓库的最基本命令格式为<code>git clone [url]</code>。比如，要克隆本博客仓库，可以用下面的命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> git://github.com/sadjason/sadjason.github.io.git</div></pre></td></tr></table></figure>
+<p>这会在当前目录下创建名为<code>sadjason.github.io</code>的目录，其中包含一个<code>.git</code>的目录，用于保存下载下来的所有版本记录，然后从中checkout最新版本的文件拷贝。如果进入这个新建的目录，会看到项目中的所有文件已经在里面了，准备好后续的开发和使用。</p>
+<p>默认情况下，<code>git clone</code>还会完成「从Git目录checkout最新版本到根目录」的工作，若想略过这一步骤，加上<code>-n</code>（表示no checkout）选项，即：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">clone</span> -n git://github.com/sadjasonsadjason.github.io.git</div></pre></td></tr></table></figure>
+<p>除了no checkout设定，结合我的实践体验，将<code>git clone</code>的其他用法也给列出来：</p>
+<ul>
+<li>克隆到指定目录。格式为<code>git clone url target_dir</code>。</li>
+<li>从本地克隆。格式为<code>git clone /path/to/repo</code>；还有一种更简单的方法，<code>Ctrl+C</code>-&gt;<code>Ctrl+V</code>或者<code>Cmd+C</code>-&gt;<code>Cmd+V</code>，也是醉了😂</li>
+</ul>
+<blockquote>
+<p>P.S: 还可以设置<code>git clone</code>的选项，只克隆某个指定的分支，本文暂时不讨论分支相关问题，以后再说吧。</p>
+</blockquote>
+<p><strong>在工作目录中初始化新仓库 – git init</strong></p>
+<p>要对现有的某个项目开始用Git管理，只需到此项目所在的根目录执行<code>git init</code>命令，此命令对该目录进行初始化。</p>
+<p>初始化后，在当前目录会出现一个名为<code>.git</code>的目录，所有Git需要的数据和资源都存放在这个目录中，如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ <span class="comment"># 新建一个工程目录（简单的C工程）</span></div><div class="line">$ mkdir A-Simple-C-Project</div><div class="line">$ <span class="built_in">cd</span> A-Simple-C-Project</div><div class="line">$ git init</div><div class="line">Initialized empty Git repository <span class="keyword">in</span> ~/A-Simple-C-Project/.git/</div><div class="line">$ ls -al</div><div class="line">drwxr-xr-x   4 zhangbuhuai  staff  136  7  7 09:39 .</div><div class="line">drwxr-xr-x   4 zhangbuhuai  staff  136  7  7 09:38 ..</div><div class="line">drwxr-xr-x  10 zhangbuhuai  staff  340  7  7 09:39 .git</div></pre></td></tr></table></figure>
+<h3 id="记录更新到仓库"><a href="#记录更新到仓库" class="headerlink" title="记录更新到仓库"></a>记录更新到仓库</h3><p>工作区下面的所有文件都不外乎两种状态：<strong>已跟踪</strong>或<strong>未跟踪</strong>。已跟踪的文件是指被纳入版本控制管理的文件，在上次快照时有它们的记录，工作一段时间后，它们的状态可能是未更新、已修改（但未放入暂存区）或者已放入暂存区。而未跟踪文件，它们既没有上次更新时的快照，也不在当前暂存区域。</p>
+<p>初次克隆某个仓库时，工作区中的所有文件都属于已跟踪文件，且状态为<strong>未修改</strong>。</p>
+<p>在编辑过某些文件之后，Git将这些文件标为已修改。我们逐步把这些修改过的文件放到暂存区域，直到最后一次性提交所有这些暂存起来的文件，如此重复。使用Git时的文件状态变化周期如下图所示。</p>
+<div class="imagediv" style="width: 400px; height: 165px"></div>
+
+<p><strong>检查当前文件状态 – git status</strong></p>
+<p>要确定哪些文件当前处于什么状态，可以用<code>git status</code>命令。如果在克隆仓库之后立即执行此命令，会看到类似这样的输出：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git status</div><div class="line">On branch master</div><div class="line">nothing to commit, working directory clean</div></pre></td></tr></table></figure>
+<p>这说明现在的工作区相当干净。换句话说，所有已跟踪文件在上次提交后都未被更改过。此外，上面的信息还表明，当前目录下没有出现任何处于未跟踪的新文件，否则Git会在这里列出来。该命令还显示了当前所在的分支是<code>master</code>。</p>
+<p>现在在当前目录(~/A-Simple-C-Project/）下创建一个新文件main.c，再次使用<code>git status</code>会看到该文件会出现在未跟踪文件列表中，这一次加上<code>-s</code>选项,如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ touch main.c</div><div class="line">$ git status <span class="_">-s</span></div><div class="line">?? main.c</div></pre></td></tr></table></figure>
+<p>加上<code>-s</code>的状态报告要简洁得多，其中<code>??</code>标记表示该文件是未跟踪文件。</p>
+<blockquote>
+<p>P.S: <code>git status -s</code>的状态报告中有几种可能的状态符：</p>
+<ul>
+<li><code>??</code>：表示未跟踪；</li>
+<li><code>A</code>：表示新添加到暂存区，但还没提交；</li>
+<li><code>M_</code>（<code>M</code>在左侧）：表示已修改且添加（<code>git add</code>）到暂存区中，但还没提交（<code>git commit</code>)；</li>
+<li><code>_M</code>（<code>M</code>在右侧）：表示已跟踪文件被修改了，但还没放入到暂存区中；</li>
+<li><code>AM</code>：表示新增（新跟踪）文件，但后来又修改了，却没添加（<code>git add</code>）到暂存区中；</li>
+<li><code>MM</code>：表示已跟踪文件被修改了，且添加（<code>git add</code>）到暂存区中，但后来又被修改了，却没有添加（<code>git add</code>）到暂存区；</li>
+<li><code>_D</code>（<code>D</code>在右侧）：表示文件已经从工作区中删除（<code>rm</code>），但还没将更新添加到暂存区；</li>
+<li><code>D_</code>（<code>D</code>在左侧）：表示文件已经从工作区中删除（<code>git rm</code>），且已将更新添加到暂存区，但还没提交（<code>git commit</code>)；<br>动手体验一下就知道了🙄。</li>
+</ul>
+</blockquote>
+<p>或者通过<code>git status file_name1 file_name2 ...</code>查看某一个（或多个）文件的状态：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git status main.c <span class="_">-s</span></div><div class="line">?? main.c</div></pre></td></tr></table></figure>
+<p>未跟踪的文件意味着Git在之前的快照中没有这些文件；Git不会自动将之纳入跟踪范围，除非明白告诉它「我需要跟踪该文件」，因此不用担心把临时文件的也归入到版本管理中。</p>
+<p><strong>跟踪新文件 – git add</strong></p>
+<p>使用<code>git add</code>开始跟踪一个新文件。<code>git add file1 file2</code>命令使得file1和file2这两个文件被纳入到Git管理；<code>git add</code>还可以让某个目录被追踪，即<code>git add some_dir</code>，值得一提的是，该命令会让some_dir下的所有文件被追踪，而不仅仅是some_dir目录本身。</p>
+<p><strong>暂存已修改文件 – git add</strong></p>
+<p>对于工作区的文件，哪怕该文件已经被追踪了，当该文件被修改时，也应该在提交到版本库之前把它添加到暂存区，此操作仍然也由<code>git add</code>完成。</p>
+<blockquote>
+<p>Note: <code>git add</code>是个多功能命名，根据目标文件的状态不同，此命令的作用效果不同，其一是它可以跟踪新文件，其二是把已跟踪文件放到暂存区中，其三是在合并时把冲突的文件标记为已解决状态。</p>
+</blockquote>
+<p><strong>忽略某些文件</strong></p>
+<p>我们常常会有些文件无需纳入到Git管理中，譬如工程项目源码、配置之外的文件（尤其是二进制文件等）。我们可以创建一个<code>.gitignore</code>文件，列出需要忽略的文件模式。来看一个实际的例子：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ cat .gitignore</div><div class="line">*.[oa]</div><div class="line">*~</div></pre></td></tr></table></figure>
+<p>第一行告诉Git忽略所有已<code>.o</code>或<code>.a</code>结尾的文件，一般这类对象文件和存档文件都是编译过程中出现的，用不着跟踪它们的版本信息；第二行告诉Git忽略所有以波浪符（<code>~</code>）结尾的文件，许多文本编译软件（比如Emacs）都用这样的文件名保存副本。此外，还可能需要忽略<code>log</code>、<code>tmp</code>或者<code>pid</code>目录，以及自动生成的文档等等。</p>
+<p>要养成一开始就设置好<code>.gitignore</code>文件的习惯，以免将来误提交这类无用的文件。</p>
+<p><code>.gitignore</code>的规格规范如下：</p>
+<ul>
+<li>所有空行或者以注释（<code>#</code>）开头的行都会被Git忽略</li>
+<li>可以使用标准的glob模式匹配</li>
+<li>匹配模式最后跟反斜杠（<code>/</code>）说明要忽略的是目录</li>
+<li>要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（<code>!</code>）取反</li>
+</ul>
+<p>P.S: 所谓的glob模式是指shell所使用的简化了的正则表达式。</p>
+<p>GitHub有一个十分详细的针对数十种项目及语言的<code>.gitignore</code>文件<a href="https://github.com/github/gitignore/" target="_blank" rel="external">列表</a>。</p>
+<p><strong>查看工作区相对于暂存区、暂存区相对于版本库的更新 – git diff</strong></p>
+<p><code>git status</code>命令可以让我们时刻掌握仓库当前的状态，但它所显示的讯息还是比较简单，<code>git diff</code>可以用来查看difference，会使用文件补丁的格式显示具体添加和删除的行。<code>git diff</code>的用法比较丰富。</p>
+<p>不加参数的<code>git diff</code>比较的是工作区和暂存区之间的差异，也就是修改之后还没有暂存起来的变化内容。上文的main.c是空文件，现在编辑内容如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;stdio.h&gt;</span></span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">(<span class="keyword">void</span>)</span> </span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="number">0</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>保存，使用<code>git diff</code>查看工作区相对于暂存区的变化：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">index e69de29..cd9ca7d 100644</div><div class="line">--- a/main.c</div><div class="line">+++ b/main.c</div><div class="line">@@ -0,0 +1,5 @@</div><div class="line">+<span class="comment">#include &lt;stdio.h&gt;</span></div><div class="line">+</div><div class="line">+int main(void) &#123;</div><div class="line">+    <span class="built_in">return</span> 0;</div><div class="line">+&#125;</div></pre></td></tr></table></figure>
+<p>使用<code>git add main.c</code>命令将main.c的变化放入到暂存区，然后再使用<code>git diff</code>查看，可以看到报告内容为空。</p>
+<p><code>git diff</code>加上<code>--cached</code>选项，能够查看暂存区相对于版本库（默认是HEAD指向的分支）的变化，譬如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">$ git diff --cached</div><div class="line">diff --git a/main.c b/main.c</div><div class="line">new file mode 100644</div><div class="line">index 0000000..cd9ca7d</div><div class="line">--- /dev/null</div><div class="line">+++ b/main.c</div><div class="line">@@ -0,0 +1,5 @@</div><div class="line">+#include &lt;stdio.h&gt;</div><div class="line">+</div><div class="line">+int main(void) &#123;</div><div class="line">+    return 0;</div><div class="line">+&#125;</div></pre></td></tr></table></figure>
+<p>P.S: <code>--staged</code>选项和<code>--cached</code>作用相同，且表达意思更准确一些，只是1.6.1及更高版本才能使用。</p>
+<p><strong>提交更新 – git commit</strong></p>
+<p>如果所有文件新增、文件修改都放入了暂存区，那么意味着已经准备妥当，可以提交以记录成版本了。如果不确定，可以使用<code>git status</code>或者<code>git diff</code>查看一下。提交操作命令是<code>git commit</code>，常用的格式是<code>git commit -m &quot;some commit messages&quot;</code>。</p>
+<p>正常情况下，修改一个文件的流程是：在工作区修改-&gt;<code>git add ...</code>-&gt;<code>git commit ...</code>。有时候会觉得<code>git add</code>太麻烦了，就可以直接跳过使用暂时区，help文档描述如下：</p>
+<blockquote>
+<p>By using the <code>-a</code> switch with the commit command to automatically “add” changes from all known files (i.e. all files that are already listed in the index) and to automatically “rm” files in the index that have been removed from the working tree, and then perform the actual commit.</p>
+</blockquote>
+<p><strong>移除文件 – git rm</strong></p>
+<p>要从Git中移除某个文件，就必须要从已跟踪文件清单中移除（确切地说，是从暂存区移除），然后提交。可以用<code>git rm</code>命令完成此项工作，并连带从工作区中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。</p>
+<p>如果只是简单的从工作区中手工删除文件，运行<code>git status</code>时会看到「Changes not staged for commit」信息，此时还得补上<code>git add</code>命令才行。</p>
+<p>还有一种常见情况是，我们想把文件从Git仓库中删除（亦即从暂存区中移除），但仍然希望保留在当前工作区中。换句话说，想让文件保存在磁盘，但并不想让Git继续跟踪该文件。当忘记添加<code>.gitignore</code>文件，不小心把一个很大的日志文件或一堆<code>.a</code>这样的编译生成文件添加到暂存区时，这一做法尤其有用，为达到这一目的，需要加上<code>--cached</code>选项。</p>
+<p><strong>移动文件 – git mv</strong></p>
+<p>不像其他VCS，Git并不显式跟踪文件移动操作（包括重命名）。可使用<code>git mv</code>命令处理文件移动处理，简单来说，运行<code>git mv file_from file_to</code>相当于运行了下面三条命令：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ mv file_from file_to</div><div class="line">$ git rm file_from</div><div class="line">$ git add file_to</div></pre></td></tr></table></figure>
+<h3 id="查看提交历史"><a href="#查看提交历史" class="headerlink" title="查看提交历史"></a>查看提交历史</h3><p>在提交了若干更新，又或者克隆了某个项目之后，也许想回顾下提交历史. 完成这个任务最简单而又有效的工具是<code>git log</code>命令。</p>
+<p>注意，<code>git log</code>命令并不是查看所有git操作记录，而只是查看<code>git commit</code>的记录。</p>
+<p>默认不用任何参数的话，<code>git log</code>会按提交时间列出所有的commits，最近的更新排在最上面，如下：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">log</span></div><div class="line">commit 75c19156d70f1617cba0091bd43494f840c91ea2</div><div class="line">Author: sadjason &lt;sadjason@qq.com&gt;</div><div class="line">Date:   Sun Jul 10 13:44:23 2016 +0800</div><div class="line"></div><div class="line">    modify main.c</div><div class="line"></div><div class="line">commit 007069d0f1b81bd34823dec48d62b959cc665ec0</div><div class="line">Author: sadjason &lt;sadjason@qq.com&gt;</div><div class="line">Date:   Sun Jul 10 13:41:54 2016 +0800</div><div class="line"></div><div class="line">    add a.out</div><div class="line"></div><div class="line">commit c589bac19d121c56cbc078f67ab7bd9a91764815</div><div class="line">Author: sadjason &lt;sadjason@qq.com&gt;</div><div class="line">Date:   Sun Jul 10 13:40:59 2016 +0800</div><div class="line"></div><div class="line">    add two files</div><div class="line"></div><div class="line">...</div></pre></td></tr></table></figure>
+<p>可以看到，这个命令会列出每个commit的SHA-1校验和、作者的姓名和电子邮件、提交时间、提交说明。</p>
+<p><code>git log</code>有许多选项，下面介绍一些常用的。</p>
+<p>一个常用的选项是<code>-p</code>，用来显示每次提交的内容差异；也可以加上<code>-2</code>来显示最近两次提交。</p>
+<p>也可以为<code>git log</code>附带一系列的总结性选项。比如说，如果想看到每次提交的简略的统计信息，可以使用<code>--stat</code>选项。</p>
+<p>关于更多<code>git log</code>的选项配置，参考<a href="https://git-scm.com/book/en/v2/Git-Basics-Viewing-the-Commit-History" target="_blank" rel="external">Viewing the Commit History</a>。</p>
+<h3 id="撤销与版本回退"><a href="#撤销与版本回退" class="headerlink" title="撤销与版本回退"></a>撤销与版本回退</h3><p>在任何一个阶段，都有可能想要撤销某些操作。这里，将学习几个撤销所作修改的基本工具。除了撤销，这一部分还介绍版本回退。</p>
+<p>值得一提的是，有些撤销操作是不可逆的。</p>
+<p><strong>撤销最后一次提交</strong></p>
+<p>有时候提交完了，才发现漏掉了几个文件没有添加，或者提交信息写错了。此时，可以运行带有<code>--amend</code>选项（amend译作「修改」）的命令尝试重新提交：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git commit --amend -m <span class="string">"some message"</span></div></pre></td></tr></table></figure>
+<p>这个命令会将暂存区中的文件提交，并把当前分支的最新commit给覆盖掉。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git commit -m <span class="string">"last commit"</span>  <span class="comment"># mark 1</span></div><div class="line">$ <span class="comment"># some modifies</span></div><div class="line">$ git commit --amend -m <span class="string">"new commit"</span>  <span class="comment"># mark 2</span></div><div class="line"><span class="comment"># 作用效果是：mark 1标记的commit被mark 2标记的commit给覆盖掉</span></div></pre></td></tr></table></figure>
+<p>如果自上次提交以来还未做任何修改（例如，在上次提交后马上执行了此命令），那么快照会保持不变，而修改的只是commit message：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git commit -m <span class="string">"last commit"</span>  <span class="comment"># 上一次commit</span></div><div class="line">$ git commit --amend -m <span class="string">"new commit"</span>  <span class="comment"># 更新commit message</span></div></pre></td></tr></table></figure>
+<p><strong>撤销已经暂存的文件 – git reset</strong></p>
+<p><code>git add</code>会影响暂存区里的文件状态，有时需要撤销。例如，已经修改了两个文件并且想要将它们作为两次独立的修改提交，但是却意外地输入了<code>git add *</code>暂存了它们俩。如何只取消暂存两个中的一个呢？<code>git status</code>命令其实有提示：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">$ touch file_step_1 file_step_2  <span class="comment"># 创造两个新文件</span></div><div class="line">$ git add *</div><div class="line">$ git status</div><div class="line">On branch master</div><div class="line">Changes to be committed:</div><div class="line">  (use <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</div><div class="line"></div><div class="line">	new file:   file_step_1</div><div class="line">	new file:   file_step_2</div></pre></td></tr></table></figure>
+<p>在「Changes to be committed」正下方，提示使用「git reset HEAD <file>…」来取消暂存。</file></p>
+<p>所以，我们可以这样来暂存取消file_step_2文件：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">$ git reset HEAD file_step_2</div><div class="line">$ git status</div><div class="line">On branch master</div><div class="line">Changes to be committed:</div><div class="line">  (use <span class="string">"git reset HEAD &lt;file&gt;..."</span> to unstage)</div><div class="line"></div><div class="line">	new file:   file_step_1</div><div class="line"></div><div class="line">Untracked files:</div><div class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to include <span class="keyword">in</span> what will be committed)</div><div class="line"></div><div class="line">	file_step_2</div></pre></td></tr></table></figure>
+<p>P.S: <code>git reset HEAD</code>命令会撤销所有暂存。</p>
+<p><strong>撤销对文件的修改 – git checkout</strong></p>
+<p>可能经常会有这样的场景，在工作区对某个文件进行修改，但因为某种原因想放弃对它的修改，想把它还原到上次提交时的样子（或者刚克隆完的样子，或者刚把它放入工作区的样子），怎么办？其实<code>git status</code>也告诉了应该如何做，比如，在提交了所有更新后再次修改main.c文件，调用<code>git status</code>命令可以看到如下信息：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">$ <span class="comment"># 修改main.c文件</span></div><div class="line">$ git status</div><div class="line">On branch master</div><div class="line">Changes not staged <span class="keyword">for</span> commit:</div><div class="line">  (use <span class="string">"git add &lt;file&gt;..."</span> to update what will be committed)</div><div class="line">  (use <span class="string">"git checkout -- &lt;file&gt;..."</span> to discard changes <span class="keyword">in</span> working directory)</div><div class="line"></div><div class="line">	modified:   main.c</div><div class="line"></div><div class="line">no changes added to commit (use <span class="string">"git add"</span> and/or <span class="string">"git commit -a"</span>)</div></pre></td></tr></table></figure>
+<p>「use “git checkout – <file>…” to discard changes in working directory」提示告诉了我们该怎么干，照做就是：</file></p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git checkout -- main.c  <span class="comment"># 注意`--`和`main.c`之间得用空格隔开</span></div><div class="line">$ git status</div><div class="line">On branch master</div><div class="line">nothing to commit, working directory clean</div></pre></td></tr></table></figure>
+<p>值得注意的是，<code>git checkout -- &lt;file&gt;</code>是一个危险的命令。对文件做的任何修改都会消失 – 它只是拷贝了另一个文件来覆盖它。因此，除非确实清楚不想要那个文件了，否则不要使用这个命令。此外，该命令能执行成功的前提是仓库中已有该文件。</p>
+<p><del>P.S: 如果修改了某个文件，并且把它提交到暂存区，但现在想放弃该文件的所有修改，该如何处理呢？也简单，先<code>git reset HEAD &lt;file&gt;</code>，然后再<code>git checkout -- &lt;file&gt;</code>即可。</del></p>
+<p>补充说明：<code>git checkout -- &lt;file&gt;</code>的意思是把<code>&lt;file&gt;</code>文件在工作区的修改全部撤销，这里有两种情况：一种是<code>&lt;file&gt;</code>自修改后还没有被放到暂存区，该命令作用后，<code>&lt;file&gt;</code>回到和版本库一模一样的状态；另一种是<code>&lt;file&gt;</code>已经被添加到暂存区，且之后又作了修改，即该命令对应的状态符是<code>MM</code>，该命令作用后，<code>&lt;file&gt;</code>回到添加到暂存区后的状态。</p>
+<p>P.S: <code>git reset --hard HEAD</code>命令也能使得工作区的所有文件状态恢复到与当前版本库一致。</p>
+<p><strong>版本回退 – git reset</strong></p>
+<p>很多时候遇到这样抓狂的事情：在某个节点之后修改工程，做了一番修改后，工程无法再次通过编译，或者无法达到想要的目的，寻找问题却始终不得结果，无奈之下，只能回到最后一次正常的节点推倒重来。如果项目使用Git进行管理，那么「回到最后一次正常的节点」应该就是常说的版本回退。</p>
+<p>版本回退的意义应该不用赘述了。如何处理呢？首先确定工具（命令），<code>git reset</code>是也！</p>
+<p>下面阐述版本回退的内容比较长…</p>
+<p>这里先简要介绍两个概念：commit-id和<code>HEAD</code>指针。每个版本（每次commit）都有一个id，这个id是Git自动生成的，即所谓的commit-id；<code>HEAD</code>指针的概念相对复杂一些，它与分支也有关系，当前还没有涉及到分支，目前所需要知道的是：在Git中，使用<code>HEAD</code>表示当前版本，<code>HEAD^</code>表示上一个版本，<code>HEAD^^</code>表示上上个版本，依次类推，当然，也可以使用<code>HEAD~n</code>表示<code>HEAD</code>的前<code>n</code>个版本（<code>HEAD^</code>等价于<code>HEAD~1</code>）。</p>
+<p>P.S: 貌似在比较高的版本中将<code>HEAD^</code>这种语义给剔除掉了，我所使用的版本是2.7.4。</p>
+<p>举个例子，创建一个Git仓库，提交3次，提交的message分别写为「version 1」「version 2」「version 3」，通过<code>git log</code>命令可以看到这3次提交记录：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">$ <span class="comment"># 创建一个demo，提交3次，通过git log查看3个版本记录</span></div><div class="line">$ git <span class="built_in">log</span> --pretty=oneline  <span class="comment"># --pretty=oneline选项会让显示结果更简洁一些</span></div><div class="line">0eb9dceaaf8f86bacd76ee7109edc1fec256b56e version 3</div><div class="line">82be09ef9e1ddb51b41d9b2b36039218673e5a6e version 2</div><div class="line">87e61d64ce34693ad62a23f7ee448ed3d9278f56 version 1</div></pre></td></tr></table></figure>
+<p>下图是具象化的说明：</p>
+<div class="imagediv" style="width: 299px; height: 149px;"></div>
+
+<p>如果想看当前的版本库信息，即<code>HEAD</code>指针指向的commit，可以通过<code>git show HEAD</code>查看，同样，通过<code>git show HEAD~&lt;n&gt;</code>可以查看往前的第<code>n</code>个版本信息：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">$ git show HEAD  <span class="comment"># 查看当前版本库信息</span></div><div class="line">commit 0eb9dceaaf8f86bacd76ee7109edc1fec256b56e</div><div class="line">Author: zhangwei72 &lt;zhangwei72@meituan.com&gt;</div><div class="line">Date:   Sat Jul 23 19:08:05 2016 +0800</div><div class="line"></div><div class="line">    version 3</div><div class="line">    ...</div><div class="line">$ git show HEAD~1  <span class="comment"># 查看往前的版本库信息</span></div><div class="line">commit 82be09ef9e1ddb51b41d9b2b36039218673e5a6e</div><div class="line">Author: zhangwei72 &lt;zhangwei72@meituan.com&gt;</div><div class="line">Date:   Sat Jul 23 19:07:38 2016 +0800</div><div class="line"></div><div class="line">    version 2</div><div class="line">    ...</div></pre></td></tr></table></figure>
+<p>讲了这么多<code>HEAD</code>指针，其实是为了给「通过<code>git reset</code>回退版本」作铺垫。</p>
+<p>所谓版本回退，根据我的理解，其本质是设置<code>HEAD</code>指针的指向，譬如回退到version 2，其实所需要做的是重定向<code>HEAD</code>指针到version 2的快照：</p>
+<div class="imagediv" style="width: 300px; height: 150px;"></div>
+
+<p>设置<code>HEAD</code>指针有两种方式，一种是<code>git reset &lt;commit-id&gt;</code>，另一种是通过<code>git reset HEAD~&lt;n&gt;</code>。假如当前<code>HEAD</code>指针指向version 3，<code>git reset 82be09e</code>（82be09e是version 2对应的commit-id的前6位）会将<code>HEAD</code>指向到version 2；<code>git reset HEAD~1</code>也会有同样的作用。</p>
+<p>本文将<code>HEAD</code>指针指向到version 2：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">$ git reset HEAD~1  <span class="comment"># 将HEAD指针指向到前一个版本（version 2）</span></div><div class="line">$ git show HEAD</div><div class="line">commit 82be09ef9e1ddb51b41d9b2b36039218673e5a6e</div><div class="line">Author: zhangwei72 &lt;zhangwei72@meituan.com&gt;</div><div class="line">Date:   Sat Jul 23 19:07:38 2016 +0800</div><div class="line"></div><div class="line">    version 2</div><div class="line">    ...</div></pre></td></tr></table></figure>
+<p>现在确定当前版本（<code>HEAD</code>指针）切换到version 2了，再用<code>git log</code>查看commits信息会发现version 3不见了：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">log</span> --pretty=oneline</div><div class="line">82be09ef9e1ddb51b41d9b2b36039218673e5a6e version 2</div><div class="line">87e61d64ce34693ad62a23f7ee448ed3d9278f56 version 1</div></pre></td></tr></table></figure>
+<p>问题来了：version 3快照会被删除吗？</p>
+<p>答案是：不会！version 3之所以没有在<code>git log</code>报告中显示出来，是因为<code>git log</code>的报告结果依赖于<code>HEAD</code>指针，它只会将比<code>HEAD</code>所指向的commit以及更旧的commits给查询出来。</p>
+<p>那么还有机会将当前版本切换到version 3吗？在Git中，总有后悔药可以吃的。version 3没有被删除，只要知道其commit-id，就可以通过<code>git reset &lt;commit-id&gt;</code>切回到version 3。</p>
+<p>这就说到另外一个命令：<code>git reflog</code>。该命令可以查看所有分支的所有操作记录（包括commit和reset的操作）。简单一句话，可以通过<code>git reflog</code>找到version 3的commit-id，有了commit-id，后面的事情就好办了…</p>
+<p>使用<code>git reset</code>重置<code>HEAD</code>时，还会涉及几个选项：</p>
+<ul>
+<li><code>--mixed</code>，此为默认选项，除了设置<code>HEAD</code>，还额外的将暂存区给清空；</li>
+<li><code>--soft</code>，此选项除了设置<code>HEAD</code>指针，其他的啥都不干；</li>
+<li><code>--hard</code>，此选项在<code>--mixed</code>的基础上还会重置工作区，使得工作区的文件状态和<code>HEAD</code>所指向的版本完全一致；</li>
+<li><code>--merge</code>和<code>--keep</code>，这俩选项似乎很少用到，略过不讲；</li>
+</ul>
+<p>P.S: 关于<code>git reset</code>的使用，似乎还有很多内容没有说到，以后再另外补充吧！</p>
+<p>还有一个问题：重定向<code>HEAD</code>后，如何将<code>HEAD</code>之后的commits给永远删掉呢？</p>
+<p>接下来的Git博客：<a href="/git-branching-and-remoting/">Git分支与远程操作</a>。</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li><a href="http://git-scm.com/book/" target="_blank" rel="external">Pro Git</a></li>
+<li><a href="https://git-scm.com/book/zh/v2/" target="_blank" rel="external">Pro Git中文版</a></li>
+<li><a href="http://www.liaoxuefeng.com/wiki/0013739516305929606dd18361248578c67b8067c8c017b000/001374831943254ee90db11b13d4ba9a73b9047f4fb968d000" target="_blank" rel="external">廖雪峰Git教程之撤销修改</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tools/">Tools</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Others/">Others</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-good-resources-about-ios" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -721,277 +996,6 @@
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/Others/">Others</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-beginning-auto-layout-part-1" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/07/16/beginning-auto-layout-part-1/" class="article-date">
-  	<time datetime="2015-07-16T01:10:31.000Z" itemprop="datePublished">2015-07-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/07/16/beginning-auto-layout-part-1/">深入理解Auto Layout 第一弹</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>iOS的的布局机制「auto layout」不是一个新概念，它早在iOS 6中就推出来了，当下距离iOS 9正式版面世已不远矣，我却对它的了解还比较初级。</p>
-<p>我之前对auto layout机制的理解非常粗浅，几乎把它和「constraint」对等。对它的使用有这么几个阶段：</p>
-<ol>
-<li>Storyboard中通过拖拽设置constraints；</li>
-<li>学习VFL（Visual Format Language）语法使用代码设置constraints；</li>
-<li>使用大杀器<a href="https://github.com/SnapKit/Masonry" target="_blank" rel="external">Masonry</a>。</li>
-</ol>
-<blockquote>
-<p>P.S: iOS的VFL语法实在太罗嗦了，又臭又长且可读性差难于调试，无法忍受，Masonry正是解决这一痛点的第三方库，非常好用，学习成本非常低。</p>
-</blockquote>
-<p>近期因为项目，我需要实现一个能够自适应文本自动调整高度的table view cell。网上有相关丰富的资源（category、博客等），思路都非常简单，比如这篇：<a href="http://www.cocoachina.com/industry/20140604/8668.html" target="_blank" rel="external">动态计算UITableViewCell高度详解</a>。但即便如此，我对有些东西理解起来还有障碍，譬如<code>systemLayoutSizeFittingSize:</code>和<code>sizeThatFits:</code>之类的，想到我都将近有大半年的开发经验了，居然还无法理解这么简单的东西，不能忍！</p>
-<p>导致这种结果的主要原因有俩：一是之前项目比较简单，涉及auto layout相关的知识无非是add/update/remove constraints；二是自己太轻浮，把auto layout想得太简单；</p>
-<p>通过对各种资讯梳理，大概搞明白了自己最大的问题是对auto layout相关的各种API不熟悉或者完全陌生，这导致了无法在一些实际问题中使用正确的策略解决问题。本文的着重点正是结合各种资料加上自己的理解对这些API进行分析。<br>本文涉及的API包括：</p>
-<ul>
-<li><code>sizeThatFits:</code>和<code>sizeToFit</code></li>
-<li><code>systemLayoutSizeFittingSize:</code></li>
-<li><code>intrinsicContentSize</code></li>
-</ul>
-<blockquote>
-<p>P.S: 这几个API都是与size相关，该如何使用它们呢？这曾让笔者一时非常困惑。以上这几个API都是UIView的实例方法，除此之外，本文还涉及一些属性，譬如<code>preferredMaxLayoutWidth</code>。</p>
-</blockquote>
-<h2 id="iOS布局机制"><a href="#iOS布局机制" class="headerlink" title="iOS布局机制"></a>iOS布局机制</h2><p>iOS布局机制大概分这么几个层次：</p>
-<ul>
-<li>frame layout</li>
-<li>autoresizing</li>
-<li>auto layout</li>
-</ul>
-<p><strong>frame layout</strong></p>
-<p>frame layout最简单直接，简单来说，即通过设置view的<code>frame</code>属性值进而控制view的位置（相对于superview的位置）和大小。</p>
-<p><strong>autoresizing</strong></p>
-<p>autoresizing和frame layout一样，从一开始存在，它算是后者的补充，基于autoresizing机制，能够让subview和superview维持一定的布局关系，譬如让subview的大小适应superview的大小，随着后者的改变而改变。</p>
-<p>站在代码接口的角度来看，autoresizing主要体现在几个属性上，包括（但不限于）：</p>
-<ol>
-<li><code>translatesAutoresizingMaskIntoConstraints</code></li>
-<li><code>autoresizingMask</code></li>
-</ol>
-<p>第一个属性标识view是否愿意被autoresize；<br>第二个属性是一个枚举值，决定了当superview的size改变时，subview应该做出什么样的调整；</p>
-<p>关于autoresizing的更详细使用说明，参考：<a href="http://www.cocoachina.com/ios/20141216/10652.html" target="_blank" rel="external">自动布局之autoresizingMask使用详解</a>。</p>
-<p><strong>auto layout</strong></p>
-<p>autoresizing存在的不足是非常显著的，通过<code>autoresizingMask</code>的可选枚举值可以看出：基于autoresizing机制，我们只能让view在superview的大小改变时做些调整；而无法处理兄弟view之间的关系，譬如处理与兄弟view的间隔；更无法反向处理，譬如让superview依据subview的大小进行调整。</p>
-<p>Auto Layout是随着iOS 6推出来的，关于它的介绍，官方文档《Auto Layout Guide》的描述非常精炼：</p>
-<blockquote>
-<p>Auto Layout is a system that lets you lay out your app’s user interface by creating a mathematical description of the relationships between the elements. You define these relationships in terms of constraints either on individual elements, or between sets of elements. Using Auto Layout, you can create a dynamic and versatile interface that responds appropriately to changes in screen size, device orientation, and localization.</p>
-</blockquote>
-<p>简单来说，它是一种基于约束的布局系统，可以根据你在元素（对象）上设置的约束自动调整元素（对象）的位置和大小。</p>
-<p>值得一提的是，对于某个view的布局方式，autoresizing和auto layout只能二选一，简单来说，若要对某个view采用auto layout布局，则需要设置其<code>translatesAutoresizingMaskIntoConstraints</code>属性值为<code>NO</code>。</p>
-<h2 id="几个重要的API"><a href="#几个重要的API" class="headerlink" title="几个重要的API"></a>几个重要的API</h2><p><strong>intrinsicContentSize方法</strong></p>
-<p>在介绍<code>intrinsicContentSize</code>方法之前，先来看一个应用场景：</p>
-<p>场景一：某个UILabel用于显示<strong>单行</strong>文本，让其能够自适应文本，即根据文本自动调整其大小。</p>
-<p>让UILabel自适应文本，在auto layout之前，一般做法是先给定字体，进而计算文本内容所占据的宽度width和高度height，然后使用得来的width和height设置其<code>frame</code>属性值。</p>
-<p>但是使用auto layout非常简单，如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> () </span>&#123;</div><div class="line">    <span class="built_in">UILabel</span> *testLabel;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    </div><div class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">    </div><div class="line">    testLabel = (&#123;</div><div class="line">        <span class="built_in">UILabel</span> *label        = [[<span class="built_in">UILabel</span> alloc] init];</div><div class="line">        label.textAlignment   = <span class="built_in">NSTextAlignmentCenter</span>;</div><div class="line">        label.font            = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.0</span>];</div><div class="line">        label.textColor       = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">        label.backgroundColor = [<span class="built_in">UIColor</span> lightGrayColor];</div><div class="line">        label;</div><div class="line">    &#125;);</div><div class="line">    [<span class="keyword">self</span>.view addSubview:testLabel];</div><div class="line">    </div><div class="line">    <span class="comment">// 使用Masonry添加constraints</span></div><div class="line">    [testLabel mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.top.equalTo(<span class="keyword">self</span>.view.mas_top).offset(<span class="number">40</span>);</div><div class="line">        make.left.equalTo(<span class="keyword">self</span>.view.mas_left).offset(<span class="number">10</span>);</div><div class="line">    &#125;];</div><div class="line">    testLabel.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张"</span>;</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)viewDidAppear:(<span class="built_in">BOOL</span>)animated &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidAppear:animated];</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"testLabel.origin = %@"</span>, <span class="built_in">NSStringFromCGPoint</span>(testLabel.frame.origin));</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"testLabel.size = %@"</span>, <span class="built_in">NSStringFromCGSize</span>(testLabel.frame.size));</div><div class="line">    <span class="comment">// print: "testLabel.origin = &#123;10, 40&#125;"</span></div><div class="line">    <span class="comment">// print: "testLabel.size = &#123;236.5, 17&#125;"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>效果如下：</p>
-<div class="imagediv" style="width: 320px; height: 100px"></div>
-
-<p>问题来了，auto layout system知道testLabel的size呢？</p>
-<p>OK，就此引入API <code>intrinsicContentSize</code>。</p>
-<p><code>intrinsicContentSize</code>是UIView的基础方法（Available in iOS 6.0 and later），<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/" target="_blank" rel="external">UIView Class References</a>对它的描述如下：</p>
-<blockquote>
-<p>Returns the natural size for the receiving view, considering only properties of the view itself.<br>&nbsp;<br><strong>Return Value</strong><br>A size indicating the natural size for the receiving view based on its intrinsic properties.<br>&nbsp;<br><strong>Discussion</strong><br>Custom views typically have content that they display of which the layout system is unaware. Overriding this method allows a custom view to communicate to the layout system what size it would like to be based on its content. This intrinsic size must be independent of the content frame, because there’s no way to dynamically communicate a changed width to the layout system based on a changed height, for example.<br>If a custom view has no intrinsic size for a given dimension, it can return UIViewNoIntrinsicMetric for that dimension.</p>
-</blockquote>
-<p>「intrinsic content size」在中文世界里常被译作：「固有内容大小」，简单来说，<strong>它被用来告诉auto layout system应该给它分配多大的size</strong>。</p>
-<p>所以呢，在上文代码（<strong>场景一</strong>的Solution）中，根据我的理解，layout工作流程是这样的：在layout时，auto layout system会去回调testLabel的实例方法<code>intrinsicContentSize</code>，该方法能够根据「文本内容+字体」计算出content的size，进而根据此size对testLabel进行布局。</p>
-<p>为了验证这个说法，对上述代码做些改变。</p>
-<p>首先定义一个继承自UILabel的类ZWLabel，重写ZWLabel的<code>intrinsicContentSize</code>方法，如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ZWLabel</span> : <span class="title">UILabel</span></span></div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div><div class="line">    </div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ZWLabel</span></span></div><div class="line">    </div><div class="line">- (<span class="built_in">CGSize</span>)intrinsicContentSize &#123;</div><div class="line">    <span class="built_in">CGSize</span> size = [<span class="keyword">super</span> intrinsicContentSize];</div><div class="line">    size.width  += <span class="number">20</span>;</div><div class="line">    size.height += <span class="number">20</span>;</div><div class="line">    <span class="keyword">return</span> size;</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p>然后让上文的<code>testLabel</code>从<code>UILabel</code>的实例改为<code>ZWLabel</code>的实例，其余不变：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">testLabel = (&#123;</div><div class="line">    ZWLabel *label = [[ZWLabel alloc] init];</div><div class="line">    <span class="comment">//...</span></div><div class="line">    label;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>效果如下：</p>
-<div class="imagediv" style="width: 320px; height: 110px"></div>
-
-<p>效果明显，本示例较为直观说明了<code>intrinsicContentSize</code>这个API的作用了，这个API是为auto layout system的callback提供的！</p>
-<p>P.S：笔者刚开始对<code>intrinsicContentSize</code>这个API的用法感到非常疑惑，在我的理解里，它有两种可能：</p>
-<ol>
-<li>Auto Layout System会根据content为view设置一个合适的size，开发者有时需要知道这个size，因此可以通过<code>intrinsicContentSize</code>获取；</li>
-<li>Auto Layout System在layout时，不知道该为view分配多大的size，因此回调view的<code>intrinsicContentSize</code>方法，该方法会给auto layout system一个合适的size，system根据此size对view的大小进行设置；</li>
-</ol>
-<p>现在看来，第二种理解更靠谱！</p>
-<p>对于上文所用到的<code>UILabel</code>，想必Cocoa在实现<code>intrinsicContentSize</code>方法时已经根据<code>text</code>属性值和<code>font</code>属性值进行了计算。那是不是每个原生view都实现了<code>intrinsicContentSize</code>呢？</p>
-<p>NO！《<a href="https://developer.apple.com/library/watchos/documentation/UserExperience/Conceptual/AutolayoutPG/AutoLayoutConcepts/AutoLayoutConcepts.html" target="_blank" rel="external">Auto Layout Guide</a>》在谈论「intrinsic content size」时，总会与另外一个词语「leaf-level views」相关联，譬如：</p>
-<blockquote>
-<p><strong>Intrinsic Content Size</strong><br>Leaf-level views such as buttons typically know more about what size they should be than does the code that is positioning them. This is communicated through the <strong>intrinsic content size</strong>, which tells the layout system that a view contains some content that it doesn’t natively understand, and indicates how large that content is, intrinsically.</p>
-</blockquote>
-<p>「leaf-level views」指的是那种一般不包含任何subview的view，譬如<code>UILabel</code>、<code>UIButton</code>等，这类的view往往能够直接计算出content（譬如<code>UILabel</code>的text、<code>UIButton</code>的title，<code>UIImageView</code>的image）的大小。</p>
-<p>但是有些view不包含content，譬如<code>UIView</code>，这种view被认为「has no intrinsic size」，它们的<code>intrinsicContentSize</code>返回的值是<code>(-1,-1)</code>。</p>
-<blockquote>
-<p>P.S: 官方文档中说的是：UIView’s default implementation is to return (UIViewNoIntrinsicMetric, UIViewNoIntrinsicMetric)，而UIViewNoIntrinsicMetric等于<code>-1</code>，为什么是<code>-1</code>而不是<code>0</code>，我猜是<code>0</code>是一个有效的width/height，而<code>-1</code>不是，更容易区分处理。</p>
-</blockquote>
-<p>还有一种view虽然包含content，但是<code>intrinsicContentSize</code>返回值也是<code>(-1,-1)</code>，这类view往往是<code>UIScrollView</code>的子类，譬如<code>UITextView</code>，它们是可滚动的，因此auto layout system在对这类view进行布局时总会存在一些未定因素，Cocoa干脆让这些view的<code>intrinsicContentSize</code>返回<code>(-1,-1)</code>。</p>
-<p><strong>preferredMaxLayoutWidth属性</strong></p>
-<p>基于上述<strong>场景一</strong>，我们来分析更复杂一点的UILabel自适应问题。</p>
-<p>场景二：某个UILabel用于显示<strong>多行</strong>文本，让其能够自适应文本，即根据文本自动调整其大小；</p>
-<p>对于单行文本UILabel，UILabel的<code>intrinsicContentSize</code>在计算content size时比较容易；但对于多行文本的UILabel，同样的content，譬如「天地玄黄宇宙洪荒」这八个字，摆放方式可以是1x8，可以是2x4，可以是4x2，auto layout system该如何处理呢？UILabel的属性<code>preferredMaxLayoutWidth</code>正是用来应对这个问题的。</p>
-<p><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UILabel_Class/" target="_blank" rel="external">UILabel Class References</a>对它的描述如下：</p>
-<blockquote>
-<p>The preferred maximum width (in points) for a multiline label.<br>&nbsp;<br><strong>Discussion</strong><br>This property affects the size of the label when layout constraints are applied to it. During layout, if the text extends beyond the width specified by this property, the additional text is flowed to one or more new lines, thereby increasing the height of the label.</p>
-</blockquote>
-<p><code>preferredMaxLayoutWidth</code>的作用顾名思义，用来限制UILabel content size的最大宽度值。如下代码：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">testLabel = (&#123;</div><div class="line">    <span class="built_in">UILabel</span> *label                = [[<span class="built_in">UILabel</span> alloc] init];</div><div class="line">    label.textAlignment           = <span class="built_in">NSTextAlignmentCenter</span>;</div><div class="line">    label.font                    = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.0</span>];</div><div class="line">    label.textColor               = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">    label.numberOfLines           = <span class="number">0</span>;      <span class="comment">// mark</span></div><div class="line">    label.preferredMaxLayoutWidth = <span class="number">100</span>;    <span class="comment">// mark</span></div><div class="line">    label.backgroundColor         = [<span class="built_in">UIColor</span> lightGrayColor];</div><div class="line">    label;</div><div class="line">&#125;);</div><div class="line">[<span class="keyword">self</span>.view addSubview:testLabel];</div><div class="line">    </div><div class="line"><span class="comment">// 使用Masonry添加constraints</span></div><div class="line">[testLabel mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">    make.top.equalTo(<span class="keyword">self</span>.view.mas_top).offset(<span class="number">40</span>);</div><div class="line">    make.left.equalTo(<span class="keyword">self</span>.view.mas_left).offset(<span class="number">10</span>);</div><div class="line">&#125;];</div><div class="line">    </div><div class="line">testLabel.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张"</span>;</div></pre></td></tr></table></figure>
-<p>效果如下：</p>
-<div class="imagediv" style="width: 320px; height: 120px"></div>
-
-<p>那么最后<code>testLabel</code>的width是不是就是<code>preferredMaxLayoutWidth</code>的属性值呢？No，最终<code>testLabel</code>的属性值小于等于<code>preferredMaxLayoutWidth</code>的属性值。</p>
-<p><strong>sizeThatFits:方法和sizeToFit方法</strong></p>
-<p>上文已经提到，<code>UITextView</code>继承自<code>UIScrollView</code>，是可以滚动的，它的<code>intrinsicContentSize</code>方法返回值是<code>(-1,-1)</code>，auto layout system在处理UITextView对象时，为其设置的size是<code>(0,0)</code>。如此看来，似乎<code>UITextView</code>无法体验到auto layout带来的好处了。</p>
-<p>继续结合应用场景引出<code>sizeThatFits:</code>方法和<code>sizeToFit</code>方法。</p>
-<p>场景三：某个<code>UITextView</code>用于显示文本，让其能够自适应文本，即根据文本自动调整其大小；</p>
-<p>既然UITextView的content计算方法<code>intrinsicContentSize</code>无法向auto layout system传递我们想要传达的值，我们就应该另想别的方法。</p>
-<p>好在iOS有直接的接口可供我们使用。</p>
-<p>先谈<code>sizeThatFits:</code>方法，<a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/" target="_blank" rel="external">UIView Class References</a>对它的描述如下：</p>
-<blockquote>
-<p>Asks the view to calculate and return the size that best fits the specified size.<br>&nbsp;<br><strong>Return Value</strong><br>A new size that fits the receiver’s subviews.<br>&nbsp;<br><strong>Discussion</strong><br>The default implementation of this method returns the existing size of the view. Subclasses can override this method to return a custom value based on the desired layout of any subviews. For example, a UISwitch object returns a fixed size value that represents the standard size of a switch view, and a UIImageView object returns the size of the image it is currently displaying.</p>
-</blockquote>
-<p>简单来说，调用<code>sizeThatFits:</code>方法意味着「根据文本计算最适合UITextView的size」。从功能来讲，<code>sizeThatFits:</code>和<code>intrinsicContentSize</code>方法比较类似，都是用来计算view的size的。笔者曾一度对二者的关系非常疑惑，甚至觉得二者存在相互调用的关系。后来通过验证发现不是这么回事儿，后文会通过示例说明。</p>
-<p>对于显示多行文本的<code>UILabel</code>，为了方便<code>intrinsicContentSize</code>方法更方便计算content size，需要指定<code>preferredMaxLayoutWidth</code>属性值；对于<code>UITextView</code>的<code>sizeThatFits:</code>，似乎有类似的需求，毕竟<code>UITextView</code>也可能会显示多行啊，这样说来，<code>UITextView</code>也有一个<code>preferredMaxLayoutWidth</code>属性？</p>
-<p>No！<code>preferredMaxLayoutWidth</code>属性是iOS 6才引入的，<code>sizeThatFits:</code>方法则早得多，况且，<code>UITextView</code>是可以滚动的，哪怕文本不会全部呈现出来，但也可以通过左右或者上下滚动浏览所有内容；传给<code>sizeThatFits:</code>的参数（假设为size）是<code>CGSize</code>类型，size.width的功能和<code>UILabel</code>的<code>preferredMaxLayoutWidth</code>差不多，指定了<code>UITextView</code>区域的最大宽度，size.height则指定了<code>UITextView</code>区域的最大高度；可能有人问，若传给<code>sizeThatFits:</code>的size小于<code>UITextView</code>的text面积怎么办，岂不是有些内容无法显示出来？傻啊，可以滚啊！</p>
-<p>值得一提的是，调用<code>sizeThatFits:</code>并不改变view的size，它只是让view根据已有content和给定size计算出最合适的view.size。</p>
-<p>那么<code>sizeToFit</code>方法是干嘛的呢？很简单：</p>
-<blockquote>
-<p>calls sizeThatFits: with current view bounds and changes bounds size.</p>
-</blockquote>
-<p>P.S：有点不太理解，这个「current view」指的是啥？self？还是superview？<br>P.P.S：经过验证，这里的「current view」指的是<code>self</code>。简单来说，<code>sizeToFit</code>等价于：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// calls sizeThatFits</span></div><div class="line"><span class="built_in">CGSize</span> size = [<span class="keyword">self</span> sizeThatFits:<span class="keyword">self</span>.bounds.size];</div><div class="line"><span class="comment">// change bounds size</span></div><div class="line"><span class="built_in">CGRect</span> bounds = <span class="keyword">self</span>.bounds;</div><div class="line">bounds.size.width = size.width;</div><div class="line">bounds.size.height = size.width;</div><div class="line"><span class="keyword">self</span>.bounds = bounds;</div></pre></td></tr></table></figure>
-<p>P.S：值得一提的是，经过测试发现，当调用<code>sizeThatFits:</code>的<code>size=(width, height)</code>，当width/height的值为0时，width/height似乎就被认为是无穷大！</p>
-<p><strong>systemLayoutSizeFittingSize:方法</strong></p>
-<p>首先来看一个应用场景。</p>
-<p>场景四：某个<code>UIView</code>，宽度等于屏幕宽度，包含两个<code>UILabel</code>，两个label都可能显示多行文本，要求结合auto layout让<code>UIView</code>大小能够自适应subviews。</p>
-<p>Easy，给出如下代码：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> lightGrayColor];</div><div class="line">    </div><div class="line">    bgView = (&#123;</div><div class="line">        <span class="built_in">UIView</span> *view         = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">        view.backgroundColor = [<span class="built_in">UIColor</span> grayColor];</div><div class="line">        view;</div><div class="line">    &#125;);</div><div class="line">    [<span class="keyword">self</span>.view addSubview:bgView];</div><div class="line">    </div><div class="line">    label1 = (&#123;</div><div class="line">        <span class="built_in">UILabel</span> *label                = [[<span class="built_in">UILabel</span> alloc] init];</div><div class="line">        label.font                    = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.0</span>];</div><div class="line">        label.preferredMaxLayoutWidth = <span class="keyword">self</span>.view.frame.size.width<span class="number">-20</span>;</div><div class="line">        label.numberOfLines           = <span class="number">0</span>;</div><div class="line">        label.textColor               = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">        label.backgroundColor         = [<span class="built_in">UIColor</span> purpleColor];</div><div class="line">        label;</div><div class="line">    &#125;);</div><div class="line">    [bgView addSubview:label1];</div><div class="line">    </div><div class="line">    label2 = (&#123;</div><div class="line">        <span class="built_in">UILabel</span> *label                = [[<span class="built_in">UILabel</span> alloc] init];</div><div class="line">        label.font                    = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18.0</span>];</div><div class="line">        label.preferredMaxLayoutWidth = <span class="keyword">self</span>.view.frame.size.width<span class="number">-20</span>;</div><div class="line">        label.numberOfLines           = <span class="number">0</span>;</div><div class="line">        label.textColor               = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">        label.backgroundColor         = [<span class="built_in">UIColor</span> redColor];</div><div class="line">        label;</div><div class="line">    &#125;);</div><div class="line">    [bgView addSubview:label2];</div><div class="line">    </div><div class="line">    <span class="comment">// 添加约束（基于Masonry）</span></div><div class="line">    [bgView mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(<span class="keyword">self</span>.view.mas_left);</div><div class="line">        make.top.equalTo(<span class="keyword">self</span>.view.mas_top).offset(<span class="number">10</span>);</div><div class="line">        make.width.equalTo(<span class="keyword">self</span>.view.mas_width);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    [label1 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(bgView.mas_left).offset(<span class="number">10</span>);</div><div class="line">        make.right.lessThanOrEqualTo(bgView.mas_right).offset(<span class="number">-10</span>);</div><div class="line">        make.top.equalTo(bgView.mas_top).offset(<span class="number">10</span>);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    [label2 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(label1.mas_left);</div><div class="line">        make.right.lessThanOrEqualTo(bgView.mas_right).offset(<span class="number">-10</span>);</div><div class="line">        make.top.equalTo(label1.mas_bottom).offset(<span class="number">10</span>);</div><div class="line">        make.bottom.equalTo(bgView.mas_bottom).offset(<span class="number">-10</span>);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    label1.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张 寒来暑往 秋收冬藏 闰余成岁 律吕调阳"</span>;</div><div class="line">    label2.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张 寒来暑往 秋收冬藏 闰余成岁 律吕调阳"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>代码看得有些枯燥，简单来说，bgView（UIView）中嵌入两个能显示多行文本的label1（UILabel）和label2（UILabel），设置约束如下：</p>
-<div class="imagediv" style="width: 280px; height: 310px"></div>
-
-<p>代码运行后的显示效果：</p>
-<div class="imagediv" style="width: 320px; height: 170px"></div>
-
-<p>代码中除了添加各种各样的constraints，没有任何设置frame的代码，显然都是基于auto layout的。</p>
-<p>那么问题来了，理解label1和label2的布局没啥子问题，因为它们的<code>intrinsicContentSize</code>方法会将content size告诉auto layout system，进而后者会为它们的size设置对应值；但对于bgView，它可是一个<code>UIView</code>对象，它的<code>intrinsicContentSize</code>回调方法的返回值为<code>(-1,-1)</code>，那么auto layout system是如何为它设置合适的size的呢？</p>
-<p>根据我的理解，auto layout system在处理某个view的size时，参考值包括：</p>
-<ul>
-<li>自身的<code>intrinsicContentSize</code>方法返回值；</li>
-<li>subviews的<code>intrinsicContentSize</code>方法返回值；</li>
-<li>自身和subviews的constraints；</li>
-</ul>
-<div class="imagediv" style="width: 570px; height: 340px"></div>
-
-<p>OK，根据笔者理解，结合上图，我认为auto layout system是这样计算一下bgView的size的：</p>
-<p>width=max{10+size1.width+10, 10+size2.width+10, size3.width}<br>height=max{10+size1.height+10+size2.height+10, size3.height}</p>
-<p>我们在<code>viewDidAppear:</code>方法中将相关值打印出来瞧瞧看：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidAppear:(<span class="built_in">BOOL</span>)animated &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidAppear:animated];</div><div class="line">    </div><div class="line">    <span class="built_in">CGSize</span> size1 = [label1 intrinsicContentSize];</div><div class="line">    <span class="built_in">CGSize</span> size2 = [label2 intrinsicContentSize];</div><div class="line">    <span class="built_in">CGSize</span> size3 = [bgView intrinsicContentSize];</div><div class="line">    </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"size1 = %@"</span>, <span class="built_in">NSStringFromCGSize</span>(size1));    <span class="comment">// print: "size1 = &#123;300, 33.5&#125;"</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"size2 = %@"</span>, <span class="built_in">NSStringFromCGSize</span>(size2));    <span class="comment">// print: "size2 = &#123;290.5, 64.5&#125;"</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"size3 = %@"</span>, <span class="built_in">NSStringFromCGSize</span>(size3));    <span class="comment">// print: "size3 = &#123;-1, -1&#125;"</span></div><div class="line">    </div><div class="line">    <span class="built_in">CGSize</span> bgViewSize = bgView.frame.size;</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"bgViewSize = %@"</span>, <span class="built_in">NSStringFromCGSize</span>(bgViewSize));  <span class="comment">// print: "bgViewSize = &#123;320, 128&#125;"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>完全吻合我理解的auto layout size计算公式。</p>
-<p>P.S：然而，我知道，事实往往并没有这么简单，当处理自定义View时，当constraints设置不完整或者冲突时，事情总会变得复杂起来，也总会得到意想不到的结果。但，暂且就这么理解吧！</p>
-<p>啰里啰嗦写了这么多，还没引出<code>systemLayoutSizeFittingSize:</code>方法…</p>
-<p>OK，再来看另外一个应用场景。</p>
-<p>场景五：某个<code>UIView</code>，宽度等于屏幕宽度，包含一个<code>UILabel</code>和一个<code>UITextView</code>，二者都可能显示多行文本，要求结合auto layout让<code>UIView</code>大小能够自适应subviews。</p>
-<p>在场景四代码基础上将label2改为UITextView对象textView1，如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> lightGrayColor];</div><div class="line">    </div><div class="line">    bgView = (&#123;</div><div class="line">        <span class="built_in">UIView</span> *view         = [[<span class="built_in">UIView</span> alloc] init];</div><div class="line">        view.backgroundColor = [<span class="built_in">UIColor</span> grayColor];</div><div class="line">        view;</div><div class="line">    &#125;);</div><div class="line">    [<span class="keyword">self</span>.view addSubview:bgView];</div><div class="line">    </div><div class="line">    label1 = (&#123;</div><div class="line">        <span class="built_in">UILabel</span> *label                = [[<span class="built_in">UILabel</span> alloc] init];</div><div class="line">        label.font                    = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">14.0</span>];</div><div class="line">        label.preferredMaxLayoutWidth = <span class="keyword">self</span>.view.frame.size.width<span class="number">-20</span>;</div><div class="line">        label.numberOfLines           = <span class="number">0</span>;</div><div class="line">        label.textColor               = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">        label.backgroundColor         = [<span class="built_in">UIColor</span> purpleColor];</div><div class="line">        label;</div><div class="line">    &#125;);</div><div class="line">    [bgView addSubview:label1];</div><div class="line">    </div><div class="line">    textView1 = (&#123;</div><div class="line">        <span class="built_in">UITextView</span> *label     = [[<span class="built_in">UITextView</span> alloc] init];</div><div class="line">        label.font            = [<span class="built_in">UIFont</span> systemFontOfSize:<span class="number">18.0</span>];</div><div class="line">        label.textColor       = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">        label.backgroundColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line">        label;</div><div class="line">    &#125;);</div><div class="line">    [bgView addSubview:textView1];</div><div class="line">    </div><div class="line">    <span class="comment">// 添加约束（基于Masonry）</span></div><div class="line">    [bgView mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(<span class="keyword">self</span>.view.mas_left);</div><div class="line">        make.top.equalTo(<span class="keyword">self</span>.view.mas_top).offset(<span class="number">10</span>);</div><div class="line">        make.width.equalTo(<span class="keyword">self</span>.view.mas_width);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    [label1 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(bgView.mas_left).offset(<span class="number">10</span>);</div><div class="line">        make.right.lessThanOrEqualTo(bgView.mas_right).offset(<span class="number">-10</span>);</div><div class="line">        make.top.equalTo(bgView.mas_top).offset(<span class="number">10</span>);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    [textView1 mas_makeConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.left.equalTo(label1.mas_left);</div><div class="line">        make.right.lessThanOrEqualTo(bgView.mas_right).offset(<span class="number">-10</span>);</div><div class="line">        make.top.equalTo(label1.mas_bottom).offset(<span class="number">10</span>);</div><div class="line">        make.bottom.equalTo(bgView.mas_bottom).offset(<span class="number">-10</span>);</div><div class="line">    &#125;];</div><div class="line">    </div><div class="line">    label1.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张 寒来暑往 秋收冬藏 闰余成岁 律吕调阳"</span>;</div><div class="line">    textView1.text = <span class="string">@"天地玄黄 宇宙洪荒 日月盈昃 辰宿列张 寒来暑往 秋收冬藏 闰余成岁 律吕调阳"</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行效果如下：</p>
-<div class="imagediv" style="width: 320px; height: 110px"></div>
-
-<p>这显然不是我们想要的结果，至少存在这么两个问题：</p>
-<ol>
-<li>textView1不见了；</li>
-<li>bgView的大小不是我们想要的；</li>
-</ol>
-<p>为什么会有出现这样的问题呢？</p>
-<p>首先正如上文所提到的那样，textView1是UITextView的对象，而UITextView是UIScrollView的子类，它的<code>intrinsicContentSize:</code>方法的返回值是<code>(-1,-1)</code>，这意味着textView1对bgView的auto layout size没有产生影响。</p>
-<p>那textView1为什么不见了呢？或者说，为什么textView1的size为CGSizeZero呢？根据我对auto layout system的理解，auto layout system在处理view的size时，受三个因素影响：</p>
-<ul>
-<li>自身的<code>intrinsicContentSize</code>方法返回值；</li>
-<li>subviews的<code>intrinsicContentSize</code>方法返回值；</li>
-<li>自身和subviews的constraints；</li>
-</ul>
-<p>对于textView1，前两个因素可以忽略掉，简而言之，textView1的size由它自身的constraints决定。而根据上述代码的约束可以计算出textView1的height：<br>height = bgView.height-10-label1.height-10-10;</p>
-<p>而bgView.height=10+label1.height+10+10；意味着textView1的height值为0；当然就看不到了textView1了。</p>
-<p>因此，若想要让textView1正常可见，至少有这么一种策略：直接为textView1添加约束设置width和height；</p>
-<p>简单来说，override回调方法<code>viewWillLayoutSubviews</code>，如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewWillLayoutSubviews &#123;</div><div class="line">    [<span class="keyword">super</span> viewWillLayoutSubviews];</div><div class="line"></div><div class="line">    <span class="built_in">CGSize</span> textViewFitSize = [textView1 sizeThatFits:<span class="built_in">CGSizeMake</span>(<span class="keyword">self</span>.view.frame.size.width<span class="number">-20</span>, <span class="number">0</span>)];</div><div class="line">    [textView1 mas_updateConstraints:^(MASConstraintMaker *make) &#123;</div><div class="line">        make.width.equalTo([<span class="built_in">NSNumber</span> numberWithFloat:textViewFitSize.width]);</div><div class="line">        make.height.equalTo([<span class="built_in">NSNumber</span> numberWithFloat:textViewFitSize.height]);</div><div class="line">    &#125;];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这种做法是有效的，运行效果如下：</p>
-<div class="imagediv" style="width: 320px; height: 190px"></div>
-
-<p>若将这种场景切换到table view cell中会如何呢？简单来说，如果将上述的bgView换成UITableViewCell（或其子类）对象又会如何呢？</p>
-<p>在table view中，我们可以使用<code>- (CGFloat)tableView:heightForRowAtIndexPath:</code>接口，该回调方法会返回CGFloat值，该值指示了对应cell的高度；假设auto layout system为cell分配的size是autoSize，在处理返回值时额外加上textViewFitSize.height即可。</p>
-<p>但问题是，我们如何获取这个autoSize的值呢？毕竟此时cell还未布局完成啊，直接读取cell.frame.size肯定是不行的。</p>
-<p><code>systemLayoutSizeFittingSize:</code>方法正是用于处理这个问题的。</p>
-<p><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/" target="_blank" rel="external">UIView Class References</a>对该方法描述如下：</p>
-<blockquote>
-<p>Returns the size of the view that satisfies the constraints it holds.<br>&nbsp;<br><strong>Return Value</strong><br>The size of the view that satisfies the constraints it holds.<br>&nbsp;<br><strong>Discussion</strong><br>Determines the best size of the view considering all constraints it holds and those of its subviews.</p>
-</blockquote>
-<p>我是这么理解<code>systemLayoutSizeFittingSize:</code>的：对于使用auto layout机制布局的view，auto layout system会在布局过程中综合各种约束的考虑为之设置一个size，在布局完成后，该size的值即为view.frame.size的值；这包含的另外一层意思，即在布局完成前，我们是不能通过view.frame.size准确获取view的size的。但有时候，我们需要在auto layout system对view完成布局前就知道它的size，<code>systemLayoutSizeFittingSize:</code>方法正是能够满足这种要求的API。<code>systemLayoutSizeFittingSize:</code>方法会根据其constraints返回一个合适的size值。</p>
-<p><code>systemLayoutSizeFittingSize:</code>方法可传入一个参数，目前有两个值可以传入：</p>
-<ul>
-<li>UILayoutFittingCompressedSize : The option to use the smallest possible size.</li>
-<li>UILayoutFittingExpandedSize : The option to use the largest possible size.</li>
-</ul>
-<p>值得一提的是，在使用<code>[view systemLayoutSizeFittingSize:]</code>时，要注意尽量确保view的constraints的完整性，这样参数UILayoutFittingCompressedSize和UILayoutFittingExpandedSize得到的结果是一样的。否则，举个例子，若view的right属性没有设置，则这两个参数得到<code>systemLayoutSizeFittingSize:</code>返回值size是不一样的，前者size.width=0，后者size.width=1000。<br>P.S：这纯属个人使用体验。</p>
-<p>至于<code>systemLayoutSizeFittingSize:</code>的使用场景，<a href="http://www.cocoachina.com/industry/20140604/8668.html" target="_blank" rel="external">动态计算UITableViewCell高度详解</a>非常值得参考！</p>
-<p><strong>对比几种API</strong></p>
-<p>在刚开始接触这几个API时感到非常困惑。分不清<code>intrinsicContentSize</code>、<code>sizeThatFits:</code>以及<code>systemLayoutSizeFittingSize:</code>的区别。经过这么将近一天的折腾，现在大概有了基本的判断。</p>
-<p>首先说<code>intrinsicContentSize</code>，它的最主要作用是告诉auto layout system一些信息，可以认为它是后者的回调方法，auto layout system在对view进行布局时会参考这个回调方法的返回值；一般很少像<code>CGSize size = [view intrinsicContentSize]</code>去使用<code>intrinsicContentSize</code> API。</p>
-<p>再来看<code>sizeThatFits:</code>和<code>systemLayoutSizeFittingSize:</code>，它们俩非常相似，都是为开发者直接服务的API（而不是回调方法）。所不同的是，<code>sizeThatFits:</code>是auto layout之前就存在的，一般在leaf-level views中用得比较多，在计算size过程中，它可不会考虑constraints神马的；对于<code>systemLayoutSizeFittingSize:</code>，它是随着auto layout（iOS 6）引入的，用于在view完成布局前获取size值，如果view的constraints确保了完整性和正确性，通常它的返回值就是view完成布局之后的view.frame.size的值。</p>
-<p>它们之前存在相互调用的关系吗？经过测试发现，三者之前没有直接的调用关系。但是能得出这样的结论：<code>intrinsicContentSize</code>的返回值会直接影响<code>systemLayoutSizeFittingSize:</code>的返回值。至于底层是如何处理的不得而知。</p>
-<h2 id="写在后面"><a href="#写在后面" class="headerlink" title="写在后面"></a>写在后面</h2><p>本博客写了好多个小时，非常勉强，写完后不忍直视，臭又长。进一步意识到把博客写长不难，难的是把它写短同时传递足够多的信息。这在方面，我需要极大的提升啊！</p>
-<p>用人话把技术讲清楚。</p>
-<h2 id="参考资料"><a href="#参考资料" class="headerlink" title="参考资料"></a>参考资料</h2><ul>
-<li><a href="http://stackoverflow.com/questions/24127032/proper-usage-of-intrinsiccontentsize-and-sizethatfits-on-uiview-subclass-with-a" target="_blank" rel="external">Proper usage of intrinsicContentSize and sizeThatFits: on UIView Subclass with autolayout</a></li>
-<li><a href="http://stackoverflow.com/questions/27711853/how-to-set-a-labels-preferredmaxlayoutwidth-to-automatic-programmatically" target="_blank" rel="external">How to set a label’s preferredMaxLayoutWidth to automatic programmatically?</a></li>
-<li><a href="http://stackoverflow.com/questions/18118021/how-to-resize-superview-to-fit-all-subviews-with-autolayout/18155803#18155803" target="_blank" rel="external">How to resize superview to fit all subviews with autolayout?</a></li>
-<li><a href="http://stackoverflow.com/questions/18746929/using-auto-layout-in-uitableview-for-dynamic-cell-layouts-variable-row-heights/18746930#18746930" target="_blank" rel="external">Using Auto Layout in UITableView for dynamic cell layouts &amp; variable row heights</a></li>
-<li><a href="http://xuexuefeng.com/autolayout/" target="_blank" rel="external">iOS开发实践之Auto Layout</a></li>
-<li><a href="http://www.cocoachina.com/industry/20140604/8668.html" target="_blank" rel="external">动态计算UITableViewCell高度详解</a></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Auto-Layout/">Auto Layout</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
 	</div>
 
 
