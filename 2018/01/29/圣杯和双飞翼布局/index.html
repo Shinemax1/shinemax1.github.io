@@ -24,7 +24,7 @@
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1747023-8975c3d6a1a764a6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1747023-cd2ffa0adf92a35d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
 <meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1747023-3b9fd9e26a247c87.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
-<meta property="og:updated_time" content="2018-01-29T16:09:04.552Z">
+<meta property="og:updated_time" content="2018-01-29T16:14:22.209Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="圣杯和双飞翼布局">
 <meta name="twitter:description" content="通过缩放页面就可以发现，随着页面的宽度的变化，这三栏布局是中间盒子优先渲染，两边的盒子框子固定不变，即使页面宽度变小，也不影响我们的浏览。注意：当你缩放页面的时候，宽度不能小于700PX，为了安全起见，最好还是给body加一个最小宽度!如果你有了那么一点理解以后，我们来看看圣杯布局的实现：
@@ -302,6 +302,8 @@
 <center><img src="https://upload-images.jianshu.io/upload_images/1747023-3b9fd9e26a247c87.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="圣杯布局大功告成啦！"></center>
 
 <p>现在，圣杯布局终于搞定了，也实现了我们要的效果，左右侧的盒子固定，中间盒子自适应，而且中间盒子的内容完全不受影响。你是不是也懂了呢?</p>
+<hr>
+<p>双飞翼布局的唯一不同之处就在于他的middle外面包了一层div，div给了个<code>padding：0 200px；</code>把middle夹在了里面，就是双飞翼。</p>
 
       
     </div>
