@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -200,6 +200,148 @@
 
       <div class="body-wrap">
   
+    <article id="post-non-interactive-animation-basics-in-ios" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/13/non-interactive-animation-basics-in-ios/" class="article-date">
+  	<time datetime="2016-06-13T01:35:14.000Z" itemprop="datePublished">2016-06-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/13/non-interactive-animation-basics-in-ios/">非交互式动画基础</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Animation-Properties"><a href="#Animation-Properties" class="headerlink" title="Animation Properties"></a>Animation Properties</h2><p>所谓的动画，其本质是物体（譬如view）的某些属性或属性组合在时间线上的变化。<a href="https://dn-motion-design.qbox.me/" target="_blank" rel="external">Motion Design for iOS</a>将这些属性总结为6种：position、opacity、color、scale、rotation、3D。</p>
+<p>这种说法对iOS环境下<code>UIView</code>同样适合，<code>UIView</code>中与animation相关的属性包括：</p>
+<ol>
+<li><code>UIView#frame</code>/<code>UIView#center</code>/<code>UIView#bounds</code>: position</li>
+<li><code>UIView#alpha</code>: alpha</li>
+<li><code>UIView#backgroundColor</code>: color</li>
+<li><code>UIView#transform</code>: position, scale, rotation</li>
+<li><code>UIView#layer.transform</code>: 3D</li>
+</ol>
+<p>最后一个，<code>UIView#layer.transform</code>的类型是<code>CATransform3D</code>，能够控制layer级别的3D变换；其余几种能够控制<code>UIView</code>的2D变换，其中第4个，<code>UIView#transform</code>的类型是<code>CGAffineTransform</code>，能够控制<code>UIView</code>的平移、缩放、旋转。</p>
+<p>这一部分内容着重于分析<code>CGAffineTransform</code>和<code>CATransform3D</code>，其他几个属性相对简单得多。</p>
+<h2 id="Affine-Transforms"><a href="#Affine-Transforms" class="headerlink" title="Affine Transforms"></a>Affine Transforms</h2><p>国内博客在谈及<code>CGAffineTransform</code>时，常常会讲到一个词语：<strong>仿射变换</strong>，它是affine transformation的中文翻译。</p>
+<p><code>CGAffineTransform</code>是个结构体类型，属于Core Graphics框架，它有6个变量：a、b、c、d、tx、ty。这6个变量和另外3个固定值构成了一个3x3矩阵，如下图：</p>
+<div class="imagediv" style="width: 232px; height: 206px"></div>
+
+<p><code>UIView</code>的本质是由像素点组成的矩形块，每个像素点的相对位置可以抽象为坐标<code>(x, y)</code>，将这个坐标称之为某像素点的<strong>原坐标</strong>，<strong>原坐标</strong>的<code>x</code>、<code>y</code>以及<code>1</code>构成一个1x3的向量<code>(x, y, 1)</code>，所谓的仿射变换指的是让该1x3向量与3x3矩阵进行相乘，得到一个新的1x3向量，称之为<code>(_x, _y, 1)</code>，而<code>(_x, _y)</code>即<code>(x, y)</code>反射变换后的新坐标。将<code>UIView</code>的每一个像素点都进行这样的处理，即可完成整个<code>UIView</code>的反射变换。更形象的描述如下图所示：</p>
+<div class="imagediv" style="width: 676px; height: 220px"></div>
+
+<p>显然，仿射变换的关键是生成<code>CGAffineTransform</code>实例了，如果没学过计算机图形学，计算<code>CGAffineTransform</code>的参数值还是蛮麻烦的，不过好在iOS已经为我们提供了快捷API。</p>
+<p>仿射变换实现的效果包括平移、缩放、旋转以及它们的组合，如下是这三种仿射变换的快速生成APIs：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 平移</span></div><div class="line"><span class="type">CGAffineTransformMakeTranslation</span>(<span class="number">_</span>:<span class="number">_</span>:)</div><div class="line"><span class="comment">// CGAffineTransformMakeTranslation(tx, ty)</span></div><div class="line"></div><div class="line"><span class="comment">// 缩放</span></div><div class="line"><span class="type">CGAffineTransformMakeScale</span>(<span class="number">_</span>:<span class="number">_</span>:)</div><div class="line"><span class="comment">// CGAffineTransformMakeScale(sx, sy)</span></div><div class="line"></div><div class="line"><span class="comment">// 旋转</span></div><div class="line"><span class="type">CGAffineTransformMakeRotation</span>(<span class="number">_</span>:)</div><div class="line"><span class="comment">// CGAffineTransformMakeRotation(angle)</span></div></pre></td></tr></table></figure>
+<p>除此之外还有一个其他APIs，此处略过。Wiki还提供了一些常见反射变换及对应的矩阵值，如下图：</p>
+<div class="imagediv" style="width: 512px; height: 683px"></div>
+
+<blockquote>
+<p>Note: 在iOS环境中，对<code>UIView</code>进行反射变换所参考的坐标点是<code>UIView.layer.archorPoint</code>，<a href="layer-geometry-in-ios.md">《iOS图层几何学》</a>里有阐述。</p>
+</blockquote>
+<h2 id="3D-Transforms"><a href="#3D-Transforms" class="headerlink" title="3D Transforms"></a>3D Transforms</h2><p>3D变换要复杂得多，恐怕得花很多时间才能搞清楚，暂时略过。</p>
+<p><a href="https://zsisme.gitbooks.io/ios-/content/chapter5/3d-transform.html" target="_blank" rel="external">iOS核心动画高级技巧–3D变换</a>有比较好的介绍。</p>
+<p><code>UIView#transform</code>和<code>UIView#layer.transform</code>的关系？将一个归位后另外一个会是啥变化？</p>
+<h2 id="Planning-Animations"><a href="#Planning-Animations" class="headerlink" title="Planning Animations"></a>Planning Animations</h2><p>如何规划动画？先问自己这么几个问题：</p>
+<ul>
+<li>What are the initial properties of the item?</li>
+<li>What are the final properties of the item?</li>
+<li>How long should the animation take?</li>
+<li>What’s happening while this item is animating?</li>
+<li>What will happen once this item is done animating?</li>
+</ul>
+<h2 id="Animation-Curve-of-An-Easing-type-Motion"><a href="#Animation-Curve-of-An-Easing-type-Motion" class="headerlink" title="Animation Curve of An Easing-type Motion"></a>Animation Curve of An Easing-type Motion</h2><p>所谓的动画，无非是animation properties在时间轴上的变化过程。</p>
+<p>以时间为x轴，属性值为y轴，可以构建一个二维坐标系，属性值从<code>a</code>到<code>b</code>，有无数种走向。换句话说，动画类型的丰富程度是无限的。</p>
+<p>但在实际应用中，可接受的（看起来比较爽的）动画类型是不多的，其中一种类型叫：<strong>easing-type motion</strong>，一图胜千言：</p>
+<div class="imagediv" style="width: 460px; height: 340px"></div>
+
+<p>图中所展示的是4种最为常见的easing-type motion曲线，<a href="http://easings.net/zh-cn" target="_blank" rel="external">缓动函数速查表</a>里能够看到更多。</p>
+<p>在iOS中使用<code>UIView.animateWithDuration(...)</code>系列方法处理动画时，可以通过设置<code>options</code>来选择对应的easing type，比如：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="type">UIView</span>.animateWithDuration(<span class="number">0.2</span>, delay: <span class="number">0.0</span>, options: .<span class="type">CurveEaseInOut</span>, animations: &#123; <span class="comment">/*...*/</span> &#125;, completion: <span class="literal">nil</span>)</div></pre></td></tr></table></figure>
+<p><code>options</code>可以设置结构体类型<code>UIViewAnimationOptions</code>的变量值，该类型有很多变量值，easing-type motion相关的有四个：</p>
+<ul>
+<li><code>CurveLinear</code>, linear</li>
+<li><code>CurveEaseInOut</code>, ease in, ease out</li>
+<li><code>CurveEaseIn</code>, ease in</li>
+<li><code>CurveEaseOut</code>, ease out</li>
+</ul>
+<blockquote>
+<p>Note: 这些easing curves本质上是3次贝塞尔曲线（cubic Bézier curve），通过控制4个变量可以得到各种各样的3次贝塞尔曲线，只是iOS貌似没有提供控制这些参数的API，<a href="http://cubic-bezier.com/" target="_blank" rel="external">Cubic Bezier On Line</a>提供了更为丰富的体验。</p>
+</blockquote>
+<h2 id="Animation-Curve-of-A-Spring-like-Motion"><a href="#Animation-Curve-of-A-Spring-like-Motion" class="headerlink" title="Animation Curve of A Spring-like Motion"></a>Animation Curve of A Spring-like Motion</h2><p>另一种动画类型叫：<strong>spring-like motion</strong>。<a href="https://dn-motion-design.qbox.me/guide-3.html" target="_blank" rel="external">这里</a>对spring-like motion有较为细致的描述，此处就不再赘述，这一部分重点在于分析控制spring-like motion的关键参数。</p>
+<p>参考<a href="https://dn-motion-design.qbox.me/guide-3.html" target="_blank" rel="external">Natural Motion</a>的分析，控制spring-like motion的关键参数有三个：</p>
+<ul>
+<li><strong>Mass</strong>. The mass is the weight or heft of the object attached to the end of the spring.</li>
+<li><strong>stiffness.</strong> The stiffness is how difficult it is to stretch out the spring, which typically corresponds to its thickness and how tightly it’s coiled. </li>
+<li><strong>damping.</strong> The damping is the resistive force or friction, like when you drag your hand through water and feel the forces pushing against it as you try to move quicker through the water.</li>
+</ul>
+<p>iOS自iOS 7起引入了支持spring-like motion的API：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="type">UIView</span>.animateWithDuration(duration: <span class="type">NSTimeInterval</span>,</div><div class="line">                           delay: <span class="type">NSTimeInterval</span>, </div><div class="line">                           usingSpringWithDamping dampingRatio: <span class="type">CGFloat</span>,</div><div class="line">                           initialSpringVelocity velocity: <span class="type">CGFloat</span>,</div><div class="line">                           options: <span class="type">UIViewAnimationOptions</span>,</div><div class="line">                           animations: () -&gt; <span class="type">Void</span>,</div><div class="line">                           completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)?)</div></pre></td></tr></table></figure>
+<p>相对而言，该Spring Animation API对spring-like motion的控制简化了，只提供了两个参数：<code>dampingRatio</code>和<code>velocity</code></p>
+<p><code>dampingRatio</code>的取值范围是0.0-1.0，数值越小，「弹簧」的震动效果越明显。下图演示了在<code>dampingRatio</code>为<code>0.0</code>的情况下，<code>dampingRatio</code>分别取<code>0.2</code>，<code>0.5</code>和<code>1.0</code>的情况。</p>
+<div class="imagediv" style="width: 314px; height: 321px"></div>
+
+<p><code>velocity</code>表示初识的速度，数值越大一开始移动越快。下图演示了在<code>dampingRatio</code>为<code>1.0</code>时，<code>velocity</code>分别取<code>5.0</code>，<code>15.0</code>和<code>25.0</code>的情况。值得注意的是，初始速度取值较高而时间较短时，也会出现反弹情况。</p>
+<div class="imagediv" style="width: 314px; height: 321px"></div>
+
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li><a href="https://dn-motion-design.qbox.me/" target="_blank" rel="external">Motion Design for iOS</a></li>
+<li><a href="http://www.jianshu.com/p/6c09d138b31d" target="_blank" rel="external">iOS仿射变换CGAffineTransform详解</a></li>
+<li><a href="https://zh.wikipedia.org/wiki/%E4%BB%BF%E5%B0%84%E5%8F%98%E6%8D%A2" target="_blank" rel="external">仿射变换</a></li>
+<li><a href="https://zsisme.gitbooks.io/ios-/content/chapter5/affine-fransforms.html" target="_blank" rel="external">iOS核心动画高级技巧–仿射变换</a></li>
+<li><a href="https://zsisme.gitbooks.io/ios-/content/chapter5/3d-transform.html" target="_blank" rel="external">iOS核心动画高级技巧–3D变换</a></li>
+<li><a href="http://easings.net/zh-cn" target="_blank" rel="external">缓动函数速查表</a></li>
+<li><a href="http://cubic-bezier.com/" target="_blank" rel="external">Cubic Bezier On Line</a></li>
+<li><a href="https://www.renfei.org/blog/ios-8-spring-animation.html" target="_blank" rel="external">使用iOS 8 Spring Animation API创建动画</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-navigation-transitions-in-ios" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -235,22 +377,22 @@
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 为push和pop操作提供animation controller</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">navigationController</span><span class="params">(navigationController: UINavigationController,</span></span></div><div class="line">  animationControllerForOperation operation: UINavigationControllerOperation,</div><div class="line">  fromViewController fromVC: UIViewController,</div><div class="line">  toViewController toVC: UIViewController)</div><div class="line">  -&gt; <span class="type">UIViewControllerAnimatedTransitioning</span>?</div><div class="line"></div><div class="line"><span class="comment">// 为push和pop操作提供interaction controller</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">navigationController</span><span class="params">(</span></span></div><div class="line">  navigationController: UINavigationController,</div><div class="line">  interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning)</div><div class="line">  -&gt; <span class="type">UIViewControllerInteractiveTransitioning</span>?</div></pre></td></tr></table></figure>
 <p>站在这两个方法的角度来看，<code>UINavigationControllerDelegate</code>有点类似于<code>UIViewControllerTransitioningDelegate</code>，后者为transition动画提供animation controller和interaction controller，前者的作用也类似。</p>
 <h2 id="Some-Demos"><a href="#Some-Demos" class="headerlink" title="Some Demos"></a>Some Demos</h2><p><strong>可交互的简单push/pop实现 – 仿知乎</strong></p>
-<div class="imagediv" style="width: 320px; height: 566px"></div>
-
-<p>代码详见<a href="https://github.com/sadjason/BasicInteractiveCustomNavigationTransitionDemo" target="_blank" rel="external">这里</a>。</p>
+<!-- <div class="imagediv" style="width: 320px; height: 566px"></div> –&gt;
+<p><img src="navigation-transitions-in-ios/BasicInteractiveCustomNavigationTransitionDemo.gif" alt="ssss"></p>
+<p>代码详见<a href="https://github.com/sadjason/BasicInteractiveCustomNavigationTransitionDemo">这里</a>。</p>
 <p>如下是一些不错的开源custom navigation transition实现：</p>
 <ul>
-<li><a href="https://github.com/recruit-mp/RMPZoomTransitionAnimator" target="_blank" rel="external">RMPZoomTransitionAnimator</a></li>
-<li><a href="https://github.com/DenHeadless/ZoomInteractiveTransition" target="_blank" rel="external">ZoomInteractiveTransition</a></li>
-<li><a href="https://github.com/NewAmsterdamLabs/ZOZolaZoomTransition" target="_blank" rel="external">ZOZolaZoomTransition</a></li>
-<li><a href="https://github.com/hebertialmeida/HAPaperViewController" target="_blank" rel="external">HAPaperViewController</a></li>
-<li><a href="https://github.com/boycechang/BCMagicTransition" target="_blank" rel="external">BCMagicTransition</a></li>
-<li><a href="https://github.com/JakeLin/IBAnimatable" target="_blank" rel="external">IBAnimatable</a></li>
+<li><a href="https://github.com/recruit-mp/RMPZoomTransitionAnimator">RMPZoomTransitionAnimator</a></li>
+<li><a href="https://github.com/DenHeadless/ZoomInteractiveTransition">ZoomInteractiveTransition</a></li>
+<li><a href="https://github.com/NewAmsterdamLabs/ZOZolaZoomTransition">ZOZolaZoomTransition</a></li>
+<li><a href="https://github.com/hebertialmeida/HAPaperViewController">HAPaperViewController</a></li>
+<li><a href="https://github.com/boycechang/BCMagicTransition">BCMagicTransition</a></li>
+<li><a href="https://github.com/JakeLin/IBAnimatable">IBAnimatable</a></li>
 </ul>
 <h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
-<li><a href="http://stackoverflow.com/questions/26569488/navigation-controller-custom-transition-animation" target="_blank" rel="external">Navigation Controller Custom Transition Animation</a></li>
+<li><a href="http://stackoverflow.com/questions/26569488/navigation-controller-custom-transition-animation">Navigation Controller Custom Transition Animation</a></li>
 </ul>
-
+-->
       
     </div>
     
@@ -650,173 +792,6 @@
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-git-branching-and-remoting" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/12/06/git-branching-and-remoting/" class="article-date">
-  	<time datetime="2015-12-06T05:23:23.000Z" itemprop="datePublished">2015-12-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/06/git-branching-and-remoting/">Git分支与远程操作</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>之前在《<a href="/git-basics/">Git基础</a>》中介绍了一些Git的重要概念和基本操作，本文在此基础上补充Git分支与远程操作相关的内容。</p>
-<h2 id="分支"><a href="#分支" class="headerlink" title="分支"></a>分支</h2><p>分支是Git中的重要概念，其意义和重要性都被讲烂了，这里就不再过多阐述了。简单来说，每次commit都会产生一个快照，为了更好管理，Git把这些快照串成一条时间线，每条时间线就是一个分支，每个不少于一次提交的Git仓库都至少有一个分支；每个commit都有一个commit-id，而分支更高级一些，每个分支都有一个名字，譬如<code>master</code>。</p>
-<p>《<a href="/git-basics/">Git基础</a>》中曾说过「在Git中，使用<code>HEAD</code>表示当前版本」，这种说法其实不够准确，因为<code>HEAD</code>指针并不是指向commit，而是指向当前分支，当前分支才指向commit。譬如在下图中，<code>HEAD</code>指向<code>some branch</code>（只是举个例子，Git不允许这样命名），<code>some branch</code>指向到commit。</p>
-<div class="imagediv" style="width: 280px; height: 140px"></div>
-
-<p>如果新创建一个分支<code>other branch</code>，再把<code>HEAD</code>指向到它，就表示当前分支在<code>other branch</code>上：</p>
-<div class="imagediv" style="width: 280px; height: 190px"></div>
-
-<p>默认情况下，当前分支的名字叫<code>master</code>，也就是经常所说的<code>master</code>分支。</p>
-<p>Note: <code>master</code>分支并不是一个特殊分支，它跟其他分支完全没有区别。之所以几乎每个Git仓库都有master分支，是因为<code>git init</code>命令默认创建它，并且大多数人都懒得去改动它。</p>
-<p>Git的分支操作涉及的命令包括<code>git branch</code>、<code>git checkout</code>、<code>git merge</code>，通过该命令可以创建、删除以及列举分支，具体使用如下文所述。</p>
-<p><strong>创建分支</strong></p>
-<p>创建新分支很简单，其本质是创建一个可以移动的新指针。比如，创建一个名为<code>testing</code>的分支，使用<code>git branch &lt;branch-name&gt;</code>即可：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git branch <span class="built_in">test</span>-branch  <span class="comment"># 创建一个名为test-branch的分支</span></div></pre></td></tr></table></figure>
-<p>这条命令会在当前commit上创建一个指针。</p>
-<p><strong>列举分支</strong></p>
-<p>使用<code>git branch</code>或者<code>git branch --list</code>可以将所有分支给显示出来：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">$ git branch --list</div><div class="line">* master</div><div class="line">  <span class="built_in">test</span>-branch</div></pre></td></tr></table></figure>
-<p><code>master</code>前的星号（<code>*</code>）标记了当前分支，如上意味着当前分支是<code>master</code>。</p>
-<p>使用<code>git log</code>命令并辅以<code>--decorate</code>选项可以查看各个分支所指向的commit：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">$ git <span class="built_in">log</span> --decorate --pretty=oneline</div><div class="line">0eb9dceaaf8f86bacd76ee7109edc1fec256b56e (HEAD -&gt; master, <span class="built_in">test</span>-branch) version 3</div><div class="line">82be09ef9e1ddb51b41d9b2b36039218673e5a6e version 2</div><div class="line">87e61d64ce34693ad62a23f7ee448ed3d9278f56 version 1</div></pre></td></tr></table></figure>
-<p>正如所见，当前<code>master</code>和<code>test-branch</code>分支均指向version 3所对应的commit。</p>
-<p>P.S: 如何在创建分支时指定commit？</p>
-<p><strong>切换分支</strong></p>
-<p>使用<code>git checkout &lt;branch-name&gt;</code>命令切换分支。</p>
-<p>切换分支的命令非常简单，似乎也没有太多让人纠结的选项；但仍然有一个重大疑问：切换分支时，会对工作区和暂存区有影响吗？影响如何？</p>
-<p><del>我们的期待是什么样子呢？我所期待的是，在branch a捣鼓了一通后，因为某种原因切换到branch b捣鼓一番，再切回到branch a时，之前在branch a中捣鼓的东西仍然有保留，无论是工作区还是暂存区，都是原来的味道；再切换到branch b也是同样的结果。换句话说，我们希望在逻辑上，branch a和branch b的工作区和暂存区也保持独立，互不影响。</del></p>
-<p><del>事实是我所期待的那样的吗？</del></p>
-<p>根据<a href="https://git-scm.com/book/en/v2/Git-Branching-Branches-in-a-Nutshell" target="_blank" rel="external">Git Pro</a>的说法，<code>git checkout &lt;branch-name&gt;</code>这条命令做了两件事情：一是使<code>HEAD</code>指向<code>&lt;branch-name&gt;</code>分支，二是将工作区恢复成<code>&lt;branch-name&gt;</code>分支所指向的快照内容。</p>
-<p>P.S: 对上面这段说明，表示不怎么理解，有待更详细的分析。</p>
-<p>最后，<code>git checkout &lt;branch-name&gt;</code>加上选项<code>-b</code>更强大，它的效果是，创建一个名为<code>&lt;branch-name&gt;</code>的分支并将切换到该分支。</p>
-<p>P.S: 关于<code>git checkout &lt;branch-name&gt;</code>对工作区及暂存区的影响，现在仍然没有完全搞清楚，以后有了更深刻理解再补充吧。</p>
-<p><strong>删除分支</strong></p>
-<p>使用<code>git branch -d &lt;branch-name&gt;</code>删除分支，比较简单，只是需要注意的是，Git不允许删除当前分支。</p>
-<p><strong>重命名分支</strong></p>
-<p>使用<code>git branch -m &lt;current-name&gt; &lt;new-name&gt;</code>修改分支的名字，也比较简单。</p>
-<p><strong>无冲突合并分支</strong></p>
-<p><code>git merge</code>命令用于合并指定分支到当前分支。分支合并的复杂地方在于冲突处理。阅读了一些资料，总结了常见的无冲突合并，假设在<code>master</code>中合并<code>test</code>，则无冲突合并包括：</p>
-<ul>
-<li>在<code>test</code>中新增文件；</li>
-<li>在<code>test</code>中删除某文件，<code>master</code>中的该文件是其ancestor版本；</li>
-<li>在<code>test</code>中修改某文件，<code>master</code>中的该文件使其ancestor版本；</li>
-</ul>
-<p>P.S: 「解决分支冲突」是个大主题，在以后的博客中补充吧！</p>
-<p>P.S: <code>git merge</code>的操作是事务性的吗？会存在某个文件合并成功但是别的文件合并失败的情况吗？</p>
-<p>P.S: 对<code>git branch</code>这几个命令的使用不是很理（zan）解（tong），如果是我设计，<code>git branch</code>的作用与<code>git branch list</code>等同，都是用于列举所有分支；使用<code>git branch delete</code>代替<code>git branch -d</code>；使用<code>git branch rename</code>代替<code>git branch -m</code>。</p>
-<h2 id="远程仓库"><a href="#远程仓库" class="headerlink" title="远程仓库"></a>远程仓库</h2><p>为了能在任意Git项目上协作，需要知道如何管理自己的远程仓库。远程仓库是指托管在因特网或其他网络中的项目的版本库。你可以有好几个远程仓库，通常有些仓库对你只读，有些则可以读写。与他人协作涉及管理远程仓库以及根据需要推送或拉取数据。</p>
-<p>除了之前提到的<code>git clone</code>，还有4个命令与远程仓库息息相关：<code>git remote</code>、<code>git fetch</code>、<code>git pull</code>、<code>git push</code>。有一张非常常见且直观的图对这些命令的功能进行了描述，如下：</p>
-<div class="imagediv" style="width: 400px; height: 113px"></div>
-
-<p><strong>远程仓库的查看、添加、移除以及重命名 – git remote</strong></p>
-<p>为了便于管理，Git要求每个远程主机都有一个主机名，简单来说，<code>git remote</code>命令就是用于管理Git远程主机名的。</p>
-<p>不带选项的时候，<code>git remote</code>命令列出所有远程主机：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ git remote</div><div class="line">origin</div></pre></td></tr></table></figure>
-<p>也可以指定选项<code>-v</code>，会显示更多信息：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git remote -v  </div><div class="line">origin  git://github.com/sadjason/sadjason.github.io.git (fetch)</div><div class="line">origin  git://github.com/sadjason/sadjason.github.io.git (push)</div></pre></td></tr></table></figure>
-<blockquote>
-<p>P.S: 克隆（<code>git clone</code>）版本库的时候，所使用的远程主机被Git自动命名为<code>origin</code>，如果想使用其他的主机名，需要使用<code>-o</code>选项指定，譬如<code>git clone -o example git://example.com/example.git</code>。</p>
-</blockquote>
-<p><code>git remote</code>是一个比较复杂的命令，旗下还包括一些子命令：</p>
-<ul>
-<li><code>git remote add</code>，用于<strong>添加远程仓库</strong>，使用起来非常简单，运行<code>git remote add &lt;name&gt; &lt;url&gt;</code>即可添加一个新的远程Git仓库，同时指定一个名称（任意）。</li>
-<li><code>git remote show</code>，用于<strong>查看指定远程仓库的更多信息</strong>，基本使用格式是<code>git remote show &lt;name&gt;</code>。</li>
-<li><code>git remote remove</code>，用于<strong>移除远程仓库</strong>，如果因为一些原因想要移除一个远程仓库，可以使用<code>git remote remove &lt;name&gt;</code>命令，<code>git remote rm</code>与之等价。</li>
-<li><code>git remote rename</code>，用于<strong>远程仓库重命名</strong>，基本使用格式是<code>git remote rename &lt;old_name&gt; &lt;new_name&gt;</code>。</li>
-</ul>
-<blockquote>
-<p>P.S: 如上所列的几个<code>git remote</code>命令，只有<code>git remote show</code>需要访问网络，其余几个都是本地操作。以<code>git remote add</code>为例，其本质无非是在本地为远程仓库的URL创建一个字符串映射（毕竟操作remote repository时输入URL并不是一个特别好的体验）。这个字符串映射并没有任何实际意义，可以简单看成是远程仓库URL的一个alias。stackoverflow中的<a href="https://stackoverflow.com/questions/5617211/what-is-git-remote-add-and-git-push-origin-master/" target="_blank" rel="external">解释</a>更棒一些。既然<code>git remote add</code>的本质是为远程仓库的url创建字符串映射，那么这个映射存放在哪里呢？答案是<code>.git/config</code>。</p>
-</blockquote>
-<p><strong>关于git remote的一些补充</strong></p>
-<p>我在学习过程中对这个命令产生了极大的误解，我以为能够通过<code>git remote</code>管理远程（服务器）repository，譬如远程在服务器中创建一个repository。</p>
-<p>甚至做了如下的测试：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">$ mkdir MyLocalRepository</div><div class="line">$ <span class="built_in">cd</span> MyLocalRepository</div><div class="line">$ git init</div><div class="line">$ <span class="built_in">echo</span> <span class="string">"hello, github"</span> &gt;&gt; README.md</div><div class="line">$ git add README.md</div><div class="line">$ git commit -m <span class="string">"add readme file"</span></div><div class="line">$ git remote add MyLocalRepository https://github.com/xxoo/MyLocalRepository.git</div></pre></td></tr></table></figure>
-<p>其中最后一步，我的目的是在github中创建一个名为MyLocalRepository的仓库，上述命令执行完后没有任何错误信息（UNIX的哲学是没有消息就是好消息）。如果这个命令执行成功，我能够在github中看到一个新的仓库被创建（不是通过<a href="https://github.com/new" target="_blank" rel="external">Create a New Repository</a>这个接口创建哦）。但我登录github后，啥都没发生。</p>
-<p>这个测试结果说明我对<code>git remote</code>的理解有问题，于是去stackoverflow中寻找「可否在本地远程在github上创建repository」问题答案，还真找到了，即<a href="http://stackoverflow.com/questions/2423777/is-it-possible-to-create-a-remote-repo-on-github-from-the-cli-without-ssh" target="_blank" rel="external">Is it possible to create a remote repository on github from client</a>。显然，stackoverflow给出的答案是：可以，但是需要通过github的api，这是另外一个故事了，本文不涉入。</p>
-<p><strong>从远程仓库抓取数据 – git fetch</strong></p>
-<p>从远程仓库中获取数据，可以执行<code>git fetch &lt;remote-repository-name&gt;</code>命令，该命令会访问远程仓库，从中拉取所有本地还没有的数据，执行完成后，本地将会拥有那个远程仓库中的所有分支的引用。</p>
-<p>默认情况下，<code>git fetch</code>取回所有分支的更新，但若只想取回特定分支的更新，可以指定分支名：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git fetch &lt;remote-repository-name&gt; &lt;branch-name&gt;</div></pre></td></tr></table></figure>
-<p>使用<code>git fetch</code>的一些说明：</p>
-<ul>
-<li>如果不指定<code>&lt;remote-repository-name&gt;</code>，则默认执行<code>git fetch origin</code>，执行成功的前提是<code>origin</code>这个远程仓库确实存在；</li>
-<li><code>git fetch</code>可以fetch多个repository，指定选项<code>--all</code>即可；</li>
-<li><code>git fetch</code>仅仅是将指定的远程仓库的所有分支内容全部下载到本地，除此之外不做其他的事情（譬如分支合并）；</li>
-</ul>
-<p><strong>git pull</strong></p>
-<p><code>git pull</code>命令的作用是，取回远程主机某个分支的更新，再与本地的指定分支合并。其完整格式如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">git pull &lt;remote-repository-name&gt; &lt;remote-branch-name&gt;:&lt;<span class="built_in">local</span>-branch-name&gt;</div></pre></td></tr></table></figure>
-<p>比如，取回<code>origin</code>远程仓库的<code>next</code>分支，与本地的<code>master</code>分支合并，需要写成下面这样：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git pull origin next:master</div></pre></td></tr></table></figure>
-<p>如果远程分支是与当前分支合并，则<code>:&lt;local-branch-name&gt;</code>可以去掉，譬如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git pull origin next</div></pre></td></tr></table></figure>
-<p>P.S: <code>git pull</code>是事务性操作吗？</p>
-<p><strong>推送数据到远程仓库 – git push</strong></p>
-<p><code>git push</code>命令用于将本地分支的更新，推送到远程主机，使用格式是：</p>
-<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ git push &lt;remote-repository-name&gt; &lt;<span class="built_in">local</span>-branch-name&gt;:&lt;remote-branch-name&gt;</div></pre></td></tr></table></figure>
-<p><strong>git clone v.s git fetch v.s git pull</strong></p>
-<p><code>git clone</code>、<code>git fetch</code>、<code>git pull</code>这三个命令似乎都是用于从远程拉取数据，三者有啥区别呢？</p>
-<p>本地没有repository时，<code>git clone</code>将远程repository整个下载下来；<code>git fetch</code>将远程新的commit数据（如果有的话）下载过来；<code>git pull</code>相当于<code>git fetch</code>和<code>git merge</code>，在<code>git fetch</code>的基础上，进行分支合并。</p>
-<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
-<li><a href="http://git-scm.com/book/" target="_blank" rel="external">Pro Git</a></li>
-<li><a href="https://git-scm.com/book/zh/v2/" target="_blank" rel="external">Pro Git中文版</a></li>
-<li><a href="http://www.ruanyifeng.com/blog/2014/06/git_remote.html" target="_blank" rel="external">Git远程操作详解</a></li>
-<li><a href="https://stackoverflow.com/questions/5617211/what-is-git-remote-add-and-git-push-origin-master/" target="_blank" rel="external">What is git-remote-add and git-push-origin-master?</a></li>
-<li><a href="http://stackoverflow.com/questions/2423777/is-it-possible-to-create-a-remote-repo-on-github-from-the-cli-without-opening-br" target="_blank" rel="external">Is it possible to create a remote repo on GitHub from the CLI without opening browser?</a></li>
-<li><a href="https://snowdream86.gitbooks.io/github-cheat-sheet/content/zh/index.html" target="_blank" rel="external">GitHub秘籍</a></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Tools/">Tools</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Others/">Others</a>
 	</div>
 
 

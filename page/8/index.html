@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -199,6 +199,123 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-understanding-objective-c-runtime-part-4" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/27/understanding-objective-c-runtime-part-4/" class="article-date">
+  	<time datetime="2015-04-27T13:10:53.000Z" itemprop="datePublished">2015-04-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/27/understanding-objective-c-runtime-part-4/">理解Objective-C Runtime（四）Method Swizzling</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Objective-C对象收到消息之后，究竟会调用何种方法需要在运行期间才能解析出来。那你也许会问：与给定的选择子名称相应的方法是不是也可以在runtime改变呢？没错，就是这样。<strong>若能善用此特性，则可发挥出巨大优势，因为我们既不需要源代码，也不需要通过继承子类来覆写方法就能改变这个类本身的功能</strong>。这样一来，新功能将在本类的所有实例中生效，而不仅限于覆写了相关方法的那些子类实例。此方案就是大名鼎鼎的<strong>method swizzling</strong>，中文常称之为「方法调配」或「方法调和」或「方法混合」。</p>
+<h2 id="Method-Swizzling"><a href="#Method-Swizzling" class="headerlink" title="Method Swizzling"></a>Method Swizzling</h2><p><strong>类的方法列表会把选择子的名称映射到相关的方法实现之上</strong>，使得<strong>动态消息派发系统</strong>（dynamic message-dispatch system）能够据此找到应该调和的方法。这些方法均以函数指针的形式来表示，这种指针叫IMP（IMP在《<a href="/understanding-objective-c-runtime-part-1/">理解Objective-C Runtime（一）预备知识</a>》已有说明）。</p>
+<p>举个栗子，<code>NSString</code>类可以响应<code>lowercaseString</code>、<code>uppercaseString</code>、<code>capitalizedString</code>等选择子。这张映射表（selector table，也常称为<strong>选择器表</strong>）中的每个选择子都映射到不同的IMP之上，如下图所示：</p>
+<div class="imagediv" style="width: 500px; height: 200px"></div>
+
+<p>Objective-C runtime系统提供的几个方法都能够用来操作这张表。开发者可以向其中新增selector，也可以改变某个selector所对应的方法实现，还可以交换两个selector所映射到的指针。经过几次操作之后，类的方法就会变成如下图所示：</p>
+<div class="imagediv" style="width: 500px; height: 250px"></div>
+
+<p>在新的映射表中，多了一个名为newSelector的选择子，lowercaseString和uppercaseString的实现则互换了。上述修改均无需编写子类，只要修改<strong>方法表</strong>的布局即可，就会反映到程序中所有的NSString实例之上。</p>
+<h2 id="交换两个方法的实现"><a href="#交换两个方法的实现" class="headerlink" title="交换两个方法的实现"></a>交换两个方法的实现</h2><p>现在通过示例代码演绎「调换<code>NSString</code>的<code>lowercaseString</code>和<code>uppercaseString</code>的方法实现」，具体实现操作是这样的：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">    </div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    </div><div class="line">    <span class="built_in">NSString</span> *aString = <span class="string">@"AbcDEfg"</span>;</div><div class="line">    </div><div class="line">    <span class="comment">// lowercaseString和uppercaseString交换前：</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercaseString和uppercaseString交换前："</span>);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercase of the string : %@"</span>, [aString lowercaseString]);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"uppercase of the string : %@"</span>, [aString uppercaseString]);</div><div class="line">    </div><div class="line">    <span class="comment">// class_getInstanceMethod方法得到Method类型</span></div><div class="line">    Method originalMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(lowercaseString));</div><div class="line">    Method swappedMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(uppercaseString));</div><div class="line">    </div><div class="line">    <span class="comment">// method_exchangeImplementations交换映射指针</span></div><div class="line">    method_exchangeImplementations(originalMethod, swappedMethod);</div><div class="line">    </div><div class="line">    <span class="comment">// lowercaseString和uppercaseString交换后：</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercaseString和uppercaseString交换后："</span>);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"lowercase of the string : %@"</span>, [aString lowercaseString]);</div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"uppercase of the string : %@"</span>, [aString uppercaseString]);</div><div class="line">&#125;</div><div class="line">    </div><div class="line"><span class="comment">/* 输出结果：</span></div><div class="line">lowercaseString和uppercaseString交换前：</div><div class="line">lowercase of the string : abcdefg</div><div class="line">uppercase of the string : ABCDEFG</div><div class="line">lowercaseString和uppercaseString交换后：</div><div class="line">lowercase of the string : ABCDEFG</div><div class="line">uppercase of the string : abcdefg</div><div class="line">*/</div></pre></td></tr></table></figure>
+<p>这演示了如何交换两个方法的实现，然而在实际应用中，像这样直接交换两个方法实现，其意义不大，除非闲得蛋疼。但是，可以通过这一手段来为既有的方法实现增添新功能。</p>
+<h2 id="修改既有方法的行为"><a href="#修改既有方法的行为" class="headerlink" title="修改既有方法的行为"></a>修改既有方法的行为</h2><p>介绍一个技巧，最好的方式就是提出具体的需求，然后用它跟其他的解决方法做比较。</p>
+<p>所以，先来看看我们的需求：对 App 的用户行为进行追踪和分析。简单说，就是当用户看到某个View或者点击某个Button的时候，就把这个事件记下来。</p>
+<p><strong>手动添加</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">MyViewController</span> ()</span></div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)viewDidAppear:(<span class="built_in">BOOL</span>)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidAppear:animated];</div><div class="line">    </div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="string">@"my view did appear"</span>];</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)myButtonClicked:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="string">@"my button clicked"</span>];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这种方式的缺点也很明显：它破坏了代码的干净整洁。因为Logging的代码本身并不属于View Controller里的主要逻辑。随着项目扩大、代码量增加，你的View Controller里会到处散布着Logging的代码。这时，要找到一段事件记录的代码会变得困难，也很容易忘记添加事件记录的代码。</p>
+<p>你可能会想到用继承或类别，在重写的方法里添加事件记录的代码。代码可以是长的这个样子：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)myViewDidAppear:(<span class="built_in">BOOL</span>)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidAppear:animated];</div><div class="line">    </div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>])];</div><div class="line">&#125;</div><div class="line">    </div><div class="line">- (<span class="keyword">void</span>)myButtonClicked:(<span class="keyword">id</span>)sender</div><div class="line">&#123;</div><div class="line">    <span class="comment">// Custom code </span></div><div class="line">    </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    <span class="built_in">NSString</span> *name = [<span class="built_in">NSString</span> stringWithFormat:@“my button <span class="keyword">in</span> %@ is clicked”, <span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>])];</div><div class="line">    [Logging logWithEventName:name];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>Logging 的代码都很相似，通过继承或类别重写相关方法是可以把它从主要逻辑中剥离出来。但同时也带来新的问题：</p>
+<ol>
+<li>你需要继承<code>UIViewController</code>，<code>UITableViewController</code>，<code>UICollectionViewController</code>所有这些View Controller，或者给他们添加类别；</li>
+<li>每个View Controller里的ButtonClick方法命名不可能都一样；</li>
+<li>你不能控制别人如何去实例化你的子类；</li>
+<li>对于类别，你没办法调用到原来的方法实现，大多时候，我们重写一个方法只是为了添加一些代码，而不是完全取代它；</li>
+<li>如果有两个类别都实现了相同的方法，运行时没法保证哪一个类别的方法会给调用。</li>
+</ol>
+<p><strong>Method Swizzling的做法</strong></p>
+<p>Method Swizzling的做法是新增一个方法<code>log_viewDidAppear:</code>，在这个方法体中调用<code>viewDidAppear:</code>的方法体；然后将<code>log_viewDidAppear:</code>和<code>viewDidAppear:</code>进行调换。呃，有些绕，看图吧：</p>
+<div class="imagediv" style="width: 505px; height: 154px"></div>
+
+<p>新增方法<code>log_viewDidAppear:</code>的实现代码可以这样写：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)log_viewDidAppear:(<span class="built_in">BOOL</span>)animated</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">self</span> log_viewDidAppear:animated];</div><div class="line">        </div><div class="line">    <span class="comment">// Logging</span></div><div class="line">    [Logging logWithEventName:<span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>])];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>看起来，这段代码好像会陷入递归使用的死循环，不过要记住，此方法是准备和<code>viewDidAppear:</code>方法互换的。所以，在runtime，<code>log_viewDidAppear:</code>选择子对应的是原来<code>viewDidAppear:</code>方法的实现；同样，当向对象发送<code>viewDidAppear:</code>消息时，如上这段代码会被调用，而这段代码的第一句是<code>[self log_viewDidAppear:animated];</code>，这其实是调用原来<code>viewDidAppear:</code>方法的实现代码…</p>
+<p>定义了<code>log_viewDidAppear:</code>的实现后，还得与<code>viewDidAppear:</code>进行交换：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// class_getInstanceMethod方法得到Method类型</span></div><div class="line">Method originalMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(viewDidAppear:));</div><div class="line">Method swappedMethod = class_getInstanceMethod([<span class="built_in">NSString</span> <span class="keyword">class</span>], <span class="keyword">@selector</span>(log_viewDidAppear:));</div><div class="line">    </div><div class="line"><span class="comment">// method_exchangeImplementations交换映射指针</span></div><div class="line">method_exchangeImplementations(originalMethod, swappedMethod);</div></pre></td></tr></table></figure>
+<p>如何安排method swizzling相关的代码？</p>
+<p>一般来说，runtime相关的代码都会以category的形式组织，所以上述<code>log_viewDidAppear:</code>方法的实现会写在一个UIViewController category中，比如<code>UIViewController+log.h</code>。而<strong>交换方法</strong>相关的代码会写在category的load中。因为load方法是在runtime之前就被执行的，只要category所在的头文件被引用，load方法就会被调用，并且同一个class在不同category之间允许有多个load方法，这些load方法都会被调用（唯一的问题是谁先谁后）。</p>
+<p>通过method swizzling方案，开发者可以为那些完全不知道具体实现的（completely opaque，完全不透明）黑盒方法增加日志记录功能，这非常有助于程序调试，然而，此做法只在调试程序时有用。很少有人在调试程序之外的场合用上述<strong>方法调配技术</strong>来永久改变某个类的功能，因为如果使用不慎，它造成的破坏太大了，并且很难Debug。不能仅仅因为Objective-C语言里有这个特性就一定要用它。若是滥用，反而会令代码变得不易读懂且难于维护。</p>
+<p>总之，Method Swizzling只一个挺有争议的技术，对此有很多分析的文章，底部的参考资料中有链接。</p>
+<p><strong>补充</strong></p>
+<p>后来终于有机会在实际项目中使用到method swizzling。应用场景是这样的，接手了一个完整的项目，我的任务是在该项目基础上添加一些功能，顺便将项目整理一下，尽可能清理没有用的内容和过时的技术。项目页面非常多，各种文件的命名非常糟糕，我首先需要做的事情是将页面逻辑给整理出来（各种View Controller之间的逻辑关系），简单来说，我需要结合所看到的运行页面（譬如首页），将它的View Controller类给找出来。</p>
+<p>比较蠢的做法当然是去查看代码了。好在我比较机灵，决定使用method swizzling技术，让每个页面将它的View Controller类名自己喊出来。</p>
+<p>我的思路：定义一个UIViewController category，添加一个方法，该方法调用<code>viewDidAppear:</code>，并且将该类的名字给打印出来，然后将该方法的SEL和<code>viewDidAppear:</code>方法的SEL调换，这样系统在回调<code>viewDidAppear:</code>时会定义该方法代码，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">UIViewController</span> (<span class="title">sayHello</span>)</span></div><div class="line"> </div><div class="line">+ (<span class="keyword">void</span>)load &#123;</div><div class="line">    SEL originalSelector = <span class="keyword">@selector</span>(viewDidAppear:);</div><div class="line">    SEL swizzledSelector = <span class="keyword">@selector</span>(swizzled_viewDidAppear:);</div><div class="line">    </div><div class="line">    <span class="comment">// class_getInstanceMethod方法得到Method类型</span></div><div class="line">    Method originalMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], originalSelector);</div><div class="line">    Method swizzledMethod = class_getInstanceMethod([<span class="keyword">self</span> <span class="keyword">class</span>], swizzledSelector);</div><div class="line"> </div><div class="line">    <span class="comment">// method_exchangeImplementations交换映射指针</span></div><div class="line">    method_exchangeImplementations(originalMethod, swizzledMethod);</div><div class="line">&#125;</div><div class="line"> </div><div class="line">- (<span class="keyword">void</span>)swizzled_viewDidAppear:(<span class="built_in">BOOL</span>)animated &#123;</div><div class="line">    [<span class="keyword">self</span> swizzled_viewDidAppear:animated];</div><div class="line">    </div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"hello, my name is %@"</span>, <span class="built_in">NSStringFromClass</span>([<span class="keyword">self</span> <span class="keyword">class</span>]));</div><div class="line">&#125;</div><div class="line"> </div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<h2 id="AOP-Aspect-Oriented-Programming"><a href="#AOP-Aspect-Oriented-Programming" class="headerlink" title="AOP(Aspect Oriented Programming)"></a>AOP(Aspect Oriented Programming)</h2><p>在阅读博客《<a href="http://tech.glowing.com/cn/method-swizzling-aop/" target="_blank" rel="external">Method Swizzling和AOP实践</a>》时了解到了一个新概念 – <code>AOP</code>。</p>
+<p>简单来说，在Objective-C世界中，AOP就是利用Runtime特性给指定的方法添加自定义代码，Method Swizzling是其中一种实现AOP的方式之一。</p>
+<p>Mark一下，暂不多讲。</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li>《Effective Objective-C 2.0》</li>
+<li>《iOS开发进阶》</li>
+<li>《<a href="http://tech.glowing.com/cn/method-swizzling-aop/" target="_blank" rel="external">Method Swizzling和AOP实践</a>》</li>
+<li>大神Mattt Thompson（AFNetworking作者）的《<a href="http://nshipster.com/method-swizzling/" target="_blank" rel="external">Method Swizzling</a>》</li>
+<li>《<a href="http://blog.csdn.net/yiyaaixuexi/article/details/9374411" target="_blank" rel="external">Objective-C的hook方案（一）: Method Swizzling</a>》</li>
+<li><a href="http://stackoverflow.com/questions/5339276/what-are-the-dangers-of-method-swizzling-in-objective-c" target="_blank" rel="external">What are the Dangers of Method Swizzling in Objective C?</a>；</li>
+<li>《<a href="http://yulingtianxia.com/blog/2014/11/05/objective-c-runtime/#Method_Swizzling" target="_blank" rel="external">Objective-C Runtime</a>》</li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Runtime/">Runtime</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-understanding-objective-c-runtime-part-3" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -641,118 +758,6 @@
 		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Objective-C/">Objective-C</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Runtime/">Runtime</a></li></ul>
 	</div>
 
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-nshashtable-and-nsmaptable" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/26/nshashtable-and-nsmaptable/" class="article-date">
-  	<time datetime="2015-04-26T00:53:43.000Z" itemprop="datePublished">2015-04-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/26/nshashtable-and-nsmaptable/">NSHashtable和NSMaptable</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p><strong>说明</strong></p>
-<p>本文转自《<a href="http://www.cocoachina.com/industry/20140605/8683.html" target="_blank" rel="external">NSHashtable and NSMaptable</a>》，其原作者是<a href="http://nshipster.com/nshashtable-and-nsmaptable/" target="_blank" rel="external">Mattt Thompson</a>，该大神是AFNetworking的作者。作者简单介绍了一下iOS开发中相对于NSDictionary和NSSet来说，不常被人使用NSHashTable和NSMapTable的相关知识。</p>
-<blockquote>
-<p>P.S: 笔者关注《<a href="http://www.cocoachina.com/industry/20140605/8683.html" target="_blank" rel="external">NSHashtable and NSMaptable</a>》这篇博客的原因是因为以前遇到「如何实现NSNotificationCenter」这样的问题，我意识到实现NSNotificationCenter的关键在于找到一个能够支持弱指针的容器，而NSHashTable和NSMaptable恰好是这样的容器。</p>
-</blockquote>
-<p>NSSet，NSDictionary，NSArray是Foundation框架关于集合操作的常用类，和<a href="http://en.wikipedia.org/wiki/Java_collections_framework" target="_blank" rel="external">其他标准的集合操作库</a>不同，他们的实现方法对开发者进行<a href="http://ridiculousfish.com/blog/posts/array.html" target="_blank" rel="external">隐藏</a>，只允许开发者写一些简单的代码，让他们相信这些代码有理由正常的工作。</p>
-<p>然而这样的话最好的代码抽象风格就会被打破，苹果的本意也被曲解了。在这种情况下，开发者寻求更好的抽象方式来使用集合，或者说寻找一种更通用的方式。</p>
-<p>对于NSSet和NSDictionary，打破代码抽象风格的是他们在内存中存取object的方式。在NSSet中，objects是被强引用的（strongly referenced），同样NSDictionary中的keys和values也会被NSDictionary复制。如果一个开发者想要存储一个weak类型的值或者使用一个没有实现NSCopying协议的object作为NSDictionary的key，他可能会很聪明的想到<a href="http://nshipster.com/nsvalue/" target="_blank" rel="external">NSValue+valueWithNonretainedObject</a>。 iOS6和OSX 10.5以后，可以分别使用和NSSet，NSDictionary地位相同的NSHashTable，NSMapTable。</p>
-<p>这两个类在Foundation的collection中不常用到，为了避免你慌乱无措，下面将介绍这两个类的用法。</p>
-<h2 id="NSHashTable"><a href="#NSHashTable" class="headerlink" title="NSHashTable"></a>NSHashTable</h2><p>NSHashTable是更广泛意义的NSSet，区别于NSSet/NSMutableSet，NSHashTable有如下特性：</p>
-<ul>
-<li>NSHashTable是可变的；</li>
-<li>NSHashTable可以持有weak类型的成员变量；</li>
-<li>NSHashTable可以在添加成员变量的时候复制成员；</li>
-<li>NSHashTable可以随意的存储指针并且利用指针的唯一性来进行hash同一性检查（检查成员变量是否有重复）和对比操作（equal）；</li>
-</ul>
-<p>用法如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSHashTable</span> *hashTable = [<span class="built_in">NSHashTable</span> hashTableWithOptions:<span class="built_in">NSPointerFunctionsCopyIn</span>];</div><div class="line">[hashTable addObject:<span class="string">@"foo"</span>];</div><div class="line">[hashTable addObject:<span class="string">@"bar"</span>]; </div><div class="line">[hashTable addObject:@<span class="number">42</span>];</div><div class="line">[hashTable removeObject:<span class="string">@"bar"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"Members: %@"</span>, [hashTable allObjects]);</div></pre></td></tr></table></figure>
-<p>NSHashTable是根据一个option参数来进行初始化的，因为从OSX平台上移植到iOS平台上，原来OSX平台上使用的枚举类型被放弃了，从而用option来代替，命名也发生了一些变化：</p>
-<ul>
-<li>NSHashTableStrongMemory</li>
-</ul>
-<p>等同于NSPointerFunctionsStrongMemory。对成员变量进行强引用，这是一个默认值，如果采用这个默认值，NSHashTable和NSSet就没什么区别了。</p>
-<ul>
-<li>NSHashTableWeakMemory</li>
-</ul>
-<p>等同于NSPointerFunctionsWeakMemory。对成员变量进行弱引用，使用NSPointerFunctionsWeakMemory，object引用在最后释放的时候会被指向NULL。</p>
-<ul>
-<li>NSHashTableZeroingWeakMemory</li>
-</ul>
-<p>已被抛弃，使用NSHashTableWeakMemory代替。</p>
-<ul>
-<li>NSHashTableCopyIn</li>
-</ul>
-<p>在对象被加入集合之前进行复制（<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSPointerFunctions_Class/index.html#//apple_ref/occ/instp/NSPointerFunctions/acquireFunction" target="_blank" rel="external">NSPointerFunction-acquireFunction</a>），等同于NSPointerFunctionsCopyIn。</p>
-<ul>
-<li>NSHashTableObjectPointerPersonality</li>
-</ul>
-<p>用指针来等同代替实际的值，当打印这个指针的时候相当于调用description方法。和NSPointerFunctionsObjectPointerPersonality等同。</p>
-<h2 id="NSMapTable"><a href="#NSMapTable" class="headerlink" title="NSMapTable"></a>NSMapTable</h2><p>NSMapTable是对更广泛意义的NSDictionary。和NSDictionary/NSMutableDictionary相比具有如下特性：</p>
-<ul>
-<li>NSDictionary/NSMutableDictionary会复制keys并且通过强引用values来实现存储；</li>
-<li>NSMapTable是可变的；</li>
-<li>NSMapTable可以通过弱引用来持有keys和values，所以当key或者value被deallocated的时候，所存储的实体也会被移除；</li>
-<li>NSMapTable可以在添加value的时候对value进行复制；</li>
-</ul>
-<p>和NSHashTable类似，NSMapTable可以随意的存储指针，并且利用指针的唯一性来进行对比和重复检查。</p>
-<p>用法：假设用NSMapTable来存储不用被复制的keys和被若引用的value，这里的value就是某个delegate或者一种弱类型。</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">id</span> delegate = ...;</div><div class="line"><span class="built_in">NSMapTable</span> *mapTable = [<span class="built_in">NSMapTable</span> mapTableWithKeyOptions:<span class="built_in">NSMapTableStrongMemory</span></div><div class="line">                                             valueOptions:<span class="built_in">NSMapTableWeakMemory</span>];</div><div class="line">[mapTable setObject:delegate forKey:<span class="string">@"foo"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"Keys: %@"</span>, [[mapTable keyEnumerator] allObjects]);</div></pre></td></tr></table></figure>
-<p>看完上面几个小例子后，你可能会想 “为什么不使用object subscripting呢?”。一些激进的NSHipster估计已经开始动手写NSMapTable的subscripting category了。</p>
-<p><strong>那么为什么NSMapTable不能继承subscripting？</strong></p>
-<p>来看看下面的代码：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>)objectForKeyedSubscript:(<span class="keyword">id</span> &lt;<span class="built_in">NSCopying</span>&gt;)key;</div><div class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>)obj forKeyedSubscript:(<span class="keyword">id</span> &lt;<span class="built_in">NSCopying</span>&gt;)key;</div></pre></td></tr></table></figure>
-<p><strong>注意：参数key是类型的</strong>。这对NSDictionary NSMutableDictionary来讲是非常有用的，但是我们不能臆断对NSMapTable也同样适用。我们陷入一个僵局：通过id，我们不能利用NSMapTable实现subscripting。如果object subscripting的代理方法放弃了约束，那么使用NSMutableDictionary -setObject:forKeyedSubscript:的时候编译将得不到想要的结果。</p>
-<p>所以说实话，对比NSMapTable所处的位置，句法的方便和快捷并不是大数人所关注的。</p>
-<p>通常，记住编程不是为了让人更聪明，而是最大化抽象一个问题的能力。NSSet和NSDictionary是非常伟大的类，他们能解决99%的问题，也无疑是用来工作的正确工具。如果，然而你的问题牵扯到上述的内存问题时候，NSHashTable和NSMapTable是值得一看的。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/iOS/">iOS</a>

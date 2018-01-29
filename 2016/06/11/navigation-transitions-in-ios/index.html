@@ -16,7 +16,7 @@ Basic Methods Of Custom Navigation Transition在UINa">
 <meta property="og:description" content="Modal Transition概述对自定义transition进行了简单概述，Using UIPercentDrivenInteractiveTransition介绍了可交互转场的基本实现思路。本文旨在总结实现自定义navigation转场的基本套路。
 此外，还对自己写的相关demo做一个汇总。
 Basic Methods Of Custom Navigation Transition在UINa">
-<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta property="og:updated_time" content="2018-01-29T15:52:55.664Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Navigation Transition">
 <meta name="twitter:description" content="Modal Transition概述对自定义transition进行了简单概述，Using UIPercentDrivenInteractiveTransition介绍了可交互转场的基本实现思路。本文旨在总结实现自定义navigation转场的基本套路。
@@ -127,7 +127,7 @@ Basic Methods Of Custom Navigation Transition在UINa">
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -255,22 +255,22 @@ Basic Methods Of Custom Navigation Transition在UINa">
 <figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 为push和pop操作提供animation controller</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">navigationController</span><span class="params">(navigationController: UINavigationController,</span></span></div><div class="line">  animationControllerForOperation operation: UINavigationControllerOperation,</div><div class="line">  fromViewController fromVC: UIViewController,</div><div class="line">  toViewController toVC: UIViewController)</div><div class="line">  -&gt; <span class="type">UIViewControllerAnimatedTransitioning</span>?</div><div class="line"></div><div class="line"><span class="comment">// 为push和pop操作提供interaction controller</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">navigationController</span><span class="params">(</span></span></div><div class="line">  navigationController: UINavigationController,</div><div class="line">  interactionControllerForAnimationController animationController: UIViewControllerAnimatedTransitioning)</div><div class="line">  -&gt; <span class="type">UIViewControllerInteractiveTransitioning</span>?</div></pre></td></tr></table></figure>
 <p>站在这两个方法的角度来看，<code>UINavigationControllerDelegate</code>有点类似于<code>UIViewControllerTransitioningDelegate</code>，后者为transition动画提供animation controller和interaction controller，前者的作用也类似。</p>
 <h2 id="Some-Demos"><a href="#Some-Demos" class="headerlink" title="Some Demos"></a>Some Demos</h2><p><strong>可交互的简单push/pop实现 – 仿知乎</strong></p>
-<div class="imagediv" style="width: 320px; height: 566px"></div>
-
-<p>代码详见<a href="https://github.com/sadjason/BasicInteractiveCustomNavigationTransitionDemo" target="_blank" rel="external">这里</a>。</p>
+<!-- <div class="imagediv" style="width: 320px; height: 566px"></div> –&gt;
+<p><img src="navigation-transitions-in-ios/BasicInteractiveCustomNavigationTransitionDemo.gif" alt="ssss"></p>
+<p>代码详见<a href="https://github.com/sadjason/BasicInteractiveCustomNavigationTransitionDemo">这里</a>。</p>
 <p>如下是一些不错的开源custom navigation transition实现：</p>
 <ul>
-<li><a href="https://github.com/recruit-mp/RMPZoomTransitionAnimator" target="_blank" rel="external">RMPZoomTransitionAnimator</a></li>
-<li><a href="https://github.com/DenHeadless/ZoomInteractiveTransition" target="_blank" rel="external">ZoomInteractiveTransition</a></li>
-<li><a href="https://github.com/NewAmsterdamLabs/ZOZolaZoomTransition" target="_blank" rel="external">ZOZolaZoomTransition</a></li>
-<li><a href="https://github.com/hebertialmeida/HAPaperViewController" target="_blank" rel="external">HAPaperViewController</a></li>
-<li><a href="https://github.com/boycechang/BCMagicTransition" target="_blank" rel="external">BCMagicTransition</a></li>
-<li><a href="https://github.com/JakeLin/IBAnimatable" target="_blank" rel="external">IBAnimatable</a></li>
+<li><a href="https://github.com/recruit-mp/RMPZoomTransitionAnimator">RMPZoomTransitionAnimator</a></li>
+<li><a href="https://github.com/DenHeadless/ZoomInteractiveTransition">ZoomInteractiveTransition</a></li>
+<li><a href="https://github.com/NewAmsterdamLabs/ZOZolaZoomTransition">ZOZolaZoomTransition</a></li>
+<li><a href="https://github.com/hebertialmeida/HAPaperViewController">HAPaperViewController</a></li>
+<li><a href="https://github.com/boycechang/BCMagicTransition">BCMagicTransition</a></li>
+<li><a href="https://github.com/JakeLin/IBAnimatable">IBAnimatable</a></li>
 </ul>
 <h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
-<li><a href="http://stackoverflow.com/questions/26569488/navigation-controller-custom-transition-animation" target="_blank" rel="external">Navigation Controller Custom Transition Animation</a></li>
+<li><a href="http://stackoverflow.com/questions/26569488/navigation-controller-custom-transition-animation">Navigation Controller Custom Transition Animation</a></li>
 </ul>
-
+-->
       
     </div>
     

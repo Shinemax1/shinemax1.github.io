@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>圣杯和双飞翼布局 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="通过缩放页面就可以发现，随着页面的宽度的变化，这三栏布局是中间盒子优先渲染，两边的盒子框子固定不变，即使页面宽度变小，也不影响我们的浏览。注意：当你缩放页面的时候，宽度不能小于700PX，为了安全起见，最好还是给body加一个最小宽度!如果你有了那么一点理解以后，我们来看看圣杯布局的实现：
+
+第一步：给出HTML结构：
+1234567&amp;lt;header&amp;gt;&amp;lt;h4&amp;gt;Header">
+<meta property="og:type" content="article">
+<meta property="og:title" content="圣杯和双飞翼布局">
+<meta property="og:url" content="http://shinemax1.github.io/2018/01/29/圣杯和双飞翼布局/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="通过缩放页面就可以发现，随着页面的宽度的变化，这三栏布局是中间盒子优先渲染，两边的盒子框子固定不变，即使页面宽度变小，也不影响我们的浏览。注意：当你缩放页面的时候，宽度不能小于700PX，为了安全起见，最好还是给body加一个最小宽度!如果你有了那么一点理解以后，我们来看看圣杯布局的实现：
+
+第一步：给出HTML结构：
+1234567&amp;lt;header&amp;gt;&amp;lt;h4&amp;gt;Header">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1747023-4b4ebc49181a2e4f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1747023-4cc87f17580719ef.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1747023-030eb42e36e70d12.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1747023-8975c3d6a1a764a6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1747023-cd2ffa0adf92a35d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:image" content="https://upload-images.jianshu.io/upload_images/1747023-3b9fd9e26a247c87.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+<meta property="og:updated_time" content="2018-01-29T16:01:36.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="圣杯和双飞翼布局">
+<meta name="twitter:description" content="通过缩放页面就可以发现，随着页面的宽度的变化，这三栏布局是中间盒子优先渲染，两边的盒子框子固定不变，即使页面宽度变小，也不影响我们的浏览。注意：当你缩放页面的时候，宽度不能小于700PX，为了安全起见，最好还是给body加一个最小宽度!如果你有了那么一点理解以后，我们来看看圣杯布局的实现：
+
+第一步：给出HTML结构：
+1234567&amp;lt;header&amp;gt;&amp;lt;h4&amp;gt;Header">
+<meta name="twitter:image" content="https://upload-images.jianshu.io/upload_images/1747023-4b4ebc49181a2e4f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/Android/">Android相关</a></li>
+				        
+							<li><a href="/categories/iOS/">iOS相关</a></li>
+				        
+							<li><a href="/categories/web/">前端相关</a></li>
+				        
+							<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+				        
+							<li><a href="/categories/Others/">其它相关</a></li>
+				        
+							<li><a href="/categories/blog/">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/Android/">Android相关</a></li>
+		        
+					<li><a href="/categories/iOS/">iOS相关</a></li>
+		        
+					<li><a href="/categories/web/">前端相关</a></li>
+		        
+					<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+		        
+					<li><a href="/categories/Others/">其它相关</a></li>
+		        
+					<li><a href="/categories/blog/">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-圣杯和双飞翼布局" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/01/29/圣杯和双飞翼布局/" class="article-date">
+  	<time datetime="2018-01-29T15:14:43.000Z" itemprop="datePublished">2018-01-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      圣杯和双飞翼布局
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/css布局/">css布局</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/web/">web</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><img src="https://upload-images.jianshu.io/upload_images/1747023-4b4ebc49181a2e4f.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="双飞翼布局"></p>
+<blockquote>
+<p>通过缩放页面就可以发现，随着页面的宽度的变化，这三栏布局是中间盒子优先渲染，两边的盒子框子固定不变，即使页面宽度变小，也不影响我们的浏览。注意：当你缩放页面的时候，宽度不能小于700PX，为了安全起见，最好还是给body加一个最小宽度!如果你有了那么一点理解以后，我们来看看圣杯布局的实现：</p>
+</blockquote>
+<p><strong>第一步：给出HTML结构：</strong></p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;header&gt;&lt;h4&gt;Header内容区&lt;/h4&gt;&lt;/header&gt;</div><div class="line">&lt;div class="container"&gt;</div><div class="line">&lt;div class="middle"&gt;&lt;h4&gt;中间弹性区&lt;/h4&gt;&lt;/div&gt; </div><div class="line">&lt;div class="left"&gt;&lt;h4&gt;左边栏&lt;/h4&gt;&lt;/div&gt; </div><div class="line">&lt;div class="right"&gt;&lt;h4&gt;右边栏&lt;/h4&gt;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div><div class="line">&lt;footer&gt;&lt;h4&gt;Footer内容区&lt;/h4&gt;&lt;/footer&gt;</div></pre></td></tr></table></figure>
+<p>写结构的时候要注意，父元素的的三栏务必先写中间盒子。因为中间盒子是要被优先渲染嘛~并且设置其自适应，也就是width:100%。</p>
+<p><strong>第二步：给出每个盒子的样式</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">header&#123;width: <span class="number">100</span>%;height: <span class="number">40</span>px;background-color: darkseagreen;&#125;</div><div class="line">.container&#123; height:<span class="number">200</span>px;overflow:hidden;&#125;</div><div class="line">.middle&#123;width: <span class="number">100</span>%;height: <span class="number">200</span>px; background-color: deeppink;<span class="keyword">float</span>:left;&#125;</div><div class="line">.left&#123; width: <span class="number">200</span>px;height: <span class="number">200</span>px;background-color: blue;<span class="keyword">float</span>:left;&#125;</div><div class="line">.right&#123;width: <span class="number">200</span>px;height: <span class="number">200</span>px;background-color: darkorchid;<span class="keyword">float</span>:left;&#125;</div><div class="line">footer&#123;width: <span class="number">100</span>%; height: <span class="number">30</span>px;background-color: darkslategray;&#125;</div></pre></td></tr></table></figure>
+<p><strong>第三步：看此时的效果图</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1747023-4cc87f17580719ef.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="中间的三栏并没有在一行内显示"></p>
+<p>大家可以看到，三栏并没有在父元素的一行显示，就是因为中间盒子我们给了百分之百的宽度。所有左右两个盒子才会被挤下来。<br>那么如何让它们呈现出一行三列的效果呢？那就要让左边的盒子要到中间盒子的最左边，右边的盒子到中间盒子的最右边。换个想法，如果中间盒子不是100%的宽度，那么按照文档流，左边的盒子一定会在中间盒子的后面显示，接着显示右边的盒子。但是现在中间盒子是满屏了的，所以左右两个盒子被挤到下一行显示。我们要做到的是让左右两个盒子都上去。此时，CSS的<code>负边距(negative margin)</code>该上阵了。</p>
+<p><strong>第四步：利用负边距布局</strong></p>
+<ol>
+<li>让左边的盒子上去</li>
+</ol>
+<p>需要设置其左边距为负的中间盒子的宽度，也就是<code>.left {margin-left:-100%;}</code>。这样左盒子才可以往最左边移动。</p>
+<ol>
+<li>让右边的盒子上去</li>
+</ol>
+<p>需要设置其左边距为负的自己的宽度，也就是<code>.right {margin-left：-200px;}</code>。这样右盒子才可以在一行的最右边显示出自己。</p>
+<p><strong>第五步：看此时的效果图</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1747023-030eb42e36e70d12.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="实现固比固布局"></p>
+<p>到这里，是不是感觉很有成就感？但是很遗憾的告诉你，还没结束哦！<br>我们现在的确是硬性的实现了固比固布局。但是要记住，中间盒子是自适应的宽度，所以中间盒子里的内容会被左右盒子给压住一部分。<br>比如现在我给中间盒子加很多的内容，大家看看效果图：</p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1747023-8975c3d6a1a764a6.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="中间盒子的内容被盖住"></p>
+<p>所以，我们的工作还没停止。</p>
+<p><strong>第六步：让中间自适应的盒子安全显示</strong></p>
+<blockquote>
+<p>首先:利用父级元素设置左右内边距的值，把父级的三个子盒子往中间挤。</p>
+</blockquote>
+<pre><code>代码如下：`.container{ padding: 0 200px;} `这里的200px是左右盒子的宽度。
+效果如下：
+</code></pre><p><img src="https://upload-images.jianshu.io/upload_images/1747023-cd2ffa0adf92a35d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="利用父级的内边距将盒子往中间挤"></p>
+<p>我们可以看到，左右两边的内边距是有了，但是中间盒子上的内容还是被压着。</p>
+<blockquote>
+<p>其次:给左右两个盒子加一个定位，加了定位之后左右两个盒子就可以设置left和right值。</p>
+</blockquote>
+<p>代码如下：<br><figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">.left&#123; position: relative; left: <span class="number">-200</span>px;&#125;</div><div class="line">.right&#123;position: relative;right: <span class="number">-200</span>px;</div></pre></td></tr></table></figure></p>
+<p><strong>第七步：看最终效果图</strong></p>
+<p><img src="https://upload-images.jianshu.io/upload_images/1747023-3b9fd9e26a247c87.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/700" alt="圣杯布局大功告成啦！"></p>
+<p>现在，圣杯布局终于搞定了，也实现了我们要的效果，左右侧的盒子固定，中间盒子自适应，而且中间盒子的内容完全不受影响。你是不是也懂了呢?</p>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/01/28/webDiary/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">webDiary</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'Shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

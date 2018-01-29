@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -199,6 +199,150 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-using-hexo-to-build-blog-site" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/10/03/using-hexo-to-build-blog-site/" class="article-date">
+  	<time datetime="2015-10-03T09:51:27.000Z" itemprop="datePublished">2015-10-03</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/10/03/using-hexo-to-build-blog-site/">使用hexo搭建静态博客</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p><a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>通常被用来搭建静态博客。使用hexo已经有近一年时间了，之前使用的是pacman主题，pacman主题架子非常不错，使用起来非常方便，但是不够漂亮，换个主题的心思由来已久；之前写了七八十篇博客，数量还不错，然而质量不高，大多数博客几乎只有自己才能看得懂；近期比较闲一点，决定对之前的博客进行整理，一来将博客面子拾掇得更漂亮一点，二来将确保博文的质量更高一些。</p>
+<p>Hexo的基础使用门槛比较低，介绍hexo的博客非常多，hexo官网资料质量也不错（甚至还有中文版本）。但笔者在这第二次较详细了解hexo的过程中，仍然有一些问题，本文旨在将过程中遇到的问题记录下来。</p>
+<h2 id="安装hexo和相关插件"><a href="#安装hexo和相关插件" class="headerlink" title="安装hexo和相关插件"></a>安装hexo和相关插件</h2><p>Hexo是基于Node.js的package，Node.js package一般使用npm工具管理（包括安装、更新、卸载），换句话说，在安装hexo之前，得安装npm。</p>
+<p>除去Node.js和npm的安装之外，使用hexo创建blog site主要包括两个步骤：</p>
+<ol>
+<li>安装hexo-cli包；</li>
+<li>初始化blog site并安装一些package；</li>
+</ol>
+<p>对于基于Node.js的package的安装，从安装路径来看，分为两种：安装到全局、安装到当前目录。</p>
+<blockquote>
+<p>P.S: 如何查看全局目录呢？输入指令<code>npm root -g</code>即可。</p>
+</blockquote>
+<p>我猜「hexo-cli」是「hexo client」的缩写，安装它之后我们才可以使用<code>hexo</code>命令搭建blog site，因此一般把此package安装到全局：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 参数-g指示安装到全局</span></div><div class="line">npm install hexo-cli -g</div></pre></td></tr></table></figure>
+<p>安装hexo-cli之后便可使用hexo命令搭建blog site：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 初始化blog site</span></div><div class="line">hexo init blog_directory</div></pre></td></tr></table></figure>
+<p>该命令会在当前工作目录创建一个名为<code>blog_directory</code>的目录，并copy一些data到此目录中，其中包括package.json文件，该文件列举了一些blog site依赖的packages信息，可把它们认为是博客的插件，如下：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  ...,</div><div class="line">  "dependencies": &#123;</div><div class="line">    "hexo": "^3.1.0",</div><div class="line">    "hexo-generator-archive": "^0.1.2",</div><div class="line">    "hexo-generator-category": "^0.1.2",</div><div class="line">    "hexo-generator-index": "^0.1.2",</div><div class="line">    "hexo-generator-tag": "^0.1.1",</div><div class="line">    "hexo-renderer-ejs": "^0.1.0",</div><div class="line">    "hexo-renderer-stylus": "^0.3.0",</div><div class="line">    "hexo-renderer-marked": "^0.2.4",</div><div class="line">    "hexo-server": "^0.1.2"</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>简单来说，安装这些插件后，博客才支持<code>hexo s</code>、<code>hexo g</code>等操作，才支持category、tag等。</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 进入blog site目录</span></div><div class="line"><span class="built_in">cd</span> blog_directory</div><div class="line"><span class="comment"># 安装blog依赖的package</span></div><div class="line">npm install</div></pre></td></tr></table></figure>
+<p>很容易想到这么一个问题：可以不可以把所有pacakge安装到全局呢？<br>当然可以！但何必这么干呢？</p>
+<p>值得一提的是，这些插件只是默认提供的插件，日后还可以安装一些其他插件，譬如后文提到的「支持RSS的插件」「支持sitemap的插件」等。安装这些额外的插件只需执行：</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 进入blog site目录</span></div><div class="line"><span class="built_in">cd</span> blog_directory</div><div class="line"><span class="comment"># save参数是为了将other_package信息保存到package.json中</span></div><div class="line">npm install other_package --save</div></pre></td></tr></table></figure>
+<p>OK，关于hexo及其插件的安装就介绍到这里了！</p>
+<h2 id="Hexo主题"><a href="#Hexo主题" class="headerlink" title="Hexo主题"></a>Hexo主题</h2><p>Hexo主题非常繁多，可参考：</p>
+<ul>
+<li><a href="https://github.com/hexojs/hexo/wiki/Themes" target="_blank" rel="external">github - hexo/themes</a></li>
+<li><a href="http://www.zhihu.com/question/24422335" target="_blank" rel="external">有那些好看的hexo主题？</a></li>
+</ul>
+<p>笔者刚开始使用的主题是pacman，但该主题不够漂亮，查看了很多主题后，认为<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">hexo-theme-yilia</a>最能满足我的审美需求，于是决定选用这个作为我的新主题。</p>
+<p>笔者的博客在yilia的基础上作了稍微的修改，yilia主题非常漂亮，感谢<a href="http://litten.github.io/" target="_blank" rel="external">@Litten</a>的分享！但对比我之前用过的pacman，yilia的组织结构并不是特别好，修改起来比较麻烦，二次定制比较不是很方便。</p>
+<blockquote>
+<p>Note: 个人经验，不要轻易更新hexo版本，尤其不要轻易替换hexo主题，二次修改太麻烦了，且都是脏活。</p>
+</blockquote>
+<h2 id="Asset-Folders"><a href="#Asset-Folders" class="headerlink" title="Asset Folders"></a>Asset Folders</h2><p>Asset Folders在hexo中应该早就存在了，只是之前没注意到它！</p>
+<p>资源（Asset）代表source文件夹中除了文章以外的所有文件，例如图片、CSS、JS 文件等。Hexo提供了一种更方便管理Asset的设定：post_asset_folder。该设定可以在_comfig.yml中配置：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">post_asset_folder: true</div></pre></td></tr></table></figure>
+<p>将post_asset_folder属性设置为True的效果是：使用<code>hexo new article-demo</code>命令创建新文章时，除了在<code>source/_post/</code>目录中生成article-demo.md文件之外，还会创建一个同名目录<code>article-demo/</code>。</p>
+<p>如果在article-demo.md中引用一些图片、js文件等，则可以将这些文件放在<code>article-demo/</code>中，其好处显而易见，文章和文章相关资源联系更紧密，逻辑性更强，也更方便管理。除此之外，在article-demo.md中访问<code>article-demo/</code>目录中的资源时，不必书写资源的全路径，直接标注其名字即可，当然，在这种情况下，访问资源的语法必须满足hexo所定义的，如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&#123;% asset_path slug %&#125;</div><div class="line">&#123;% asset_img slug [title] %&#125;</div><div class="line">&#123;% asset_link slug [title] %&#125;</div></pre></td></tr></table></figure>
+<p>譬如，在article-demo.md插入来自<code>article-demo/</code>的图片pic.png，可以这么写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;% asset_img pic.png &quot;title of the picture&quot; %&#125;</div></pre></td></tr></table></figure>
+<p>然而，美中不足的是，asset_img不支持自定义图片的宽度和高度（主要是为retina屏幕考虑）。如果hexo对retina屏幕有更完善的支持（譬如能够自动处理@2x.png图片的尺寸）该多好啊！</p>
+<p>虽然Asset Folders有功能缺陷，但还是很想用它。只能想办法解决其<strong>不能设置width和height</strong>的缺陷了。</p>
+<p>没get到太多前端技能，只能想到一种拙劣但简单的解决方案。</p>
+<p>第一步，是在合适的css文件中，添加如下css代码：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="selector-class">.imagediv</span> &#123;</div><div class="line">  <span class="attribute">margin-left</span>: auto; </div><div class="line">  <span class="attribute">margin-right</span>: auto;</div><div class="line">&#125;</div><div class="line"><span class="selector-class">.imagediv</span> <span class="selector-tag">img</span> &#123;</div><div class="line">  <span class="attribute">margin</span>: <span class="number">0</span> auto;</div><div class="line">  <span class="attribute">width</span>: <span class="number">100%</span>;</div><div class="line">  <span class="attribute">height</span>: <span class="number">100%</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>P.S: 以<a href="https://github.com/litten/hexo-theme-yilia" target="_blank" rel="external">yilia</a>主题为例，如上这部分代码添加在theme/yilia/source/_partial/article.styl的<code>.article-entry</code>块中。</p>
+</blockquote>
+<p>第二步，在使用asset_img时套上一层class值为<code>&quot;imagediv&quot;</code>的div。</p>
+<p>举个例子，写入如下内容：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&lt;div class=&quot;imagediv&quot; style=&quot;width: 135px; height: 135px&quot;&gt;</div><div class="line">  &#123;% asset_img steve-jobs.png 史蒂夫·乔布斯 %&#125;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>这段代码能够以width=135、height=135的规格显示像素为270x270的图片，如下：</p>
+<div class="imagediv" style="width: 135px; height: 135px"></div>
+
+
+<h2 id="添加RSS"><a href="#添加RSS" class="headerlink" title="添加RSS"></a>添加RSS</h2><p>Hexo提供了RSS的生成插件，只是默认情况下没有安装，需要手动安装和设置：</p>
+<ol>
+<li>安装RSS插件到本地，在博客根目录下执行<code>npm install hexo-generator-feed --save</code>；</li>
+<li>开启RSS功能，编辑博客根目录下的_config.yml文件，添加如下代码：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">plugins:</div><div class="line">  - hexo-generator-feed</div></pre></td></tr></table></figure>
+<p>如此这般，我们便可以在blog_url/atom.xml访问到RSS信息。</p>
+<h2 id="添加sitemap"><a href="#添加sitemap" class="headerlink" title="添加sitemap"></a>添加sitemap</h2><p>同样，也需要手动安装sitemap插件：</p>
+<ol>
+<li>安装sitemap到本地，在博客根目录下执行<code>npm install hexo-generator-sitemap --save</code>；</li>
+<li>开启sitemap功能，编辑博客根目录下的_config.yml文件，添加如下代码：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">plugins:</div><div class="line">  - hexo-generator-sitemap</div></pre></td></tr></table></figure>
+<p>同样，我们便可以在blog_url/sitemap.xml访问到sitemap信息。和RSS不同，sitemap的初衷是给搜索引擎看的，目的是为了提高搜索引擎对博客站点的收录效果，最好手动到google和百度等搜索引擎提交sitemap.xml。</p>
+<blockquote>
+<p>P.S: 要想自己的博客被搜索到，还需要将sitemap信息提交到搜索引擎（百度和Google），以后在补充吧！</p>
+</blockquote>
+<h2 id="添加Disque评论"><a href="#添加Disque评论" class="headerlink" title="添加Disque评论"></a>添加Disque评论</h2><p>Hexo已经集成了Disque的配置，添加Disque比较简单。先在<a href="https://disqus.com" target="_blank" rel="external">Disque</a>中注册账户，填写一些基本信息，然后在博客的_config.yml中添加如下代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">disqus_shortname: sadjason</div></pre></td></tr></table></figure>
+<blockquote>
+<p>Note: 在博客的_config.yml中添加上述代码，而不是themes/yilia/_config.yml中添加哦！</p>
+</blockquote>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li><a href="http://zipperary.com/2013/05/30/hexo-guide-4/" target="_blank" rel="external">Hexo系列教程</a></li>
+<li><a href="https://hexo.io/zh-cn/docs/" target="_blank" rel="external">Hexo官方文档</a></li>
+<li><a href="http://blog.csdn.net/u010053344/article/details/50701191" target="_blank" rel="external">Github搭建hexo——更换主题、Disqus、RSS</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Hexo/">Hexo</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/Others/">Others</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-beginning-auto-layout-part-1" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -828,133 +972,6 @@
     <div class="article-info article-info-index">
       
       
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-uiwebview-load-local-html" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/06/16/uiwebview-load-local-html/" class="article-date">
-  	<time datetime="2015-06-16T08:38:39.000Z" itemprop="datePublished">2015-06-16</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/06/16/uiwebview-load-local-html/">UIWebView加载本地HTML文件</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>写本文的原因是今天被要求「调研在iOS中加载本地HTML的相关技术」，好记性不如烂笔头，将一些东西给记录下来吧。</p>
-<p>应用场景是这样的：手头的iOS App有一部分UI需要使用HTML完成，好处是这部分UI可以更灵活，即可以在任何不需要升级App的情况下更新这部分UI（包括样式、操作等等）。当下非常火的技术 – Facebook的React Native – 正是用来解决这种问题的，毕竟在传统的开发模式下，更新UI必须要升级App，而升级App是一个非常耗时的过程。使用Web App部分代替Native App已经成为当下移动客户端开发的一种思潮了。为了简便起见，也为了不给项目的接盘者制造更高的门槛，暂时决定不使用React Native（原因是多方面的）等著名框架去这种事情，从0开始探究。话说胡来，也许走了这么一遭之后，以后学习React Native会有更多的体会呢！</p>
-<p>总之，目前的构想是这样的：</p>
-<ol>
-<li>App部分UI是由HTML+JS+CSS完成的，HTML+JS+CSS代码会随着App一起发布；</li>
-<li>当后端决定更新App的部分UI（HTML）时，客户端从服务器下载最新的HTML+JS+CSS包，解压后代替本地的、旧的HTML+JS+CSS资源，将最新的呈现给用户，至此完成UI的更新；</li>
-</ol>
-<p>因此有这么些问题需要考虑：</p>
-<ol>
-<li>加载本地HTML+JS+CSS资源（在iOS中，通常使用UIWebView）；</li>
-<li>解压从服务端下载的压缩文件（HTML+JS+   CSS包）；</li>
-<li>JS代码和OC代码的互相调用；</li>
-</ol>
-<p>本文主要探究第一个问题！</p>
-<h2 id="UIWebView介绍"><a href="#UIWebView介绍" class="headerlink" title="UIWebView介绍"></a>UIWebView介绍</h2><p>UIWebView是iOS中一个非常常用的控件，是内置的浏览器控件，可能也是最强大复杂的控件。可以用它来浏览网页、打开文档（譬如PDF文档）等等。</p>
-<p>UIWebView既可以用来显示本地文档，也可以用来显示网络文档。无论是显示本地文件还是网络文件，此过程都可以统称为「加载」。与「加载」相关的方法不多，只有三个：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// Loading Local Content or Loading Content From the Network</span></div><div class="line">- (<span class="keyword">void</span>)loadRequest:(<span class="built_in">NSURLRequest</span> *)request;</div><div class="line">    </div><div class="line"><span class="comment">// 嵌入HTML结构的字符串</span></div><div class="line">- (<span class="keyword">void</span>)loadHTMLString:(<span class="built_in">NSString</span> *)string</div><div class="line">               baseURL:(<span class="built_in">NSURL</span> *)baseURL;</div><div class="line">    </div><div class="line"><span class="comment">// Loading Local Content</span></div><div class="line">- (<span class="keyword">void</span>)loadData:(<span class="built_in">NSData</span> *)data</div><div class="line">        MIMEType:(<span class="built_in">NSString</span> *)MIMEType</div><div class="line">textEncodingName:(<span class="built_in">NSString</span> *)textEncodingName</div><div class="line">         baseURL:(<span class="built_in">NSURL</span> *)baseURL;</div></pre></td></tr></table></figure>
-<p>与UIWebView相关的知识点并不多（从某种角度来看，也可以认为是Apple封装得比较好吧），除了上述的三个方法之外，还有必要了解的是UIWebViewDelegate定义的一些delegate方法：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 开始加载前调用</span></div><div class="line">- (<span class="built_in">BOOL</span>)webView:(<span class="built_in">UIWebView</span> *)webView shouldStartLoadWithRequest:(<span class="built_in">NSURLRequest</span> *)request</div><div class="line"> navigationType:(<span class="built_in">UIWebViewNavigationType</span>)navigationType;</div><div class="line"><span class="comment">// 开始加载时调用</span></div><div class="line">- (<span class="keyword">void</span>)webViewDidStartLoad:(<span class="built_in">UIWebView</span> *)webView;</div><div class="line"><span class="comment">// 加载成功时调用</span></div><div class="line">- (<span class="keyword">void</span>)webViewDidFinishLoad:(<span class="built_in">UIWebView</span> *)webView;</div><div class="line"><span class="comment">// 加载失败时调用</span></div><div class="line">- (<span class="keyword">void</span>)webView:(<span class="built_in">UIWebView</span> *)webView didFailLoadWithError:(<span class="built_in">NSError</span> *)error;</div></pre></td></tr></table></figure>
-<p>除此之外，UIWebView似乎有啥其他需要了解的内容，若有需要，以后再补充吧！</p>
-<h2 id="加载本地HTML文件"><a href="#加载本地HTML文件" class="headerlink" title="加载本地HTML文件"></a>加载本地HTML文件</h2><p>加载本地HTML文件不是多么难的事情，但再简单的事情也有一个1-2-3-4，不是嘛？何况笔者比较笨，参考<a href="http://blog.csdn.net/kaitiren/article/details/17115085" target="_blank" rel="external">UIWebView加载本地HTML5文件</a>，也分几个步骤：</p>
-<ol>
-<li>准备HTML文件及其资源文件（主要是CSS文件和JS文件以及image文件）；</li>
-<li>加载本地HTML文件；</li>
-</ol>
-<p>第一种：<br>loadRequest:<br>第二种：<br>loadHTMLString:baseURL:</p>
-<p><strong>第一步，准备HTML文件及其资源文件。</strong></p>
-<p>HTML及其资源文件比较容易获取，随便找个比较漂亮的web页面，将它保存起来即可！</p>
-<p>显然HTML文件及其资源文件是需要添加到工程的，问题是如何添加呢？如何组织管理这些文件呢？沙盒？Bundle？</p>
-<p><strong>Xcode工程添加文件有两种方式</strong></p>
-<p>向项目中添加已有的文件（或资源文件，或第三方库）不是什么稀罕的事情，只是平时都没怎么注意。实际上，将「文件」或者「目录」添加到项目时，Xcode给了我们两个选项：Create groups以及Create folder references，如下图：</p>
-<div class="imagediv" style="width: 730px; height: 126px;"></div>
-
-<p>简单来说，若选择Create groups的方式添加文件夹，则文件夹的颜色是黄色的；若选择Create folder references的，则发现添加的文件夹在工程目录中的的颜色是蓝色的：</p>
-<div class="imagediv" style="width: 400px; height: 120px;"></div>
-
-<p>当然不只是颜色上的区别！主要是Xcode对加入的文件的路径处理不一样。</p>
-<p>如果文件/文件夹以Create groups的方式添加到工程中，则不管加入项目的文件的目录结构如何，在APP中都可以通过mainBundlePath/filename这样结构来访问文件；反之，若文件/文件夹以Create folder references的方式添加到工程中，则会保留相对路径，访问文件的结构就变成了mainBundlePath/path/filename。</p>
-<p>理解Create groups以及Create folder references并不难，自己动手试试就能感受二者的不同了。</p>
-<p><strong>Bundle介绍</strong></p>
-<p>上文谈到了向工程添加文件的两种方式，由此延伸，不得不提bundle，一直以来对bundle的理解非常模糊，知道它的本质是一个目录，也知道在OS X中就有此概念，但一直没get到<code>bundle</code>的存在意义，总感觉它没必要存在，事实上也没主动使用它。</p>
-<p>借撰写本文这个机会，驱动一下自己，查查资料，争取对bundle理解更深入一点点吧！</p>
-<p>参考《<a href="http://avatar-matrix.lofter.com/post/e4689_236e82" target="_blank" rel="external">Bundle in iOS</a>》和《<a href="http://www.cnblogs.com/BigPolarBear/archive/2012/03/28/2421802.html" target="_blank" rel="external">iOS开发里的Bundle是个啥玩意</a>》。</p>
-<p>简单地讲，bundle就是一个内部结构按照标准规则组织的特殊目录，常用来存放一些资源文件，譬如图片，plist文件等，它不会成为编译的一部分，所以它不存放能够被编译的文件，譬如<code>.m</code>、<code>.h</code>文件等。</p>
-<p>Bundle的主要用途是软件的国际化，想象一个应用场景：软件有美国、中国版本，软件的logo等图片不同，这时候，我们把相应的图片资源放到一个文件夹下，然后修改文件夹的名字，以<code>.bundle</code>作为后缀，然后添加到xcode中。</p>
-<p>有过iOS开发经历的人都应该知道，每个project都有个mainBundle，那如何去获取自己定义的bundle内容呢？我们把自定义的bundle当成项目的一种资源，由mainBundle去获取<code>~</code>，然后我们用相同的方式获取自定义的bundle下的资源。即：</p>
-<p>1、通过mainBundle去加载自定义的bundle；<br>2、通过获取到的自定义bundle去获取资源；</p>
-<p>根据上述场景来写的demo项目结构如下：</p>
-<div class="imagediv" style="width: 340px; height: 280px;"></div>
-
-<p>此时，我容易联想到了在Windows世界经常使用的「汉化包」。根据我的理解，我们通过某种手段得到的「汉化包」和本文所谈及的bundle是类似的概念，它们的本质是一个目录，只是这个目录有些特别，特别之处在于它只存放一些资源文件，以及目录名后缀为<code>.bundle</code>，这让它看起来像个文件，但实际上又不是文件，开发者又特别想让普通用户以为它是一个文件…</p>
-<p>总之，bundle就是这么个东东。</p>
-<p>到了这里，应该弄清楚了该把HTML文件及其资源放在哪里了。</p>
-<p>沙盒？显然不可能，沙盒可是App到设备之后才有的概念；所以我们只能让HTML资源成为工程的一部分呢，编译打包时作为安装包的一部分。</p>
-<p>放在普通目录下还是组织成bundle，个人以为没必要组织成bundle，因为后者主要用来处理国际化问题，国际化问题面对的一般是图片资源、字符串资源等等，所以不需要组成成bundle，而是直接添加到工程的mainBundle中。</p>
-<p>上文已经提到了Xcode工程添加文件有两种方式：Create groups和Create folder references，个人以为应该选择后者！</p>
-<p>值得注意是，当被加入到项目中的文件包含js文件时，有可能因为操作不慎等原因，js文件成为了编译文件，若是这样，应该将它从<code>Compile Sources</code>给踢掉，让它成为<code>Copy Bundle Resources</code>的一部分，具体做法是在TARGETS-&gt;Build Phases中的<code>Compile Sources</code>中找到该js文件，并将其移到<code>Copy Bundle Resources</code>中，如下图所示：</p>
-<div class="imagediv" style="width: 699px; height: 364px;"></div>
-
-<p><strong>第二步，加载本地HTML。</strong></p>
-<p>本文示例中，HTML文件及其资源文件被组织在一个叫<code>html</code>的目录中，目录结构如下图，index.html是要被加载的目标文件，index.html中访问css、js以及图片资源的方式都是使用相对路径，实现代码也给展示在下图中。</p>
-<div class="imagediv" style="width: 926px; height: 400px;"></div>
-
-<p>上图右侧代码区域加载策略是，先获取本地HTML文本，转为字符串，然后使用<code>loadHTMLString:baseURL:</code>方法加载；当然也可以使用<code>loadRequest:</code>方法，哪个更好？我暂时也不知道！</p>
-<p><strong>关于baseURL</strong></p>
-<p>上文<code>loadHTMLString:baseURL:</code>方法的第二个参数是baseURL，baseURL是HTML字符串中引用到资源的查找路径，当HTML中没有引用外部资源时，可以指定为<code>nil</code>；若引用了外部资源，一般情况下使用mainBundle的路径即可。在实际操作中，常常会出现「文本显示正常，图片无法显示」等情况，若HTML文本中引用外部资源都是使用相对路径，则出现这种问题的原因一般都是baseURL参数错误（有时甚至是<code>nil</code>）。</p>
-<p>最后，本文的Demo详见<a href="https://github.com/sadjason/iOSDemos/tree/master/UIWebView%E9%9D%9E%E5%88%9D%E4%BD%93%E9%AA%8C" target="_blank" rel="external">这里</a>。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIWebView/">UIWebView</a></li></ul>
-	</div>
-
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/iOS/">iOS</a>
