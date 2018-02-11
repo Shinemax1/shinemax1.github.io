@@ -4,21 +4,42 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>GCD实践（三）使用dispatch_once来执行只需运行一次的线程安全代码 | Robot Dog</title>
+  <title>javascript基础学习笔记2 | Robot Dog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="单例模式（singleton）对Objective-C开发者而言并不陌生，常见的实现方式为：在类编写名为sharedInstance的方法，该方法只会返回全类共用的单例实例，而不会在每次调用时都创建新的实例。假设有一个类叫TestClass，那么这个共享实例一般会这么写：
-123456789+ (id)sharedInstance &amp;#123;    static TestClass *share">
+  <meta name="description" content="##继承发展史
+1.传统形式—&amp;gt;原型链过多的继承了没用的属性
+2.借用构造函数不能继承借用构造函数的原型每次构造函数都要多走一个函数
+3.共享原型不能随便改变自己的原型
+4.圣杯模式
+
+传统形式
+
+1234567891011121314151617181920Grand.prototype.lastName = &apos;li&apos;;function Grand()&amp;#123;&amp;#125;;var gr">
 <meta property="og:type" content="article">
-<meta property="og:title" content="GCD实践（三）使用dispatch_once来执行只需运行一次的线程安全代码">
-<meta property="og:url" content="http://shinemax1.github.io/2015/02/01/using-gcd-part-3/index.html">
+<meta property="og:title" content="javascript基础学习笔记2">
+<meta property="og:url" content="http://shinemax1.github.io/2018/01/28/js2/index.html">
 <meta property="og:site_name" content="Robot Dog">
-<meta property="og:description" content="单例模式（singleton）对Objective-C开发者而言并不陌生，常见的实现方式为：在类编写名为sharedInstance的方法，该方法只会返回全类共用的单例实例，而不会在每次调用时都创建新的实例。假设有一个类叫TestClass，那么这个共享实例一般会这么写：
-123456789+ (id)sharedInstance &amp;#123;    static TestClass *share">
-<meta property="og:updated_time" content="2016-08-08T12:02:58.000Z">
+<meta property="og:description" content="##继承发展史
+1.传统形式—&amp;gt;原型链过多的继承了没用的属性
+2.借用构造函数不能继承借用构造函数的原型每次构造函数都要多走一个函数
+3.共享原型不能随便改变自己的原型
+4.圣杯模式
+
+传统形式
+
+1234567891011121314151617181920Grand.prototype.lastName = &apos;li&apos;;function Grand()&amp;#123;&amp;#125;;var gr">
+<meta property="og:updated_time" content="2018-02-11T12:24:42.412Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="GCD实践（三）使用dispatch_once来执行只需运行一次的线程安全代码">
-<meta name="twitter:description" content="单例模式（singleton）对Objective-C开发者而言并不陌生，常见的实现方式为：在类编写名为sharedInstance的方法，该方法只会返回全类共用的单例实例，而不会在每次调用时都创建新的实例。假设有一个类叫TestClass，那么这个共享实例一般会这么写：
-123456789+ (id)sharedInstance &amp;#123;    static TestClass *share">
+<meta name="twitter:title" content="javascript基础学习笔记2">
+<meta name="twitter:description" content="##继承发展史
+1.传统形式—&amp;gt;原型链过多的继承了没用的属性
+2.借用构造函数不能继承借用构造函数的原型每次构造函数都要多走一个函数
+3.共享原型不能随便改变自己的原型
+4.圣杯模式
+
+传统形式
+
+1234567891011121314151617181920Grand.prototype.lastName = &apos;li&apos;;function Grand()&amp;#123;&amp;#125;;var gr">
   
     <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
   
@@ -202,11 +223,11 @@
 	</div>
 </nav>
 
-      <div class="body-wrap"><article id="post-using-gcd-part-3" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-js2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/02/01/using-gcd-part-3/" class="article-date">
-  	<time datetime="2015-02-01T05:53:40.000Z" itemprop="datePublished">2015-02-01</time>
+      <a href="/2018/01/28/js2/" class="article-date">
+  	<time datetime="2018-01-28T04:30:43.000Z" itemprop="datePublished">2018-01-28</time>
 </a>
     </div>
   
@@ -219,7 +240,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      GCD实践（三）使用dispatch_once来执行只需运行一次的线程安全代码
+      javascript基础学习笔记2
     </h1>
   
 
@@ -228,12 +249,12 @@
       <div class="article-info article-info-post">
         
 	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/GCD/">GCD</a></li></ul>
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
 	</div>
 
         
 	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	<a class="article-category-link" href="/categories/web/">web</a>
 	</div>
 
 
@@ -243,24 +264,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>单例模式（singleton）对Objective-C开发者而言并不陌生，常见的实现方式为：在类编写名为<code>sharedInstance</code>的方法，该方法只会返回全类共用的单例实例，而不会在每次调用时都创建新的实例。假设有一个类叫<code>TestClass</code>，那么这个共享实例一般会这么写：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">id</span>)sharedInstance &#123;</div><div class="line">    <span class="keyword">static</span> TestClass *sharedInstance = <span class="literal">nil</span>;</div><div class="line">    <span class="keyword">@synchronized</span>(<span class="keyword">self</span>) &#123;</div><div class="line">        <span class="keyword">if</span> (!sharedInstance) &#123;</div><div class="line">            sharedInstance = [[<span class="keyword">self</span> alloc] init];</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> sharedInstance;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>单例模式很容易引起激励讨论，Objective-C的单例尤其如此。线程安全是大家争论的主要问题。为了保证线程安全，上述代码将创建单例实例的代码包裹在<strong>同步块</strong>里。无论是好是坏，反正这种实现方式很常用，这样的代码也随处可见。</p>
-<p>不过，GCD引入了一项特性，能使单例实现起来更加容易。所用的函数是：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">void</span> <span class="built_in">dispatch_once</span>(<span class="built_in">dispatch_once_t</span> *token, dispatch_block_t block);</div></pre></td></tr></table></figure>
-<p>此函数接受类型为<code>dispatch_once_t</code>的特殊参数，称其为<strong>标记</strong>（token），此外还接受block参数，对于给定token来说，该函数保证相关的block必定会执行，且仅执行一次。首次调用该函数时，必然会执行block的代码，最重要的一点在于，此操作完全是线程安全的。请注意，对于只需执行一次的块来说，每次调用函数时传入的token都必须是完全相同的。因此，开发者通常将标记变量声明在<code>static</code>或<code>global</code>作用域里。</p>
-<p>上述实现单例模式所用的<code>sharedInstance</code>方法，可以用此函数来改写：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">+ (<span class="keyword">id</span>)sharedInstance &#123;</div><div class="line">    <span class="keyword">static</span> TestClass *sharedInstance;</div><div class="line">    <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;   <span class="comment">// typedef long dispatch_once_t;</span></div><div class="line">    <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</div><div class="line">        sharedInstance = [[<span class="keyword">self</span> alloc] init];</div><div class="line">    &#125;);</div><div class="line">    <span class="keyword">return</span> sharedInstance;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>使用<code>disptch_once</code>可以简化代码并且彻底保证线程安全，开发者根本无须担心加锁或同步。所有问题都由GCD在底层处理。由于每次调用时都必须使用完全相同的token，所以token要声明成<code>static</code>。把该变量定义在<code>static</code>作用域中，可以保证编译器在每次执行<code>sharedInstance</code>方法时都会复用这个变量，而不会创建新变量。</p>
-<p>此外，<code>dispatch_once</code>更高效。它没有使用重量级的同步机制，若是那样做的话，每次运行代码前都要获取锁，相反，此函数采用原子访问（atomic access）来查询标记，以判断其所对应的代码原来是否已经执行过。《Effective Objective-C 2.0》的作者在装有64位的Mac OS X 10.8.2系统的电脑上简单测试了性能，分别采用<code>@synchronized</code>方式及<code>dispatch_once</code>方式来实现<code>sharedInstance</code>，结果显示，后者的速度几乎是前者的2倍。</p>
-<p>总结：</p>
-<ol>
-<li>经常需要编写<strong>只需执行一次的线程安全代码</strong>（thread-safe single-code execution），通过GCD提供的<code>dispatch_once</code>函数，很容易就能实现此功能。</li>
-<li>token应该声明在<code>static</code>或<code>global</code>中，这样的话，在把只需一次执行的块传给<code>dispatch_once</code>函数时，传进去的标记也是相同的。</li>
-</ol>
-<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
-<li><a href="https://book.douban.com/subject/21370593/" target="_blank" rel="external">Effective Objective-C 2.0</a></li>
-</ul>
+        <p>##继承发展史</p>
+<p>1.传统形式—&gt;原型链<br><strong>过多的继承了没用的属性</strong></p>
+<p>2.借用构造函数<br><strong>不能继承借用构造函数的原型</strong><br><strong>每次构造函数都要多走一个函数</strong></p>
+<p>3.共享原型<br><strong>不能随便改变自己的原型</strong></p>
+<p>4.圣杯模式</p>
+<blockquote>
+<p>传统形式</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"></div><div class="line">Grand.prototype.lastName = <span class="string">'li'</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Grand</span>(<span class="params"></span>)</span>&#123;&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> grand = <span class="keyword">new</span> Grand();</div><div class="line"></div><div class="line">Father.prototype = grand;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.name = <span class="string">'ga'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> father = <span class="keyword">new</span> Father();</div><div class="line"></div><div class="line">Son.prototype = father;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span>(<span class="params"></span>)</span>&#123;&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> son = <span class="keyword">new</span> Son();</div></pre></td></tr></table></figure>
+<blockquote>
+<p>借用构造函数</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span> (<span class="params">age,sex,name</span>) </span>&#123;</div><div class="line">  <span class="keyword">this</span>.age = age;</div><div class="line">  <span class="keyword">this</span>.sex = sex;</div><div class="line">  <span class="keyword">this</span>.name = name;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Chen</span> (<span class="params">age,sex,name,job</span>) </span>&#123;</div><div class="line">  Person.call(<span class="keyword">this</span>,age,sex,name);</div><div class="line">  <span class="keyword">this</span>.job = job;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> chen = <span class="keyword">new</span> Chen(<span class="string">'18'</span>,<span class="string">'男'</span>,<span class="string">'陈旭锋'</span>,<span class="string">'程序员'</span>);</div></pre></td></tr></table></figure>
+<blockquote>
+<p>共享原型</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Father</span> (<span class="params"></span>) </span>&#123;&#125;;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Son</span> (<span class="params"></span>) </span>&#123;&#125;;</div><div class="line"></div><div class="line">Son.prototype = Father.prototype;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>圣杯模式</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> inherit = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span> (<span class="params"></span>);</span></div><div class="line">  <span class="title">return</span> <span class="title">function</span> (<span class="params">Target, Origin</span>) &#123;</div><div class="line">    F.prototype = Origin.prototype;</div><div class="line">    Target.protype = <span class="keyword">new</span> F();</div><div class="line">    Target.prototype.constructor = Target;</div><div class="line">    Target.prototype.uber = Origin.prototype;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">&#125;());</div></pre></td></tr></table></figure>
 
       
     </div>
@@ -270,18 +294,18 @@
     
 <nav id="article-nav">
   
-    <a href="/2015/02/07/nsoperation-vs-gcd/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/01/28/webDiary/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption"><</strong>
       <div class="article-nav-title">
         
-          NSOperation v.s GCD
+          webDiary
         
       </div>
     </a>
   
   
-    <a href="/2015/01/28/using-gcd-part-2/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">GCD实践（二）少用performSelector系列方法</div>
+    <a href="/2018/01/28/jsѧϰ/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">javascript基础学习笔记1</div>
       <strong class="article-nav-caption">></strong>
     </a>
   

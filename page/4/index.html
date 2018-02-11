@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/js基础/" style="font-size: 10px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/js基础/" style="font-size: 11.67px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -199,6 +199,108 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-layer-geometry-in-ios" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/13/layer-geometry-in-ios/" class="article-date">
+  	<time datetime="2016-06-13T11:41:36.000Z" itemprop="datePublished">2016-06-13</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/13/layer-geometry-in-ios/">iOS图层几何学</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="frame-v-s-bounds-v-s-center"><a href="#frame-v-s-bounds-v-s-center" class="headerlink" title="frame v.s bounds v.s center"></a>frame v.s bounds v.s center</h2><p>视图（<code>UIView</code>）有三种比较重要的布局属性：<code>frame</code>，<code>bounds</code>，<code>center</code>，图层（<code>CALayer</code>）对应叫做：<code>frame</code>，<code>bounds</code>，<code>position</code>。众所周知，视图是对图层的包装，名称虽然不完全相同，但都是指向相同的值，本文中<code>position</code>和<code>center</code>表示一个意思。</p>
+<p><code>bounds</code>和<code>position</code>是存储型属性，<code>bounds</code>标识了两个重要讯息：自身坐标系的起点（一般<code>(0, 0)</code>对应左上角）和图层的固有size；而<code>position</code>标识了图层中心点相对于父图层坐标系的位置。</p>
+<p><code>frame</code>是计算型属性（虚拟属性），它的值根据<code>bounds</code>、<code>position</code>和<code>transform</code>计算而来。</p>
+<blockquote>
+<p>Note: 这里的<code>transform</code>指的是图层（<code>CALayer</code>）的<code>transform</code>属性，而不是视图的<code>transform</code>属性。<code>UIView#transform</code>是<code>CATransform3D</code>类型，而<code>CALayer#transform</code>是<code>CGAffineTransform</code>类型，虽然类型不同，但根据我的理解，视图的<code>transform</code>和其图层的<code>transform</code>直接相关，换句话说，<code>UIView#transform</code>是<code>CALayer#transform</code>的简化版。</p>
+</blockquote>
+<p>当<code>CALayer#transform</code>的值等于<code>CATransform3DIdentity</code>，或者当<code>UIView#transform</code>的值等于<code>CGAffineTransformIdentity</code>时，<code>frame</code>、<code>position</code>和<code>bounds</code>存在着如下关系：</p>
+<ul>
+<li>frame.origin = position - (bounds.size / 2.0)</li>
+<li>frame.size = bounds.size</li>
+</ul>
+<p>在这种情况下：</p>
+<ul>
+<li><code>position</code>和<code>bounds</code>彼此独立，改变任意一个值不会影响另外一个；</li>
+<li><code>frame.size</code>和<code>bounds.size</code>直接相关，修改任何一个会影响另外一个；</li>
+<li><code>frame.origin</code>和<code>position</code>直接相关，修改任何一个会影响另外一个；</li>
+<li><code>bounds.origin</code>不会对<code>frame</code>和<code>center</code>产生影响，但会影响到子图层的位置；</li>
+</ul>
+<p>当视图发生仿射变换时，比如平移、旋转、缩放，经验证发现：<code>position</code>和<code>bounds</code>都不会改变，而<code>frame</code>会改变。并且当对图层进行缩放时，<code>frame.size</code>会和<code>bounds.size</code>不一致，详细说明参考<a href="https://zsisme.gitbooks.io/ios-/content/chapter3/layout.html" target="_blank" rel="external">《iOS核心动画高级技巧》</a>。</p>
+<blockquote>
+<p>P.S: 还没测试图层3D变换时<code>bounds</code>和<code>position</code>的变化情况，但我估计结果是一样的。</p>
+</blockquote>
+<p>我认为：把视图和图层的<code>frame</code>属性拿掉，iOS布局系统也能照样运转，<code>frame</code>的作用不过是为了迎合大部分人的布局惯性思维罢了。</p>
+<h2 id="anchorPoint"><a href="#anchorPoint" class="headerlink" title="anchorPoint"></a>anchorPoint</h2><p>按理说，图层的<code>position</code>和<code>bounds.size</code>就足以告诉布局系统它在父图层中所占据的位置和面积了，前者指示了其<strong>中心点</strong>的坐标，后者指示了其大小。</p>
+<p>但问题出在<strong>中心点</strong>上，图层的<code>position</code>之所以叫<code>position</code>而不叫<code>center</code>是有原因的。</p>
+<p>可以想象图层和很多其他现实物体一样，有一个<em>把柄</em>，布局系统在摆放图层时，直接“拖”着这个<em>把柄</em>，把它杵到<code>position</code>对应的坐标上即可。在大多数时候，这个<em>把柄</em>所在的位置就是图层的中心点。然而，iOS允许自定义图层的<em>把柄</em>位置，修改<code>CALayer#anchorPoint</code>值即可，<code>anchorPoint</code>是<code>CGPoint</code>类型，其默认值为<code>(0.5, 0.5)</code>（归一化值），当修改其值为<code>(0, 0)</code>，这意味着图层的<em>把柄</em>被移到左上角。换句话说，图层的<code>anchorPoint</code>属性值会影响到它的摆放位置，但该值和<code>position</code>、<code>bounds</code>彼此独立，没有任何关系，和<code>frame</code>更是谈不上啥关系了。</p>
+<p>在什么时候需要修改<code>anchorPoint</code>属性值呢？<a href="https://zsisme.gitbooks.io/ios-/content/chapter3/anchor.html" target="_blank" rel="external">《ios核心动画高级技巧》</a>有一个非常不错的应用实例。</p>
+<p><code>anchorPoint</code>所对应的位置，常常被称为图层的<strong>锚点</strong>。</p>
+<p>更值得一提的是，视图的仿射变换和图层的3D变换，都是围绕图层的锚点进行的。</p>
+<p>具体来说，当<code>anchorPoint</code>的值为默认值时，对视图进行缩放或旋转，其中心点都不会发生迁移，如下：</p>
+<div class="imagediv" style="width: 316px; height: 142px"></div>
+
+<p>当修改两个view的<code>anchorPoint</code>属性值为<code>(0.0, 0.0)</code>后，结果如下：</p>
+<div class="imagediv" style="width: 318px; height: 126px"></div>
+
+<p>显然，此时视图的缩放和旋转都以左上角为基准点。</p>
+<h2 id="Z坐标轴"><a href="#Z坐标轴" class="headerlink" title="Z坐标轴"></a>Z坐标轴</h2><p><code>UIView</code>使用的是严格的二维坐标系，而<code>CALayer</code>存在于一个三维空间中。</p>
+<h2 id="Hit-Testing"><a href="#Hit-Testing" class="headerlink" title="Hit Testing"></a>Hit Testing</h2><p>在什么情况下需要使用hit testing？<br>未完待续。</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li><a href="http://stackoverflow.com/questions/5361369/uiview-frame-bounds-and-center" target="_blank" rel="external">UIView frame, bounds and center</a></li>
+<li><a href="https://zsisme.gitbooks.io/ios-/content/" target="_blank" rel="external">iOS核心动画高级技巧</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-non-interactive-animation-basics-in-ios" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -689,132 +791,9 @@
 
 
   
-    <article id="post-practice-in-uiscrollview" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/05/21/practice-in-uiscrollview/" class="article-date">
-  	<time datetime="2016-05-21T05:41:28.000Z" itemprop="datePublished">2016-05-21</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/05/21/practice-in-uiscrollview/">使用UIScrollView</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="UIScrollViewDelegate"><a href="#UIScrollViewDelegate" class="headerlink" title="UIScrollViewDelegate"></a>UIScrollViewDelegate</h2><p>简单介绍一下UIScrollViewDelegate定义的一些方法，这里只涉及与scroll相关的方法，zoom相关的方法略过不表。</p>
-<ul>
-<li><code>scrollViewDidScroll(_:)</code></li>
-</ul>
-<p>这个方法在任何方式触发<code>contentOffset</code>变化的时候都会被调用（包括用户拖动，减速过程，直接通过代码设置等），可以用于监控<code>contentOffset</code>的变化，并根据当前的<code>contentOffset</code>对其他view做出随动调整。</p>
-<ul>
-<li><code>scrollViewWillBeginDragging(_:)</code></li>
-</ul>
-<p>用户开始拖动scroll view的时候被调用。</p>
-<ul>
-<li><code>scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)</code></li>
-</ul>
-<p>这个方法是iOS 5之后引入的，可在它的基础上实现更为丰富的自定义paging。</p>
-<ul>
-<li><code>scrollViewDidEndDragging(_:willDecelerate:)</code></li>
-</ul>
-<p>在用户结束拖动后被调用，<code>willDecelerate</code>为YES时，结束拖动后会有减速过程（惯性）。</p>
-<ul>
-<li><code>scrollViewWillBeginDecelerating(_:)</code></li>
-</ul>
-<p>减速动画开始前被调用。</p>
-<ul>
-<li><code>scrollViewDidEndDecelerating(_:)</code></li>
-</ul>
-<p>减速动画结束时被调用，这里有一种特殊情况：当一次减速动画尚未结束的时候再次drag scroll view，该方法不会被调用，并且这时scroll view的<code>dragging</code>和<code>decelerating</code>属性都是<code>YES</code>。新的dragging如果有加速度，那么<code>scrollViewWillBeginDecelerating(_:)</code>会再一次被调用，然后才是<code>scrollViewDidEndDecelerating(_:)</code>；如果没有加速度，虽然<code>scrollViewWillBeginDecelerating(_:)</code>不会被调用，但前一次留下的<code>scrollViewDidEndDecelerating(_:)</code>会被调用。</p>
-<blockquote>
-<p>P.S: 以上的解释比较拗口，动手体验一下就明白了。</p>
-</blockquote>
-<ul>
-<li><code>scrollViewDidEndScrollingAnimation(_:)</code></li>
-</ul>
-<p>当通过代码滑动scroll view时（<code>setContentOffset(_:animated:)</code>或者<code>scrollRectVisible(_:animated:)</code>），动画结束时会调用该方法；值得一提的是，当且仅当动画存在时才会调用该方法。</p>
-<h2 id="Scrolling-With-Finger"><a href="#Scrolling-With-Finger" class="headerlink" title="Scrolling With Finger"></a>Scrolling With Finger</h2><p>我总结了一些手指控制UIScrollView滑动的场景，将相关的回调给列出来了。</p>
-<p><strong>场景一：一次正常的滑动-减速-停止</strong></p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 手指介入</span></div><div class="line">scrollViewWillBeginDragging(<span class="number">_</span>:)</div><div class="line"><span class="comment">// 开始滑动</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)                     <span class="comment">// scrolling...</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)                     <span class="comment">// scrolling...</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line"><span class="comment">// 手指离开屏幕（scrolling继续，并未停滞）</span></div><div class="line">scrollViewWillEndDragging(scrollView:withVelocity:targetContentOffset:)</div><div class="line">scrollViewDidEndDragging(<span class="number">_</span>:willDecelerate:) <span class="comment">// 拖拽结束（willDecelerate=true）</span></div><div class="line">scrollViewWillBeginDecelerating(<span class="number">_</span>:)         <span class="comment">// 减速</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)                     <span class="comment">// scrolling...</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)                     <span class="comment">// scrolling...</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line">scrollViewDidEndDecelerating(<span class="number">_</span>:)            <span class="comment">// 减速结束</span></div></pre></td></tr></table></figure>
-<p><strong>场景二：减速过程中的手指介入（点停）</strong></p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 手指介入</span></div><div class="line">scrollViewWillBeginDragging(<span class="number">_</span>:)</div><div class="line"><span class="comment">// 开始滑动</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line"><span class="comment">// 手指离开屏幕（scrolling继续，并未停滞）</span></div><div class="line">scrollViewWillEndDragging(scrollView:withVelocity:targetContentOffset:)</div><div class="line">scrollViewDidEndDragging(<span class="number">_</span>:willDecelerate:) <span class="comment">// 拖拽结束（willDecelerate=true）</span></div><div class="line">scrollViewWillBeginDecelerating(<span class="number">_</span>:)         <span class="comment">// 减速</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line"><span class="comment">// 手指介入（scrolling停止 -- 之前的操作被取消）</span></div><div class="line">scrollViewWillBeginDragging(<span class="number">_</span>:)</div><div class="line"><span class="comment">// 手指离开屏幕</span></div><div class="line">scrollViewWillEndDragging(scrollView:withVelocity:targetContentOffset:)</div><div class="line">scrollViewDidEndDragging(<span class="number">_</span>:willDecelerate:)     <span class="comment">// 拖拽结束（willDecelerate=false）</span></div><div class="line">scrollViewDidEndDecelerating(<span class="number">_</span>:)                <span class="comment">// 减速结束</span></div></pre></td></tr></table></figure>
-<p><strong>场景三：减速过程中的手指介入（乱滑）</strong></p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 手指介入</span></div><div class="line">scrollViewWillBeginDragging(<span class="number">_</span>:)</div><div class="line"><span class="comment">// 开始滑动</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line"><span class="comment">// 手指离开屏幕（scrolling继续，并未停滞）</span></div><div class="line">scrollViewWillEndDragging(scrollView:withVelocity:targetContentOffset:)</div><div class="line">scrollViewDidEndDragging(<span class="number">_</span>:willDecelerate:) <span class="comment">// 拖拽结束（willDecelerate=true）</span></div><div class="line">scrollViewWillBeginDecelerating(<span class="number">_</span>:)         <span class="comment">// 减速</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line"><span class="comment">// 手指介入--重新拖拽（scrolling停止 -- 之前的操作被取消）</span></div><div class="line">scrollViewWillBeginDragging(<span class="number">_</span>:)</div><div class="line"><span class="comment">// 开始滑动</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line"><span class="comment">// 手指离开屏幕（scrolling继续，并未停滞）</span></div><div class="line">scrollViewWillEndDragging(scrollView:withVelocity:targetContentOffset:)</div><div class="line">scrollViewDidEndDragging(<span class="number">_</span>:willDecelerate:) <span class="comment">// 拖拽结束（willDecelerate=true）</span></div><div class="line">scrollViewWillBeginDecelerating(<span class="number">_</span>:)         <span class="comment">// 减速</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line">scrollViewDidScroll(<span class="number">_</span>:)             <span class="comment">// scrolling...</span></div><div class="line"><span class="comment">// ...</span></div><div class="line"></div><div class="line"><span class="comment">// 手指介入--点停（scrolling停止 -- 之前的操作被取消）</span></div><div class="line">scrollViewWillBeginDragging(<span class="number">_</span>:)</div><div class="line"></div><div class="line"><span class="comment">// 手指离开屏幕</span></div><div class="line">scrollViewWillEndDragging(scrollView:withVelocity:targetContentOffset:)</div><div class="line">scrollViewDidEndDragging(<span class="number">_</span>:willDecelerate:)     <span class="comment">// 拖拽结束（willDecelerate=false）</span></div><div class="line">scrollViewDidEndDecelerating(<span class="number">_</span>:)                <span class="comment">// 减速结束</span></div></pre></td></tr></table></figure>
-<h2 id="Scrolling-Programmatically"><a href="#Scrolling-Programmatically" class="headerlink" title="Scrolling Programmatically"></a>Scrolling Programmatically</h2><p><strong>Scrolling to a Specific Offset</strong></p>
-<p>可通过设置content offset让scrollView滚动到某个指定位置，有两种方式：一是直接给<code>contentOffset</code>属性赋值，二是调用<code>setContentOffset(_:animated:)</code>方法。对于第二种，当<code>animated</code>参数设置为NO，等效于第一种方式。</p>
-<p>无论是哪一种情况，<code>delegate</code>都会接收到<code>scrollViewDidScroll(_:)</code>消息。</p>
-<p>只是当禁止动画时，<code>delegate</code>只会收到一次<code>scrollViewDidScroll(_:)</code>消息；当允许动画时，<code>delegate</code>会在动画过程中接收到一系列<code>scrollViewDidScroll(_:)</code>消息，并且当动画结束时，<code>delegate</code>还会接收到<code>scrollViewDidEndScrollingAnimation(_:)</code>消息。</p>
-<p><strong>Making a rectangle visible</strong></p>
-<p>还可以调用<code>scrollRectToVisible(_:animated:)</code>方法让scrollView滚动到一个合适的位置以使指定区域可见，<code>animated</code>参数依然是用来控制动画开关的。当关闭动画时，<code>delegate</code>会接收到一次<code>scrollViewDidScroll(_:)</code>消息；当允许动画时，<code>delegate</code>会在动画过程中接收到一系列<code>scrollViewDidScroll(_:)</code>消息，并且当动画结束时，<code>delegate</code>还会接收到<code>scrollViewDidEndScrollingAnimation(_:)</code>消息。</p>
-<p><strong>Scroll To Top</strong></p>
-<p><code>UITableView</code>等子类还实现了Scroll To Top功能，这里不赘述了，详细参考<a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/UIScrollView_pg/ScrollingViewContent/ScrollingViewContent.html" target="_blank" rel="external">这里</a>。</p>
-<h2 id="Tracking-The-Start-and-Completion-Of-A-Scroll-Action"><a href="#Tracking-The-Start-and-Completion-Of-A-Scroll-Action" class="headerlink" title="Tracking The Start and Completion Of A Scroll Action"></a>Tracking The Start and Completion Of A Scroll Action</h2><p>Implement the scrollViewWillBeginDragging: method to receive notification that dragging will begin.</p>
-<p>当编程实现滚动（设置<code>contentOffset</code>、）时，<code>scrollViewWillBeginDragging:</code>也会被调用吗？</p>
-<p>To determine when scrolling is complete you must implement two delegate methods: scrollViewDidEndDragging:willDecelerate: and scrollViewDidEndDecelerating:. Scrolling is completed either when the delegate receives the scrollViewDidEndDragging:willDecelerate: message with NO as the decelerate parameter, or when your delegate receives the scrollViewDidEndDecelerating: method. In either case, scrolling is complete.</p>
-<p><strong>编程实现滚动时抗干扰</strong></p>
-<p>在开始和结束时设置<code>userInteractionEnabled</code>属性即可：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">scrollView.userInteractionEnabled = <span class="literal">false</span></div><div class="line">scrollView.setContentOffset(<span class="type">CGPointZero</span>, animated: <span class="literal">true</span>)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">scrollViewDidEndScrollingAnimation</span><span class="params">(scrollView: UIScrollView)</span></span> &#123;</div><div class="line">  scrollView.userInteractionEnabled = <span class="literal">true</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h2 id="经验之谈"><a href="#经验之谈" class="headerlink" title="经验之谈"></a>经验之谈</h2><p><strong>不可描述的问题</strong></p>
-<p>一般来说，在UIScrollView静止状态下，点击（只是轻点一下）不会触发UIScrollViewDelegate相关的回调，但曾在开发中遇到了一件诡异的事情，点击静止状态下的UIScrollView会触发<code>scrollViewWillBeginDecelerating(_:)</code>和<code>scrollViewDidEndDecelerating(_:)</code>回调，代码如下：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</div><div class="line">  [<span class="keyword">super</span> viewDidLoad];</div><div class="line">  </div><div class="line">  <span class="keyword">self</span>.view.backgroundColor = [<span class="built_in">UIColor</span> whiteColor];</div><div class="line">  </div><div class="line">  <span class="built_in">UIScrollView</span> *scrollView = [[<span class="built_in">UIScrollView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">10</span>, <span class="number">30</span>, <span class="number">100</span>, <span class="number">200</span>)];</div><div class="line">  scrollView.backgroundColor = [<span class="built_in">UIColor</span> lightGrayColor];</div><div class="line">  scrollView.bounces = <span class="literal">NO</span>;</div><div class="line">  scrollView.contentSize = <span class="built_in">CGSizeMake</span>(<span class="number">160</span>, <span class="number">200</span>);</div><div class="line">  scrollView.pagingEnabled = <span class="literal">YES</span>;</div><div class="line">  scrollView.showsHorizontalScrollIndicator = <span class="literal">NO</span>;</div><div class="line">  scrollView.delegate = <span class="keyword">self</span>;</div><div class="line">  </div><div class="line">  [<span class="keyword">self</span>.view addSubview:scrollView];</div><div class="line">  </div><div class="line">  <span class="built_in">UIView</span> *view1 = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">0</span>, <span class="number">0</span>, <span class="number">60</span>, <span class="number">200</span>)];</div><div class="line">  view1.backgroundColor = [<span class="built_in">UIColor</span> redColor];</div><div class="line">  [scrollView addSubview:view1];</div><div class="line">  </div><div class="line">  <span class="built_in">UIView</span> *view2 = [[<span class="built_in">UIView</span> alloc] initWithFrame:<span class="built_in">CGRectMake</span>(<span class="number">60</span>, <span class="number">0</span>, <span class="number">100</span>, <span class="number">200</span>)];</div><div class="line">  view2.backgroundColor = [<span class="built_in">UIColor</span> greenColor];</div><div class="line">  [scrollView addSubview:view2];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>排查了好久，最终发现问题出在<code>scrollView.pagingEnabled = YES</code>这里，以上的scroll view允许paging，然而，其<code>contentSize.width</code>并不是<code>size.width</code>的整数倍，这会让它显式最后一页时没办法达到稳定状态，该情况下点击UIScrollView会触发<code>scrollViewWillBeginDecelerating(_:)</code>和<code>scrollViewDidEndDecelerating(_:)</code>。该情景不太容易描述…</p>
-<p><strong>UIScrollView Custom Paging</strong></p>
-<p>通过回调<code>scrollViewWillEndDragging(_:withVelocity:targetContentOffset:)</code>可以在<code>UIScrollView#pagingEnabled</code>设为<code>false</code>的情况下自己实现paging效果。然而，用户体验并不好，至少不如<code>UIScrollView#pagingEnabled = true</code>顺畅，参考<a href="http://stackoverflow.com/questions/6945964/uiscrollview-custom-paging" target="_blank" rel="external">这里</a>，不晓得有没什么办法改善操作体验。</p>
-<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
-<li><a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/UIScrollView_pg/ScrollingViewContent/ScrollingViewContent.html" target="_blank" rel="external">Scroll View Programming Guide for iOS</a></li>
-<li><a href="http://tech.glowing.com/cn/practice-in-uiscrollview/" target="_blank" rel="external">UIScrollView实践经验</a></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/UIScrollView/">UIScrollView</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/11/">11</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/page/3/">&laquo; Prev</a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/12/">12</a><a class="extend next" rel="next" href="/page/5/">Next &raquo;</a>
     </nav>
   
 </div>
