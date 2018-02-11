@@ -6,40 +6,37 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>javascript基础学习笔记2 | Robot Dog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="##继承发展史
-1.传统形式—&amp;gt;原型链过多的继承了没用的属性
+  <meta name="description" content="继承发展史1.传统形式—&amp;gt;原型链过多的继承了没用的属性
 2.借用构造函数不能继承借用构造函数的原型每次构造函数都要多走一个函数
 3.共享原型不能随便改变自己的原型
 4.圣杯模式
 
 传统形式
 
-1234567891011121314151617181920Grand.prototype.lastName = &apos;li&apos;;function Grand()&amp;#123;&amp;#125;;var gr">
+1234567891011121314151617181920Grand.prototype.lastName = &apos;li&apos;;function Grand()&amp;#123;&amp;#125;;var grand">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript基础学习笔记2">
 <meta property="og:url" content="http://shinemax1.github.io/2018/01/28/js2/index.html">
 <meta property="og:site_name" content="Robot Dog">
-<meta property="og:description" content="##继承发展史
-1.传统形式—&amp;gt;原型链过多的继承了没用的属性
+<meta property="og:description" content="继承发展史1.传统形式—&amp;gt;原型链过多的继承了没用的属性
 2.借用构造函数不能继承借用构造函数的原型每次构造函数都要多走一个函数
 3.共享原型不能随便改变自己的原型
 4.圣杯模式
 
 传统形式
 
-1234567891011121314151617181920Grand.prototype.lastName = &apos;li&apos;;function Grand()&amp;#123;&amp;#125;;var gr">
-<meta property="og:updated_time" content="2018-02-11T12:24:42.412Z">
+1234567891011121314151617181920Grand.prototype.lastName = &apos;li&apos;;function Grand()&amp;#123;&amp;#125;;var grand">
+<meta property="og:updated_time" content="2018-02-11T12:30:13.701Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript基础学习笔记2">
-<meta name="twitter:description" content="##继承发展史
-1.传统形式—&amp;gt;原型链过多的继承了没用的属性
+<meta name="twitter:description" content="继承发展史1.传统形式—&amp;gt;原型链过多的继承了没用的属性
 2.借用构造函数不能继承借用构造函数的原型每次构造函数都要多走一个函数
 3.共享原型不能随便改变自己的原型
 4.圣杯模式
 
 传统形式
 
-1234567891011121314151617181920Grand.prototype.lastName = &apos;li&apos;;function Grand()&amp;#123;&amp;#125;;var gr">
+1234567891011121314151617181920Grand.prototype.lastName = &apos;li&apos;;function Grand()&amp;#123;&amp;#125;;var grand">
   
     <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
   
@@ -264,8 +261,7 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>##继承发展史</p>
-<p>1.传统形式—&gt;原型链<br><strong>过多的继承了没用的属性</strong></p>
+        <h2 id="继承发展史"><a href="#继承发展史" class="headerlink" title="继承发展史"></a>继承发展史</h2><p>1.传统形式—&gt;原型链<br><strong>过多的继承了没用的属性</strong></p>
 <p>2.借用构造函数<br><strong>不能继承借用构造函数的原型</strong><br><strong>每次构造函数都要多走一个函数</strong></p>
 <p>3.共享原型<br><strong>不能随便改变自己的原型</strong></p>
 <p>4.圣杯模式</p>
@@ -284,7 +280,7 @@
 <blockquote>
 <p>圣杯模式</p>
 </blockquote>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> inherit = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span> (<span class="params"></span>);</span></div><div class="line">  <span class="title">return</span> <span class="title">function</span> (<span class="params">Target, Origin</span>) &#123;</div><div class="line">    F.prototype = Origin.prototype;</div><div class="line">    Target.protype = <span class="keyword">new</span> F();</div><div class="line">    Target.prototype.constructor = Target;</div><div class="line">    Target.prototype.uber = Origin.prototype;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line">&#125;());</div></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="keyword">var</span> inherit = (<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> F = <span class="function"><span class="keyword">function</span> (<span class="params"></span>);</span></div><div class="line">  <span class="title">return</span> <span class="title">function</span> (<span class="params">Target, Origin</span>) &#123;</div><div class="line">    F.prototype = Origin.prototype;</div><div class="line">    Target.protype = <span class="keyword">new</span> F();</div><div class="line">    Target.prototype.constructor = Target;</div><div class="line">    Target.prototype.uber = Origin.prototype;</div><div class="line">  &#125;</div><div class="line">&#125;());</div></pre></td></tr></table></figure>
 
       
     </div>

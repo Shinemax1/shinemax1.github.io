@@ -17,7 +17,7 @@ AO有就用AO，（GO现有，AO后有）
 [[scoped]]
 作用域链，里面有多个AO,GO
 
-12345678910111213141516function a">
+1234567891011121314151617function">
 <meta property="og:type" content="article">
 <meta property="og:title" content="javascript基础学习笔记1">
 <meta property="og:url" content="http://shinemax1.github.io/2018/01/28/jsѧϰ/index.html">
@@ -33,9 +33,9 @@ AO有就用AO，（GO现有，AO后有）
 [[scoped]]
 作用域链，里面有多个AO,GO
 
-12345678910111213141516function a">
+1234567891011121314151617function">
 <meta property="og:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517134757788&di=4955306e38aa75d9a235f9381bdf577b&imgtype=0&src=http%3A%2F%2Fjoymepic.joyme.com%2Farticle%2Fuploads%2F20174%2F191495185184446136.jpeg">
-<meta property="og:updated_time" content="2018-02-11T12:00:35.308Z">
+<meta property="og:updated_time" content="2018-02-11T12:28:32.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript基础学习笔记1">
 <meta name="twitter:description" content="预编译
@@ -49,7 +49,7 @@ AO有就用AO，（GO现有，AO后有）
 [[scoped]]
 作用域链，里面有多个AO,GO
 
-12345678910111213141516function a">
+1234567891011121314151617function">
 <meta name="twitter:image" content="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1517134757788&di=4955306e38aa75d9a235f9381bdf577b&imgtype=0&src=http%3A%2F%2Fjoymepic.joyme.com%2Farticle%2Fuploads%2F20174%2F191495185184446136.jpeg">
   
     <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
@@ -286,7 +286,7 @@ AO有就用AO，（GO现有，AO后有）
 <h3 id="scoped"><a href="#scoped" class="headerlink" title="[[scoped]]"></a>[[scoped]]</h3><ol>
 <li>作用域链，里面有多个AO,GO</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">		c();</div><div class="line">	&#125;</div><div class="line">	b();</div><div class="line">&#125;</div><div class="line">a();</div><div class="line">a:defined [[scoped]] ---- <span class="number">0</span>:GO</div><div class="line">a:doing   [[scoped]] ---- <span class="number">0</span>:aAO , <span class="number">1</span>:GO</div><div class="line">b:defined [[scoped]] ---- <span class="number">0</span>:aAO , <span class="number">1</span>:GO</div><div class="line">b:doing   [[scoped]] ---- <span class="number">0</span>:bAO , <span class="number">1</span>:aAO , <span class="number">2</span>:GO</div><div class="line">c:defined [[scoped]] ---- <span class="number">0</span>:bAO , <span class="number">1</span>:aAO , <span class="number">2</span>:GO</div><div class="line">c:doing   [[scoped]] ---- <span class="number">0</span>:cAO , <span class="number">1</span>:bAO , <span class="number">2</span>:aAO , <span class="number">3</span>:GO</div></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">a</span>(<span class="params"></span>)</span>&#123;</div><div class="line">	<span class="function"><span class="keyword">function</span> <span class="title">b</span>(<span class="params"></span>)</span>&#123;</div><div class="line">		<span class="function"><span class="keyword">function</span> <span class="title">c</span>(<span class="params"></span>)</span>&#123;</div><div class="line"></div><div class="line">		&#125;</div><div class="line">		c();</div><div class="line">	&#125;</div><div class="line">	b();</div><div class="line">&#125;</div><div class="line">a();</div><div class="line">a:defined [[scoped]] ---- <span class="number">0</span>:GO</div><div class="line">a:doing   [[scoped]] ---- <span class="number">0</span>:aAO , <span class="number">1</span>:GO</div><div class="line">b:defined [[scoped]] ---- <span class="number">0</span>:aAO , <span class="number">1</span>:GO</div><div class="line">b:doing   [[scoped]] ---- <span class="number">0</span>:bAO , <span class="number">1</span>:aAO , <span class="number">2</span>:GO</div><div class="line">c:defined [[scoped]] ---- <span class="number">0</span>:bAO , <span class="number">1</span>:aAO , <span class="number">2</span>:GO</div><div class="line">c:doing   [[scoped]] ---- <span class="number">0</span>:cAO , <span class="number">1</span>:bAO , <span class="number">2</span>:aAO , <span class="number">3</span>:GO</div></pre></td></tr></table></figure>
 <h2 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h2><blockquote>
 <p>当内部函数被保存到外部时，将会产生<code>闭包</code>。闭包会导致原有作用域链不释放，造成<code>内存泄露</code>。</p>
 </blockquote>
