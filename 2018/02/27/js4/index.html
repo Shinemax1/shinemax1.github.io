@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>javascript基础学习笔记4 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="查找元素1.getElementById2.getElementsByTagName3.getElementsByClassName4.querySelector5.querySelectorAll
+
+get的方法是动态查询的，后面添加的也能查询。query的方法是静态的，只查找一次，后面的不会在添加。
+元素类型1.元素节点2.属性节点3.文本节点8.注释节点9.document节点10.docu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript基础学习笔记4">
+<meta property="og:url" content="http://shinemax1.github.io/2018/02/27/js4/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="查找元素1.getElementById2.getElementsByTagName3.getElementsByClassName4.querySelector5.querySelectorAll
+
+get的方法是动态查询的，后面添加的也能查询。query的方法是静态的，只查找一次，后面的不会在添加。
+元素类型1.元素节点2.属性节点3.文本节点8.注释节点9.document节点10.docu">
+<meta property="og:updated_time" content="2018-02-27T03:02:54.308Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript基础学习笔记4">
+<meta name="twitter:description" content="查找元素1.getElementById2.getElementsByTagName3.getElementsByClassName4.querySelector5.querySelectorAll
+
+get的方法是动态查询的，后面添加的也能查询。query的方法是静态的，只查找一次，后面的不会在添加。
+元素类型1.元素节点2.属性节点3.文本节点8.注释节点9.document节点10.docu">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/Android/">Android相关</a></li>
+				        
+							<li><a href="/categories/iOS/">iOS相关</a></li>
+				        
+							<li><a href="/categories/web/">前端相关</a></li>
+				        
+							<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+				        
+							<li><a href="/categories/Others/">其它相关</a></li>
+				        
+							<li><a href="/categories/blog/">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/js基础/" style="font-size: 15px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/Android/">Android相关</a></li>
+		        
+					<li><a href="/categories/iOS/">iOS相关</a></li>
+		        
+					<li><a href="/categories/web/">前端相关</a></li>
+		        
+					<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+		        
+					<li><a href="/categories/Others/">其它相关</a></li>
+		        
+					<li><a href="/categories/blog/">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-js4" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/02/27/js4/" class="article-date">
+  	<time datetime="2018-02-27T03:02:40.000Z" itemprop="datePublished">2018-02-27</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      javascript基础学习笔记4
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/web/">web</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="查找元素"><a href="#查找元素" class="headerlink" title="查找元素"></a>查找元素</h2><p>1.getElementById<br>2.getElementsByTagName<br>3.getElementsByClassName<br>4.querySelector<br>5.querySelectorAll</p>
+<blockquote>
+<p>get的方法是动态查询的，后面添加的也能查询。query的方法是静态的，只查找一次，后面的不会在添加。</p>
+<p>元素类型<br>1.元素节点<br>2.属性节点<br>3.文本节点<br>8.注释节点<br>9.document节点<br>10.documentFragment</p>
+<p>查找节点的方法：<br>parentNode：找父节点<br>childNodes：所有子节点（类数组）<br>firstChild：第一个子节点<br>lastChild：最后一个子节点<br>nextSibling：下个兄弟节点<br>previousSibling：上个兄弟节点</p>
+<p>节点的方法<br>nodeName：获取节点名字，只读不能修改<br>nodeValue：只能获取文本节点和注释节点的值，可修改<br>nodeType（最常用）：可以获取节点类型（int）<br>attribute：获取属性节点的数组<br>hasChildNodes：是否有子节点</p>
+<p>DOM结构树<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Document—HTMLDocument（XMLDocument）<br>Node—CharacterData—Text、comment<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Element—HTMLElement—HTMLBodyElement、HTMLHeadElement…<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; Attr</p>
+</blockquote>
+<p><strong>封装函数，对e节点传入一个n值，若为正，则返回后面第nge兄弟元素节点，若为负，返回前面第n个元素节点，若为0则返回自己</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">retSibling</span>(<span class="params">e, n</span>) </span>&#123;</div><div class="line">    <span class="keyword">while</span> (e &amp;&amp; n) &#123;</div><div class="line">        <span class="keyword">if</span> (n &gt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (e.nextElementSibling) &#123;</div><div class="line">                e = e.nextElementSibling;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">//IE8没有nextElementSibling</span></div><div class="line">                <span class="keyword">for</span> (e = e.nextSibling; e &amp;&amp; e.nodeType != <span class="number">1</span>; e = e.nextSibling);</div><div class="line">            &#125;</div><div class="line">            n--;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">if</span> (e.previousElementSibling) &#123;</div><div class="line">                e = e.previousElementSibling;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">for</span> (e = e.previousSibling; e &amp;&amp; e.nodeType != <span class="number">1</span>; e = e.previousSibling);</div><div class="line">            &#125;</div><div class="line">            n++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> e;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h2 id="脚本化css"><a href="#脚本化css" class="headerlink" title="脚本化css"></a>脚本化css</h2><blockquote>
+<p>window.getComputedStyle(elem,null)..获取元素真实能看到的属性，第二个参数是伪元素，只读，返回样式的值经过转换（em会转换为px）<br>ele.currentStyle..在IE8下获取元素属性，只读，返回样式的值不会经过转换</p>
+<p>offsetLeft/offsetRight/offsetWidth/offsetHeight/offsetParent:其顶部是否有定位的元素，有就返回</p>
+</blockquote>
+<h5 id="event"><a href="#event" class="headerlink" title="event"></a>event</h5><p>事件处理模型 冒泡（自底向上）/捕获（自顶向下）（只有chorme实现）<br>捕获：elem.addEventListener(‘click’,function(){},true);<br>先捕获，后冒泡—-谁先绑定，谁先执行</p>
+<p>focus,blus,select,change,reset,submit不冒泡</p>
+<p>取消默认事件 href=”javascript:Void();”<br>Void直接返回里面的参数，也能取消默认事件</p>
+<p>event || window.event(只适用于IE)</p>
+<p><strong>事件源对象</strong><br>1.event.target 火狐浏览器<br>2.event.srcElement IE浏览器<br>3.chorme都有</p>
+<p>div.setCapture():把任何地方获取的事件都触法在div上<br>div.releaseCapture()</p>
+<p>e.button = 2(右键)<br>e.button = 1(左键)</p>
+<p><strong>移动端是touchstart touchmove touchend</strong></p>
+<p><strong>键盘事件</strong><br>keydown keyup keypress<br>keydown&gt;keypress&gt;keyup<br>keydown:可以相应任何按键<br>keypress：只可相应字符按键,返回ascii码，也能转换为字符<br>属性（which是键盘上的位置，charCode是acsii值）</p>
+<p>domtree csstree rendertree（渲染树）<br>window.onload是要等所有的dom css render加载完之后，最后加载</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//封装函数，对e节点传入一个n值，若为正，则返回后面第nge兄弟元素节点，若为负，返回前面第n个元素节点，若为0则返回自己</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">retSibling</span>(<span class="params">e, n</span>) </span>&#123;</div><div class="line">    <span class="keyword">while</span> (e &amp;&amp; n) &#123;</div><div class="line">        <span class="keyword">if</span> (n &gt; <span class="number">0</span>) &#123;</div><div class="line">            <span class="keyword">if</span> (e.nextElementSibling) &#123;</div><div class="line">                e = e.nextElementSibling;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="comment">//IE8没有nextElementSibling</span></div><div class="line">                <span class="keyword">for</span> (e = e.nextSibling; e &amp;&amp; e.nodeType != <span class="number">1</span>; e = e.nextSibling);</div><div class="line">            &#125;</div><div class="line">            n--;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">if</span> (e.previousElementSibling) &#123;</div><div class="line">                e = e.previousElementSibling;</div><div class="line">            &#125; <span class="keyword">else</span> &#123;</div><div class="line">                <span class="keyword">for</span> (e = e.previousSibling; e &amp;&amp; e.nodeType != <span class="number">1</span>; e = e.previousSibling);</div><div class="line">            &#125;</div><div class="line">            n++;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> e;</div><div class="line">&#125;</div><div class="line"><span class="comment">//获取网页滑动距离</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getScrollOffset</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.pageXOffset) &#123;</div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            <span class="attr">x</span>: <span class="built_in">window</span>.pageXOffset,</div><div class="line">            <span class="attr">y</span>: <span class="built_in">window</span>.pageYOffset</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            <span class="attr">x</span>: <span class="built_in">document</span>.body.scrollLeft + <span class="built_in">document</span>.documentElement.scrollLeft,</div><div class="line">            <span class="attr">y</span>: <span class="built_in">document</span>.body.scrollTop + <span class="built_in">document</span>.documentElement.scrollTop</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//获取网页宽高</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getViewportOffset</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">window</span>.innerWidth) &#123;</div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            <span class="attr">x</span>: <span class="built_in">window</span>.innerWidth,</div><div class="line">            <span class="attr">y</span>: <span class="built_in">window</span>.innerHeight</div><div class="line">        &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="comment">//判断是否为怪异模式</span></div><div class="line">        <span class="keyword">if</span> (<span class="built_in">document</span>.compatMode == <span class="string">'backCompat'</span>) &#123;</div><div class="line">            <span class="keyword">return</span> &#123;</div><div class="line">                <span class="attr">x</span>: <span class="built_in">document</span>.body.clientWidth,</div><div class="line">                <span class="attr">y</span>: <span class="built_in">document</span>.body.clientHeight</div><div class="line">            &#125;</div><div class="line">        &#125; <span class="keyword">else</span> &#123;</div><div class="line">            <span class="keyword">return</span> &#123;</div><div class="line">                <span class="attr">x</span>: <span class="built_in">document</span>.documentElement.clientWidth,</div><div class="line">                <span class="attr">y</span>: <span class="built_in">document</span>.documentElement.clientHeight</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//获取样式</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getStyle</span>(<span class="params">elem, prop</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (elem.currentStyle) &#123;</div><div class="line">        <span class="keyword">return</span> elem.currentStyle[prop];</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="built_in">window</span>.getComputedStyle(elem, <span class="literal">null</span>)[prop];</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//给元素添加事件类型的方法</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">addEvent</span>(<span class="params">elem, type, handle</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (elem.addEventListener) &#123;</div><div class="line">        elem.addEventListener(type, handle, <span class="literal">false</span>);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (elem.attachListener) &#123;</div><div class="line">        elem.attachEvent(<span class="string">'on'</span> + type, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            handle.call(elem);</div><div class="line">        &#125;)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        elem[<span class="string">'on'</span> + type] = handle;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//移除元素上的事件</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">removeEvent</span>(<span class="params">elem, type, handle</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (elem.removeEventListener) &#123;</div><div class="line">        elem.removeEventListener(type, handle, <span class="literal">false</span>);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        elem.detachEvent(type, handle);</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//取消冒泡</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">stopBubble</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (event.stopPropagation) &#123;</div><div class="line">        event.stopPropagation();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        event.cancleBubble = <span class="literal">true</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//取消默认事件</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">cancleHandler</span>(<span class="params">event</span>) </span>&#123;</div><div class="line">    <span class="keyword">if</span> (event.prenventDefault) &#123;</div><div class="line">        event.prenventDefault();</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        event.returnValue = <span class="literal">false</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//拖拽方法</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">drag</span>(<span class="params">elem</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> divX, divY;</div><div class="line">    addEvent(elem, <span class="string">'mousedown'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">e</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> event = e || <span class="built_in">window</span>.event;</div><div class="line">        divX = -<span class="built_in">parseInt</span>(elem.offsetLeft) + event.pageX;</div><div class="line">        divY = -<span class="built_in">parseInt</span>(elem.offsetTop) + event.pageY;</div><div class="line">        addEvent(<span class="built_in">document</span>, <span class="string">'mousemove'</span>, mouseMove);</div><div class="line">        addEvent(<span class="built_in">document</span>, <span class="string">'mouseup'</span>, mouseUp);</div><div class="line">        stopBubble(event);</div><div class="line">        cancleHandler(event);</div><div class="line">    &#125;);</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">mouseMove</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> event = e || <span class="built_in">window</span>.event;</div><div class="line">        elem.style.left = event.pageX - divX + <span class="string">'px'</span>;</div><div class="line">        elem.style.top = event.pageY - divY + <span class="string">'px'</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="function"><span class="keyword">function</span> <span class="title">mouseUp</span>(<span class="params">e</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> event = e || <span class="built_in">window</span>.event;</div><div class="line">        removeEvent(<span class="built_in">document</span>, <span class="string">'mousemove'</span>, mouseMove);</div><div class="line">        removeEvent(<span class="built_in">document</span>, <span class="string">'mouseup'</span>, mouseUp);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/02/22/html+css基础要点/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">html+css</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'Shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
