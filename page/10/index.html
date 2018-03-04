@@ -120,7 +120,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/js基础/" style="font-size: 15px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.67px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 15px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 18.33px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.67px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 13.33px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 16.67px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.67px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 15px;">Tools</a> <a href="/tags/Transition/" style="font-size: 13.33px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/js基础/" style="font-size: 16.67px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -199,6 +199,118 @@
 </nav>
 
       <div class="body-wrap">
+  
+    <article id="post-nshashtable-and-nsmaptable" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2015/04/26/nshashtable-and-nsmaptable/" class="article-date">
+  	<time datetime="2015-04-26T00:53:43.000Z" itemprop="datePublished">2015-04-26</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2015/04/26/nshashtable-and-nsmaptable/">NSHashtable和NSMaptable</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>说明</strong></p>
+<p>本文转自《<a href="http://www.cocoachina.com/industry/20140605/8683.html" target="_blank" rel="external">NSHashtable and NSMaptable</a>》，其原作者是<a href="http://nshipster.com/nshashtable-and-nsmaptable/" target="_blank" rel="external">Mattt Thompson</a>，该大神是AFNetworking的作者。作者简单介绍了一下iOS开发中相对于NSDictionary和NSSet来说，不常被人使用NSHashTable和NSMapTable的相关知识。</p>
+<blockquote>
+<p>P.S: 笔者关注《<a href="http://www.cocoachina.com/industry/20140605/8683.html" target="_blank" rel="external">NSHashtable and NSMaptable</a>》这篇博客的原因是因为以前遇到「如何实现NSNotificationCenter」这样的问题，我意识到实现NSNotificationCenter的关键在于找到一个能够支持弱指针的容器，而NSHashTable和NSMaptable恰好是这样的容器。</p>
+</blockquote>
+<p>NSSet，NSDictionary，NSArray是Foundation框架关于集合操作的常用类，和<a href="http://en.wikipedia.org/wiki/Java_collections_framework" target="_blank" rel="external">其他标准的集合操作库</a>不同，他们的实现方法对开发者进行<a href="http://ridiculousfish.com/blog/posts/array.html" target="_blank" rel="external">隐藏</a>，只允许开发者写一些简单的代码，让他们相信这些代码有理由正常的工作。</p>
+<p>然而这样的话最好的代码抽象风格就会被打破，苹果的本意也被曲解了。在这种情况下，开发者寻求更好的抽象方式来使用集合，或者说寻找一种更通用的方式。</p>
+<p>对于NSSet和NSDictionary，打破代码抽象风格的是他们在内存中存取object的方式。在NSSet中，objects是被强引用的（strongly referenced），同样NSDictionary中的keys和values也会被NSDictionary复制。如果一个开发者想要存储一个weak类型的值或者使用一个没有实现NSCopying协议的object作为NSDictionary的key，他可能会很聪明的想到<a href="http://nshipster.com/nsvalue/" target="_blank" rel="external">NSValue+valueWithNonretainedObject</a>。 iOS6和OSX 10.5以后，可以分别使用和NSSet，NSDictionary地位相同的NSHashTable，NSMapTable。</p>
+<p>这两个类在Foundation的collection中不常用到，为了避免你慌乱无措，下面将介绍这两个类的用法。</p>
+<h2 id="NSHashTable"><a href="#NSHashTable" class="headerlink" title="NSHashTable"></a>NSHashTable</h2><p>NSHashTable是更广泛意义的NSSet，区别于NSSet/NSMutableSet，NSHashTable有如下特性：</p>
+<ul>
+<li>NSHashTable是可变的；</li>
+<li>NSHashTable可以持有weak类型的成员变量；</li>
+<li>NSHashTable可以在添加成员变量的时候复制成员；</li>
+<li>NSHashTable可以随意的存储指针并且利用指针的唯一性来进行hash同一性检查（检查成员变量是否有重复）和对比操作（equal）；</li>
+</ul>
+<p>用法如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">NSHashTable</span> *hashTable = [<span class="built_in">NSHashTable</span> hashTableWithOptions:<span class="built_in">NSPointerFunctionsCopyIn</span>];</div><div class="line">[hashTable addObject:<span class="string">@"foo"</span>];</div><div class="line">[hashTable addObject:<span class="string">@"bar"</span>]; </div><div class="line">[hashTable addObject:@<span class="number">42</span>];</div><div class="line">[hashTable removeObject:<span class="string">@"bar"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"Members: %@"</span>, [hashTable allObjects]);</div></pre></td></tr></table></figure>
+<p>NSHashTable是根据一个option参数来进行初始化的，因为从OSX平台上移植到iOS平台上，原来OSX平台上使用的枚举类型被放弃了，从而用option来代替，命名也发生了一些变化：</p>
+<ul>
+<li>NSHashTableStrongMemory</li>
+</ul>
+<p>等同于NSPointerFunctionsStrongMemory。对成员变量进行强引用，这是一个默认值，如果采用这个默认值，NSHashTable和NSSet就没什么区别了。</p>
+<ul>
+<li>NSHashTableWeakMemory</li>
+</ul>
+<p>等同于NSPointerFunctionsWeakMemory。对成员变量进行弱引用，使用NSPointerFunctionsWeakMemory，object引用在最后释放的时候会被指向NULL。</p>
+<ul>
+<li>NSHashTableZeroingWeakMemory</li>
+</ul>
+<p>已被抛弃，使用NSHashTableWeakMemory代替。</p>
+<ul>
+<li>NSHashTableCopyIn</li>
+</ul>
+<p>在对象被加入集合之前进行复制（<a href="https://developer.apple.com/library/ios/documentation/Cocoa/Reference/Foundation/Classes/NSPointerFunctions_Class/index.html#//apple_ref/occ/instp/NSPointerFunctions/acquireFunction" target="_blank" rel="external">NSPointerFunction-acquireFunction</a>），等同于NSPointerFunctionsCopyIn。</p>
+<ul>
+<li>NSHashTableObjectPointerPersonality</li>
+</ul>
+<p>用指针来等同代替实际的值，当打印这个指针的时候相当于调用description方法。和NSPointerFunctionsObjectPointerPersonality等同。</p>
+<h2 id="NSMapTable"><a href="#NSMapTable" class="headerlink" title="NSMapTable"></a>NSMapTable</h2><p>NSMapTable是对更广泛意义的NSDictionary。和NSDictionary/NSMutableDictionary相比具有如下特性：</p>
+<ul>
+<li>NSDictionary/NSMutableDictionary会复制keys并且通过强引用values来实现存储；</li>
+<li>NSMapTable是可变的；</li>
+<li>NSMapTable可以通过弱引用来持有keys和values，所以当key或者value被deallocated的时候，所存储的实体也会被移除；</li>
+<li>NSMapTable可以在添加value的时候对value进行复制；</li>
+</ul>
+<p>和NSHashTable类似，NSMapTable可以随意的存储指针，并且利用指针的唯一性来进行对比和重复检查。</p>
+<p>用法：假设用NSMapTable来存储不用被复制的keys和被若引用的value，这里的value就是某个delegate或者一种弱类型。</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">id</span> delegate = ...;</div><div class="line"><span class="built_in">NSMapTable</span> *mapTable = [<span class="built_in">NSMapTable</span> mapTableWithKeyOptions:<span class="built_in">NSMapTableStrongMemory</span></div><div class="line">                                             valueOptions:<span class="built_in">NSMapTableWeakMemory</span>];</div><div class="line">[mapTable setObject:delegate forKey:<span class="string">@"foo"</span>];</div><div class="line"><span class="built_in">NSLog</span>(<span class="string">@"Keys: %@"</span>, [[mapTable keyEnumerator] allObjects]);</div></pre></td></tr></table></figure>
+<p>看完上面几个小例子后，你可能会想 “为什么不使用object subscripting呢?”。一些激进的NSHipster估计已经开始动手写NSMapTable的subscripting category了。</p>
+<p><strong>那么为什么NSMapTable不能继承subscripting？</strong></p>
+<p>来看看下面的代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">- (<span class="keyword">id</span>)objectForKeyedSubscript:(<span class="keyword">id</span> &lt;<span class="built_in">NSCopying</span>&gt;)key;</div><div class="line">- (<span class="keyword">void</span>)setObject:(<span class="keyword">id</span>)obj forKeyedSubscript:(<span class="keyword">id</span> &lt;<span class="built_in">NSCopying</span>&gt;)key;</div></pre></td></tr></table></figure>
+<p><strong>注意：参数key是类型的</strong>。这对NSDictionary NSMutableDictionary来讲是非常有用的，但是我们不能臆断对NSMapTable也同样适用。我们陷入一个僵局：通过id，我们不能利用NSMapTable实现subscripting。如果object subscripting的代理方法放弃了约束，那么使用NSMutableDictionary -setObject:forKeyedSubscript:的时候编译将得不到想要的结果。</p>
+<p>所以说实话，对比NSMapTable所处的位置，句法的方便和快捷并不是大数人所关注的。</p>
+<p>通常，记住编程不是为了让人更聪明，而是最大化抽象一个问题的能力。NSSet和NSDictionary是非常伟大的类，他们能解决99%的问题，也无疑是用来工作的正确工具。如果，然而你的问题牵扯到上述的内存问题时候，NSHashTable和NSMapTable是值得一看的。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
   
     <article id="post-thread-basics-in-ios" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -811,190 +923,6 @@
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/iOS/">iOS</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-http" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/04/04/http/" class="article-date">
-  	<time datetime="2015-04-04T07:57:35.000Z" itemprop="datePublished">2015-04-04</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/04/http/">HTTP学习笔记</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="写在前面"><a href="#写在前面" class="headerlink" title="写在前面"></a>写在前面</h2><p>对于程序员而言，HTTP协议是一个非常熟悉的名词。每个人或多或少都对此有所了解。知道它是Web设计、客户端开发等的基础协议。通过它可以让服务器和客户端进行XML、JSON甚至是二进制数据的传输。笔者近期在对之前的程序（iOS项目）的梳理过程中，发现对HTTP协议的了解程度还远远谈不上熟悉，更多的时候是能够凭借网络资源找到某种问题的解决方案，譬如图片的上传与下载，多个文件的上传与下载等等之类的。但是很难从原理层面对这些或有用或无用的信息进行甄别，更谈不上完全独立针对某个网络问题进行合理的程序设计。于是，决定对HTTP相关知识进行一次梳理。</p>
-<p>本文的内容只是站在自身的角度，将那些不是特别明白但是可能会经常涉及的知识点进行整理。关于HTTP的更多内容还得看<a href="http://www.ietf.org/rfc/rfc2616.txt" target="_blank" rel="external">RFC2616文档</a>。</p>
-<p>说明：本文会经常出现「客户端」「服务器」「发送端」「接收端」这些概念；就本文而言，「服务端」指的是管理HTTP资源的端点，「客户端」指的是请求HTTP资源的端点；而「发送端」和「接收端」是相对的，譬如客户端发送一个GET请求到服务器，则针对这条消息，客户端是发送端，服务器是接收端；然后服务器返回一个消息给客户端，针对这条响应消息，服务器是发送端，客户端是接收端。</p>
-<h2 id="HTTP协议须知"><a href="#HTTP协议须知" class="headerlink" title="HTTP协议须知"></a>HTTP协议须知</h2><p>HTTP，即所谓的超文本传输协议，全称叫<strong>HyperText Transfer Protocol</strong>，是一个客户端和服务端请求和应答的标准（TCP）：</p>
-<ul>
-<li>HTTP是应用层的协议</li>
-<li>HTTP协议是建立在TCP协议之上的协议，后者是传输层的协议</li>
-</ul>
-<h2 id="HTTP消息概述"><a href="#HTTP消息概述" class="headerlink" title="HTTP消息概述"></a>HTTP消息概述</h2><p>HTTP消息，顾名思义，指的是遵循HTTP协议，客户端和服务端的交流语言（笔者的一家之言，注意，在HTTP协议中，客户端和服务端是相对的，称<strong>请求端</strong>和<strong>应答端</strong>或许更好）。</p>
-<p>从方向或应答角度来看，HTTP消息有两种：<strong>请求消息（Request）</strong>、<strong>响应消息（Response）</strong>；</p>
-<p>HTTP协议定义了HTTP消息的格式，请求消息和响应消息都由1个开始行（start-line）、0个或多个消息头（headers）、可有可无的消息主体（message-body）组成。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">generic-message =</div><div class="line">    start-line                 ; 开始行</div><div class="line">    *(message-header CRLF)     ; 消息头</div><div class="line">    CRLF</div><div class="line">    [message-body]             ; 消息主体</div><div class="line">    </div><div class="line">;  其中CRLF表示“结束符”</div><div class="line">;  *表示“0个或多个“”</div><div class="line">;  []表示“可有可无”</div></pre></td></tr></table></figure>
-<p>下面将围绕<strong>开始行</strong>、<strong>消息头</strong>、<strong>消息主体</strong>这几个概念进行详细阐述。</p>
-<h3 id="开始行"><a href="#开始行" class="headerlink" title="开始行"></a>开始行</h3><p>首先是<strong>开始行</strong>，开始行是什么样的格式？这可不一定，因为对于不同的消息类型（请求消息和响应消息），开始行的格式是不同的：</p>
-<ul>
-<li>对于请求消息，<strong>start-line</strong>是Request-Line（请求行），请求行的格式后文会介绍；</li>
-<li>对于响应消息，<strong>start-line</strong>是Status-Line（状态行），状态行的格式后文会介绍；</li>
-</ul>
-<h3 id="消息头"><a href="#消息头" class="headerlink" title="消息头"></a>消息头</h3><p>然后是<strong>消息头</strong>，根据作用域来分，消息头分为：常用头（general-header）、请求头（request-header）、响应头（response-header）、实体头（entity-header）。无论如何，它们的格式总是这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">message-header = field-name &quot;:&quot; [field-value]</div></pre></td></tr></table></figure>
-<p>其中<code>field-name</code>对大小写不敏感。</p>
-<h3 id="消息主体"><a href="#消息主体" class="headerlink" title="消息主体"></a>消息主体</h3><p>接着是<strong>消息主体</strong>，RFC2616中讲：</p>
-<blockquote>
-<p>The message-body (if any) of an HTTP message is used to carry the entity-body associated with the request or response.</p>
-</blockquote>
-<p>如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">message-body = entity-body | &lt;entity-body encoded as per Transfer-Encoding&gt;</div></pre></td></tr></table></figure>
-<p>这是什么意思呢？</p>
-<p>HTTP协议中有两个概念非常容易混淆，消息主体（message-body）和实体主体（entity-body）：</p>
-<ul>
-<li>entity-body可以被理解为客户端想让服务端看到的内容</li>
-<li>message-body指的是服务端接收到的（来自于客户端）实际内容</li>
-</ul>
-<p>二者的区别在于传输过程中可能会对entity-body进行编码；</p>
-<p>并非任何<strong>请求消息</strong>或者<strong>响应消息</strong>都可以有<strong>消息主体</strong>这一部分内容。<strong>消息主体</strong>可否存在于某个消息中由<strong>请求类型</strong>和<strong>响应类型</strong>决定的。</p>
-<p>P.S: 或许其他资料没有「请求类型」「响应类型」这种说法，不同的<strong>请求类型</strong>在本文的意思是指不同方法的请求，譬如我们熟悉的GET请求、POST请求等；同样，不同的<strong>响应类型</strong>指不同状态码的请求，譬如404响应、403响应、200响应等；</p>
-<p><strong>Note:</strong> 对于请求消息，某些情况是不允许包含消息主体的，譬如HEAD请求；对于服务端而言，在处理不允许包含消息主体的请求消息时，应该忽略不理会这些消息的消息主体，哪怕这些消息包含了消息主体。但对于某些允许包含消息主体的请求消息，也可以不包含消息主体，譬如对于POST请求消息，本身是被允许包含消息主体的，但真正发送请求消息时，也可以不包含任何的消息主体。</p>
-<p>那么问题来了，服务器如何识别某个可能包含消息主体的请求消息是否真的包含消息主体呢？</p>
-<p>根据RFC2616的描述，服务器可以通过两个message-header来判别某个请求消息中是否包含请求主体，这两个message-header分别是Content-Length和Transfer-Encoding，前者记录entity-body的长度，后者记录对entity-body的编码标准。</p>
-<p>更细化来看，客户端或者服务器的处理逻辑消息主体的逻辑如下：</p>
-<ol>
-<li>对于不能包含消息主体的消息（譬如HEAD请求消息、1xx响应消息），完全忽略消息主体，当它不存在；</li>
-<li>如果消息中出现「Transfer-Encoding」头，并且其值不是「identity」时：then the transfer-length is defined by use of the “chunked” transfer-coding (section 3.6), unless the message is terminated by closing the connection.<br>P.S: 不太理解这一句，但感觉的意思是，如果所接收到的消息中包含「Transfer-Encoding」头且其值不是「identity」，则计算所接收到消息主体并处理之；</li>
-<li>如果消息中出现「Content-Length」头，则认为所接收到的消息主体的长度为Content-Length的值，并且该值也是entity-body的值（即认为entity-body没有进行特别的传输编码）；<br>P.S: 如果entity-body进行了特别的传输编码，千万不要定义「Content-Length」这个header，因为这会让服务器造成误解；<br>P.S: 如果消息中同时包含「Transfer-Encoding」头和「Content-Length」头，则后者会被忽略不处理；</li>
-<li>If the message uses the media type “multipart/byteranges”, and the transfer-length is not otherwise specified, then this self-delimiting media type defines the transfer-length. This media type MUST NOT be used unless the sender knows that the recipient can parse it; the presence in a request of a Range header with multiple byte-range specifiers from a 1.1 client implies that the client can parse multipart/byteranges responses<br>P.S: 看不懂！</li>
-</ol>
-<h2 id="请求消息"><a href="#请求消息" class="headerlink" title="请求消息"></a>请求消息</h2><h3 id="请求行"><a href="#请求行" class="headerlink" title="请求行"></a>请求行</h3><p>正如前文所述，对于请求消息，<strong>开始行</strong>被称为<strong>请求行</strong>，其格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">Request-Line = Method SP Request-URL SP HTTP-Version CRLF</div><div class="line">;  </div><div class="line">;  SP表示“分隔符”</div><div class="line">;  CRLF表示“结束符”</div></pre></td></tr></table></figure>
-<p>其中，Method包括：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">Method = &quot;OPTIONS&quot;</div><div class="line">         | &quot;GET&quot;</div><div class="line">         | &quot;HEAD&quot;</div><div class="line">         | &quot;POST&quot;</div><div class="line">         | &quot;PUT&quot;</div><div class="line">         | &quot;DELETE&quot;</div><div class="line">         | &quot;TRACE&quot;</div><div class="line">         | &quot;CONNECT&quot;</div><div class="line">         | extension-method</div></pre></td></tr></table></figure></p>
-<p>关于Method这部分内容，相对比较熟悉，直接摘抄RFC2616：</p>
-<blockquote>
-<p>The list of methods allowed by a resource can be specified in an Allow header field (section 14.7). The return code of the response always notifies the client whether a method is currently allowed on a resource, since the set of allowed methods can change dynamically.<br>&nbsp;<br>An origin server SHOULD return the status code 405 (Method Not Allowed) if the method is known by the origin server but not allowed for the requested resource, and 501 (Not Implemented) if the method is unrecognized or not implemented by the origin server.<br>&nbsp;<br>The methods GET and HEAD MUST be supported by all general-purpose servers. All other methods are OPTIONAL;</p>
-</blockquote>
-<h2 id="响应消息"><a href="#响应消息" class="headerlink" title="响应消息"></a>响应消息</h2><h3 id="状态行"><a href="#状态行" class="headerlink" title="状态行"></a>状态行</h3><p>正如前文所述，对于响应消息，<strong>开始行</strong>被称为<strong>状态行</strong>，其格式如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Status-Line = HTTP-Version SP Status-Code SP Reason-Phrase CRLF</div><div class="line">;  </div><div class="line">;  SP表示“分隔符”</div><div class="line">;  CRLF表示“结束符”</div><div class="line">;  Status-Code表示“状态码”，譬如经典的404</div><div class="line">;  Reason-Phrase表示“状态码的简单文字描述”</div></pre></td></tr></table></figure>
-<h3 id="状态码"><a href="#状态码" class="headerlink" title="状态码"></a>状态码</h3><p>状态码都是三位数，第一位数（最高位）定义响应类别，第一位有5种值：</p>
-<ul>
-<li>1xx: Informational - Request received, continuing process</li>
-<li>2xx: Success - The action was successfully received, understood, and accepted</li>
-<li>3xx: Redirection - Further action must be taken in order to complete the request</li>
-<li>4xx: Client Error - The request contains bad syntax or cannot be fulfilled</li>
-<li>5xx: Server Error - The server failed to fulfill an apparently valid request</li>
-</ul>
-<h2 id="实体（entity）"><a href="#实体（entity）" class="headerlink" title="实体（entity）"></a>实体（entity）</h2><p>如果不被请求方法和响应状态码限制，<strong>请求消息</strong>和<strong>响应消息</strong>都可以传输entity。实体包括<strong>实体头</strong>（entity-header）和<strong>实体主体</strong>（entity-body），有些响应只包括实体头（譬如针对HEAD请求的响应）。</p>
-<h3 id="实体类型"><a href="#实体类型" class="headerlink" title="实体类型"></a>实体类型</h3><p>实体可能是一个文件，也可能是一段文本，所以必然有一个重要的<strong>属性</strong>用来描述<strong>实体类型</strong>，这个<strong>属性</strong>是<strong>实体头</strong>Content-Type，实体类型比较繁多，譬如.png文件对应的实体类型是<code>image/png</code>，更多Content-Type参考<a href="http://tool.oschina.net/commons" target="_blank" rel="external">这里</a>。</p>
-<h2 id="POST、GET、HEAD等方法"><a href="#POST、GET、HEAD等方法" class="headerlink" title="POST、GET、HEAD等方法"></a>POST、GET、HEAD等方法</h2><p>RFC2616对请求消息的方法进行了分类：<strong>安全方法</strong>（Safe Methods）和<strong>幂等方法</strong>（Idempotent Mehtods）。</p>
-<p>要理解<strong>安全方法</strong>，先介绍一个概念：副作用，<strong>副作用</strong>指当你发送完一个请求以后，网站上的资源状态没有发生修改，即认为这个请求是无副作用的。比如注册用户这个请求是有副作用的，获取用户详情可以认为是无副作用的。</p>
-<p>对于<strong>幂等方法</strong>，<strong>幂等</strong>是说一个请求原封不动的发送N次和M次（N不等于M，N和M都大于1）服务器上资源的状态最终是一致的。比如发贴是非幂等的，重放10次发贴请求会创建10个帖子。但修改帖子内容是幂等的，一个修改请求重放无论多少次，帖子最终状态都是一致的。</p>
-<p><strong>请求消息</strong>的方法众多，有些的方法只是读取服务器的资源，有的方法可能会修改服务器的资源。GET和HEAD属于前者，它们只是获取资源，这些方法被称为<strong>安全方法</strong>；POST、PUT、DELETE属于后者，它们可能使服务器的资源发生变化，这些方法被称为<strong>幂等方法</strong>。</p>
-<p>P.S: 根据我的理解，所谓的<strong>安全方法</strong>和<strong>幂等方法</strong>只是一种臆想，不是绝对的。举个例子，服务器有某篇文章，现在浏览器通过GET方法获取这篇文章，当然，客户端并没有修改这篇文章，但是，服务器可能做了这样的处理：将这篇文章的浏览次数+1；客观来讲，这个GET方法还是修改了服务器的资源；所以，知道<strong>安全方法</strong>和<strong>幂等方法</strong>这两个概念就好，不必当真。</p>
-<h3 id="GET方法"><a href="#GET方法" class="headerlink" title="GET方法"></a>GET方法</h3><p>GET方法的意思是获取被请求URI（Request-URI）指定的信息（以实体的格式）。如果请求URI 涉及到一个数据生成过程，那么这个过程生成的数据应该被作为实体在响应中返回而不是过程的源文本，除非源文本恰好是过程的输出。</p>
-<p>如果请求消息包含If-Modified-Since、If-Unmodified-Since、If-Match、If-None-Match或者If-Range头，GET的语义将变成<strong>条件（conditionall）GET</strong>。一个条件GET方法会请求满足条件头域的实体。条件GET方法的目的是为了减少不必要的网络使用，这通过允许利用缓存里仍然保鲜的实体而不用多次请求或传输客户端已经拥有的实体来实现的。</p>
-<p>如果请求方法包含一个Range头域，那么GET方法就变成“部分Get”（partial GET）方法。 一个部分GET会请求实体的一部分。部分GET方法的目的是为了减少不必要的网络使用，可以允许客户端从服务器获取实体的部分数据，而不需要获取客户端本地已经拥有的部分实体数据。</p>
-<p>P.S: 关键词 – <strong>条件GET</strong>和<strong>部分GET</strong>。</p>
-<h3 id="HEAD方法"><a href="#HEAD方法" class="headerlink" title="HEAD方法"></a>HEAD方法</h3><p>除了服务器不能在响应里返回消息主体，HEAD方法和GET方法基本一致。HEAD请求的「响应消息」里的「消息头」应该和GET请求的「响应消息」里的「消息头」一致。此方法被用来获取请求实体的元信息而不需要传输实体主体（entity-body）。此方法经常被用来测试超文本链接的有效性、可访问性以及最近的改变等，对于涉及下载的服务，HEAD方法还用来获取「欲下载文件的大小」。</p>
-<h3 id="POST方法"><a href="#POST方法" class="headerlink" title="POST方法"></a>POST方法</h3><p>在实际应用中，GET和POST是用得最多的。相对于GET方法，POST方法在Request-URI所标识的资源后附加新的数据，而GET方法直接将数据放在URI中；此外，POST还可以携带「消息主体」，而GET不成。</p>
-<p>简而言之：</p>
-<ul>
-<li>GET：安全方法，幂等方法，不可包含消息主体</li>
-<li>POST：非安全方法」，非幂等方法，可包含消息主体</li>
-</ul>
-<p>P.S: 更正（2015-08-15），貌似「GET方法不可包含消息主体」的说法不靠谱！</p>
-<h3 id="PUT方法"><a href="#PUT方法" class="headerlink" title="PUT方法"></a>PUT方法</h3><p>PUT方法请求服务器去把请求里的实体存储在请求URI（Request-URI）标识下。如果请求 URI（Request-URI）指定的的资源已经在源服务器上存在，那么此请求里的实体应该被当作是源服务器关于此URI所指定资源实体的最新修改版本。如果请求URI（Request-URI）指定的资源不存在，并且此URI被用户代理定义为一个新资源，那么源服务器就应该根据请求里的实体创建一个此URI所标识下的资源。如果一个新的资源被创建了，源服务器必须能向用户代理（user agent）发送201（已创建）响应。如果已存在的资源被改变了，那么源服务器应该发送200（Ok）或者204（无内容）响应。如果资源不能根据请求URI创建或者改变，一个合适的错误响应应该给出以反应问题的性质。实体的接收者不能忽略任何它不理解和不能实现的Content-*（如：Content-Range）头，并且必须返回501（没有被实现）响应。</p>
-<p>P.S: 其他方法略过，很少用到。</p>
-<div class="imagediv" style="width: 394px; height: 148px"></div>
-
-<h2 id="HTTP和MIME"><a href="#HTTP和MIME" class="headerlink" title="HTTP和MIME"></a>HTTP和MIME</h2><p>最开始HTTP协议是不允许在「消息实体」中挂载二进制文件的，后来逐渐扩展，开始支持MIME协议，这才允许在消息实体中挂载二进制文件，譬如音频、图片等。所以「实体头」Content-Type的很多值MIME-Type中所定义的值。</p>
-<h3 id="multipleForm-form-data消息"><a href="#multipleForm-form-data消息" class="headerlink" title="multipleForm/form-data消息"></a>multipleForm/form-data消息</h3><p>经过不断的演化，HTTP协议借鉴并包容了MIME协议，使得HTTP协议能够服务器和客户端之间传输各种文件（文本文件譬如txt文件、二进制文件譬如png文件），具体的处理方式是将这些文件放在<strong>消息主体</strong>中，关于这个上文已有所述。</p>
-<p>但是有一个问题：<strong>消息主体中能够承载多个实体（entity）吗</strong>？换句话说，<strong>如果一次HTTP交互涉及多个文件的传输，该如何处理</strong>？</p>
-<p>如果只是基于上文所涉及的内容，是没办法做到在一次HTTP消息传输中传输多个文件的。而实现多个文件的传输就得涉及所谓的<code>multipleForm/form-data</code>消息了。</p>
-<p>根据HTTP/1.1 RFC2616的协议规定，我们的请求方式只有OPTIONS、GET、HEAD、POST、PUT、DELETE、TRACE等，<code>multipart/form-data</code>是个什么东东呢？</p>
-<p>对于<code>multipart/form-data</code>，似乎没有找到权威的定义，RFC2616对于它的描述只是出现在<strong>Media Type部分</strong>。根据我的理解，姑且认为<code>multipart/form-data</code>是一种类型的消息主体。</p>
-<p>传输<code>multipart/form-data</code>消息主体的基础方法是POST；简单来说，当需要在一次<strong>请求消息</strong>中传输多个文件时，就将着多个文件揉成一个<code>multipart/form-data</code>消息主体，然后以POST形式传到服务器。</p>
-<p><code>multipart/form-data</code>消息有啥不同之处呢？</p>
-<p>首先是Content-Type不同，其他的HTTP消息的Content-Type可能是<code>image/png</code>、<code>text/plain</code>之类的，但是<code>multipart/form-data</code>消息的Content-Type必须是<code>multipart/form-data</code>。</p>
-<p>其次是<code>multipart/form-data</code>的消息主体内嵌了一个或多个其他的消息主体。</p>
-<p>举个例子，假设有这么一段HTML代码：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">FORM</span> <span class="attr">ACTION</span>=<span class="string">"http://server.dom/cgi/handle"</span> <span class="attr">ENCTYPE</span>=<span class="string">"multipart/form-data"</span> <span class="attr">METHOD</span>=<span class="string">POST</span>&gt;</span></div><div class="line">    What is your name? <span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">TEXT</span> <span class="attr">NAME</span>=<span class="string">submitter</span>&gt;</span><span class="tag">&lt;<span class="name">br</span> /&gt;</span></div><div class="line">    What files are you sending? <span class="tag">&lt;<span class="name">INPUT</span> <span class="attr">TYPE</span>=<span class="string">FILE</span> <span class="attr">NAME</span>=<span class="string">pics</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">FORM</span>&gt;</span></div></pre></td></tr></table></figure>
-<p>对应的网页如下：</p>
-<div class="imagediv" style="width: 330px; height: 100px"></div>
-
-<p>当用户在姓名输入框中输入「张不坏」，并且选择了一个txt文档file1.txt时，客户端发送的HTTP消息体数据可能如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">Content-type: multipart/form-data, boundary=AaB03x</div><div class="line">    </div><div class="line">--AaB03x</div><div class="line">content-disposition: form-data; name=&quot;field1&quot;</div><div class="line">    </div><div class="line">张不坏</div><div class="line">--AaB03x</div><div class="line">content-disposition: form-data; name=&quot;pics&quot;; filename=&quot;file1.txt&quot;</div><div class="line">Content-Type: text/plain</div><div class="line">  ... contents of file1.txt ...</div><div class="line">--AaB03x--</div></pre></td></tr></table></figure>
-<p>可以看到，这个示例中涉及两个entity的传输：</p>
-<ul>
-<li>Content-Type为默认值的文本框输入值</li>
-<li>Content-Type为<code>text/plain</code>的纯文本文件</li>
-</ul>
-<p>P.S: 这里若可以用HTTP协议分析工具分析一下最好了。</p>
-<p>关于<code>multipart/form-data</code>消息体，还往往涉及boundary之类的更多概念，本文就不针对这个详述了。</p>
-<p>还会经常有一种<code>Content-Type</code>值为<code>multipart/mixed</code>，笔者一度在<code>multipart/form-data</code>和<code>multipart/mixed</code>之间傻傻分不清楚。对于上述示例中“What files are you sending?”之后的文件选择按钮，当选择多个文件时（譬如keynote文件，事实上这个“文件是一个文件包”，它由多个文件组成），则该entity对应的Content-Type是<code>multipart/mixed</code>，表示该form entry对应多个文件，RFC1867的描述如下：</p>
-<blockquote>
-<p>If multiple files are to be returned as the result of a single form<br>entry, they can be returned as multipart/mixed embedded within the multipart/form-data.</p>
-</blockquote>
-<p>但无论如何，<code>multipart/mixed</code>消息体都是嵌套在<code>multipart/form-data</code>内部的子消息体。</p>
-<p>P.S: <code>multipleForm/form-data</code>消息这一部分内容的叙述不够详细，有时间还是使用HTTP报文分析工具进行更加详细的分析吧。</p>
-<h2 id="一些常见问题"><a href="#一些常见问题" class="headerlink" title="一些常见问题"></a>一些常见问题</h2><p>上文是对HTTP协议的基本描述，这一部分列举一些常见Q/A，结合Q/A，会对HTTP协议有更深刻的理解。</p>
-<p>Q: POST方法一般将参数放在消息体中，那么其Content-Type是什么？<br>A: 初步判断，一般是<code>application/json</code>。</p>
-<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ol>
-<li>HTTP协议RFC2616文档（能够找到中文翻译版，我参考的是“孙超进”翻译版本，感谢他的贡献，但感觉翻译得不是很好）；</li>
-<li>RFC2046，MIME协议part2，定义了Media Types；</li>
-<li>RFC1867，Form-based File Upload in HTML；</li>
-<li>《<a href="http://blog.csdn.net/five3/article/details/7181521" target="_blank" rel="external">HTTP协议之multipart/form-data请求分析</a>》；</li>
-</ol>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/HTTP/">HTTP</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/Others/">Others</a>
 	</div>
 
 
