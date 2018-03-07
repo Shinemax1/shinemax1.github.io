@@ -4,6 +4,50 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2018/03/07/let%E3%80%81const/</loc>
+    <lastmod>2018-03-07T15:52:36.500Z</lastmod>
+    <data>
+        <display>
+        <title>let、const</title>
+        <pubTime>2018-03-07T15:47:40.000Z</pubTime>
+        
+        <tag>js基础</tag>
+         
+        <tag>es6</tag>
+         
+         
+           
+             
+              <breadCrumb title="web" url="http://shinemax1.github.io/categories/web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2018/03/07/es6/</loc>
+    <lastmod>2018-03-07T15:40:37.272Z</lastmod>
+    <data>
+        <display>
+        <title>es6前要</title>
+        <pubTime>2018-03-07T15:39:40.000Z</pubTime>
+        
+        <tag>js基础</tag>
+         
+        <tag>es6</tag>
+         
+         
+           
+             
+              <breadCrumb title="web" url="http://shinemax1.github.io/categories/web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2018/03/04/ajax/</loc>
     <lastmod>2018-03-05T09:12:10.163Z</lastmod>
     <data>
@@ -287,54 +331,16 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/17/thread-basics-in-ios/</loc>
+    <loc>http://shinemax1.github.io/2015/04/26/understanding-objective-c-runtime-part-1/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>iOS Thread基础知识</title>
-        <pubTime>2015-04-17T12:37:32.000Z</pubTime>
+        <title>理解Objective-C Runtime（一）预备知识</title>
+        <pubTime>2015-04-26T12:07:37.000Z</pubTime>
         
-        <tag>GCD</tag>
+        <tag>Objective-C</tag>
          
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2015/06/22/ibinspectable-and-ibdesignable/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>IBInspectable和IBDesignable</title>
-        <pubTime>2015-06-22T02:50:45.000Z</pubTime>
-        
-        <tag>Xcode</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2015/10/11/good-resources-about-ios/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>iOS好资源</title>
-        <pubTime>2015-10-11T12:43:39.000Z</pubTime>
-        
-        <tag>Resources</tag>
+        <tag>Runtime</tag>
          
          
            
@@ -407,21 +413,19 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/12/06/git-branching-and-remoting/</loc>
+    <loc>http://shinemax1.github.io/2015/06/22/ibinspectable-and-ibdesignable/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>Git分支与远程操作</title>
-        <pubTime>2015-12-06T05:23:23.000Z</pubTime>
+        <title>IBInspectable和IBDesignable</title>
+        <pubTime>2015-06-22T02:50:45.000Z</pubTime>
         
-        <tag>Git</tag>
-         
-        <tag>Tools</tag>
+        <tag>Xcode</tag>
          
          
            
              
-              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
           
         </display>
     </data>
@@ -607,6 +611,26 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2015/04/04/http/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>HTTP学习笔记</title>
+        <pubTime>2015-04-04T07:57:35.000Z</pubTime>
+        
+        <tag>HTTP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2015/04/29/associated-object/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
@@ -618,26 +642,6 @@
            
              
               <breadCrumb title="Objective-C" url="http://shinemax1.github.io/categories/Objective-C/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2016/07/28/reactive-cocoa-part-1/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>初识ReactiveCocoa</title>
-        <pubTime>2016-07-28T14:31:28.000Z</pubTime>
-        
-        <tag>ReactiveCocoa</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
           
         </display>
     </data>
@@ -725,19 +729,39 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/04/http/</loc>
+    <loc>http://shinemax1.github.io/2015/04/29/understanding-kvo/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>HTTP学习笔记</title>
-        <pubTime>2015-04-04T07:57:35.000Z</pubTime>
+        <title>深入理解KVO</title>
+        <pubTime>2015-04-29T02:00:01.000Z</pubTime>
         
-        <tag>HTTP</tag>
+        <tag>KVO</tag>
          
          
            
              
-              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2015/04/17/thread-basics-in-ios/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>iOS Thread基础知识</title>
+        <pubTime>2015-04-17T12:37:32.000Z</pubTime>
+        
+        <tag>GCD</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
           
         </display>
     </data>
@@ -753,28 +777,6 @@
         <pubTime>2015-04-28T06:14:13.000Z</pubTime>
         
         <tag>Objective-C</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2015/04/26/understanding-objective-c-runtime-part-1/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>理解Objective-C Runtime（一）预备知识</title>
-        <pubTime>2015-04-26T12:07:37.000Z</pubTime>
-        
-        <tag>Objective-C</tag>
-         
-        <tag>Runtime</tag>
          
          
            
@@ -1059,14 +1061,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/01/26/gcd-basics/</loc>
+    <loc>http://shinemax1.github.io/2015/10/11/good-resources-about-ios/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>GCD基础知识</title>
-        <pubTime>2015-01-26T12:05:56.000Z</pubTime>
+        <title>iOS好资源</title>
+        <pubTime>2015-10-11T12:43:39.000Z</pubTime>
         
-        <tag>GCD</tag>
+        <tag>Resources</tag>
          
          
            
@@ -1086,6 +1088,48 @@
         <title>使用WebViewJavascriptBridge</title>
         <pubTime>2015-06-16T08:53:35.000Z</pubTime>
         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2015/12/06/git-branching-and-remoting/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>Git分支与远程操作</title>
+        <pubTime>2015-12-06T05:23:23.000Z</pubTime>
+        
+        <tag>Git</tag>
+         
+        <tag>Tools</tag>
+         
+         
+           
+             
+              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2015/01/26/gcd-basics/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>GCD基础知识</title>
+        <pubTime>2015-01-26T12:05:56.000Z</pubTime>
+        
+        <tag>GCD</tag>
+         
          
            
              
@@ -1210,14 +1254,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/29/understanding-kvo/</loc>
+    <loc>http://shinemax1.github.io/2016/07/28/reactive-cocoa-part-1/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>深入理解KVO</title>
-        <pubTime>2015-04-29T02:00:01.000Z</pubTime>
+        <title>初识ReactiveCocoa</title>
+        <pubTime>2016-07-28T14:31:28.000Z</pubTime>
         
-        <tag>KVO</tag>
+        <tag>ReactiveCocoa</tag>
          
          
            

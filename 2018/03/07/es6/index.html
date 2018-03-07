@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>es6前要 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="Bable1.Babel 的配置文件是.babelrc，存放在项目的根目录下。使用 Babel 的第一步，就是配置这个文件。
+2.Babel 提供babel-cli工具，用于命令行转码。（一般项目中是在项目中安装，然后在packge.json中写入）
+3.babel-cli工具自带一个babel-node命令，提供一个支持 ES6 的 REPL 环境。它支持 Node 的 REPL 环境的所有功能">
+<meta property="og:type" content="article">
+<meta property="og:title" content="es6前要">
+<meta property="og:url" content="http://shinemax1.github.io/2018/03/07/es6/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="Bable1.Babel 的配置文件是.babelrc，存放在项目的根目录下。使用 Babel 的第一步，就是配置这个文件。
+2.Babel 提供babel-cli工具，用于命令行转码。（一般项目中是在项目中安装，然后在packge.json中写入）
+3.babel-cli工具自带一个babel-node命令，提供一个支持 ES6 的 REPL 环境。它支持 Node 的 REPL 环境的所有功能">
+<meta property="og:updated_time" content="2018-03-07T15:40:37.272Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="es6前要">
+<meta name="twitter:description" content="Bable1.Babel 的配置文件是.babelrc，存放在项目的根目录下。使用 Babel 的第一步，就是配置这个文件。
+2.Babel 提供babel-cli工具，用于命令行转码。（一般项目中是在项目中安装，然后在packge.json中写入）
+3.babel-cli工具自带一个babel-node命令，提供一个支持 ES6 的 REPL 环境。它支持 Node 的 REPL 环境的所有功能">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/Android/">Android相关</a></li>
+				        
+							<li><a href="/categories/iOS/">iOS相关</a></li>
+				        
+							<li><a href="/categories/web/">前端相关</a></li>
+				        
+							<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+				        
+							<li><a href="/categories/Others/">其它相关</a></li>
+				        
+							<li><a href="/categories/blog/">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.43px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 14.29px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 17.14px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.43px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 20px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12.86px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 15.71px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.43px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 14.29px;">Tools</a> <a href="/tags/Transition/" style="font-size: 12.86px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/es6/" style="font-size: 11.43px;">es6</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/js基础/" style="font-size: 18.57px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/Android/">Android相关</a></li>
+		        
+					<li><a href="/categories/iOS/">iOS相关</a></li>
+		        
+					<li><a href="/categories/web/">前端相关</a></li>
+		        
+					<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+		        
+					<li><a href="/categories/Others/">其它相关</a></li>
+		        
+					<li><a href="/categories/blog/">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-es6" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/07/es6/" class="article-date">
+  	<time datetime="2018-03-07T15:39:40.000Z" itemprop="datePublished">2018-03-07</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      es6前要
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/web/">web</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Bable"><a href="#Bable" class="headerlink" title="Bable"></a>Bable</h2><p>1.Babel 的配置文件是.babelrc，存放在项目的根目录下。使用 Babel 的第一步，就是配置这个文件。</p>
+<p>2.Babel 提供babel-cli工具，用于命令行转码。（一般项目中是在项目中安装，然后在packge.json中写入）</p>
+<p>3.babel-cli工具自带一个babel-node命令，提供一个支持 ES6 的 REPL 环境。它支持 Node 的 REPL 环境的所有功能，而且可以直接运行 ES6 代码。</p>
+<blockquote>
+<p>它不用单独安装，而是随babel-cli一起安装。然后，执行babel-node就进入 REPL 环境。</p>
+</blockquote>
+<p>4.babel-register模块改写require命令，为它加上一个钩子。此后，每当使用require加载.js、.jsx、.es和.es6后缀名的文件，就会先用 Babel 进行转码。</p>
+<blockquote>
+<p>需要注意的是，babel-register只会对require命令加载的文件转码，而不会对当前文件转码。另外，由于它是实时转码，所以只适合在开发环境使用。</p>
+</blockquote>
+<p>5.如果某些代码需要调用 Babel 的 API 进行转码，就要使用babel-core模块。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> es6Code = <span class="string">'let x = n =&gt; n + 1'</span>;</div><div class="line"><span class="keyword">var</span> es5Code = <span class="built_in">require</span>(<span class="string">'babel-core'</span>)</div><div class="line">  .transform(es6Code, &#123;</div><div class="line">    <span class="attr">presets</span>: [<span class="string">'latest'</span>]</div><div class="line">  &#125;)</div><div class="line">  .code;</div></pre></td></tr></table></figure>
+<p>6.babel-polyfill Babel 默认只转换新的 JavaScript 句法（syntax），而不转换新的 API，比如Iterator、Generator、Set、Maps、Proxy、Reflect、Symbol、Promise等全局对象，以及一些定义在全局对象上的方法（比如Object.assign）都不会转码。</p>
+<blockquote>
+<p>举例来说，ES6 在Array对象上新增了Array.from方法。Babel 就不会转码这个方法。如果想让这个方法运行，必须使用babel-polyfill，为当前环境提供一个垫片。</p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/07/let、const/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          let、const
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/04/ajax/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">ajax笔记</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'Shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
