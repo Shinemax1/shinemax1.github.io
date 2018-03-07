@@ -4,17 +4,36 @@
   <meta charset="utf-8">
   
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
-  <title>Archives | Robot Dog</title>
+  <title>变量的解构赋值 | Robot Dog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SSS">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Robot Dog">
-<meta property="og:url" content="http://shinemax1.github.io/archives/index.html">
+  <meta name="description" content="数组的解构赋值（按次序来比对）
+完全解构
+不完全解构
+默认值（es6的解构是===的）
+
+对象的解构赋值（按照位置来取值）
+也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。1234567891011121314151617let &amp;#123; foo: baz &amp;#125; = &amp;#123; foo: &quot;aaa&quot;, bar: &quot;bbb&quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="变量的解构赋值">
+<meta property="og:url" content="http://shinemax1.github.io/2018/03/08/变量的解构赋值/index.html">
 <meta property="og:site_name" content="Robot Dog">
-<meta property="og:description" content="SSS">
+<meta property="og:description" content="数组的解构赋值（按次序来比对）
+完全解构
+不完全解构
+默认值（es6的解构是===的）
+
+对象的解构赋值（按照位置来取值）
+也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。1234567891011121314151617let &amp;#123; foo: baz &amp;#125; = &amp;#123; foo: &quot;aaa&quot;, bar: &quot;bbb&quot;">
+<meta property="og:updated_time" content="2018-03-07T16:04:37.362Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Robot Dog">
-<meta name="twitter:description" content="SSS">
+<meta name="twitter:title" content="变量的解构赋值">
+<meta name="twitter:description" content="数组的解构赋值（按次序来比对）
+完全解构
+不完全解构
+默认值（es6的解构是===的）
+
+对象的解构赋值（按照位置来取值）
+也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。1234567891011121314151617let &amp;#123; foo: baz &amp;#125; = &amp;#123; foo: &quot;aaa&quot;, bar: &quot;bbb&quot;">
   
     <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
   
@@ -198,201 +217,131 @@
 	</div>
 </nav>
 
-      <div class="body-wrap">
+      <div class="body-wrap"><article id="post-变量的解构赋值" class="article article-type-post" itemscope itemprop="blogPost">
   
+    <div class="article-meta">
+      <a href="/2018/03/08/变量的解构赋值/" class="article-date">
+  	<time datetime="2018-03-07T16:05:40.000Z" itemprop="datePublished">2018-03-08</time>
+</a>
+    </div>
   
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
     
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      变量的解构赋值
+    </h1>
+  
+
+      </header>
       
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/web/">web</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
       
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
     
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/08/变量的解构赋值/" class="archive-article-date">
-  	<time datetime="2018-03-07T16:05:40.000Z" itemprop="datePublished">Mar 8</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/08/变量的解构赋值/">变量的解构赋值</a>
-    </h1>
-  
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="数组的解构赋值（按次序来比对）"><a href="#数组的解构赋值（按次序来比对）" class="headerlink" title="数组的解构赋值（按次序来比对）"></a>数组的解构赋值（按次序来比对）</h2><ul>
+<li>完全解构</li>
+<li>不完全解构</li>
+<li>默认值（es6的解构是===的）</li>
+</ul>
+<h2 id="对象的解构赋值（按照位置来取值）"><a href="#对象的解构赋值（按照位置来取值）" class="headerlink" title="对象的解构赋值（按照位置来取值）"></a>对象的解构赋值（按照位置来取值）</h2><blockquote>
+<p>也就是说，对象的解构赋值的内部机制，是先找到同名属性，然后再赋给对应的变量。真正被赋值的是后者，而不是前者。<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> &#123; <span class="attr">foo</span>: baz &#125; = &#123; <span class="attr">foo</span>: <span class="string">"aaa"</span>, <span class="attr">bar</span>: <span class="string">"bbb"</span> &#125;;</div><div class="line">baz <span class="comment">// "aaa"</span></div><div class="line">foo <span class="comment">// error: foo is not defined</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> node = &#123;</div><div class="line">    <span class="attr">loc</span>: &#123;</div><div class="line">        <span class="attr">start</span>: &#123;</div><div class="line">        <span class="attr">line</span>: <span class="number">1</span>,</div><div class="line">        <span class="attr">column</span>: <span class="number">5</span></div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">let</span> &#123; loc, <span class="attr">loc</span>: &#123; start &#125;, <span class="attr">loc</span>: &#123; <span class="attr">start</span>: &#123; line &#125;&#125; &#125; = node;</div><div class="line">line <span class="comment">// 1</span></div><div class="line">loc  <span class="comment">// Object &#123;start: Object&#125;</span></div><div class="line">start <span class="comment">// Object &#123;line: 1, column: 5&#125;</span></div></pre></td></tr></table></figure></p>
+</blockquote>
+<p><strong>上面代码有三次解构赋值，分别是对loc、start、line三个属性的解构赋值。注意，最后一次对line属性的解构赋值之中，只有line是变量，loc和start都是模式，不是变量。</strong></p>
+<h2 id="字符串的解构赋值"><a href="#字符串的解构赋值" class="headerlink" title="字符串的解构赋值"></a>字符串的解构赋值</h2><h2 id="数值和布尔值的解构赋值（会优先被转换为对象）"><a href="#数值和布尔值的解构赋值（会优先被转换为对象）" class="headerlink" title="数值和布尔值的解构赋值（会优先被转换为对象）"></a>数值和布尔值的解构赋值（会优先被转换为对象）</h2><h2 id="函数参数的解构赋值"><a href="#函数参数的解构赋值" class="headerlink" title="函数参数的解构赋值"></a>函数参数的解构赋值</h2><h2 id="圆括号问题（以下三种不得使用圆括号）"><a href="#圆括号问题（以下三种不得使用圆括号）" class="headerlink" title="圆括号问题（以下三种不得使用圆括号）"></a>圆括号问题（以下三种不得使用圆括号）</h2><ul>
+<li>变量声明语句</li>
+<li>函数参数</li>
+<li>赋值语句的模式</li>
+</ul>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><ul>
+<li>交换变量赋值</li>
+<li>从函数返回多个值</li>
+<li>函数参数的定义</li>
+<li>提取JSON的值</li>
+<li>函数参数的默认值</li>
+<li>遍历Map结构（任何部署了 Iterator 接口的对象，都可以用for…of循环遍历。Map 结构原生支持 Iterator 接口，配合变量的解构赋值，获取键名和键值就非常方便。）</li>
+<li>输入模块的指定方法</li>
+</ul>
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/web/">web</a>
-	</div>
-
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
+      
+    </div>
+    
   </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/03/07/let、const/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">let、const</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/07/let、const/" class="archive-article-date">
-  	<time datetime="2018-03-07T15:47:40.000Z" itemprop="datePublished">Mar 7</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/07/let、const/">let、const</a>
-    </h1>
-  
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
 	</div>
-
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/web/">web</a>
-	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/07/es6/" class="archive-article-date">
-  	<time datetime="2018-03-07T15:39:40.000Z" itemprop="datePublished">Mar 7</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/07/es6/">es6前要</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/web/">web</a>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/04/ajax/" class="archive-article-date">
-  	<time datetime="2018-03-04T14:49:40.000Z" itemprop="datePublished">Mar 4</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/04/ajax/">ajax笔记</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ajax/">ajax</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/web/">web</a>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2018/03/04/js5/" class="archive-article-date">
-  	<time datetime="2018-03-04T09:47:40.000Z" itemprop="datePublished">Mar 4</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/03/04/js5/">javascript基础学习笔记5</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
-	</div>
-
-          
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/web/">web</a>
-	</div>
 
 
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'Shinemax'; // required: replace example with your forum shortname
 
-    
-    <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/archives/page/2/">2</a><a class="page-number" href="/archives/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/archives/page/13/">13</a><a class="extend next" rel="next" href="/archives/page/2/">Next &raquo;</a>
-    </nav>
-  
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
 
 </div>
       <footer id="footer">
@@ -418,8 +367,8 @@
 		mathjax: true,
 		animate: true,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false
