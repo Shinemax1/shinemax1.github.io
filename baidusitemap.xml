@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2018/03/08/CommonJS/</loc>
+    <lastmod>2018-03-08T15:02:31.742Z</lastmod>
+    <data>
+        <display>
+        <title>CommonJS、AMD、UMD、CMD</title>
+        <pubTime>2018-03-08T15:02:40.000Z</pubTime>
+        
+        <tag>js基础</tag>
+         
+        <tag>模块化</tag>
+         
+         
+           
+             
+              <breadCrumb title="web" url="http://shinemax1.github.io/categories/web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2018/03/08/%E5%8F%98%E9%87%8F%E7%9A%84%E8%A7%A3%E6%9E%84%E8%B5%8B%E5%80%BC/</loc>
     <lastmod>2018-03-07T16:04:37.362Z</lastmod>
     <data>
@@ -353,36 +375,16 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-3/</loc>
+    <loc>http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-2/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>理解Objective-C Runtime（三）消息转发机制</title>
-        <pubTime>2015-04-27T07:41:47.000Z</pubTime>
+        <title>理解Objective-C Runtime（二）消息传递机制</title>
+        <pubTime>2015-04-27T03:16:36.000Z</pubTime>
         
         <tag>Objective-C</tag>
          
         <tag>Runtime</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2016/06/13/layer-geometry-in-ios/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>iOS图层几何学</title>
-        <pubTime>2016-06-13T11:41:36.000Z</pubTime>
-        
-        <tag>Animation</tag>
          
          
            
@@ -415,19 +417,19 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/04/http/</loc>
+    <loc>http://shinemax1.github.io/2015/06/22/ibinspectable-and-ibdesignable/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>HTTP学习笔记</title>
-        <pubTime>2015-04-04T07:57:35.000Z</pubTime>
+        <title>IBInspectable和IBDesignable</title>
+        <pubTime>2015-06-22T02:50:45.000Z</pubTime>
         
-        <tag>HTTP</tag>
+        <tag>Xcode</tag>
          
          
            
              
-              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
           
         </display>
     </data>
@@ -793,14 +795,16 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/06/22/ibinspectable-and-ibdesignable/</loc>
+    <loc>http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-3/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>IBInspectable和IBDesignable</title>
-        <pubTime>2015-06-22T02:50:45.000Z</pubTime>
+        <title>理解Objective-C Runtime（三）消息转发机制</title>
+        <pubTime>2015-04-27T07:41:47.000Z</pubTime>
         
-        <tag>Xcode</tag>
+        <tag>Objective-C</tag>
+         
+        <tag>Runtime</tag>
          
          
            
@@ -813,16 +817,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-2/</loc>
+    <loc>http://shinemax1.github.io/2016/06/26/implicit-animations/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>理解Objective-C Runtime（二）消息传递机制</title>
-        <pubTime>2015-04-27T03:16:36.000Z</pubTime>
+        <title>隐式动画</title>
+        <pubTime>2016-06-26T15:38:26.000Z</pubTime>
         
-        <tag>Objective-C</tag>
-         
-        <tag>Runtime</tag>
+        <tag>Animation</tag>
          
          
            
@@ -1063,19 +1065,19 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2016/06/26/implicit-animations/</loc>
+    <loc>http://shinemax1.github.io/2015/04/04/http/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>隐式动画</title>
-        <pubTime>2016-06-26T15:38:26.000Z</pubTime>
+        <title>HTTP学习笔记</title>
+        <pubTime>2015-04-04T07:57:35.000Z</pubTime>
         
-        <tag>Animation</tag>
+        <tag>HTTP</tag>
          
          
            
              
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
           
         </display>
     </data>
@@ -1090,6 +1092,26 @@
         <title>使用WebViewJavascriptBridge</title>
         <pubTime>2015-06-16T08:53:35.000Z</pubTime>
         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2016/06/13/layer-geometry-in-ios/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>iOS图层几何学</title>
+        <pubTime>2016-06-13T11:41:36.000Z</pubTime>
+        
+        <tag>Animation</tag>
+         
          
            
              
