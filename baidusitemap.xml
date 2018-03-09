@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2018/03/09/%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%89%A9%E5%B1%95/</loc>
+    <lastmod>2018-03-09T14:52:03.923Z</lastmod>
+    <data>
+        <display>
+        <title>字符串扩展</title>
+        <pubTime>2018-03-09T14:51:40.000Z</pubTime>
+        
+        <tag>js基础</tag>
+         
+        <tag>es6</tag>
+         
+         
+           
+             
+              <breadCrumb title="web" url="http://shinemax1.github.io/categories/web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2018/03/08/CommonJS/</loc>
     <lastmod>2018-03-08T15:02:31.742Z</lastmod>
     <data>
@@ -375,12 +397,12 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-2/</loc>
+    <loc>http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-4/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>理解Objective-C Runtime（二）消息传递机制</title>
-        <pubTime>2015-04-27T03:16:36.000Z</pubTime>
+        <title>理解Objective-C Runtime（四）Method Swizzling</title>
+        <pubTime>2015-04-27T13:10:53.000Z</pubTime>
         
         <tag>Objective-C</tag>
          
@@ -397,34 +419,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/07/16/beginning-auto-layout-part-1/</loc>
+    <loc>http://shinemax1.github.io/2015/04/28/initialize-and-load-in-objective-c/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>深入理解Auto Layout 第一弹</title>
-        <pubTime>2015-07-16T01:10:31.000Z</pubTime>
+        <title>Objective-C中的+initialize和+load</title>
+        <pubTime>2015-04-28T06:14:13.000Z</pubTime>
         
-        <tag>Auto Layout</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2015/06/22/ibinspectable-and-ibdesignable/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>IBInspectable和IBDesignable</title>
-        <pubTime>2015-06-22T02:50:45.000Z</pubTime>
-        
-        <tag>Xcode</tag>
+        <tag>Objective-C</tag>
          
          
            
@@ -615,14 +617,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/28/initialize-and-load-in-objective-c/</loc>
+    <loc>http://shinemax1.github.io/2016/06/26/implicit-animations/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>Objective-C中的+initialize和+load</title>
-        <pubTime>2015-04-28T06:14:13.000Z</pubTime>
+        <title>隐式动画</title>
+        <pubTime>2016-06-26T15:38:26.000Z</pubTime>
         
-        <tag>Objective-C</tag>
+        <tag>Animation</tag>
          
          
            
@@ -655,6 +657,26 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2016/07/29/reactive-cocoa-part-3/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>ReactiveCocoa实践</title>
+        <pubTime>2016-07-29T02:23:41.000Z</pubTime>
+        
+        <tag>ReactiveCocoa</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2015/04/29/associated-object/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
@@ -666,26 +688,6 @@
            
              
               <breadCrumb title="Objective-C" url="http://shinemax1.github.io/categories/Objective-C/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2015/06/16/uiwebview-load-local-html/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>UIWebView加载本地HTML文件</title>
-        <pubTime>2015-06-16T08:38:39.000Z</pubTime>
-        
-        <tag>UIWebView</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
           
         </display>
     </data>
@@ -817,14 +819,16 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2016/06/26/implicit-animations/</loc>
+    <loc>http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-2/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>隐式动画</title>
-        <pubTime>2016-06-26T15:38:26.000Z</pubTime>
+        <title>理解Objective-C Runtime（二）消息传递机制</title>
+        <pubTime>2015-04-27T03:16:36.000Z</pubTime>
         
-        <tag>Animation</tag>
+        <tag>Objective-C</tag>
+         
+        <tag>Runtime</tag>
          
          
            
@@ -837,16 +841,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-4/</loc>
+    <loc>http://shinemax1.github.io/2016/06/13/layer-geometry-in-ios/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>理解Objective-C Runtime（四）Method Swizzling</title>
-        <pubTime>2015-04-27T13:10:53.000Z</pubTime>
+        <title>iOS图层几何学</title>
+        <pubTime>2016-06-13T11:41:36.000Z</pubTime>
         
-        <tag>Objective-C</tag>
-         
-        <tag>Runtime</tag>
+        <tag>Animation</tag>
          
          
            
@@ -1065,19 +1067,19 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/04/http/</loc>
+    <loc>http://shinemax1.github.io/2015/06/22/ibinspectable-and-ibdesignable/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>HTTP学习笔记</title>
-        <pubTime>2015-04-04T07:57:35.000Z</pubTime>
+        <title>IBInspectable和IBDesignable</title>
+        <pubTime>2015-06-22T02:50:45.000Z</pubTime>
         
-        <tag>HTTP</tag>
+        <tag>Xcode</tag>
          
          
            
              
-              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
           
         </display>
     </data>
@@ -1103,14 +1105,34 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2016/06/13/layer-geometry-in-ios/</loc>
+    <loc>http://shinemax1.github.io/2015/04/04/http/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>iOS图层几何学</title>
-        <pubTime>2016-06-13T11:41:36.000Z</pubTime>
+        <title>HTTP学习笔记</title>
+        <pubTime>2015-04-04T07:57:35.000Z</pubTime>
         
-        <tag>Animation</tag>
+        <tag>HTTP</tag>
+         
+         
+           
+             
+              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2015/07/16/beginning-auto-layout-part-1/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>深入理解Auto Layout 第一弹</title>
+        <pubTime>2015-07-16T01:10:31.000Z</pubTime>
+        
+        <tag>Auto Layout</tag>
          
          
            
@@ -1298,14 +1320,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2016/07/29/reactive-cocoa-part-3/</loc>
+    <loc>http://shinemax1.github.io/2015/06/16/uiwebview-load-local-html/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>ReactiveCocoa实践</title>
-        <pubTime>2016-07-29T02:23:41.000Z</pubTime>
+        <title>UIWebView加载本地HTML文件</title>
+        <pubTime>2015-06-16T08:38:39.000Z</pubTime>
         
-        <tag>ReactiveCocoa</tag>
+        <tag>UIWebView</tag>
          
          
            
