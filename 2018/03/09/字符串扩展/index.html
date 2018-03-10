@@ -6,16 +6,46 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <title>字符串扩展 | Robot Dog</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1.字符的 Unicode 表示法    ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。2.codePointAt()    JavaScript 内部，字符以 UTF-16 的格式储存，每个字符固定为2个字节。对于那些需要4个字节储存的字符（Unicode 码点大于0xFFFF的字符），JavaScript 会认为它们是两个字符。    ES6 提供了codePointA">
+  <meta name="description" content="字符串扩展
+1.字符的 Unicode 表示法
+
+ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。
+
+
+
+2.codePointAt()
+
+JavaScript 内部，字符以 UTF-16 的格式储存，每个字符固定为2个字节。对于那些需要4个字节储存的字符（Unicode 码点大于0xFFFF的字符），JavaScript 会认为它们是两个字符。
+ES6 提供了codePoi">
 <meta property="og:type" content="article">
 <meta property="og:title" content="字符串扩展">
 <meta property="og:url" content="http://shinemax1.github.io/2018/03/09/字符串扩展/index.html">
 <meta property="og:site_name" content="Robot Dog">
-<meta property="og:description" content="1.字符的 Unicode 表示法    ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。2.codePointAt()    JavaScript 内部，字符以 UTF-16 的格式储存，每个字符固定为2个字节。对于那些需要4个字节储存的字符（Unicode 码点大于0xFFFF的字符），JavaScript 会认为它们是两个字符。    ES6 提供了codePointA">
-<meta property="og:updated_time" content="2018-03-09T14:52:03.923Z">
+<meta property="og:description" content="字符串扩展
+1.字符的 Unicode 表示法
+
+ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。
+
+
+
+2.codePointAt()
+
+JavaScript 内部，字符以 UTF-16 的格式储存，每个字符固定为2个字节。对于那些需要4个字节储存的字符（Unicode 码点大于0xFFFF的字符），JavaScript 会认为它们是两个字符。
+ES6 提供了codePoi">
+<meta property="og:updated_time" content="2018-03-10T15:09:29.871Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="字符串扩展">
-<meta name="twitter:description" content="1.字符的 Unicode 表示法    ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。2.codePointAt()    JavaScript 内部，字符以 UTF-16 的格式储存，每个字符固定为2个字节。对于那些需要4个字节储存的字符（Unicode 码点大于0xFFFF的字符），JavaScript 会认为它们是两个字符。    ES6 提供了codePointA">
+<meta name="twitter:description" content="字符串扩展
+1.字符的 Unicode 表示法
+
+ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。
+
+
+
+2.codePointAt()
+
+JavaScript 内部，字符以 UTF-16 的格式储存，每个字符固定为2个字节。对于那些需要4个字节储存的字符（Unicode 码点大于0xFFFF的字符），JavaScript 会认为它们是两个字符。
+ES6 提供了codePoi">
   
     <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
   
@@ -121,7 +151,7 @@
 				
 				<section class="switch-part switch-part2">
 					<div class="widget tagcloud" id="js-tagcloud">
-						<a href="/tags/AFNetworking/" style="font-size: 11.43px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 14.29px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 17.14px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.43px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 18.57px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12.86px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 15.71px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.43px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 14.29px;">Tools</a> <a href="/tags/Transition/" style="font-size: 12.86px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/es6/" style="font-size: 14.29px;">es6</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/js基础/" style="font-size: 20px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+						<a href="/tags/AFNetworking/" style="font-size: 11.43px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 14.29px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 17.14px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.43px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 18.57px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12.86px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 15.71px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.43px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 14.29px;">Tools</a> <a href="/tags/Transition/" style="font-size: 12.86px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/es6/" style="font-size: 17.14px;">es6</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/js基础/" style="font-size: 20px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
 					</div>
 				</section>
 				
@@ -240,7 +270,73 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>1.字符的 Unicode 表示法<br>    ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。<br>2.codePointAt()<br>    JavaScript 内部，字符以 UTF-16 的格式储存，每个字符固定为2个字节。对于那些需要4个字节储存的字符（Unicode 码点大于0xFFFF的字符），JavaScript 会认为它们是两个字符。<br>    ES6 提供了codePointAt方法，能够正确处理 4 个字节储存的字符，返回一个字符的码点。<br>String.fromCodePoint()<br>    ES5 提供String.fromCharCode方法，用于从码点返回对应字符，但是这个方法不能识别 32 位的 UTF-16 字符（Unicode 编号大于0xFFFF）<br>    ES6 提供了String.fromCodePoint方法，可以识别大于0xFFFF的字符，弥补了String.fromCharCode方法的不足。在作用上，正好与codePointAt方法相反。<br>字符串的遍历器接口<br>    ES6 为字符串添加了遍历器接口（详见《Iterator》一章），使得字符串可以被for…of循环遍历。<br>    除了遍历字符串，这个遍历器最大的优点是可以识别大于0xFFFF的码点，传统的for循环无法识别这样的码点。<br>at()<br>    ES5 对字符串对象提供charAt方法，返回字符串给定位置的字符。该方法不能识别码点大于0xFFFF的字符。<br>    目前，有一个提案，提出字符串实例的at方法，可以识别 Unicode 编号大于0xFFFF的字符，返回正确的字符。<br>normalize()<br>    ES6 提供字符串实例的normalize()方法，用来将字符的不同表示方法统一为同样的形式，这称为 Unicode 正规化。<br>includes(), startsWith(), endsWith()（2个参数，第一个字符串，第二个第几位开始）<br>    includes()：返回布尔值，表示是否找到了参数字符串。<br>    startsWith()：返回布尔值，表示参数字符串是否在原字符串的头部。<br>    endsWith()：返回布尔值，表示参数字符串是否在原字符串的尾部。<br>repeat()（参数是数字）<br>    repeat方法返回一个新字符串，表示将原字符串重复n次。<br>padStart()，padEnd()（第一个参数是字符串长度，第二个参数是要循环的字符串）<br>    ES2017 引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。padStart()用于头部补全，padEnd()用于尾部补全。<br>matchAll()<br>    matchAll方法返回一个正则表达式在当前字符串的所有匹配，详见《正则的扩展》的一章。<br>模板字符串（可以保留标签或者变量值）<br>    ` 会保留空格 ${(放入变量，甚至js代码)}<br>实例：模板编译<br>标签模板<br>String.raw()<br>    String.raw方法，往往用来充当模板字符串的处理函数，返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，对应于替换变量后的模板字符串。<br>模板字符串的限制</p>
+        <h2 id="字符串扩展"><a href="#字符串扩展" class="headerlink" title="字符串扩展"></a>字符串扩展</h2><ul>
+<li>1.字符的 Unicode 表示法<blockquote>
+<ul>
+<li>ES6 对这一点做出了改进，只要将码点放入大括号，就能正确解读该字符。</li>
+</ul>
+</blockquote>
+</li>
+<li>2.codePointAt()<blockquote>
+<ul>
+<li>JavaScript 内部，字符以 UTF-16 的格式储存，每个字符固定为2个字节。对于那些需要4个字节储存的字符（Unicode 码点大于0xFFFF的字符），JavaScript 会认为它们是两个字符。</li>
+<li>ES6 提供了codePointAt方法，能够正确处理 4 个字节储存的字符，返回一个字符的码点。</li>
+</ul>
+</blockquote>
+</li>
+<li>3.String.fromCodePoint()<blockquote>
+<ul>
+<li>ES5 提供String.fromCharCode方法，用于从码点返回对应字符，但是这个方法不能识别 32 位的 UTF-16 字符（Unicode 编号大于0xFFFF）</li>
+<li>ES6 提供了String.fromCodePoint方法，可以识别大于0xFFFF的字符，弥补了String.fromCharCode方法的不足。在作用上，正好与codePointAt方法相反。<br>字符串的遍历器接口</li>
+<li>ES6 为字符串添加了遍历器接口（详见《Iterator》一章），使得字符串可以被for…of循环遍历。</li>
+<li>除了遍历字符串，这个遍历器最大的优点是可以识别大于0xFFFF的码点，传统的for循环无法识别这样的码点。</li>
+</ul>
+</blockquote>
+</li>
+<li>4.at()<blockquote>
+<ul>
+<li>ES5 对字符串对象提供charAt方法，返回字符串给定位置的字符。该方法不能识别码点大于0xFFFF的字符。</li>
+<li>目前，有一个提案，提出字符串实例的at方法，可以识别 Unicode 编号大于0xFFFF的字符，返回正确的字符。</li>
+</ul>
+</blockquote>
+</li>
+<li>5.normalize()<blockquote>
+<ul>
+<li>ES6 提供字符串实例的normalize()方法，用来将字符的不同表示方法统一为同样的形式，这称为 Unicode 正规化。</li>
+</ul>
+</blockquote>
+</li>
+<li>6.includes(), startsWith(), endsWith()（2个参数，第一个字符串，第二个第几位开始）<blockquote>
+<ul>
+<li>includes()：返回布尔值，表示是否找到了参数字符串。</li>
+<li>startsWith()：返回布尔值，表示参数字符串是否在原字符串的头部。</li>
+<li>endsWith()：返回布尔值，表示参数字符串是否在原字符串的尾部。</li>
+</ul>
+</blockquote>
+</li>
+<li>7.repeat()（参数是数字）<blockquote>
+<ul>
+<li>repeat方法返回一个新字符串，表示将原字符串重复n次。<br>padStart()，padEnd()（第一个参数是字符串长度，第二个参数是要循环的字符串）</li>
+<li>ES2017 引入了字符串补全长度的功能。如果某个字符串不够指定长度，会在头部或尾部补全。padStart()用于头部补全，padEnd()用于尾部补全。</li>
+</ul>
+</blockquote>
+</li>
+<li>8.matchAll()<blockquote>
+<ul>
+<li>matchAll方法返回一个正则表达式在当前字符串的所有匹配，详见《正则的扩展》的一章。<br>模板字符串（可以保留标签或者变量值）</li>
+<li>` 会保留空格 ${(放入变量，甚至js代码)}</li>
+</ul>
+</blockquote>
+</li>
+<li>9.实例：模板编译</li>
+<li>10.标签模板</li>
+<li>11.String.raw()<blockquote>
+<ul>
+<li>String.raw方法，往往用来充当模板字符串的处理函数，返回一个斜杠都被转义（即斜杠前面再加一个斜杠）的字符串，对应于替换变量后的模板字符串。<br>模板字符串的限制</li>
+</ul>
+</blockquote>
+</li>
+</ul>
 
       
     </div>
@@ -249,6 +345,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2018/03/10/数值的扩展/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          数值的扩展
+        
+      </div>
+    </a>
   
   
     <a href="/2018/03/08/CommonJS/" id="article-nav-older" class="article-nav-link-wrap">
