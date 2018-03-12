@@ -4,6 +4,50 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2018/03/12/%E5%AF%B9%E8%B1%A1%E7%9A%84%E6%89%A9%E5%B1%95/</loc>
+    <lastmod>2018-03-12T15:21:49.913Z</lastmod>
+    <data>
+        <display>
+        <title>对象的扩展</title>
+        <pubTime>2018-03-12T15:21:40.000Z</pubTime>
+        
+        <tag>js基础</tag>
+         
+        <tag>es6</tag>
+         
+         
+           
+             
+              <breadCrumb title="web" url="http://shinemax1.github.io/categories/web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2018/03/12/class/</loc>
+    <lastmod>2018-03-12T15:21:26.849Z</lastmod>
+    <data>
+        <display>
+        <title>class</title>
+        <pubTime>2018-03-12T15:21:40.000Z</pubTime>
+        
+        <tag>js基础</tag>
+         
+        <tag>es6</tag>
+         
+         
+           
+             
+              <breadCrumb title="web" url="http://shinemax1.github.io/categories/web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2018/03/10/%E5%87%BD%E6%95%B0%E7%9A%84%E6%89%A9%E5%B1%95/</loc>
     <lastmod>2018-03-11T03:55:55.633Z</lastmod>
     <data>
@@ -441,54 +485,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/05/using-afnetworking-part-1/</loc>
+    <loc>http://shinemax1.github.io/2015/04/05/using-afnetworking-part-2/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>AFNetworking使用笔记 第一弹</title>
-        <pubTime>2015-04-04T18:04:16.000Z</pubTime>
+        <title>AFNetworking使用笔记 第二弹</title>
+        <pubTime>2015-04-04T18:04:32.000Z</pubTime>
         
         <tag>AFNetworking</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2016/07/11/mvvm/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>mvvm</title>
-        <pubTime>2016-07-11T12:27:33.000Z</pubTime>
-        
-        <tag>MVVM</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2016/06/13/non-interactive-animation-basics-in-ios/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>非交互式动画基础</title>
-        <pubTime>2016-06-13T01:35:14.000Z</pubTime>
-        
-        <tag>Animation</tag>
          
          
            
@@ -617,19 +621,21 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/07/16/beginning-auto-layout-part-1/</loc>
+    <loc>http://shinemax1.github.io/2015/12/05/git-basics/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>深入理解Auto Layout 第一弹</title>
-        <pubTime>2015-07-16T01:10:31.000Z</pubTime>
+        <title>Git基础</title>
+        <pubTime>2015-12-05T03:04:04.000Z</pubTime>
         
-        <tag>Auto Layout</tag>
+        <tag>Git</tag>
+         
+        <tag>Tools</tag>
          
          
            
              
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
           
         </display>
     </data>
@@ -697,6 +703,26 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2016/07/28/reactive-cocoa-part-2/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>RACSignal实践</title>
+        <pubTime>2016-07-28T14:39:41.000Z</pubTime>
+        
+        <tag>ReactiveCocoa</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2015/04/29/associated-object/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
@@ -708,26 +734,6 @@
            
              
               <breadCrumb title="Objective-C" url="http://shinemax1.github.io/categories/Objective-C/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2016/06/09/modal-transitions-in-ios/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>Modal Transition</title>
-        <pubTime>2016-06-09T11:43:39.000Z</pubTime>
-        
-        <tag>Transition</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
           
         </display>
     </data>
@@ -885,14 +891,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2016/06/13/layer-geometry-in-ios/</loc>
+    <loc>http://shinemax1.github.io/2015/04/05/using-afnetworking-part-1/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>iOS图层几何学</title>
-        <pubTime>2016-06-13T11:41:36.000Z</pubTime>
+        <title>AFNetworking使用笔记 第一弹</title>
+        <pubTime>2015-04-04T18:04:16.000Z</pubTime>
         
-        <tag>Animation</tag>
+        <tag>AFNetworking</tag>
          
          
            
@@ -925,14 +931,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/05/using-afnetworking-part-2/</loc>
+    <loc>http://shinemax1.github.io/2016/07/11/mvvm/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>AFNetworking使用笔记 第二弹</title>
-        <pubTime>2015-04-04T18:04:32.000Z</pubTime>
+        <title>mvvm</title>
+        <pubTime>2016-07-11T12:27:33.000Z</pubTime>
         
-        <tag>AFNetworking</tag>
+        <tag>MVVM</tag>
          
          
            
@@ -1069,14 +1075,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2016/06/26/implicit-animations/</loc>
+    <loc>http://shinemax1.github.io/2015/07/16/beginning-auto-layout-part-1/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>隐式动画</title>
-        <pubTime>2016-06-26T15:38:26.000Z</pubTime>
+        <title>深入理解Auto Layout 第一弹</title>
+        <pubTime>2015-07-16T01:10:31.000Z</pubTime>
         
-        <tag>Animation</tag>
+        <tag>Auto Layout</tag>
          
          
            
@@ -1096,6 +1102,46 @@
         <title>使用WebViewJavascriptBridge</title>
         <pubTime>2015-06-16T08:53:35.000Z</pubTime>
         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2016/06/13/layer-geometry-in-ios/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>iOS图层几何学</title>
+        <pubTime>2016-06-13T11:41:36.000Z</pubTime>
+        
+        <tag>Animation</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2016/06/26/implicit-animations/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>隐式动画</title>
+        <pubTime>2016-06-26T15:38:26.000Z</pubTime>
+        
+        <tag>Animation</tag>
+         
          
            
              
@@ -1167,21 +1213,19 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/12/05/git-basics/</loc>
+    <loc>http://shinemax1.github.io/2016/06/13/non-interactive-animation-basics-in-ios/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>Git基础</title>
-        <pubTime>2015-12-05T03:04:04.000Z</pubTime>
+        <title>非交互式动画基础</title>
+        <pubTime>2016-06-13T01:35:14.000Z</pubTime>
         
-        <tag>Git</tag>
-         
-        <tag>Tools</tag>
+        <tag>Animation</tag>
          
          
            
              
-              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
           
         </display>
     </data>
@@ -1364,14 +1408,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2016/07/28/reactive-cocoa-part-2/</loc>
+    <loc>http://shinemax1.github.io/2016/06/09/modal-transitions-in-ios/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>RACSignal实践</title>
-        <pubTime>2016-07-28T14:39:41.000Z</pubTime>
+        <title>Modal Transition</title>
+        <pubTime>2016-06-09T11:43:39.000Z</pubTime>
         
-        <tag>ReactiveCocoa</tag>
+        <tag>Transition</tag>
          
          
            

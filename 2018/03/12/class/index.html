@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>class | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="简介    由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。Object.assign方法可以很方便地一次向类添加多个方法。    另外，类的内部所有定义的方法，都是不可枚举的（non-enumerable）。严格模式    类和模块的内部，默认就是严格模式，所以不需要使用use strict指定运行模式。只要你的代码写在类或模块之中，就只有严格">
+<meta property="og:type" content="article">
+<meta property="og:title" content="class">
+<meta property="og:url" content="http://shinemax1.github.io/2018/03/12/class/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="简介    由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。Object.assign方法可以很方便地一次向类添加多个方法。    另外，类的内部所有定义的方法，都是不可枚举的（non-enumerable）。严格模式    类和模块的内部，默认就是严格模式，所以不需要使用use strict指定运行模式。只要你的代码写在类或模块之中，就只有严格">
+<meta property="og:updated_time" content="2018-03-12T15:21:26.849Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="class">
+<meta name="twitter:description" content="简介    由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。Object.assign方法可以很方便地一次向类添加多个方法。    另外，类的内部所有定义的方法，都是不可枚举的（non-enumerable）。严格模式    类和模块的内部，默认就是严格模式，所以不需要使用use strict指定运行模式。只要你的代码写在类或模块之中，就只有严格">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/Android/">Android相关</a></li>
+				        
+							<li><a href="/categories/iOS/">iOS相关</a></li>
+				        
+							<li><a href="/categories/web/">前端相关</a></li>
+				        
+							<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+				        
+							<li><a href="/categories/Others/">其它相关</a></li>
+				        
+							<li><a href="/categories/blog/">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.25px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 13.75px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 16.25px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.25px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 18.75px;">Objective-C</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12.5px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 15px;">Runtime</a> <a href="/tags/Sublime-Text/" style="font-size: 11.25px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 13.75px;">Tools</a> <a href="/tags/Transition/" style="font-size: 12.5px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/es6/" style="font-size: 17.5px;">es6</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/js基础/" style="font-size: 20px;">js基础</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，Android开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/Android/">Android相关</a></li>
+		        
+					<li><a href="/categories/iOS/">iOS相关</a></li>
+		        
+					<li><a href="/categories/web/">前端相关</a></li>
+		        
+					<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+		        
+					<li><a href="/categories/Others/">其它相关</a></li>
+		        
+					<li><a href="/categories/blog/">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-class" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/12/class/" class="article-date">
+  	<time datetime="2018-03-12T15:21:40.000Z" itemprop="datePublished">2018-03-12</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      class
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/web/">web</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>简介<br>    由于类的方法都定义在prototype对象上面，所以类的新方法可以添加在prototype对象上面。Object.assign方法可以很方便地一次向类添加多个方法。<br>    另外，类的内部所有定义的方法，都是不可枚举的（non-enumerable）。<br>严格模式<br>    类和模块的内部，默认就是严格模式，所以不需要使用use strict指定运行模式。只要你的代码写在类或模块之中，就只有严格模式可用。<br>constructor 方法<br>    constructor方法是类的默认方法，通过new命令生成对象实例时，自动调用该方法。一个类必须有constructor方法，如果没有显式定义，一个空的constructor方法会被默认添加。<br>    constructor方法默认返回实例对象（即this），完全可以指定返回另外一个对象。<br>类的实例对象<br>    必须new<br>    与 ES5 一样，实例的属性除非显式定义在其本身（即定义在this对象上），否则都是定义在原型上（即定义在class上）。<br>    可以通过实例的<strong>proto</strong>属性为“类”添加方法。但是所添加的所有方法都会给所有被实例对象使用<br>Class 表达式<br>    与函数一样，类也可以写成表达式<br>        const MyClass = class Me {<br>            getClassName() {<br>                return Me.name;<br>            }<br>        };<br>        上面代码使用表达式定义了一个类。需要注意的是，这个类的名字是MyClass而不是Me，Me只在 Class 的内部代码可用，指代当前类。<br>    如果类的内部没用到的话，可以省略Me，也就是可以写成下面的形式。<br>        const MyClass = class { /<em> … </em>/ };<br>    用Class表达式，可以写出立即执行的class<br>        let person = new class {<br>            constructor(name) {<br>                this.name = name;<br>            }</p>
+<pre><code>    sayName() {
+        console.log(this.name);
+    }
+}(&apos;张三&apos;);
+
+person.sayName(); // &quot;张三&quot;
+</code></pre><p>不存在变量提升<br>私有方法和私有属性<br>    一种是通过把私有方法写在类外面，通过call(this)调用。<br>    另一种是通过symbol来私有化变量，在通过变量来调用方法和属性变量<br>        const bar = Symbol(‘bar’);<br>        const snaf = Symbol(‘snaf’);</p>
+<pre><code>    export default class myClass{
+
+        // 公有方法
+        foo(baz) {
+            this[bar](baz);
+        }
+
+        // 私有方法
+        [bar](baz) {
+            return this[snaf] = baz;
+        }
+
+        // ...
+    };
+私有属性和私有方法在前面家#
+</code></pre><p>this 的指向<br>    class test {<br>        constructor(){<br>            //为了printName被分离出去后也能被调用，this指向还是test<br>            this.printName = this.printName.bind(this);<br>        }<br>    }<br>    如果是箭头函数的话，this就是指向声明时的this<br>    还有一种解决方法是使用Proxy，获取方法的时候，自动绑定this。<br>name 属性<br>    由于本质上，ES6 的类只是 ES5 的构造函数的一层包装，所以函数的许多特性都被Class继承，包括name属性。<br>Class 的取值函数（getter）和存值函数（setter）<br>    都是被默认添加到了描述对象prototypedescription上<br>Class 的 Generator 方法<br>    前面加个*<br>Class 的静态方法<br>    类相当于实例的原型，所有在类中定义的方法，都会被实例继承。如果在一个方法前，加上static关键字，就表示该方法不会被实例继承，而是直接通过类来调用，这就称为“静态方法”。<br>    注意，如果静态方法包含this关键字，这个this指的是类，而不是实例。静态方法可以和普通方法重名<br>    父类的静态方法可以被继承<br>Class 的静态属性和实例属性<br>    可在类里直接定义实例属性<br>    静态属性直接在前面加个static<br>new.target 属性<br>    new是从构造函数生成实例对象的命令。ES6 为new命令引入了一个new.target属性，该属性一般用在构造函数之中，返回new命令作用于的那个构造函数。如果构造函数不是通过new命令调用的，new.target会返回undefined，因此这个属性可以用来确定构造函数是怎么调用的。<br>    class类中调用new.target返回当前class，在子类中调用则父类也返回子类的class<br>    利用这个特点，可以写出不能独立使用、必须继承后才能使用的类。<br>        class Shape {<br>            constructor() {<br>                if (new.target === Shape) {<br>                throw new Error(‘本类不能实例化’);<br>                }<br>            }<br>        }</p>
+<pre><code>class Rectangle extends Shape {
+    constructor(length, width) {
+        super();
+        // ...
+    }
+}
+
+var x = new Shape();  // 报错
+var y = new Rectangle(3, 4);  // 正确
+</code></pre>
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/12/对象的扩展/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          对象的扩展
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/10/函数的扩展/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">函数的扩展</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'Shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
