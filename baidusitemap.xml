@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2018/03/21/%E6%95%B0%E7%BB%84%E7%9A%84%E6%89%A9%E5%B1%95/</loc>
+    <lastmod>2018-03-21T07:42:12.425Z</lastmod>
+    <data>
+        <display>
+        <title>数组的扩展</title>
+        <pubTime>2018-03-21T07:42:40.000Z</pubTime>
+        
+        <tag>js基础</tag>
+         
+        <tag>es6</tag>
+         
+         
+           
+             
+              <breadCrumb title="web" url="http://shinemax1.github.io/categories/web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2018/03/15/extends/</loc>
     <lastmod>2018-03-15T15:44:34.516Z</lastmod>
     <data>
@@ -529,39 +551,19 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/01/28/using-gcd-part-2/</loc>
+    <loc>http://shinemax1.github.io/2015/10/03/using-hexo-to-build-blog-site/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>GCD实践（二）少用performSelector系列方法</title>
-        <pubTime>2015-01-28T05:53:22.000Z</pubTime>
+        <title>使用hexo搭建静态博客</title>
+        <pubTime>2015-10-03T09:51:27.000Z</pubTime>
         
-        <tag>GCD</tag>
+        <tag>Hexo</tag>
          
          
            
              
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2015/02/07/nsoperation-vs-gcd/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>NSOperation v.s GCD</title>
-        <pubTime>2015-02-07T02:24:41.000Z</pubTime>
-        
-        <tag>GCD</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
           
         </display>
     </data>
@@ -627,14 +629,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2016/06/13/non-interactive-animation-basics-in-ios/</loc>
+    <loc>http://shinemax1.github.io/2015/01/19/nserror/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>非交互式动画基础</title>
-        <pubTime>2016-06-13T01:35:14.000Z</pubTime>
+        <title>NSError分析</title>
+        <pubTime>2015-01-19T07:29:44.000Z</pubTime>
         
-        <tag>Animation</tag>
+        <tag>Error</tag>
          
          
            
@@ -975,14 +977,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/01/19/nserror/</loc>
+    <loc>http://shinemax1.github.io/2015/01/28/using-gcd-part-2/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>NSError分析</title>
-        <pubTime>2015-01-19T07:29:44.000Z</pubTime>
+        <title>GCD实践（二）少用performSelector系列方法</title>
+        <pubTime>2015-01-28T05:53:22.000Z</pubTime>
         
-        <tag>Error</tag>
+        <tag>GCD</tag>
          
          
            
@@ -995,19 +997,17 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/10/03/using-hexo-to-build-blog-site/</loc>
+    <loc>http://shinemax1.github.io/2015/04/26/nshashtable-and-nsmaptable/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>使用hexo搭建静态博客</title>
-        <pubTime>2015-10-03T09:51:27.000Z</pubTime>
+        <title>NSHashtable和NSMaptable</title>
+        <pubTime>2015-04-26T00:53:43.000Z</pubTime>
         
-        <tag>Hexo</tag>
-         
          
            
              
-              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
           
         </display>
     </data>
@@ -1079,14 +1079,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2016/07/11/mvvm/</loc>
+    <loc>http://shinemax1.github.io/2016/06/13/non-interactive-animation-basics-in-ios/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>mvvm</title>
-        <pubTime>2016-07-11T12:27:33.000Z</pubTime>
+        <title>非交互式动画基础</title>
+        <pubTime>2016-06-13T01:35:14.000Z</pubTime>
         
-        <tag>MVVM</tag>
+        <tag>Animation</tag>
          
          
            
@@ -1106,6 +1106,26 @@
         <title>使用WebViewJavascriptBridge</title>
         <pubTime>2015-06-16T08:53:35.000Z</pubTime>
         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2016/07/11/mvvm/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>mvvm</title>
+        <pubTime>2016-07-11T12:27:33.000Z</pubTime>
+        
+        <tag>MVVM</tag>
+         
          
            
              
@@ -1259,13 +1279,15 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/26/nshashtable-and-nsmaptable/</loc>
+    <loc>http://shinemax1.github.io/2015/02/07/nsoperation-vs-gcd/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>NSHashtable和NSMaptable</title>
-        <pubTime>2015-04-26T00:53:43.000Z</pubTime>
+        <title>NSOperation v.s GCD</title>
+        <pubTime>2015-02-07T02:24:41.000Z</pubTime>
         
+        <tag>GCD</tag>
+         
          
            
              

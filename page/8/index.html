@@ -200,6 +200,97 @@
 
       <div class="body-wrap">
   
+    <article id="post-using-uipercentdriveninteractivetransition" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/06/10/using-uipercentdriveninteractivetransition/" class="article-date">
+  	<time datetime="2016-06-10T09:06:55.000Z" itemprop="datePublished">2016-06-10</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/06/10/using-uipercentdriveninteractivetransition/">使用UIPercentDrivenInteractiveTransition</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>实现可交互的自定义转场动画的关键在于：定义遵循<code>UIViewControllerInteractiveTransitioning</code>协议的类。</p>
+<p><code>UIViewControllerInteractiveTransitioning</code>协议的内容如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">protocol</span> <span class="title">UIViewControllerInteractiveTransitioning</span> : <span class="title">NSObjectProtocol</span> </span>&#123;</div><div class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">startInteractiveTransition</span><span class="params">(transitionContext: UIViewControllerContextTransitioning)</span></span></div><div class="line">    </div><div class="line">    <span class="keyword">optional</span> <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">completionSpeed</span><span class="params">()</span></span> -&gt; <span class="type">CGFloat</span></div><div class="line">    <span class="keyword">optional</span> <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">completionCurve</span><span class="params">()</span></span> -&gt; <span class="type">UIViewAnimationCurve</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>到现在我都没搞明白如何定义遵循<code>UIViewControllerInteractiveTransitioning</code>的类。</p>
+<p>但正如Apple<a href="https://developer.apple.com/library/prerelease/content/featuredarticles/ViewControllerPGforiPhoneOS/CustomizingtheTransitionAnimations.html" target="_blank" rel="external">文档</a>所言：</p>
+<blockquote>
+<p>The easiest way to make your animations interactive is to use a <code>UIPercentDrivenInteractiveTransition</code> object.</p>
+</blockquote>
+<p>简单来说，创建遵循<code>UIViewControllerInteractiveTransitioning</code>协议的类型的最简单方式是继承<code>UIPercentDrivenInteractiveTransition</code>类。</p>
+<p>这是一个遵循<code>UIViewControllerInteractiveTransitioning</code>协议的类，为我们预先实现和提供了一系列便利的方法，可以用一个百分比来控制交互式切换的过程。</p>
+<p>该类的内容及介绍如下：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">UIPercentDrivenInteractiveTransition</span> : <span class="title">NSObject</span>, <span class="title">UIViewControllerInteractiveTransitioning</span> </span>&#123;</div><div class="line">    </div><div class="line">  <span class="comment">// 只读，对应的是animation controller的transitionDuration(_:)返回值</span></div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> duration: <span class="type">CGFloat</span> &#123; <span class="keyword">get</span> &#125;</div><div class="line">    </div><div class="line">  <span class="comment">// 交互动画完成度（百分比），updateInteractiveTransition(_:)会改变该值</span></div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> percentComplete: <span class="type">CGFloat</span> &#123; <span class="keyword">get</span> &#125;</div><div class="line">    </div><div class="line">  <span class="comment">// 影响completion animation duration，一般设置为1.0（默认值），</span></div><div class="line">  <span class="comment">// 对应的completion animation duration为(1 - percentComplete)*duration.</span></div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> completionSpeed: <span class="type">CGFloat</span></div><div class="line">    </div><div class="line">  <span class="comment">// completion animation的timing curve，默认是.EaseInOut</span></div><div class="line">  <span class="keyword">public</span> <span class="keyword">var</span> completionCurve: <span class="type">UIViewAnimationCurve</span></div><div class="line"></div><div class="line">  <span class="comment">/* 这三个方法在gesture recognizer的处理逻辑中调用 */</span></div><div class="line">  <span class="comment">// 更新百分比，一般通过手势识别的长度之类的来计算一个值，然后进行更新</span></div><div class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">updateInteractiveTransition</span><span class="params">(percentComplete: CGFloat)</span></span></div><div class="line">  <span class="comment">// 报告交互取消，返回切换前的状态</span></div><div class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">cancelInteractiveTransition</span><span class="params">()</span></span></div><div class="line">  <span class="comment">// 报告交互完成，更新到切换后的状态</span></div><div class="line">  <span class="keyword">public</span> <span class="function"><span class="keyword">func</span> <span class="title">finishInteractiveTransition</span><span class="params">()</span></span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><code>UIPercentDrivenInteractiveTransition</code>的内容并不复杂，使用时需要注意的是，interaction controller不能孤立存在，需要配合animation controller工作；换句话说，具体的transition仍然在animation controller的<code>animateTransition(_:)</code>中完成。</p>
+<p>此外，在定义animation controller的<code>animateTransition(_:)</code>方法时，不要忘记调用<code>UIViewControllerContextTransitioning</code>的<code>completeTransition(_:)</code>方法。</p>
+<blockquote>
+<p>P.S: 根据我的理解并验证，<code>UIViewControllerContextTransitioning#completeTransition(true)</code>的作用效果之一是将from view从container view中移除掉。</p>
+</blockquote>
+<p>基于<code>UIPercentDrivenInteractiveTransition</code>做了个简单的Demo，如下图：</p>
+<div class="imagediv" style="width: 320px; height: 568px"></div>
+
+<p>代码详见<a href="https://github.com/sadjason/ShrinkingModalInteractiveTransitionDemo" target="_blank" rel="external">Github</a>。</p>
+<p><code>UIViewControllerTransitioning.h</code>中对<code>UIPercentDrivenInteractiveTransition</code>有一段说明，不是特别理解：</p>
+<blockquote>
+<p>This style of interaction controller should only be used with an animator that implements a CA style transition in the animator’s animateTransition: method.</p>
+</blockquote>
+<p>掌握使用<code>UIPercentDrivenInteractiveTransition</code>并不难，但是该类有哪些限制（或缺陷）呢？我有该如何抛开该类自定义实现interaction controller呢？</p>
+<h2 id="本文参考"><a href="#本文参考" class="headerlink" title="本文参考"></a>本文参考</h2><ul>
+<li><a href="https://onevcat.com/2013/10/vc-transition-in-ios7/" target="_blank" rel="external">WWDC 2013 Session笔记 - iOS7中的ViewController切换</a></li>
+<li><a href="https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIViewControllerInteractiveTransitioning_protocol/" target="_blank" rel="external">UIViewControllerInteractiveTransitioning Protocol Reference</a></li>
+<li><a href="http://initwithfunk.com/blog/2014/05/22/interactive-animated-transitions-on-ios/" target="_blank" rel="external">Interactive Animated Transitions on iOS</a></li>
+</ul>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Transition/">Transition</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-modal-transitions-in-ios" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -917,113 +1008,6 @@
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/Others/">Others</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-good-resources-about-ios" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2015/10/11/good-resources-about-ios/" class="article-date">
-  	<time datetime="2015-10-11T12:43:39.000Z" itemprop="datePublished">2015-10-11</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/11/good-resources-about-ios/">iOS好资源</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="好博客"><a href="#好博客" class="headerlink" title="好博客"></a>好博客</h2><ul>
-<li><a href="http://www.infoq.com/cn/mobile-weekly/" target="_blank" rel="external">iOS移动开发周报</a></li>
-</ul>
-<p>最开始由猿题库大神<a href="http://blog.devtang.com/" target="_blank" rel="external">唐巧</a>维护，唐大神维护了大概四十来期，后转交给喵神<a href="https://onevcat.com/" target="_blank" rel="external">王巍</a>维护，发布于<a href="http://www.infoq.com/cn/mobile-weekly/" target="_blank" rel="external">InfoQ</a>；该周报极大丰富了我的视野，感谢他们的付出！</p>
-<ul>
-<li><a href="http://nshipster.com/" target="_blank" rel="external">NSHipster</a></li>
-</ul>
-<p>国外的一个在iOS圈子非常知名的博客，AFNetworking的作者Mattt Thompson是该博客的作者之一，该网站分量可见一斑！</p>
-<ul>
-<li><a href="http://objccn.io/" target="_blank" rel="external">objc中国</a></li>
-</ul>
-<p>正如其口号：为中国Objective-C社区带来最佳实践和先进技术。它是国外著名网站iOS开发<a href="https://www.objc.io/" target="_blank" rel="external">objc</a>的中国版。其内容略微高深，若想成为高手，这个站点的内容应当全部消化掉。</p>
-<h2 id="有意思的站点"><a href="#有意思的站点" class="headerlink" title="有意思的站点"></a>有意思的站点</h2><ul>
-<li><a href="http://fuckingclangwarnings.com/" target="_blank" rel="external">Which Clang Warning Is Generating This Message?</a></li>
-</ul>
-<p>处理Objective-C警告时可能会用到。</p>
-<ul>
-<li><a href="http://fuckingblocksyntax.com/" target="_blank" rel="external">How Do I Declare A Block in Objective-C?</a></li>
-</ul>
-<p>忘记了block语法怎么办？这个网站会告诉你！</p>
-<h2 id="好控件（增强、个性、炫酷）"><a href="#好控件（增强、个性、炫酷）" class="headerlink" title="好控件（增强、个性、炫酷）"></a>好控件（增强、个性、炫酷）</h2><ul>
-<li><a href="https://github.com/gontovnik/DGRunkeeperSwitch" target="_blank" rel="external">DGRunkeeperSwitch</a></li>
-</ul>
-<p>非常漂亮的Segmented Control。</p>
-<ul>
-<li><a href="https://github.com/PavelKatunin/DownloadButton" target="_blank" rel="external">DownloadButton</a></li>
-</ul>
-<p>漂亮的下载button。</p>
-<ul>
-<li><a href="https://github.com/gmertk/ParkedTextField" target="_blank" rel="external">ParkedTextField</a></li>
-</ul>
-<p>固定后缀的文本框控件。</p>
-<ul>
-<li><a href="https://github.com/ninjaprox/NVActivityIndicatorView" target="_blank" rel="external">NVActivityIndicatorView</a></li>
-</ul>
-<p>豪华漂亮的Activity Indicator View</p>
-<ul>
-<li><a href="https://github.com/entotsu/TKSubmitTransition" target="_blank" rel="external">TKSubmitTransition</a></li>
-</ul>
-<p>漂亮的提交按钮button。</p>
-<h2 id="好ViewController"><a href="#好ViewController" class="headerlink" title="好ViewController"></a>好ViewController</h2><p>待续</p>
-<h2 id="其他汇总"><a href="#其他汇总" class="headerlink" title="其他汇总"></a>其他汇总</h2><ul>
-<li><a href="https://github.com/vsouza/awesome-ios" target="_blank" rel="external">Awesome iOS</a></li>
-<li><a href="http://github.ibireme.com/github/list/ios/" target="_blank" rel="external">Github-iOS备忘</a></li>
-<li><a href="https://github.com/iamdaiyuan/ios_top_1000" target="_blank" rel="external">iOS Top 1000</a></li>
-<li><a href="https://github.com/Aufree/trip-to-iOS/blob/master/Top-100.md" target="_blank" rel="external">iOS Top 100</a></li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Resources/">Resources</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
 	</div>
 
 

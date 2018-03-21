@@ -200,6 +200,103 @@
 
       <div class="body-wrap">
   
+    <article id="post-reactive-cocoa-part-3" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/29/reactive-cocoa-part-3/" class="article-date">
+  	<time datetime="2016-07-29T02:23:41.000Z" itemprop="datePublished">2016-07-29</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/29/reactive-cocoa-part-3/">ReactiveCocoa实践</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>接着<a href="/reactive-cocoa-part-2/">RACSignal实践</a>继续写，本文介绍ReactiveCocoa的简单应用。</p>
+<h2 id="使用ReactiveCocoa代替原生的消息传递机制"><a href="#使用ReactiveCocoa代替原生的消息传递机制" class="headerlink" title="使用ReactiveCocoa代替原生的消息传递机制"></a>使用ReactiveCocoa代替原生的消息传递机制</h2><p>Cocoa框架为对象之间的通信提供了各种消息传递机制，包括：target-action、delegate、notification、KVO以及block。ReactiveCocoa可以代替它们所有，换句话说，ReactiveCocoa为这些通信方式提供了统一的消息传递机制。</p>
+<p>P.S: Objc的<a href="https://www.objccn.io/issue-7-4/" target="_blank" rel="external">消息传递机制</a>介绍了各种消息传递机制之间的差异性。</p>
+<p>使用ReactiveCocoa代替这些消息传递机制的本质是在它们的基础上进行了进一步包装，全部都包装成signal-subscriber模式。</p>
+<p>在我看来，除了对delegation稍微需要点耐心，大部分都比较容易理解。</p>
+<h3 id="代替Delegation"><a href="#代替Delegation" class="headerlink" title="代替Delegation"></a>代替Delegation</h3><p>Objective-C中一个典型的delegation应用套路如下：</p>
+<ol>
+<li>创建一个协议<code>P</code>；</li>
+<li>在类<code>A</code>中声明一个遵守<code>P</code>的delegate属性；</li>
+<li>在类<code>B</code>中创建一个<code>A</code>类型实例<code>a</code>，并设置<code>a.delegate = self</code>；</li>
+<li><code>B</code>遵守协议<code>P</code>；</li>
+<li>在<code>A</code>的实现逻辑中回调delegation；</li>
+</ol>
+<p>伪代码如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************* P *******************/</span></div><div class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">P</span>                                     // 1</span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)protocolMethod;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">/******************* A *******************/</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@interface</span> ()</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">id</span>&lt;P&gt; delegate      <span class="comment">// 2</span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">A</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)someMethod &#123;</div><div class="line">    [<span class="keyword">self</span>.delegate protocolMethod];             <span class="comment">// 5</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="comment">/******************* B *******************/</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">B</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)createInstanceA &#123;</div><div class="line">    A *a = [A new];                             <span class="comment">// 3</span></div><div class="line">    a.delegate = <span class="keyword">self</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)protocolMethod &#123; <span class="comment">/* ... */</span> &#125;            <span class="comment">// 4</span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p>那么如何使用RAC代替delegation呢？RAC能够压缩上述的5个步骤吗，甚至一行代码解决？</p>
+<p>RAC并不能让上述的传统delegation实现逻辑更简单，在RAC的基础上实现一个delegation的步骤大概也是上述的5步，只是步骤<code>4</code>略有不同。</p>
+<p><strong>使用RAC不需要显式遵守协议</strong>，即无需实现协议的方法，让RAC帮忙完成即可。简单来说，上述<code>B</code>的实现逻辑可改为：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/******************* B *******************/</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">B</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)createInstanceA &#123;</div><div class="line">    A *a = [A new];                               <span class="comment">// 3</span></div><div class="line">    a.delegate = <span class="keyword">self</span>;</div><div class="line">    [[<span class="keyword">self</span> rac_signalForSelector:<span class="keyword">@selector</span>(protocolMethod)</div><div class="line">                    fromProtocol:<span class="class"><span class="keyword">@protocol</span>(<span class="title">P</span>)]</span></div><div class="line">        subscribeNext:^(<span class="keyword">id</span> x) &#123;</div><div class="line">        <span class="comment">/* ... */</span></div><div class="line">    &#125;];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// 注释掉</span></div><div class="line"><span class="comment">// - (void)protocolMethod &#123; /* ... */ &#125;         // 4</span></div><div class="line"><span class="comment">// 哪怕不将protocolMethod注释掉，其中的代码也不会被调用。</span></div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
+<p><code>rac_signalForSelector:fromProtocol:</code>在底层实现里为<code>B</code>自动添加了<code>protocolMethod</code>的实现逻辑，因此无需再显式编写<code>protocolMethod</code>方法的实现代码。原来需要放在<code>protocolMethod</code>的代码可以搬到<code>subscribeNext:</code>引导的block中。</p>
+<blockquote>
+<p>P.S: 在理解「RAC代替delegation」时，不要期待RAC会将「声明protocol」「设置delegate」「回调delegate方法」等步骤全部省掉。</p>
+</blockquote>
+<p>单个方面来看，RAC把delegation的实现搞复杂了，也变得不那么容易理解了，这样有什么好处呢？</p>
+<p>当<code>protocolMethod</code>方法独立完成某项工作，不会和其他逻辑耦合在一起时，使用RAC代替delegation纯属蛋疼行为，实在没有意义；但是当<code>protocolMethod</code>方法实现的逻辑和别的逻辑耦合在一起时（譬如它维护的某个属性在别的地方也会用到），或者用更专业的话来讲，当<code>protocolMethod</code>维护的状态和其他逻辑维护的状态有依赖关系时，RAC能够让这些杂乱的依赖关系显得更清晰可控。<a href="https://spin.atomicobject.com/2014/02/03/objective-c-delegate-pattern/" target="_blank" rel="external">Replacing the Objective-C “Delegate Pattern” with ReactiveCocoa</a>中的示例能够更生动地说明这一点！</p>
+<p>RAC提供了<code>rac_signalForSelector:</code>和<code>rac_signalForSelector:fromProtocol:</code>这两个方法来帮助实现「代替传统的delegation」。这两个方法的实现逻辑差不多，只是后者会帮助做一下逻辑校验，以防将selector写错了。</p>
+<p>最后，需要说明的是，<code>rac_signalForSelector:</code>和<code>rac_signalForSelector:fromProtocol:</code>返回的signal类型是<code>RACSubject</code>；<code>subscribeNext:^(id x) {}</code>传入的参数x的类型是<code>RACTuple</code>，有点类似于数组，delegation参数就被盛装于此。</p>
+<p>P.S: 不太明白，为什么不使用<code>NSArray</code>，而另外弄一个<code>RACTuple</code>？</p>
+<h3 id="代替Target-Action"><a href="#代替Target-Action" class="headerlink" title="代替Target-Action"></a>代替Target-Action</h3><p>使用RAC的<code>rac_signalForControlEvents:</code>非常容易实现监听事件，如下：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">UIButton</span> *btn = [<span class="built_in">UIButton</span> new];</div><div class="line">[[btn rac_signalForControlEvents:<span class="built_in">UIControlEventTouchUpInside</span>] subscribeNext:^(<span class="keyword">id</span> x) &#123;</div><div class="line">    <span class="comment">// 监听touch up inside事件</span></div><div class="line">    <span class="comment">// x是UIButton类型，即btn本身</span></div><div class="line">&#125;];</div></pre></td></tr></table></figure>
+<p><code>rac_signalForControlEvents:</code>返回的信号类型为<code>RACDynamicSignal</code>。</p>
+<h3 id="代替KVO"><a href="#代替KVO" class="headerlink" title="代替KVO"></a>代替KVO</h3><p><code>rac_valuesAndChangesForKeyPath:options:observer:</code>和<code>rac_valuesForKeyPath:observer:</code>可用来监听对象属性的变化，这两个方法差不多，只是后者默认将option值设置为<code>NSKeyValueObservingOptionInitial</code>。</p>
+<p>这俩方法中都有<code>observer</code>参数，有什么用呢？</p>
+<p>主要是为了解决KVO的remove observer痛点！众所周知，<code>addObserver:forKeyPath:options:context:</code>和<code>removeObserver:forKeyPath:</code>是对应关系，忘记了后者会造成内存泄漏问题（是内存泄漏问题吗？不太记得了）。</p>
+<p>使用RAC代替KVO的好处之一就是不用再手动remove observer了。</p>
+<p><code>rac_valuesAndChangesForKeyPath:options:observer:</code>和<code>rac_valuesForKeyPath:observer:</code>的使用非常简单，此处略过。</p>
+<h3 id="代替Notification"><a href="#代替Notification" class="headerlink" title="代替Notification"></a>代替Notification</h3><p><code>rac_addObserverForName:object:</code>可用来监听通知，其使用也非常简单，使用它后也无需再自己手动remove observer了。</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ReactiveCocoa/">ReactiveCocoa</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/iOS/">iOS</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-reactive-cocoa-part-2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -763,127 +860,6 @@
       
 	<div class="article-category tagcloud">
 	<a class="article-category-link" href="/categories/Others/">Others</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-implicit-animations" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/06/26/implicit-animations/" class="article-date">
-  	<time datetime="2016-06-26T15:38:26.000Z" itemprop="datePublished">2016-06-26</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/26/implicit-animations/">隐式动画</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>根据我粗浅的理解，「隐式动画」中的所谓「隐式」，是相对于「显式动画」中的显式而言的。</p>
-<p>实现显式动画时，往往会创建一个动画对象，譬如<code>CAAnimation</code>、<code>CABasicAnimation</code>、<code>CAKeyframeAnimation</code>，然后通过<code>CALayer#addAnimation(_:forKey:)</code>方法该动画对象绑定到layer中，简单来说，我们所选的动画类型是确定的。</p>
-<blockquote>
-<p>P.S: 关于显式动画更多内容详见<a href="../explicit-animations/">这里</a>。</p>
-</blockquote>
-<p>而实现隐式动画时，无需指定动画类型，仅仅改变了一个属性，然后Core Animation来决定如何并且何时去做动画。</p>
-<h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><p>隐式动画中有一个「事务」的概念。</p>
-<p><strong>事务</strong>（transaction）实际上是Core Animation用来包含一系列属性动画集合的机制，用指定事务去改变可以做动画的图层属性，不会立刻发生变化，而是提交事务时用一个动画过渡到新值。</p>
-<p>Core Animation中的事务通过<code>CATransaction</code>类来做管理，这个类有些奇怪，它没有属性或实例方法，并且也不能创建实例，但可以用类方法<code>begin()</code>或<code>commit()</code>分别来入栈或出栈。</p>
-<h3 id="使用CATransaction"><a href="#使用CATransaction" class="headerlink" title="使用CATransaction"></a>使用CATransaction</h3><p><code>CATransaction</code>没有任何实例方法，只有类型方法。<code>CATransaction.begin()</code>和<code>CATransaction.commit()</code>构成了一个<strong>动画块</strong>：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="type">CATransaction</span>.begin()</div><div class="line"><span class="comment">/* animation block */</span></div><div class="line"><span class="type">CATransaction</span>.commit()</div></pre></td></tr></table></figure>
-<p>在<strong>动画块</strong>中配置动画（譬如指定duration）、设置animated properties，如下是一个简单的应用示例（平移动画）：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="type">CATransaction</span>.begin()</div><div class="line"><span class="type">CATransaction</span>.setAnimationDuration(<span class="number">1.0</span>) <span class="comment">// duration = 1.0</span></div><div class="line">targetLayer.transform = <span class="type">CATransform3DMakeTranslation</span>(<span class="number">0</span>, <span class="number">150</span>, <span class="number">0</span>)</div><div class="line"><span class="type">CATransaction</span>.commit()</div></pre></td></tr></table></figure>
-<p>除了<code>begin()</code>和<code>commit()</code>，<code>CATransaction</code>还有一些其他的类型方法：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">animationDuration</span><span class="params">()</span></span> -&gt; <span class="type">CFTimeInterval</span>  <span class="comment">// get duration, defaults to 0.25s</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">setAnimationDuration</span><span class="params">(dur: CFTimeInterval)</span></span>  <span class="comment">// set duration</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">animationTimingFunction</span><span class="params">()</span></span> -&gt; <span class="type">CAMediaTimingFunction</span>?  <span class="comment">// get timing function</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">setAnimationTimingFunction</span><span class="params">(function: CAMediaTimingFunction?)</span></span>  <span class="comment">// set timing function</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">disableActions</span><span class="params">()</span></span> -&gt; <span class="type">Bool</span>  <span class="comment">// get disable actions state</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">setDisableActions</span><span class="params">(flag: Bool)</span></span>  <span class="comment">// set disable actions state</span></div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">completionBlock</span><span class="params">()</span></span> -&gt; (() -&gt; <span class="type">Void</span>)?  <span class="comment">// get completion block</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">setCompletionBlock</span><span class="params">(block: <span class="params">(<span class="params">()</span></span></span></span> -&gt; <span class="type">Void</span>)?)  <span class="comment">// set completion block</span></div></pre></td></tr></table></figure>
-<p>共有4组可配置项：duration、timing function、disable actions、completion block。如上的4组getters/setters可以用如下两个类型方法代替：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">valueForKey</span><span class="params">(key: String)</span></span> -&gt; <span class="type">AnyObject</span>?</div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">setValue</span><span class="params">(anObject: AnyObject?, forKey key: String)</span></span></div><div class="line"></div><div class="line"><span class="comment">// key的可选值共有4种：</span></div><div class="line"><span class="comment">// 1. kCATransactionAnimationDuration, duration</span></div><div class="line"><span class="comment">// 2. kCATransactionAnimationTimingFunction, timing function</span></div><div class="line"><span class="comment">// 3. kCATransactionDisableActions, disable actions</span></div><div class="line"><span class="comment">// 4. kCATransactionCompletionBlock, completion block</span></div></pre></td></tr></table></figure>
-<p>需要注意的是：</p>
-<ul>
-<li><code>CATransaction</code>没办法配置delay、repeat count等；</li>
-<li><code>CATransaction</code>动画块只能处理<code>CALayer</code>相关动画，无法正确处理<code>UIView</code>的动画，甚至<code>UIView#layer</code>（与<code>UIView</code>相关联的<code>CALayer</code>）也不行；</li>
-</ul>
-<p>既然<code>CATransaction</code>只能处理<code>CALayer</code>相关动画，<code>UIView</code>的隐式动画怎么实现？</p>
-<p>对应<code>CATransaction.begin()</code>和<code>CATransaction.commit()</code>，<code>UIView</code>也有两个类型方法：<code>beginAnimations(_:context:)</code>和<code>UIView.commitAnimations()</code>。换句话说，这两个方法一前一后也构成了一个针对<code>UIView</code>的动画块：</p>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="type">UIView</span>.beginAnimations(<span class="literal">nil</span>, context: <span class="literal">nil</span>)</div><div class="line"><span class="comment">/* animation block */</span></div><div class="line"><span class="type">UIView</span>.commitAnimations()</div></pre></td></tr></table></figure>
-<p>可以通过<code>UIView.setAnimationDuration()</code>等方法对动画进行配置，值得一提的是，相对于<code>CATransaction.setXXX</code>，<code>UIView.setAnimationXXX</code>要更丰富一些，可以额外配置delay、repeat count等。</p>
-<p>在iOS 4中，苹果对<code>UIView</code>添加了一种基于block的动画方法，即<code>UIView.animateXXX</code>系列方法，在做一堆的属性动画时，这些方法在语法上会更加简单，但实质上它们都是在做同样的事情。</p>
-<h2 id="图层行为"><a href="#图层行为" class="headerlink" title="图层行为"></a>图层行为</h2><p>这一部分着重解释<code>UIView#layer</code>动画为什么会在<code>CATransaction</code>动画块中失效。这一部分内容几乎拷贝自<a href="https://zsisme.gitbooks.io/ios-/content/chapter7/layer-actions.html" target="_blank" rel="external">图层行为</a>。</p>
-<p>先来做个试验，尝试直接对<code>UIView</code>关联的图层（<code>UIView#layer</code>）而不是一个单独的图层（<code>CALayer</code>）做动画：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIView</span> *layerView;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="comment">//set the color of our layerView backing layer directly</span></div><div class="line">    <span class="keyword">self</span>.layerView.layer.backgroundColor = [<span class="built_in">UIColor</span> blueColor].CGColor;</div><div class="line">&#125;</div><div class="line"></div><div class="line">- (<span class="keyword">IBAction</span>)changeColor</div><div class="line">&#123;</div><div class="line">    <span class="comment">//begin a new transaction</span></div><div class="line">    [<span class="built_in">CATransaction</span> begin];</div><div class="line">    <span class="comment">//set the animation duration to 1 second</span></div><div class="line">    [<span class="built_in">CATransaction</span> setAnimationDuration:<span class="number">1.0</span>];</div><div class="line">    <span class="comment">//randomize the layer background color</span></div><div class="line">    <span class="built_in">CGFloat</span> red = arc4random() / (<span class="built_in">CGFloat</span>)INT_MAX;</div><div class="line">    <span class="built_in">CGFloat</span> green = arc4random() / (<span class="built_in">CGFloat</span>)INT_MAX;</div><div class="line">    <span class="built_in">CGFloat</span> blue = arc4random() / (<span class="built_in">CGFloat</span>)INT_MAX;</div><div class="line">    <span class="keyword">self</span>.layerView.layer.backgroundColor = [<span class="built_in">UIColor</span> colorWithRed:red green:green blue:blue alpha:<span class="number">1.0</span>].CGColor;</div><div class="line">    <span class="comment">//commit the transaction</span></div><div class="line">    [<span class="built_in">CATransaction</span> commit];</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>运行程序，你会发现当按下按钮，图层颜色瞬间切换到新的值，而不是之前平滑过渡的动画。发生了什么呢？隐式动画好像被<code>UIView</code>关联图层给禁用了。</p>
-<p>试想一下，如果<code>UIView</code>的属性都有动画特性的话，那么无论在什么时候修改它，我们都应该能注意到的。所以，如果说<code>UIKit</code>建立在Core Animation（默认对所有东西都做动画）之上，那么隐式动画是如何被<code>UIKit</code>禁用掉呢？</p>
-<p>我们知道Core Animation通常对<code>CALayer</code>的所有属性（可动画的属性）做动画，但是<code>UIView</code>把它关联的图层的这个特性关闭了。为了更好说明这一点，我们需要知道隐式动画是如何实现的。</p>
-<p>我们把改变属性时CALayer自动应用的动画称作行为，当<code>CALayer</code>的属性被修改时候，它会调用<code>-actionForKey:</code>方法，传递属性的名称。剩下的操作都在<code>CALayer</code>的头文件中有详细的说明，实质上是如下几步：</p>
-<ul>
-<li>图层首先检测它是否有委托，并且是否实现<code>CALayerDelegate</code>协议指定的<code>-actionForLayer:forKey:</code>方法。如果有，直接调用并返回结果。</li>
-<li>如果没有委托，或者委托没有实现<code>-actionForLayer:forKey:</code>方法，图层接着检查包含属性名称对应行为映射的actions字典。</li>
-<li>如果actions字典没有包含对应的属性，那么图层接着在它的style字典接着搜索属性名。</li>
-<li>最后，如果在style里面也找不到对应的行为，那么图层将会直接调用定义了每个属性的标准行为的<code>-defaultActionForKey:</code>方法。</li>
-</ul>
-<p>所以一轮完整的搜索结束之后，<code>-actionForKey:</code>要么返回空（这种情况下将不会有动画发生），要么是<code>CAAction</code>协议对应的对象，最后<code>CALayer</code>拿这个结果去对先前和当前的值做动画。</p>
-<p>于是这就解释了<code>UIKit</code>是如何禁用隐式动画的：每个UIView对它关联的图层都扮演了一个委托，并且提供了<code>-actionForLayer:forKey:</code>的实现方法。当不在一个动画块的实现中，<code>UIView</code>对所有图层行为返回<code>nil</code>，但是在动画block范围之内，它就返回了一个非空值。我们可以用一个demo做个简单的实验：</p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> ()</span></div><div class="line"></div><div class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">IBOutlet</span> <span class="built_in">UIView</span> *layerView;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div><div class="line"></div><div class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">ViewController</span></span></div><div class="line"></div><div class="line">- (<span class="keyword">void</span>)viewDidLoad</div><div class="line">&#123;</div><div class="line">    [<span class="keyword">super</span> viewDidLoad];</div><div class="line">    <span class="comment">//test layer action when outside of animation block</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Outside: %@"</span>, [<span class="keyword">self</span>.layerView actionForLayer:<span class="keyword">self</span>.layerView.layer forKey:<span class="string">@"backgroundColor"</span>]);</div><div class="line">    <span class="comment">//begin animation block</span></div><div class="line">    [<span class="built_in">UIView</span> beginAnimations:<span class="literal">nil</span> context:<span class="literal">nil</span>];</div><div class="line">    <span class="comment">//test layer action when inside of animation block</span></div><div class="line">    <span class="built_in">NSLog</span>(<span class="string">@"Inside: %@"</span>, [<span class="keyword">self</span>.layerView actionForLayer:<span class="keyword">self</span>.layerView.layer forKey:<span class="string">@"backgroundColor"</span>]);</div><div class="line">    <span class="comment">//end animation block</span></div><div class="line">    [<span class="built_in">UIView</span> commitAnimations];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">@end</span></div></pre></td></tr></table></figure>
-<p>运行程序，控制台显示结果如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">$ LayerTest[21215:c07] Outside: &lt;null&gt;</div><div class="line">$ LayerTest[21215:c07] Inside: &lt;CABasicAnimation: 0x757f090&gt;</div></pre></td></tr></table></figure>
-<p>于是我们可以预言，当属性在动画块之外发生改变，<code>UIView</code>直接通过返回<code>nil</code>来禁用隐式动画。但如果在动画块范围之内，根据动画具体类型返回相应的属性，在这个例子就是<code>CABasicAnimation</code>。</p>
-<p>当然返回<code>nil</code>并不是禁用隐式动画唯一的办法，<code>CATransacition</code>有个方法叫做<code>+setDisableActions:</code>，可以用来对所有属性打开或者关闭隐式动画。</p>
-<p>总结一下，我们知道了如下几点：</p>
-<ul>
-<li><code>UIView</code>关联的图层禁用了隐式动画，对这种图层做动画的唯一办法就是使用<code>UIView</code>的动画函数（而不是依赖<code>CATransaction</code>），或者继承<code>UIView</code>，并覆盖<code>-actionForLayer:forKey:</code>方法，或者直接创建一个显式动画。</li>
-<li>对于单独存在的图层，我们可以通过实现图层的<code>-actionForLayer:forKey:</code>委托方法，或者提供一个actions字典来控制隐式动画。</li>
-</ul>
-<p>如上文所述，<code>UIView</code>和<code>CALayer</code>处理隐式动画的逻辑不一样，那么如何同时实现它们俩的动画呢？这个问题并不复杂，懒得叙述了，直接参考：</p>
-<ul>
-<li><a href="http://stackoverflow.com/questions/10801414/how-to-synchronously-animate-a-uiview-and-a-calayer" target="_blank" rel="external">How to synchronously animate a UIView and a CALayer</a></li>
-<li><a href="http://khanlou.com/2012/10/mixing-uiview-and-calayer-animations/" target="_blank" rel="external">Mixing UIView and CALayer animations</a></li>
-<li><a href="https://developer.apple.com/library/ios/documentation/WindowsViews/Conceptual/ViewPG_iPhoneOS/AnimatingViews/AnimatingViews.html#//apple_ref/doc/uid/TP40009503-CH6-SW12" target="_blank" rel="external">Animating View and Layer Changes Together</a></li>
-</ul>
-<h2 id="UIView-animateXXX汇总"><a href="#UIView-animateXXX汇总" class="headerlink" title="UIView.animateXXX汇总"></a>UIView.animateXXX汇总</h2><figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">animateWithDuration</span><span class="params">(duration: NSTimeInterval,</span></span></div><div class="line">                         animations: <span class="params">()</span> -&gt; <span class="type">Void</span>)</div><div class="line">                         </div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">animateWithDuration</span><span class="params">(duration: NSTimeInterval,</span></span></div><div class="line">                         animations: <span class="params">()</span> -&gt; <span class="type">Void</span>,</div><div class="line">                         completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)?)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">animateWithDuration</span><span class="params">(duration: NSTimeInterval,</span></span></div><div class="line">                         delay: NSTimeInterval,</div><div class="line">                         options: UIViewAnimationOptions,</div><div class="line">                         animations: <span class="params">()</span> -&gt; <span class="type">Void</span>,</div><div class="line">                         completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)?)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">animateWithDuration</span><span class="params">(duration: NSTimeInterval,</span></span></div><div class="line">                         delay: NSTimeInterval,</div><div class="line">                         usingSpringWithDamping dampingRatio: CGFloat,</div><div class="line">                         initialSpringVelocity velocity: CGFloat,</div><div class="line">                         options: UIViewAnimationOptions,</div><div class="line">                         animations: <span class="params">()</span> -&gt; <span class="type">Void</span>,</div><div class="line">                         completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)?)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">transitionWithView</span><span class="params">(view: UIView,</span></span></div><div class="line">                        duration: NSTimeInterval,</div><div class="line">                        options: UIViewAnimationOptions,</div><div class="line">                        animations: <span class="params">(<span class="params">()</span></span> -&gt; <span class="type">Void</span>)?,</div><div class="line">                        completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)?)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">transitionFromView</span><span class="params">(fromView: UIView,</span></span></div><div class="line">                        toView: UIView,</div><div class="line">                        duration: NSTimeInterval,</div><div class="line">                        options: UIViewAnimationOptions,</div><div class="line">                        completion: <span class="params">(<span class="params">(Bool)</span></span> -&gt; <span class="type">Void</span>)?)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">performSystemAnimation</span><span class="params">(animation: UISystemAnimation,</span></span></div><div class="line">                            onViews views: [UIView],</div><div class="line">                            options: UIViewAnimationOptions,</div><div class="line">                            animations parallelAnimations: <span class="params">(<span class="params">()</span></span> -&gt; <span class="type">Void</span>)?,</div><div class="line">                            completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)?)</div></pre></td></tr></table></figure>
-<figure class="highlight swift"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/* 关键帧动画 */</span></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">animateKeyframesWithDuration</span><span class="params">(duration: NSTimeInterval,</span></span></div><div class="line">                                  delay: NSTimeInterval,</div><div class="line">                                  options: UIViewKeyframeAnimationOptions,</div><div class="line">                                  animations: <span class="params">()</span> -&gt; <span class="type">Void</span>,</div><div class="line">                                  completion: ((<span class="type">Bool</span>) -&gt; <span class="type">Void</span>)?)</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">func</span> <span class="title">addKeyframeWithRelativeStartTime</span><span class="params">(frameStartTime: Double,</span></span></div><div class="line">                                      relativeDuration frameDuration: Double,</div><div class="line">                                      animations: <span class="params">()</span> -&gt; <span class="type">Void</span>)</div></pre></td></tr></table></figure>
-<p>如上这些API能够做到的事情，使用Core Animation的显式动画（基于<code>CAAnimation</code>）都能做到。</p>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Animation/">Animation</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/iOS/">iOS</a>
 	</div>
 
 
