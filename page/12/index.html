@@ -717,10 +717,10 @@
 
 
   
-    <article id="post-unstanding-objective-c-runtime-part-2" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-understanding-objective-c-runtime-part-2" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2015/04/27/unstanding-objective-c-runtime-part-2/" class="article-date">
+      <a href="/2015/04/27/understanding-objective-c-runtime-part-2/" class="article-date">
   	<time datetime="2015-04-27T03:16:36.000Z" itemprop="datePublished">2015-04-27</time>
 </a>
     </div>
@@ -734,7 +734,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2015/04/27/unstanding-objective-c-runtime-part-2/">理解Objective-C Runtime（二）消息传递机制</a>
+      <a class="article-title" href="/2015/04/27/understanding-objective-c-runtime-part-2/">理解Objective-C Runtime（二）消息传递机制</a>
     </h1>
   
 
@@ -759,9 +759,9 @@
 <figure class="highlight c"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="function">id <span class="title">objc_msgSend</span><span class="params">(id self, SEL op, ...)</span></span></div></pre></td></tr></table></figure>
 <p><code>id returnValue = [someObject messageName:parameter];</code>会被编译器翻译成如下形式：</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">id</span> returnValue = objc_msgSend(someObject, <span class="keyword">@selector</span>(messageName:), parameter);</div></pre></td></tr></table></figure>
-<p>在runtime，<code>objc_msgSend</code>会依据receiver（即上述对象someObject）和选择子类型来调用适当的方法。为了完成此操作，该方法需要在接收者所属的类中搜寻其「方法列表」（关于方法列表，详见<a href="/unstanding-objective-c-runtime-part-1/#objc_class和isa">methodLists</a>），如果能找到与选择子匹配的方法，就调至其实现的代码。若找不到，那就沿着继承体系继续向上查找，等找到合适的方法之后再跳转。如果最终还找不到相匹配的方法，那就执行<strong>消息转发</strong>（message forwarding）操作，这会在下一篇<a href="/unstanding-objective-c-runtime-part-3/">博客</a>中阐述。</p>
+<p>在runtime，<code>objc_msgSend</code>会依据receiver（即上述对象someObject）和选择子类型来调用适当的方法。为了完成此操作，该方法需要在接收者所属的类中搜寻其「方法列表」（关于方法列表，详见<a href="/understanding-objective-c-runtime-part-1/#objc_class和isa">methodLists</a>），如果能找到与选择子匹配的方法，就调至其实现的代码。若找不到，那就沿着继承体系继续向上查找，等找到合适的方法之后再跳转。如果最终还找不到相匹配的方法，那就执行<strong>消息转发</strong>（message forwarding）操作，这会在下一篇<a href="/understanding-objective-c-runtime-part-3/">博客</a>中阐述。</p>
 <p>如此看来，Objective-C在runtime调用一个方法似乎需要很多步骤。所幸的是，<code>objc_msgSend</code>会将匹配结果缓存在快速映射表（fast map）里面，每个类都有这样一块缓存，若是稍后还想该类发送与选择子相同的方法，那么查找起来就很快了。</p>
-<p>P.S: 上一篇博客《<a href="/unstanding-objective-c-runtime-part-1/">理解Objective-C Runtime（一）预备知识</a>》中在介绍<code>objc_class</code>结构体时谈到了其中一个变量<code>cache</code>，但简单忽略飘过；其实，根据我的理解，这里的快速映射表所对应的就是<code>objc_class</code>中的变量<code>cache</code>。</p>
+<p>P.S: 上一篇博客《<a href="/understanding-objective-c-runtime-part-1/">理解Objective-C Runtime（一）预备知识</a>》中在介绍<code>objc_class</code>结构体时谈到了其中一个变量<code>cache</code>，但简单忽略飘过；其实，根据我的理解，这里的快速映射表所对应的就是<code>objc_class</code>中的变量<code>cache</code>。</p>
 <p>诚然，即便有这种快速映射表机制，执行速度还是不如静态绑定。实际上，对于当前这种硬件平台，这点速度差根本不值一提。</p>
 <p>在<code>&lt;objc/message.h&gt;</code>中，除了<code>objc_msgSend</code>函数原型之外，还可以看到其他的<code>objc_msgSendXXOO</code>函数，这些方法的详细作用，《Effective Objective-C 2.0》item 11中有详细说明，本文就不赘述了。</p>
 <p>只要理解了Objective-C的对象模型，理解「消息传递机制」还是非常容易的。</p>
