@@ -5,7 +5,7 @@
     
   <url>
     <loc>http://shinemax1.github.io/2018/07/20/ReactSSR/</loc>
-    <lastmod>2018-07-20T05:06:01.351Z</lastmod>
+    <lastmod>2018-07-20T05:09:59.843Z</lastmod>
     <data>
         <display>
         <title>React+Redux+socket.io+SSR+express+pm2+mongondb打造你的聊天app</title>
@@ -13,17 +13,7 @@
         
         <tag>React</tag>
          
-        <tag>Redux</tag>
-         
-        <tag>socket.io</tag>
-         
         <tag>SSR</tag>
-         
-        <tag>express</tag>
-         
-        <tag>pm2</tag>
-         
-        <tag>mongondb</tag>
          
          
            
