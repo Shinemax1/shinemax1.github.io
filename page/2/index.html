@@ -200,6 +200,67 @@
 
       <div class="body-wrap">
   
+    <article id="post-module" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/15/module/" class="article-date">
+  	<time datetime="2018-03-15T15:43:40.000Z" itemprop="datePublished">2018-03-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/03/15/module/">module</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>概述<br>严格模式<br>export 命令<br>    export {}<br>    export 直接定义变量<br>    动态改变 setTimeout<br>import 命令<br>    大括号里面的变量名，必须与被导入模块（profile.js）对外接口的名称相同。<br>    只读<br>    import后面的from指定模块文件的位置，可以是相对路径，也可以是绝对路径，.js后缀可以省略。如果只是模块名，不带有路径，那么必须有配置文件，告诉 JavaScript 引擎该模块的位置。<br>    import命令具有提升效果，会提升到整个模块的头部，首先执行。<br>    import语句会执行所加载的模块，因此可以有下面的写法。（多次输入，只执行一次）<br>    因为静态，所以最早形成的<br>模块的整体加载<br>export default 命令<br>    使用了default就不会在import中使用{}<br>    可以在default后加函数表达式，也可以加函数，相当于加函数表达式<br>    export {d as default} 等同于 export default d<br>export 与 import 的复合写法<br>    export {q,w} from ‘df’;等同于 export {q,w}; import {q,w} from ‘df’;但是导入模块dw，不会被使用<br>模块的继承<br>跨模块常量<br>import()</p>
+
+      
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
+	</div>
+
+      
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/web/">web</a>
+	</div>
+
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+
+  
     <article id="post-extends" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
@@ -582,128 +643,6 @@ var y = new Rectangle(3, 4);  // 正确
 <ul>
 <li>ES2017 允许函数的最后一个参数有尾逗号（trailing comma）。</li>
 </ul>
-</blockquote>
-</li>
-</ul>
-
-      
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/es6/">es6</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/js基础/">js基础</a></li></ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-	<a class="article-category-link" href="/categories/web/">web</a>
-	</div>
-
-
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-
-  
-    <article id="post-数值的扩展" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2018/03/10/数值的扩展/" class="article-date">
-  	<time datetime="2018-03-10T15:15:40.000Z" itemprop="datePublished">2018-03-10</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/10/数值的扩展/">数值的扩展</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="数值的扩展"><a href="#数值的扩展" class="headerlink" title="数值的扩展"></a>数值的扩展</h2><ul>
-<li>1.二进制和八进制表示法<blockquote>
-<ul>
-<li>ES6 提供了二进制和八进制数值的新的写法，分别用前缀0b（或0B）和0o（或0O）表示。</li>
-</ul>
-</blockquote>
-</li>
-<li>2.Number.isFinite(), Number.isNaN()<blockquote>
-<ul>
-<li>Number.isFinite()用来检查一个数值是否为有限的（finite），即不是Infinity。注意，如果参数类型不是数值，Number.isFinite一律返回false。</li>
-<li>Number.isNaN()用来检查一个值是否为NaN。注意，如果参数类型不是数值，Number.isNaN一律返回false。</li>
-<li>Number.isFinite()对于非数值一律返回false, Number.isNaN()只有对于NaN才返回true，非NaN一律返回false。</li>
-</ul>
-</blockquote>
-</li>
-<li>3.Number.parseInt(), Number.parseFloat()<blockquote>
-<ul>
-<li>ES6 将全局方法parseInt()和parseFloat()，移植到Number对象上面，行为完全保持不变。</li>
-</ul>
-</blockquote>
-</li>
-<li>4.Number.isInteger()<blockquote>
-<ul>
-<li>Number.isInteger()用来判断一个数值是否为整数。</li>
-</ul>
-</blockquote>
-</li>
-<li><p>5.Number.EPSILON</p>
-<blockquote>
-<ul>
-<li>Number.EPSILON可以用来设置“能够接受的误差范围”。比如，误差范围设为 2 的-50 次方（即Number.EPSILON * Math.pow(2, 2)），即如果两个浮点数的差小于这个值，我们就认为这两个浮点数相等。<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">withinErrorMargin</span> (<span class="params">left, right</span>) </span>&#123;</div><div class="line">   <span class="keyword">return</span> <span class="built_in">Math</span>.abs(left - right) &lt; <span class="built_in">Number</span>.EPSILON * <span class="built_in">Math</span>.pow(<span class="number">2</span>, <span class="number">2</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-</li>
-</ul>
-</blockquote>
-</li>
-<li><p>6.安全整数和 Number.isSafeInteger()</p>
-<blockquote>
-<ul>
-<li>JavaScript 能够准确表示的整数范围在-2^53到2^53之间（不含两个端点），超过这个范围，无法精确表示这个值。</li>
-<li>ES6 引入了Number.MAX_SAFE_INTEGER和* 7.Number.MIN_SAFE_INTEGER这两个常量，用来表示这个范围的上下限。</li>
-</ul>
-</blockquote>
-</li>
-<li><p>8.Math 对象的扩展</p>
-<blockquote>
-<ul>
-<li>Math.trunc()返回去除小数点后的数</li>
-<li>Math.sign()判断正数还是负数</li>
-<li>Math.cbrt()立方根</li>
-<li>Math.clz32()JavaScript 的整数使用 32 位二进制形式表示，Math.clz32方法返回一个数的 32 位无符号整数形式有多少个前导 0。</li>
-<li>Math.imul()方法返回两个数以 32 位带符号整数形式相乘的结果，返回的也是一个 32 位的带符号整数。</li>
-<li>Math.fround()方法返回一个数的32位单精度浮点数形式。</li>
-<li>Math.hypot()方法返回所有参数的平方和的平方根</li>
-</ul>
-</blockquote>
-</li>
-<li><p>9.指数运算符</p>
-<blockquote>
-<p>** </p>
 </blockquote>
 </li>
 </ul>
