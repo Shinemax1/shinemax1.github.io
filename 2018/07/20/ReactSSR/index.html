@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>React+Redux+socket.io+SSR+express+pm2+mongondb打造你的聊天app | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="本文是直接着手SSR部分的，需要大家有一定的React,node和webpack基础能力
+服务端渲染
+Server Slide Rendering服务端渲染,又简写为SSR，他一般被用在我们的SPA（Single-Page Application），即单页应用。
+
+为什么要用SSR？首先我们需要知道SSR对于SPA的好处，优势是什么。
+
+更好的SEO（Search Engine Optimizat">
+<meta property="og:type" content="article">
+<meta property="og:title" content="React+Redux+socket.io+SSR+express+pm2+mongondb打造你的聊天app">
+<meta property="og:url" content="http://shinemax1.github.io/2018/07/20/ReactSSR/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="本文是直接着手SSR部分的，需要大家有一定的React,node和webpack基础能力
+服务端渲染
+Server Slide Rendering服务端渲染,又简写为SSR，他一般被用在我们的SPA（Single-Page Application），即单页应用。
+
+为什么要用SSR？首先我们需要知道SSR对于SPA的好处，优势是什么。
+
+更好的SEO（Search Engine Optimizat">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/30/1644f56948725d9f?w=1148&h=592&f=jpeg&s=129956">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/30/1644f684849a3656?w=562&h=994&f=jpeg&s=58584">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/30/1644f96e7d492e64?w=1138&h=572&f=jpeg&s=170355">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/30/1644f9c1c32b5e66?w=306&h=886&f=jpeg&s=56016">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/30/1644fb97d437ed71?w=1130&h=260&f=jpeg&s=46396">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/30/1644fc3965492fef?w=1952&h=996&f=jpeg&s=200831">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/30/164500836f1ab210?w=904&h=1232&f=jpeg&s=85014">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/30/164504fa410ade72?w=1124&h=824&f=jpeg&s=203875">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/30/164505303ec8211b?w=848&h=210&f=jpeg&s=42625">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/6/30/16450529b006f32f?w=798&h=544&f=jpeg&s=51991">
+<meta property="og:updated_time" content="2018-07-20T05:15:22.197Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="React+Redux+socket.io+SSR+express+pm2+mongondb打造你的聊天app">
+<meta name="twitter:description" content="本文是直接着手SSR部分的，需要大家有一定的React,node和webpack基础能力
+服务端渲染
+Server Slide Rendering服务端渲染,又简写为SSR，他一般被用在我们的SPA（Single-Page Application），即单页应用。
+
+为什么要用SSR？首先我们需要知道SSR对于SPA的好处，优势是什么。
+
+更好的SEO（Search Engine Optimizat">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/6/30/1644f56948725d9f?w=1148&h=592&f=jpeg&s=129956">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/Android/">Android相关</a></li>
+				        
+							<li><a href="/categories/iOS/">iOS相关</a></li>
+				        
+							<li><a href="/categories/web/">前端相关</a></li>
+				        
+							<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+				        
+							<li><a href="/categories/Others/">其它相关</a></li>
+				        
+							<li><a href="/categories/blog/">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.25px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 13.75px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 16.25px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.25px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 17.5px;">Objective-C</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12.5px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 15px;">Runtime</a> <a href="/tags/SSR/" style="font-size: 10px;">SSR</a> <a href="/tags/Sublime-Text/" style="font-size: 11.25px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 13.75px;">Tools</a> <a href="/tags/Transition/" style="font-size: 12.5px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/es6/" style="font-size: 18.75px;">es6</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/js/" style="font-size: 11.25px;">js</a> <a href="/tags/js基础/" style="font-size: 20px;">js基础</a> <a href="/tags/node-js/" style="font-size: 11.25px;">node.js</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/事件环/" style="font-size: 10px;">事件环</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/宏任务/" style="font-size: 10px;">宏任务</a> <a href="/tags/微任务/" style="font-size: 10px;">微任务</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/模块化/" style="font-size: 10px;">模块化</a> <a href="/tags/流/" style="font-size: 10px;">流</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/面试/" style="font-size: 11.25px;">面试</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，全栈开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/Android/">Android相关</a></li>
+		        
+					<li><a href="/categories/iOS/">iOS相关</a></li>
+		        
+					<li><a href="/categories/web/">前端相关</a></li>
+		        
+					<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+		        
+					<li><a href="/categories/Others/">其它相关</a></li>
+		        
+					<li><a href="/categories/blog/">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-ReactSSR" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/07/20/ReactSSR/" class="article-date">
+  	<time datetime="2018-07-20T05:00:40.000Z" itemprop="datePublished">2018-07-20</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      React+Redux+socket.io+SSR+express+pm2+mongondb打造你的聊天app
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React/">React</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/SSR/">SSR</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/web/">web</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p><strong>本文是直接着手SSR部分的，需要大家有一定的React,node和webpack基础能力</strong></p>
+<h1 id="服务端渲染"><a href="#服务端渲染" class="headerlink" title="服务端渲染"></a>服务端渲染</h1><blockquote>
+<p><code>Server Slide Rendering</code>服务端渲染,又简写为<code>SSR</code>，他一般被用在我们的<code>SPA（Single-Page Application）</code>，即单页应用。</p>
+</blockquote>
+<h2 id="为什么要用SSR？"><a href="#为什么要用SSR？" class="headerlink" title="为什么要用SSR？"></a>为什么要用SSR？</h2><p>首先我们需要知道SSR对于SPA的<code>好处</code>，<code>优势</code>是什么。</p>
+<ul>
+<li>更好的<code>SEO（Search Engine Optimization）</code>，<code>SEO</code>是搜索引擎优化，简而言之就是针对百度这些搜索引擎，可以让他们搜索到我们的应用。这里可能会有误区，就是我也可以在index.html上写<code>SEO</code>，为什么会不起作用。因为React、Vue的原理是<strong>客户端渲染</strong>，通过浏览器去加载js、css，有一个时间上的<code>延迟</code>，而搜索引擎不会管你的<code>延迟</code>，他就觉得你如果没加载出来就是没有的，所以是搜不到的。</li>
+<li>解决一开始的<code>白屏渲染</code>，上面讲了React的渲染原理，而<strong>SSR服务端渲染</strong>是通过服务端请求数据，因为服务端内网的请求快，性能好所以会更快的加载所有的文件，最后把下载渲染后的页面返回给客户端。</li>
+</ul>
+<h2 id="上面提到了服务端渲染和客户端渲染，那么它们的区别是什么呢？"><a href="#上面提到了服务端渲染和客户端渲染，那么它们的区别是什么呢？" class="headerlink" title="上面提到了服务端渲染和客户端渲染，那么它们的区别是什么呢？"></a>上面提到了服务端渲染和客户端渲染，那么它们的区别是什么呢？</h2><p><strong>客户端渲染路线：</strong></p>
+<ol>
+<li>请求一个html  </li>
+<li>服务端返回一个html  </li>
+<li>浏览器下载html里面的js/css文件  </li>
+<li>等待js文件下载完成  </li>
+<li>等待js加载并初始化完成  </li>
+<li>js代码终于可以运行，由js代码向后端请求数据( ajax/fetch )  </li>
+<li>等待后端数据返回  </li>
+<li>react-dom( 客户端 )从无到完整地，把数据渲染为响应页面</li>
+</ol>
+<p><strong>服务端渲染路线：</strong></p>
+<ol>
+<li>请求一个html  </li>
+<li>服务端请求数据( 内网请求快 )  </li>
+<li>服务器初始渲染（服务端性能好，较快）  </li>
+<li>服务端返回已经有正确内容的页面  </li>
+<li>客户端请求js/css文件  </li>
+<li>等待js文件下载完成  </li>
+<li>等待js加载并初始化完成  </li>
+<li>react-dom( 客户端 )把剩下一部分渲染完成( 内容小，渲染快 )</li>
+</ol>
+<blockquote>
+<p>其主要区别就在于，客户端从<code>无到有的</code>渲染，服务端是先在服务端<code>渲染一部分</code>，在再客户端<code>渲染一小部分</code>。</p>
+</blockquote>
+<h3 id="我们怎么去做服务端渲染？"><a href="#我们怎么去做服务端渲染？" class="headerlink" title="我们怎么去做服务端渲染？"></a>我们怎么去做服务端渲染？</h3><p>我们这里是用express框架，node做中间层进行服务端渲染。通过将<code>首页进行同构处理</code>，让服务端，通过调用<code>ReactDOMServer.renderToNodeStream</code>方法把<code>Virtual DOM</code>转换成<code>HTML字符串</code>返回给客户端，从而达到服务端渲染的目的。</p>
+<p><strong>这里项目起步是已经做完前端和后端，是把已经写好的React Demo直接拿来用</strong></p>
+<h1 id="服务端渲染开始"><a href="#服务端渲染开始" class="headerlink" title="服务端渲染开始"></a>服务端渲染开始</h1><p>既然是首页SSR，首先我们要把首页对应的<code>index.js</code>抽离出来放入我们服务端对应的<code>server.js</code>，那么<code>index.js</code>中组件对应的<code>静态css和js文件</code>我们需要打包出来。</p>
+<h2 id="用webpack打包文件到build文件夹"><a href="#用webpack打包文件到build文件夹" class="headerlink" title="用webpack打包文件到build文件夹"></a>用webpack打包文件到build文件夹</h2><p>我们来运行<code>npm run build</code></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/30/1644f56948725d9f?w=1148&amp;h=592&amp;f=jpeg&amp;s=129956" alt=""></p>
+<p><strong>我们可以看到<code>两个重要的文件夹</code>，一个是js文件夹，一个是css文件夹，他就是我们项目的js和css<code>静态资源文件</code></strong></p>
+<h2 id="将打包后的build文件能在服务端server-js中访问到"><a href="#将打包后的build文件能在服务端server-js中访问到" class="headerlink" title="将打包后的build文件能在服务端server.js中访问到"></a>将打包后的<code>build</code>文件能在服务端<code>server.js</code>中访问到</h2><p><strong>因为是服务端，我们需要用到express</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">'express'</span></div><div class="line"><span class="keyword">import</span> reducers <span class="keyword">from</span> <span class="string">'../src/reducer'</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> userRouter <span class="keyword">from</span> <span class="string">'./routes/user'</span></div><div class="line"><span class="keyword">import</span> bodyParser <span class="keyword">from</span> <span class="string">'body-parser'</span></div><div class="line"><span class="keyword">import</span> cookieParser <span class="keyword">from</span> <span class="string">'cookie-parser'</span></div><div class="line"><span class="keyword">import</span> model <span class="keyword">from</span> <span class="string">'./model'</span></div><div class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">'path'</span></div><div class="line"><span class="keyword">import</span> https <span class="keyword">from</span> <span class="string">'http'</span></div><div class="line"><span class="keyword">import</span> socketIo <span class="keyword">from</span> <span class="string">'socket.io'</span></div><div class="line"></div><div class="line"></div><div class="line"><span class="keyword">const</span> Chat = model.getModel(<span class="string">'chat'</span>)</div><div class="line"><span class="comment">//新建app</span></div><div class="line"><span class="keyword">const</span> app = express()</div><div class="line"></div><div class="line"><span class="comment">//work with express</span></div><div class="line"><span class="keyword">const</span> server = https.Server(app)</div><div class="line"><span class="keyword">const</span> io = socketIo(server)</div><div class="line">io.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</div><div class="line">  socket.on(<span class="string">'sendmsg'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="keyword">let</span> &#123;<span class="keyword">from</span>,to,msg&#125; = data</div><div class="line">    <span class="keyword">let</span> chatid = [<span class="keyword">from</span>,to].sort().join(<span class="string">'_'</span>)</div><div class="line">    Chat.create(&#123;chatid,<span class="keyword">from</span>,to,<span class="attr">content</span>:msg&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">e,d</span>)</span>&#123;</div><div class="line">      io.emit(<span class="string">'recvmsg'</span>,<span class="built_in">Object</span>.assign(&#123;&#125;,d._doc))</div><div class="line">    &#125;)</div><div class="line">    <span class="comment">// console.log(data)</span></div><div class="line">    <span class="comment">// //广播给全局</span></div><div class="line">    <span class="comment">// io.emit('recvmsg',data)</span></div><div class="line">  &#125;)</div><div class="line">&#125;)</div><div class="line"></div><div class="line">app.use(cookieParser())</div><div class="line">app.use(bodyParser.json())</div><div class="line">app.use(<span class="string">'/user'</span>,userRouter)</div><div class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">req,res,next</span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(req.url.startsWith(<span class="string">'/user/'</span>) || req.url.startsWith(<span class="string">'/static/'</span>))&#123;</div><div class="line">    <span class="keyword">return</span> next()</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//如果访问url根路径是user或者static就返回打包后的主页面</span></div><div class="line">  <span class="keyword">return</span> res.sendFile(path.resolve(<span class="string">'build/index.html'</span>))</div><div class="line">&#125;)</div><div class="line"><span class="comment">//映射build文件路径，项目上要使用</span></div><div class="line">app.use(<span class="string">'/'</span>,express.static(path.resolve(<span class="string">'build'</span>)))</div><div class="line"></div><div class="line"></div><div class="line">server.listen(<span class="number">8088</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'开启成功'</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ul>
+<li>主要看上面的<code>app.use(&#39;/&#39;,express.static(path.resolve(&#39;build&#39;)))</code>和<code>res.sendFile(path.resolve(&#39;build/index.html&#39;))</code>这两段代码。</li>
+<li>他们把打包后的主页放入服务端代码中返回给客户端。</li>
+<li>因为上面我用了<code>import</code>代码，所以我们在开发环境中需要用到<code>babel-cli</code>里的<code>babel-node</code>来编译。</li>
+<li>安装<code>npm --registry https://registry.npm.taobao.org</code> i babel-cli -S`，大家如果觉得这样切换源麻烦，可以下个<a href="https://www.npmjs.com/package/nrm" target="_blank" rel="external">nrm</a>，360度无死角切换各种源，好用！</li>
+<li>我们需要修改<code>package.json</code>的启动服务器的<code>npm scripts</code>。<code>&quot;server&quot;: &quot;NODE_ENV=test nodemon --exec babel-node server/server.js&quot;</code></li>
+<li><code>cross-env</code>跨平台设置node环境变量的插件。</li>
+<li>nodemon和supervisor一样是watch服务端文件，只要一改变就会重新运行，相当于<code>热重载</code>。nodemon<code>更轻量</code></li>
+<li>最后我们来跑一下<code>npm run server</code>,就能看到服务端跑起来了。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/30/1644f684849a3656?w=562&amp;h=994&amp;f=jpeg&amp;s=58584" alt=""></p>
+<h2 id="ReactDOMServer-renderToString-ReactDOMServer-renderToNodeStream"><a href="#ReactDOMServer-renderToString-ReactDOMServer-renderToNodeStream" class="headerlink" title="ReactDOMServer.renderToString/ReactDOMServer.renderToNodeStream"></a>ReactDOMServer.renderToString/ReactDOMServer.renderToNodeStream</h2><ul>
+<li>这里我们先讲一下在<code>浏览器中</code>，<code>React.createElement</code>把React的类进行<code>实例化</code>，实例化后的组件可以进行<code>mount</code>，最后通过R<code>eact.render</code>渲染到我们的客户端浏览器界面。</li>
+<li>而在服务器中我们可以通过 <code>renderToString</code>或者<code>renderToNodeStream</code>方法把React实例化的组件，直接渲染生成html标签。那么这俩个有什么区别呢？</li>
+<li><code>renderToNodeStream</code>是React 16最新发布的东西，它支持直接渲染到节点流。渲染到流可以减少你的内容的第一个字节<code>（TTFB）</code>的时间，在文档的下一部分生成之前，将文档的开头至结尾发送到浏览器。 当内容从服务器流式传输时，浏览器将开始解析HTML文档。速度是renderToString的三倍，所以我们在这里使用<code>renderToNodeStream</code></li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">'express'</span></div><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"><span class="keyword">import</span> &#123;renderToStaticMarkup,renderToNodeStream&#125; <span class="keyword">from</span> <span class="string">'react-dom/server'</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span>;</div><div class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</div><div class="line"><span class="keyword">import</span> &#123;StaticRouter&#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span></div><div class="line"><span class="keyword">import</span> &#123;</div><div class="line">  createStore,</div><div class="line">  applyMiddleware,</div><div class="line">  <span class="comment">//组合函数用的</span></div><div class="line">  compose</div><div class="line">&#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</div><div class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'../src/App'</span></div><div class="line"><span class="keyword">import</span> reducers <span class="keyword">from</span> <span class="string">'../src/reducer'</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> userRouter <span class="keyword">from</span> <span class="string">'./routes/user'</span></div><div class="line"><span class="keyword">import</span> bodyParser <span class="keyword">from</span> <span class="string">'body-parser'</span></div><div class="line"><span class="keyword">import</span> cookieParser <span class="keyword">from</span> <span class="string">'cookie-parser'</span></div><div class="line"><span class="keyword">import</span> model <span class="keyword">from</span> <span class="string">'./model'</span></div><div class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">'path'</span></div><div class="line"><span class="keyword">import</span> https <span class="keyword">from</span> <span class="string">'http'</span></div><div class="line"><span class="keyword">import</span> socketIo <span class="keyword">from</span> <span class="string">'socket.io'</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> Chat = model.getModel(<span class="string">'chat'</span>)</div><div class="line"><span class="comment">//新建app</span></div><div class="line"><span class="keyword">const</span> app = express()</div><div class="line"></div><div class="line"><span class="comment">//work with express</span></div><div class="line"><span class="keyword">const</span> server = https.Server(app)</div><div class="line"><span class="keyword">const</span> io = socketIo(server)</div><div class="line">io.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</div><div class="line">  socket.on(<span class="string">'sendmsg'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="keyword">let</span> &#123;<span class="keyword">from</span>,to,msg&#125; = data</div><div class="line">    <span class="keyword">let</span> chatid = [<span class="keyword">from</span>,to].sort().join(<span class="string">'_'</span>)</div><div class="line">    Chat.create(&#123;chatid,<span class="keyword">from</span>,to,<span class="attr">content</span>:msg&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">e,d</span>)</span>&#123;</div><div class="line">      io.emit(<span class="string">'recvmsg'</span>,<span class="built_in">Object</span>.assign(&#123;&#125;,d._doc))</div><div class="line">    &#125;)</div><div class="line">    <span class="comment">// console.log(data)</span></div><div class="line">    <span class="comment">// //广播给全局</span></div><div class="line">    <span class="comment">// io.emit('recvmsg',data)</span></div><div class="line">  &#125;)</div><div class="line">&#125;)</div><div class="line"></div><div class="line"></div><div class="line">app.use(cookieParser())</div><div class="line">app.use(bodyParser.json())</div><div class="line">app.use(<span class="string">'/user'</span>,userRouter)</div><div class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">req,res,next</span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(req.url.startsWith(<span class="string">'/user/'</span>) || req.url.startsWith(<span class="string">'/static/'</span>))&#123;</div><div class="line">    <span class="keyword">return</span> next()</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">const</span> store = createStore(reducers,compose(</div><div class="line">    applyMiddleware(thunk)</div><div class="line">  ))</div><div class="line">  <span class="comment">//这个 context 对象包含了渲染的结果</span></div><div class="line">  <span class="keyword">let</span> context = &#123;&#125;</div><div class="line">  <span class="keyword">const</span> root = (&lt;Provider store=&#123;store&#125;&gt;</div><div class="line">                    &lt;StaticRouter</div><div class="line">                      location=&#123;req.url&#125;</div><div class="line">                      context=&#123;context&#125;</div><div class="line">                      &gt;</div><div class="line">                        &lt;App&gt;&lt;/App&gt;</div><div class="line">                    &lt;/StaticRouter&gt;</div><div class="line">                &lt;/Provider&gt;)</div><div class="line">  <span class="keyword">const</span> markupStream = renderToNodeStream(root)</div><div class="line">  markupStream.pipe(res,&#123;<span class="attr">end</span>:<span class="literal">false</span>&#125;)</div><div class="line">  markupStream.on(<span class="string">'end'</span>,()=&gt;&#123;</div><div class="line">    res.end()</div><div class="line">  &#125;)</div><div class="line">&#125;)</div><div class="line"><span class="comment">//映射build文件路径，项目上要使用</span></div><div class="line">app.use(<span class="string">'/'</span>,express.static(path.resolve(<span class="string">'build'</span>)))</div><div class="line"></div><div class="line"></div><div class="line">server.listen(<span class="number">8088</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'开启成功'</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><strong>此时将服务端renderToNodeStream后的代码返回给前端，但是这个时候还是不行，我们执行一下<code>npm run server</code>，可以看到报错了。</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/30/1644f96e7d492e64?w=1138&amp;h=572&amp;f=jpeg&amp;s=170355" alt=""></p>
+<h2 id="css-modules-require-hook-asset-require-hook"><a href="#css-modules-require-hook-asset-require-hook" class="headerlink" title="css-modules-require-hook/asset-require-hook"></a>css-modules-require-hook/asset-require-hook</h2><h3 id="css-modules-require-hook"><a href="#css-modules-require-hook" class="headerlink" title="css-modules-require-hook"></a>css-modules-require-hook</h3><ul>
+<li>因为服务端此时<code>不认识</code>我们的css文件，我们需要安装一个包，来让服务端处理css文件。</li>
+<li><code>npm i css-modules-require-hook -S</code>安装在生产环境下。</li>
+<li>在项目根目录创建一个<code>crmh.conf.js</code>钩子文件进行配置,看下图。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/30/1644f9c1c32b5e66?w=306&amp;h=886&amp;f=jpeg&amp;s=56016" alt=""></p>
+<p><strong>写入代码</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// css-modules-require-hook </span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">  <span class="attr">generateScopedName</span>: <span class="string">'[name]__[local]___[hash:base64:5]'</span>,</div><div class="line">  <span class="comment">//下面的代码在本项目中暂时用不到，但是以下配置在我另一个项目中有用到，我来讲一下他的配置</span></div><div class="line">  <span class="comment">//扩展名</span></div><div class="line">  <span class="comment">//extensions: ['.scss','.css'],</span></div><div class="line">  <span class="comment">//钩子，这里主要做一些预处理的scss或者less文件</span></div><div class="line">  <span class="comment">//preprocessCss: (data, filename) =&gt;</span></div><div class="line">  <span class="comment">//    require('node-sass').renderSync(&#123;</span></div><div class="line">  <span class="comment">//        data,</span></div><div class="line">  <span class="comment">//        file: filename</span></div><div class="line">  <span class="comment">//    &#125;).css,</span></div><div class="line">  <span class="comment">//是否导出css类名，主要用于CSSModule</span></div><div class="line">  <span class="comment">//camelCase: true,</span></div><div class="line">&#125;;</div></pre></td></tr></table></figure>
+<ul>
+<li>修改我们的<code>server.js</code>文件,添加<code>import csshook from &#39;css-modules-require-hook/preset&#39;</code>,<strong>注意⚠️</strong>，<code>一定要把这行代码放在导入App模块之前</code>。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> csshook <span class="keyword">from</span> <span class="string">'css-modules-require-hook/preset'</span></div><div class="line"><span class="comment">//我们的首页入口</span></div><div class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'../src/App'</span></div></pre></td></tr></table></figure>
+<p><strong>此时在运行<code>server.js</code>，会发现又报了个错。</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/30/1644fb97d437ed71?w=1130&amp;h=260&amp;f=jpeg&amp;s=46396" alt=""></p>
+<h3 id="asset-require-hook"><a href="#asset-require-hook" class="headerlink" title="asset-require-hook"></a>asset-require-hook</h3><ul>
+<li>这个错误是因为服务端没有处理前端代码需要的图片</li>
+<li>需要安装<code>npm i asset-require-hook -S</code>，这个插件用来让服务端处理图片,<strong>注意⚠️</strong>，<code>前提是客户端代码，引用图片都需要require</code></li>
+<li>在<code>server.js</code>写入代码</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//解决图片问题，客户端代码引用图片都需要require</span></div><div class="line"><span class="keyword">import</span> assethook <span class="keyword">from</span> <span class="string">'asset-require-hook'</span></div><div class="line">assethook(&#123;</div><div class="line">  <span class="attr">extensions</span>:[<span class="string">'png'</span>],</div><div class="line">  <span class="comment">//图片大小下于10000的图片会直接base64编码</span></div><div class="line">  limit: <span class="number">10000</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><strong>运行之后发现又报错了，这个很简单，因为我们只有image的引用名字，却<code>没有地址</code></strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/30/1644fc3965492fef?w=1952&amp;h=996&amp;f=jpeg&amp;s=200831" alt=""></p>
+<ul>
+<li>所以此时要在外面加个壳，把之前build之后的<code>静态js、css文件</code>引入进去，添加html、head这些标签。来看完整代码</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> <span class="string">'babel-polyfill'</span></div><div class="line"><span class="keyword">import</span> express <span class="keyword">from</span> <span class="string">'express'</span></div><div class="line"><span class="keyword">import</span> React <span class="keyword">from</span> <span class="string">'react'</span></div><div class="line"><span class="keyword">import</span> &#123;renderToString,renderToStaticMarkup,renderToNodeStream&#125; <span class="keyword">from</span> <span class="string">'react-dom/server'</span></div><div class="line"></div><div class="line"><span class="comment">//引入css文件和js文件</span></div><div class="line"><span class="keyword">import</span> staticPath <span class="keyword">from</span> <span class="string">'../build/asset-manifest.json'</span></div><div class="line"></div><div class="line"><span class="keyword">import</span> thunk <span class="keyword">from</span> <span class="string">'redux-thunk'</span>;</div><div class="line"><span class="keyword">import</span> &#123; Provider &#125; <span class="keyword">from</span> <span class="string">'react-redux'</span>;</div><div class="line"><span class="keyword">import</span> &#123;StaticRouter&#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span></div><div class="line"><span class="keyword">import</span> &#123;</div><div class="line">  createStore,</div><div class="line">  applyMiddleware,</div><div class="line">  <span class="comment">//组合函数用的</span></div><div class="line">  compose</div><div class="line">&#125; <span class="keyword">from</span> <span class="string">'redux'</span>;</div><div class="line"><span class="comment">//解决服务端渲染的图片问题 必须放在App之前</span></div><div class="line"><span class="keyword">import</span> csshook <span class="keyword">from</span> <span class="string">'css-modules-require-hook/preset'</span></div><div class="line"><span class="comment">//解决图片问题，需要require</span></div><div class="line"><span class="keyword">import</span> assethook <span class="keyword">from</span> <span class="string">'asset-require-hook'</span></div><div class="line">assethook(&#123;</div><div class="line">  <span class="attr">extensions</span>:[<span class="string">'png'</span>],</div><div class="line">  <span class="attr">limit</span>: <span class="number">10000</span></div><div class="line">&#125;)</div><div class="line"><span class="keyword">import</span> App <span class="keyword">from</span> <span class="string">'../src/App'</span></div><div class="line"><span class="keyword">import</span> reducers <span class="keyword">from</span> <span class="string">'../src/reducer'</span>;</div><div class="line"></div><div class="line"><span class="keyword">import</span> userRouter <span class="keyword">from</span> <span class="string">'./routes/user'</span></div><div class="line"><span class="keyword">import</span> bodyParser <span class="keyword">from</span> <span class="string">'body-parser'</span></div><div class="line"><span class="keyword">import</span> cookieParser <span class="keyword">from</span> <span class="string">'cookie-parser'</span></div><div class="line"><span class="keyword">import</span> model <span class="keyword">from</span> <span class="string">'./model'</span></div><div class="line"><span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">'path'</span></div><div class="line"><span class="keyword">import</span> https <span class="keyword">from</span> <span class="string">'http'</span></div><div class="line"><span class="keyword">import</span> socketIo <span class="keyword">from</span> <span class="string">'socket.io'</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> Chat = model.getModel(<span class="string">'chat'</span>)</div><div class="line"><span class="comment">//新建app</span></div><div class="line"><span class="keyword">const</span> app = express()</div><div class="line"></div><div class="line"><span class="comment">//work with express</span></div><div class="line"><span class="keyword">const</span> server = https.Server(app)</div><div class="line"><span class="keyword">const</span> io = socketIo(server)</div><div class="line">io.on(<span class="string">'connection'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">socket</span>)</span>&#123;</div><div class="line">  socket.on(<span class="string">'sendmsg'</span>,<span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="keyword">let</span> &#123;<span class="keyword">from</span>,to,msg&#125; = data</div><div class="line">    <span class="keyword">let</span> chatid = [<span class="keyword">from</span>,to].sort().join(<span class="string">'_'</span>)</div><div class="line">    Chat.create(&#123;chatid,<span class="keyword">from</span>,to,<span class="attr">content</span>:msg&#125;,<span class="function"><span class="keyword">function</span>(<span class="params">e,d</span>)</span>&#123;</div><div class="line">      io.emit(<span class="string">'recvmsg'</span>,<span class="built_in">Object</span>.assign(&#123;&#125;,d._doc))</div><div class="line">    &#125;)</div><div class="line">    <span class="comment">// console.log(data)</span></div><div class="line">    <span class="comment">// //广播给全局</span></div><div class="line">    <span class="comment">// io.emit('recvmsg',data)</span></div><div class="line">  &#125;)</div><div class="line">&#125;)</div><div class="line"></div><div class="line"></div><div class="line">app.use(cookieParser())</div><div class="line">app.use(bodyParser.json())</div><div class="line">app.use(<span class="string">'/user'</span>,userRouter)</div><div class="line">app.use(<span class="function"><span class="keyword">function</span>(<span class="params">req,res,next</span>)</span>&#123;</div><div class="line">  <span class="keyword">if</span>(req.url.startsWith(<span class="string">'/user/'</span>) || req.url.startsWith(<span class="string">'/static/'</span>))&#123;</div><div class="line">    <span class="keyword">return</span> next()</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">const</span> store = createStore(reducers,compose(</div><div class="line">    applyMiddleware(thunk)</div><div class="line">  ))</div><div class="line">  <span class="keyword">const</span> obj = &#123;</div><div class="line">    <span class="string">'/msg'</span>:<span class="string">'聊天消息列表'</span>,</div><div class="line">    <span class="string">'/me'</span>:<span class="string">'个人中心列表'</span></div><div class="line">  &#125;</div><div class="line">  <span class="comment">//这个 context 对象包含了渲染的结果</span></div><div class="line">  <span class="keyword">let</span> context = &#123;&#125;</div><div class="line">  res.write(<span class="string">`&lt;!DOCTYPE html&gt;</span></div><div class="line">  &lt;html lang="en"&gt;</div><div class="line">    &lt;head&gt;</div><div class="line">      &lt;meta charset="utf-8"&gt;</div><div class="line">      &lt;meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"&gt;</div><div class="line">      &lt;meta name="theme-color" content="#000000"&gt;</div><div class="line">      &lt;meta name="description" content="<span class="subst">$&#123;obj[req.url]&#125;</span>"/&gt;</div><div class="line">      &lt;meta name="keywords" content="SSR"&gt;</div><div class="line">      &lt;link rel="manifest" href="%PUBLIC_URL%/manifest.json"&gt;</div><div class="line">      &lt;link rel="stylesheet" href="/<span class="subst">$&#123;staticPath[<span class="string">'main.css'</span>]&#125;</span>"&gt;</div><div class="line">      &lt;title&gt;React App&lt;/title&gt;</div><div class="line">    &lt;/head&gt;</div><div class="line">    &lt;body&gt;</div><div class="line">      &lt;noscript&gt;</div><div class="line">        You need to enable JavaScript to run this app.</div><div class="line">      &lt;/noscript&gt;</div><div class="line">      &lt;div id="root"&gt;`)</div><div class="line">  <span class="keyword">const</span> root = (&lt;Provider store=&#123;store&#125;&gt;</div><div class="line">                    &lt;StaticRouter</div><div class="line">                      location=&#123;req.url&#125;</div><div class="line">                      context=&#123;context&#125;</div><div class="line">                      &gt;</div><div class="line">                        &lt;App&gt;&lt;/App&gt;</div><div class="line">                    &lt;/StaticRouter&gt;</div><div class="line">                &lt;/Provider&gt;)</div><div class="line">  <span class="keyword">const</span> markupStream = renderToNodeStream(root)</div><div class="line">  markupStream.pipe(res,&#123;<span class="attr">end</span>:<span class="literal">false</span>&#125;)</div><div class="line">  markupStream.on(<span class="string">'end'</span>,()=&gt;&#123;</div><div class="line">    res.write(<span class="string">`&lt;/div&gt;</span></div><div class="line">          &lt;script src="/<span class="subst">$&#123;staticPath[<span class="string">'main.js'</span>]&#125;</span>"&gt;&lt;/script&gt;</div><div class="line">        &lt;/body&gt;</div><div class="line">      &lt;/html&gt;`)</div><div class="line">    res.end()</div><div class="line">  &#125;)</div><div class="line">&#125;)</div><div class="line"><span class="comment">//映射build文件路径，项目上要使用</span></div><div class="line">app.use(<span class="string">'/'</span>,express.static(path.resolve(<span class="string">'build'</span>)))</div><div class="line"></div><div class="line"></div><div class="line">server.listen(<span class="number">8088</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'开启成功'</span>)</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<ul>
+<li>这个时候我们可以在html标签里加上SEO的meta<code>&lt;meta name=&quot;keywords&quot; content=&quot;SSR&quot;&gt;</code></li>
+<li>最后还要把客户端的<code>index.js</code>文件中的渲染机制改成<code>hydrate</code>，不用<code>render</code>，他们之间的区别可以看这个（传送门☞<a href="https://www.colabug.com/2385573.html" target="_blank" rel="external">render !== hydrate</a>）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">ReactDOM.hydrate(</div><div class="line">    (&lt;Provider store=&#123;store&#125;&gt;</div><div class="line">        &lt;BrowserRouter&gt;</div><div class="line">            &lt;App&gt;&lt;/App&gt;</div><div class="line">        &lt;/BrowserRouter&gt;</div><div class="line">    &lt;/Provider&gt;),</div><div class="line">    <span class="built_in">document</span>.getElementById(<span class="string">'root'</span>)</div><div class="line">)</div></pre></td></tr></table></figure>
+<p><strong>到此为止我们开发模式下的SSR搭建完毕，接下来生产模式的坑我来讲一下。</strong></p>
+<h1 id="生产环境SSR准备"><a href="#生产环境SSR准备" class="headerlink" title="生产环境SSR准备"></a>生产环境SSR准备</h1><blockquote>
+<p>我们上面所讲的只是<strong>开发模式下的SSR</strong>，因为我们是通过<code>babel-node</code>编译<code>jsx和es6代码</code>的，只要一脱离<code>babel-node</code>就会全错,所以我们需要webpack打包服务端代码</p>
+</blockquote>
+<p><strong>我们需要创建一个<code>webserver.config.js</code>，用来打包server的代码</strong></p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div><div class="line">120</div><div class="line">121</div><div class="line">122</div><div class="line">123</div><div class="line">124</div><div class="line">125</div><div class="line">126</div><div class="line">127</div><div class="line">128</div><div class="line">129</div><div class="line">130</div><div class="line">131</div><div class="line">132</div><div class="line">133</div><div class="line">134</div><div class="line">135</div><div class="line">136</div><div class="line">137</div><div class="line">138</div><div class="line">139</div><div class="line">140</div><div class="line">141</div><div class="line">142</div><div class="line">143</div><div class="line">144</div><div class="line">145</div><div class="line">146</div><div class="line">147</div><div class="line">148</div><div class="line">149</div><div class="line">150</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>),</div><div class="line">    fs = <span class="built_in">require</span>(<span class="string">'fs'</span>),</div><div class="line">    webpack = <span class="built_in">require</span>(<span class="string">'webpack'</span>),</div><div class="line">    autoprefixer = <span class="built_in">require</span>(<span class="string">'autoprefixer'</span>),</div><div class="line">    HtmlWebpackPlugin = <span class="built_in">require</span>(<span class="string">'html-webpack-plugin'</span>),</div><div class="line">    ExtractTextPlugin = <span class="built_in">require</span>(<span class="string">'extract-text-webpack-plugin'</span>)</div><div class="line">    cssFilename = <span class="string">'static/css/[name].[contenthash:8].css'</span>;</div><div class="line">    CleanWebpackPlugin = <span class="built_in">require</span>(<span class="string">'clean-webpack-plugin'</span>);</div><div class="line">    nodeExternals = <span class="built_in">require</span>(<span class="string">'webpack-node-externals'</span>);</div><div class="line"></div><div class="line">serverConfig = &#123;</div><div class="line">  <span class="attr">context</span>: path.resolve(__dirname, <span class="string">'..'</span>),</div><div class="line">  <span class="attr">entry</span>: &#123;<span class="attr">server</span>: <span class="string">'./server/server'</span>&#125;,</div><div class="line">  <span class="attr">output</span>: &#123;</div><div class="line">      <span class="attr">libraryTarget</span>: <span class="string">'commonjs2'</span>,</div><div class="line">      <span class="attr">path</span>: path.resolve(__dirname, <span class="string">'../build/server'</span>),</div><div class="line">      <span class="attr">filename</span>: <span class="string">'static/js/[name].js'</span>,</div><div class="line">      <span class="attr">chunkFilename</span>: <span class="string">'static/js/chunk.[name].js'</span></div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// target: 'node' 指明构建出的代码是要运行在node环境里.</span></div><div class="line">  <span class="comment">// 不把 Node.js 内置的模块打包进输出文件中，例如 fs net 模块等</span></div><div class="line">  target: <span class="string">'node'</span>,</div><div class="line">  <span class="comment">//指定在node环境中是否要这些模块 </span></div><div class="line">  node: &#123;</div><div class="line">      <span class="attr">__filename</span>: <span class="literal">true</span>,</div><div class="line">      <span class="attr">__dirname</span>: <span class="literal">true</span>,</div><div class="line">      <span class="comment">// module:true</span></div><div class="line">  &#125;,</div><div class="line">  <span class="attr">module</span>: &#123;</div><div class="line">      <span class="attr">loaders</span>: [&#123;</div><div class="line">          <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,</div><div class="line">          <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,</div><div class="line">          <span class="attr">loader</span>: <span class="string">'babel-loader?cacheDirectory=true'</span>,</div><div class="line">          <span class="attr">options</span>: &#123;</div><div class="line">              <span class="attr">presets</span>: [<span class="string">'es2015'</span>, <span class="string">'react-app'</span>, <span class="string">'stage-0'</span>],</div><div class="line">              <span class="attr">plugins</span>: [<span class="string">'add-module-exports'</span>,</div><div class="line">              [</div><div class="line">                <span class="string">"import"</span>,</div><div class="line">                &#123;</div><div class="line">                  <span class="string">"libraryName"</span>: <span class="string">"antd-mobile"</span>,</div><div class="line">                  <span class="string">"style"</span>: <span class="string">"css"</span></div><div class="line">                &#125;</div><div class="line">              ],<span class="string">"transform-decorators-legacy"</span>]</div><div class="line">          &#125;,</div><div class="line">      &#125;,&#123;</div><div class="line">        <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">        <span class="attr">exclude</span>: <span class="regexp">/node_modules|antd-mobile\.css/</span>,            </div><div class="line">        <span class="attr">loader</span>: ExtractTextPlugin.extract(</div><div class="line">          <span class="built_in">Object</span>.assign(</div><div class="line">            &#123;</div><div class="line">              <span class="attr">fallback</span>: &#123;</div><div class="line">                <span class="attr">loader</span>: <span class="built_in">require</span>.resolve(<span class="string">'style-loader'</span>),</div><div class="line">                <span class="attr">options</span>: &#123;</div><div class="line">                  <span class="attr">hmr</span>: <span class="literal">false</span>,</div><div class="line">                &#125;,</div><div class="line">              &#125;,</div><div class="line">              <span class="attr">use</span>: [</div><div class="line">                &#123;</div><div class="line">                  <span class="attr">loader</span>: <span class="built_in">require</span>.resolve(<span class="string">'css-loader'</span>),</div><div class="line">                  <span class="attr">options</span>: &#123;</div><div class="line">                    <span class="attr">importLoaders</span>: <span class="number">1</span>,</div><div class="line">                    <span class="attr">minimize</span>: <span class="literal">true</span>,</div><div class="line">                    <span class="attr">modules</span>: <span class="literal">false</span>,</div><div class="line">                    <span class="attr">localIdentName</span>:<span class="string">"[name]-[local]-[hash:base64:8]"</span>,</div><div class="line">                    <span class="comment">// sourceMap: shouldUseSourceMap,</span></div><div class="line">                  &#125;,</div><div class="line">                &#125;,</div><div class="line">                &#123;</div><div class="line">                  <span class="attr">loader</span>: <span class="built_in">require</span>.resolve(<span class="string">'postcss-loader'</span>),</div><div class="line">                  <span class="attr">options</span>: &#123;</div><div class="line">                    <span class="attr">ident</span>: <span class="string">'postcss'</span>,</div><div class="line">                    <span class="attr">plugins</span>: <span class="function"><span class="params">()</span> =&gt;</span> [</div><div class="line">                      <span class="built_in">require</span>(<span class="string">'postcss-flexbugs-fixes'</span>),</div><div class="line">                      autoprefixer(&#123;</div><div class="line">                        <span class="attr">browsers</span>: [</div><div class="line">                          <span class="string">'&gt;1%'</span>,</div><div class="line">                          <span class="string">'last 4 versions'</span>,</div><div class="line">                          <span class="string">'Firefox ESR'</span>,</div><div class="line">                          <span class="string">'not ie &lt; 9'</span>, <span class="comment">// React doesn't support IE8 anyway</span></div><div class="line">                        ],</div><div class="line">                        <span class="attr">flexbox</span>: <span class="string">'no-2009'</span>,</div><div class="line">                      &#125;),</div><div class="line">                    ],</div><div class="line">                  &#125;,</div><div class="line">                &#125;,</div><div class="line">              ],</div><div class="line">            &#125;,</div><div class="line">          )</div><div class="line">        ),</div><div class="line">      &#125;,</div><div class="line">      &#123;</div><div class="line">        <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,</div><div class="line">        <span class="attr">include</span>: <span class="regexp">/node_modules|antd-mobile\.css/</span>,</div><div class="line">        <span class="attr">use</span>: ExtractTextPlugin.extract(&#123;</div><div class="line">          <span class="attr">fallback</span>: <span class="built_in">require</span>.resolve(<span class="string">'style-loader'</span>),</div><div class="line">          <span class="attr">use</span>: [&#123;</div><div class="line">            <span class="attr">loader</span>: <span class="built_in">require</span>.resolve(<span class="string">'css-loader'</span>),</div><div class="line">            <span class="attr">options</span>: &#123;</div><div class="line">              <span class="attr">modules</span>:<span class="literal">false</span></div><div class="line">            &#125;,</div><div class="line">          &#125;]</div><div class="line">        &#125;)</div><div class="line">      &#125;, &#123;</div><div class="line">          <span class="attr">test</span>: <span class="regexp">/\.(jpg|png|gif|webp)$/</span>,</div><div class="line">          <span class="attr">loader</span>: <span class="built_in">require</span>.resolve(<span class="string">'url-loader'</span>),</div><div class="line">            <span class="attr">options</span>: &#123;</div><div class="line">              <span class="attr">limit</span>: <span class="number">10000</span>,</div><div class="line">              <span class="attr">name</span>: <span class="string">'static/media/[name].[hash:8].[ext]'</span>,</div><div class="line">            &#125;,</div><div class="line">      &#125;, &#123;</div><div class="line">          <span class="attr">test</span>: <span class="regexp">/\.json$/</span>,</div><div class="line">          <span class="attr">loader</span>: <span class="string">'json-loader'</span>,</div><div class="line">      &#125;]</div><div class="line">  &#125;,</div><div class="line">  <span class="comment">// 不把 node_modules 目录下的第三方模块打包进输出文件中,</span></div><div class="line">  externals: [nodeExternals()],</div><div class="line">  <span class="attr">resolve</span>: &#123;<span class="attr">extensions</span>: [<span class="string">'*'</span>, <span class="string">'.js'</span>, <span class="string">'.json'</span>, <span class="string">'.scss'</span>]&#125;,</div><div class="line">  <span class="attr">plugins</span>: [</div><div class="line">      <span class="keyword">new</span> CleanWebpackPlugin([<span class="string">'../build/server'</span>]),</div><div class="line">      <span class="keyword">new</span> webpack.optimize.OccurrenceOrderPlugin(),</div><div class="line">      <span class="comment">//把第三方库从js文件中分离出来</span></div><div class="line">      <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</div><div class="line">        <span class="comment">//抽离相应chunk的共同node_module</span></div><div class="line">        minChunks(<span class="built_in">module</span>) &#123;</div><div class="line">          <span class="keyword">return</span> <span class="regexp">/node_modules/</span>.test(<span class="built_in">module</span>.context);</div><div class="line">        &#125;,</div><div class="line">        <span class="comment">//从要抽离的chunk中的子chunk抽离相同的模块</span></div><div class="line">        children: <span class="literal">true</span>,</div><div class="line">        <span class="comment">//是否异步抽离公共模块，参数boolean||string</span></div><div class="line">        <span class="keyword">async</span>: <span class="literal">false</span>,</div><div class="line">      &#125;),</div><div class="line">      <span class="keyword">new</span> webpack.optimize.CommonsChunkPlugin(&#123;</div><div class="line">        <span class="attr">children</span>:<span class="literal">true</span>,</div><div class="line">        <span class="comment">//若参数是string即为抽离出来后的文件名</span></div><div class="line">        <span class="keyword">async</span>: <span class="string">'shine'</span>,</div><div class="line">        <span class="comment">//最小打包的文件模块数，即要抽离的公共模块中的公共数，比如三个chunk只有1个用到就不算公共的            </span></div><div class="line">        <span class="comment">//若为Infinity，则会把webpack runtime的代码放入其中（webpack 不再自动抽离公共模块）</span></div><div class="line">        minChunks:<span class="number">2</span></div><div class="line">      &#125;),</div><div class="line">      <span class="comment">//压缩</span></div><div class="line">      <span class="keyword">new</span> webpack.optimize.UglifyJsPlugin(),</div><div class="line">      <span class="comment">//分离css文件</span></div><div class="line">      <span class="keyword">new</span> ExtractTextPlugin(&#123;</div><div class="line">        <span class="attr">filename</span>: cssFilename,</div><div class="line">      &#125;),</div><div class="line">      <span class="keyword">new</span> webpack.IgnorePlugin(<span class="regexp">/^\.\/locale$/</span>, /moment$/),</div><div class="line">  ],</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">module</span>.exports =  serverConfig</div></pre></td></tr></table></figure>
+<p><strong>重点⚠️</strong></p>
+<ul>
+<li>指定target，打包出来的代码运行在哪里</li>
+<li>指定externals不要把<code>node_modules</code>包打包，因为此项目运行在服务端，直接用外面的<code>node_modules</code>就行。不然打包后会很大。</li>
+<li>loader中用babel对js的处理</li>
+</ul>
+<blockquote>
+<p>ok，现在来我们改一下package.json的<code>npm scripts</code>，添加一个<code>packServer</code>,顺便改一下<code>build</code>的scripts</p>
+</blockquote>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="string">"scripts"</span>: &#123;</div><div class="line">  <span class="string">"clean"</span>: <span class="string">"rm -rf build/"</span>,</div><div class="line">  <span class="string">"dev"</span>: <span class="string">"node scripts/start.js"</span>,</div><div class="line">  <span class="string">"start"</span>: <span class="string">"cross-env NODE_ENV=development npm run server &amp; npm run dev"</span>,</div><div class="line">  <span class="string">"build"</span>: <span class="string">"npm run clean &amp;&amp; node scripts/build.js &amp;&amp; npm run packServer"</span>,</div><div class="line">  <span class="string">"test"</span>: <span class="string">"nodemon scripts/test.js --env=jsdom"</span>,</div><div class="line">  <span class="string">"server"</span>: <span class="string">"cross-env NODE_ENV=test nodemon --exec babel-node server/server.js"</span>,</div><div class="line">  <span class="string">"gulp"</span>: <span class="string">"cross-env NODE_ENV=production gulp"</span>,</div><div class="line">  <span class="string">"packServer"</span>: <span class="string">"cross-env NODE_ENV=production webpack --config ./config/webserver.config.js"</span></div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<ul>
+<li><code>packServer</code>指定了生产环境，这在之后会用到。</li>
+<li><code>build</code>是先clean掉build文件夹，在去打包<code>客户端的代码</code>，打包完之后再去打包<code>服务端的代码</code></li>
+</ul>
+<p><strong>那么到这里为止我们差不多可以自己试试了</strong></p>
+<ul>
+<li>先<code>npm run build</code>,会生成打包后的build文件夹，里面包含了我们的<code>服务端和客户端代码</code></li>
+<li>找到打包后的node文件运行它，在<code>build/server/static/js</code>目录下，可直接node文件启动。这就解决了我们生产环境下的问题。</li>
+</ul>
+<h1 id="pm2，服务器自动部署"><a href="#pm2，服务器自动部署" class="headerlink" title="pm2，服务器自动部署"></a>pm2，服务器自动部署</h1><p><strong>现在我们要把我们的项目部署到服务器上，并用pm2守护进程。</strong></p>
+<ul>
+<li>我们得有一台云服务器，这里我是在<a href="https://www.aliyun.com/?spm=5176.11034346.765261.1.smqqWK" target="_blank" rel="external">阿里云</a>买的一台<code>ubuntu 14.04</code></li>
+<li>需要一个已经备案后的域名，域名也可以在<a href="https://www.aliyun.com/?spm=5176.11034346.765261.1.smqqWK" target="_blank" rel="external">阿里云</a>买。当然也可以不用，可以直接服务器地址访问。</li>
+<li>ok让我们开始吧。</li>
+</ul>
+<h2 id="服务器部署"><a href="#服务器部署" class="headerlink" title="服务器部署"></a>服务器部署</h2><ul>
+<li>在部署到服务器之前我们代码中还有些东西需要修改,修改mongod的连接地址.</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> env = process.env.NODE_ENV || <span class="string">'development'</span></div><div class="line"><span class="comment">//当生产环境时，需要改变mongodb的连接端口，根据你服务器的mongodb端口来，我这里是19999</span></div><div class="line"><span class="keyword">const</span> BASE_URL = env == <span class="string">'development'</span>?<span class="string">"mongodb://localhost:27017/chat"</span>:<span class="string">"mongodb://127.0.0.1:19999/chat"</span>;</div></pre></td></tr></table></figure>
+<ul>
+<li>修改客户端<code>scoket.io</code>的链接地址<code>const socket = io(&#39;ws://host:port&#39;)</code>，改成你自己的服务器地址和端口号</li>
+<li>我们需要将自己的项目上传至<a href="https://gitee.com/" target="_blank" rel="external">码云</a>。这里我使用<a href="https://gitee.com/" target="_blank" rel="external">码云</a>，主要是因为<a href="https://gitee.com/" target="_blank" rel="external">码云</a>的私仓是免费的。</li>
+<li>我们需要进入服务器的<code>ssh目录</code>下复制<code>id_rsa.pub</code>里的公钥放在码云的<code>ssh公钥</code>中,可进入<code>设置</code>,具体看图</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/30/164500836f1ab210?w=904&amp;h=1232&amp;f=jpeg&amp;s=85014" alt=""></p>
+<ul>
+<li>我们也要把自己电脑上的<code>ssh公钥</code>在码云中设置，我这里是mac，在自己的用户目录下，可以按<code>cmd+shift+.</code>看隐藏文件（如果你设置过了，这一步就不要了）。</li>
+<li>服务器安装git,mongodb,pm2<code>（如果服务器已经安装过了，就不需要了）</code></li>
+<li>需要开启mongodb</li>
+<li>我们在项目根目录新建一个<code>ecosystem.json</code>文件，这个文件是pm2的配置文件，具体的我就不说了，大家如果感兴趣可以去官网看看，（传送门☞<a href="http://pm2.keymetrics.io/" target="_blank" rel="external">pm2官网</a>）</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="string">"apps"</span>: [</div><div class="line">    &#123;</div><div class="line">      <span class="comment">//应用名称</span></div><div class="line">      <span class="string">"name"</span>: <span class="string">"chat"</span>,</div><div class="line">      <span class="comment">//执行文件的路径</span></div><div class="line">      <span class="string">"script"</span>: <span class="string">"./build/server/static/js/server.js"</span>,</div><div class="line">      <span class="string">"env"</span>: &#123;</div><div class="line">        <span class="string">"COMMON_VARIABLE"</span>: <span class="string">"true"</span></div><div class="line">      &#125;,</div><div class="line">      <span class="string">"env_production"</span>: &#123;</div><div class="line">        <span class="string">"NODE_ENV"</span>: <span class="string">"production"</span></div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  ],</div><div class="line">  <span class="string">"deploy"</span>: &#123;</div><div class="line">    <span class="string">"production"</span>: &#123;</div><div class="line">      <span class="comment">//服务器用户</span></div><div class="line">      <span class="string">"user"</span>: <span class="string">"xxx"</span>,</div><div class="line">      <span class="comment">//服务器地址</span></div><div class="line">      <span class="string">"host"</span>: [<span class="string">"xxx"</span>],</div><div class="line">      <span class="comment">//服务器端口</span></div><div class="line">      <span class="string">"port"</span>: <span class="string">"xxx"</span>,</div><div class="line">      <span class="string">"ref"</span>: <span class="string">"origin/master"</span>,</div><div class="line">      <span class="comment">//这里填你的项目git ssh</span></div><div class="line">      <span class="string">"repo"</span>: <span class="string">"xxx"</span>,</div><div class="line">      <span class="comment">//服务器的存放项目路径</span></div><div class="line">      <span class="string">"path"</span>: <span class="string">"/www/chat/production"</span>,</div><div class="line">      <span class="string">"ssh_options"</span>: <span class="string">"StrictHostKeyChecking=no"</span>,</div><div class="line">      <span class="comment">//钩子</span></div><div class="line">      <span class="string">"post-deploy"</span>: <span class="string">"npm --registry https://registry.npm.taobao.org install &amp;&amp; npm run build &amp;&amp; pm2 startOrRestart ecosystem.json --env production"</span>,</div><div class="line">      <span class="string">"env"</span>: &#123;</div><div class="line">        <span class="comment">//环境</span></div><div class="line">        <span class="string">"NODE_ENV"</span>: <span class="string">"production"</span></div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>在服务器新建项目目录新建<code>/www/chat/</code>文件夹。</li>
+<li>在本地电脑执行 <code>pm2 deploy ecosystem.json production setup</code></li>
+<li>这里大家肯定会报错，这是我故意埋的坑，因为<code>chat</code>文件夹的权限不够，需要进入服务器的<code>www</code>文件夹，执行<code>sudo chmod 777 chat</code>。</li>
+<li>进入服务器的.bashrc文件，注视掉上面的几行代码</li>
+<li><code>source .bashrc</code>重新载入一下<code>.bashrc</code>文件</li>
+<li>开启pm2服务 pm2 deploy ecosystem.json production</li>
+<li>这里可能有的人会报错，主要原因是本地电脑的pm2的权限问题，需要找到pm2文件夹，<code>chmod 666 pm2</code></li>
+<li>如果上述问题都解决了最后会如图所示</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/30/164504fa410ade72?w=1124&amp;h=824&amp;f=jpeg&amp;s=203875" alt=""></p>
+<ul>
+<li>最后我们可以进入服务器，<code>pm2 list</code>,看到成功跑起来了</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/30/164505303ec8211b?w=848&amp;h=210&amp;f=jpeg&amp;s=42625" alt=""></p>
+<ul>
+<li>如果应用在不断的<code>重启</code>，说明开启<code>失败</code>了，需要<code>pm2 logs</code>看看日志</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/6/30/16450529b006f32f?w=798&amp;h=544&amp;f=jpeg&amp;s=51991" alt=""></p>
+<ul>
+<li>我们可以访问<code>服务器地址:8088</code>,并看到应用跑起来了</li>
+<li></li>
+</ul>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/07/14/promise/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">Promise之你看得懂的Promise</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'Shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
