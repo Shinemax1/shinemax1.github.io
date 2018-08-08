@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>你真的懂模块化吗？教你CommonJS实现 | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="你真的懂模块化吗
+加紧学习，抓住中心，宁精勿杂，宁专勿多。 —— 周恩来
+
+模块简史
+早期的 JavaScript 往往作为嵌入到 HTML 页面中的用于控制动画与简单的用户交互的脚本语言，我们习惯这样写。
+
+12345&amp;lt;!--html--&amp;gt;&amp;lt;script type=&quot;application/javascript&quot;&amp;gt;    // module1 code    // mod">
+<meta property="og:type" content="article">
+<meta property="og:title" content="你真的懂模块化吗？教你CommonJS实现">
+<meta property="og:url" content="http://shinemax1.github.io/2018/03/15/模块化 CommonJS/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="你真的懂模块化吗
+加紧学习，抓住中心，宁精勿杂，宁专勿多。 —— 周恩来
+
+模块简史
+早期的 JavaScript 往往作为嵌入到 HTML 页面中的用于控制动画与简单的用户交互的脚本语言，我们习惯这样写。
+
+12345&amp;lt;!--html--&amp;gt;&amp;lt;script type=&quot;application/javascript&quot;&amp;gt;    // module1 code    // mod">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/7/1651267ecfba395f?w=196&h=149&f=jpeg&s=6367">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/7/1651221feb8ab9bb?w=524&h=815&f=png&s=32263">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/7/16512599085c82c6?w=1168&h=760&f=jpeg&s=91123">
+<meta property="og:updated_time" content="2018-08-08T03:40:28.130Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="你真的懂模块化吗？教你CommonJS实现">
+<meta name="twitter:description" content="你真的懂模块化吗
+加紧学习，抓住中心，宁精勿杂，宁专勿多。 —— 周恩来
+
+模块简史
+早期的 JavaScript 往往作为嵌入到 HTML 页面中的用于控制动画与简单的用户交互的脚本语言，我们习惯这样写。
+
+12345&amp;lt;!--html--&amp;gt;&amp;lt;script type=&quot;application/javascript&quot;&amp;gt;    // module1 code    // mod">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/8/7/1651267ecfba395f?w=196&h=149&f=jpeg&s=6367">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/Android/">Android相关</a></li>
+				        
+							<li><a href="/categories/iOS/">iOS相关</a></li>
+				        
+							<li><a href="/categories/web/">前端相关</a></li>
+				        
+							<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+				        
+							<li><a href="/categories/Others/">其它相关</a></li>
+				        
+							<li><a href="/categories/blog/">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.25px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 13.75px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 16.25px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.25px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/Objective-C/" style="font-size: 17.5px;">Objective-C</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12.5px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 15px;">Runtime</a> <a href="/tags/SSR/" style="font-size: 10px;">SSR</a> <a href="/tags/Sublime-Text/" style="font-size: 11.25px;">Sublime Text</a> <a href="/tags/Tools/" style="font-size: 13.75px;">Tools</a> <a href="/tags/Transition/" style="font-size: 12.5px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/es6/" style="font-size: 18.75px;">es6</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/js/" style="font-size: 11.25px;">js</a> <a href="/tags/js基础/" style="font-size: 20px;">js基础</a> <a href="/tags/node-js/" style="font-size: 11.25px;">node.js</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/事件环/" style="font-size: 10px;">事件环</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/宏任务/" style="font-size: 10px;">宏任务</a> <a href="/tags/微任务/" style="font-size: 10px;">微任务</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/模块化/" style="font-size: 11.25px;">模块化</a> <a href="/tags/流/" style="font-size: 10px;">流</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/面试/" style="font-size: 11.25px;">面试</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，全栈开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/Android/">Android相关</a></li>
+		        
+					<li><a href="/categories/iOS/">iOS相关</a></li>
+		        
+					<li><a href="/categories/web/">前端相关</a></li>
+		        
+					<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+		        
+					<li><a href="/categories/Others/">其它相关</a></li>
+		        
+					<li><a href="/categories/blog/">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-模块化 CommonJS" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/03/15/模块化 CommonJS/" class="article-date">
+  	<time datetime="2018-03-15T15:43:40.000Z" itemprop="datePublished">2018-03-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      你真的懂模块化吗？教你CommonJS实现
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CommonJS/">CommonJS</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模块化/">模块化</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/web/">web</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="你真的懂模块化吗"><a href="#你真的懂模块化吗" class="headerlink" title="你真的懂模块化吗"></a>你真的懂模块化吗</h1><blockquote>
+<p>加紧学习，抓住中心，宁精勿杂，宁专勿多。 —— 周恩来</p>
+</blockquote>
+<h2 id="模块简史"><a href="#模块简史" class="headerlink" title="模块简史"></a>模块简史</h2><ul>
+<li>早期的 JavaScript 往往作为嵌入到 HTML 页面中的用于控制动画与简单的用户交互的脚本语言，我们习惯这样写。</li>
+</ul>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="comment">&lt;!--html--&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">script</span> <span class="attr">type</span>=<span class="string">"application/javascript"</span>&gt;</span><span class="undefined"></span></div><div class="line">    // module1 code</div><div class="line">    // module2 code</div><div class="line"><span class="tag">&lt;/<span class="name">script</span>&gt;</span></div></pre></td></tr></table></figure>
+<ul>
+<li><p>所有的嵌入到网页内的 JavaScript 对象都会使用全局的 <code>window</code> 对象来存放未使用 <code>var</code> 定义的变量。这就会导致一个问题，那就是，最后调用的函数或变量取决于我们引入的先后顺序。</p>
+</li>
+<li><p><code>模块化时代</code>。随着单页应用与富客户端的流行，不断增长的代码库也急需合理的代码分割与依赖管理的解决方案，这也就是我们在软件工程领域所熟悉的<code>模块化（Modularity）</code>。</p>
+</li>
+<li><p>直接声明依赖（Directly Defined Dependences）、命名空间（Namespace Pattern）、模块模式（Module Pattern）、依赖分离定义（Detached Dependency Definitions）、沙盒（Sandbox）、依赖注入（Dependency Injection）、CommonJS、AMD、UMD、标签化模块（Labeled Modules）、YModules、ES 2015 Modules。这些都是模块化时代的产物。 </p>
+</li>
+<li><p>问题来了，<code>过度</code>碎片化的模块同样会带来性能的损耗与包体尺寸的增大，这包括了模块加载、模块解析、因为 Webpack 等打包工具包裹模块时封装的过多<code>IIFE</code> 函数导致的 JavaScript 引擎优化失败等。</p>
+</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/7/1651267ecfba395f?w=196&amp;h=149&amp;f=jpeg&amp;s=6367" alt=""></p>
+<h2 id="那么到底什么是模块化？"><a href="#那么到底什么是模块化？" class="headerlink" title="那么到底什么是模块化？"></a>那么到底什么是模块化？</h2><blockquote>
+<p>简而言之，模块化就是将一个大的功能拆分为多个块，每一个块都是<code>独立</code>的，你不需要去担心<code>污染</code>全局变量，命名<code>冲突</code>什么的。</p>
+</blockquote>
+<h3 id="好处"><a href="#好处" class="headerlink" title="好处"></a>好处</h3><ul>
+<li>封装功能</li>
+<li>封闭作用域</li>
+<li>可能解决依赖问题</li>
+<li>工作效率更高，重构方便</li>
+<li>解决命名冲突</li>
+<li>…</li>
+</ul>
+<h3 id="js有模块化吗？"><a href="#js有模块化吗？" class="headerlink" title="js有模块化吗？"></a>js有模块化吗？</h3><ul>
+<li>JS没有模块系统，不支持<code>封闭</code>的作用域和依赖管理</li>
+<li>没有标准库，没有文件系统和<code>IO流</code>API</li>
+<li>也没有包管理系统</li>
+</ul>
+<h3 id="那怎么实现js的模块化？"><a href="#那怎么实现js的模块化？" class="headerlink" title="那怎么实现js的模块化？"></a>那怎么实现js的模块化？</h3><ul>
+<li>CommonJS规范，node是在<code>v8引擎</code>上的javascript运行时，作为服务端的，不能没有模块化的功能，于是就创造CommonJS规范，现在的node用的是CommonJS2。CommonJS2和CommonJS1的区别也在下面。属于<code>动态同步加载</code>。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// CommonJS2也可以通过这种方式导出</span></div><div class="line"><span class="built_in">module</span>.exports = &#123;</div><div class="line">    <span class="attr">a</span>: <span class="number">1</span></div><div class="line">&#125;</div><div class="line"><span class="comment">// CommonJS1只能通过这种方式</span></div><div class="line">exports.a = <span class="number">1</span></div><div class="line"></div><div class="line"><span class="comment">// b.js</span></div><div class="line"><span class="keyword">var</span> <span class="built_in">module</span> = <span class="built_in">require</span>(<span class="string">'./a.js'</span>)</div><div class="line"><span class="built_in">module</span>.a <span class="comment">// -&gt; log 1</span></div></pre></td></tr></table></figure>
+<ul>
+<li>AMD &amp;&amp; CMD。AMD是<code>RequireJS</code>提出的，主要是<code>依赖前置</code>。CMD是<code>SeaJS</code>提出的，主要是就近依赖（只要用到才会导入），两者用法接近。属于<code>异步加载</code>。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// file lib/greeting.js</span></div><div class="line">define(<span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> helloInLang = &#123;</div><div class="line">        <span class="attr">en</span>: <span class="string">'Hello world!'</span>,</div><div class="line">        <span class="attr">es</span>: <span class="string">'¡Hola mundo!'</span>,</div><div class="line">        <span class="attr">ru</span>: <span class="string">'Привет мир!'</span></div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> &#123;</div><div class="line">        <span class="attr">sayHello</span>: <span class="function"><span class="keyword">function</span> (<span class="params">lang</span>) </span>&#123;</div><div class="line">            <span class="keyword">return</span> helloInLang[lang];</div><div class="line">        &#125;</div><div class="line">    &#125;;</div><div class="line">&#125;);</div><div class="line"></div><div class="line"><span class="comment">// file hello.js</span></div><div class="line">define([<span class="string">'./lib/greeting'</span>], <span class="function"><span class="keyword">function</span>(<span class="params">greeting</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> phrase = greeting.sayHello(<span class="string">'en'</span>);</div><div class="line">    <span class="built_in">document</span>.write(phrase);</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<ul>
+<li>UMD。因为AMD中无法使用CommonJS，所以出来了一个UMD，可在UMD中同时使用AMD和CommonJS。</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">define</span>) </span>&#123;</div><div class="line">    define(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> helloInLang = <span class="string">'hello'</span>;</div><div class="line"></div><div class="line">        <span class="keyword">return</span> &#123;</div><div class="line">            <span class="attr">sayHello</span>: <span class="function"><span class="keyword">function</span> (<span class="params">lang</span>) </span>&#123;</div><div class="line">                <span class="keyword">return</span> helloInLang[lang];</div><div class="line">            &#125;</div><div class="line">        &#125;;</div><div class="line">    &#125;);</div><div class="line">&#125;(</div><div class="line">    <span class="keyword">typeof</span> <span class="built_in">module</span> === <span class="string">'object'</span> &amp;&amp; <span class="built_in">module</span>.exports &amp;&amp; <span class="keyword">typeof</span> define !== <span class="string">'function'</span> ?</div><div class="line">    <span class="function"><span class="keyword">function</span> (<span class="params">factory</span>) </span>&#123; <span class="built_in">module</span>.exports = factory(); &#125; :</div><div class="line">    define</div><div class="line">));</div></pre></td></tr></table></figure>
+<h2 id="CommonJS实现"><a href="#CommonJS实现" class="headerlink" title="CommonJS实现"></a>CommonJS实现</h2><ul>
+<li>首先我们这里说的CommonJS是CommonJS2，我们需要了解到它的特性。</li>
+<li>模块引用时会找到<code>绝对路径</code></li>
+<li>模块加载过会有<code>缓存</code>，把文件名作为key，module作为value</li>
+<li>node实现模块化就是增加了一个闭包，并且自执行这个<code>闭包（runInThisContext）</code></li>
+<li>模块加载时是<code>同步</code>操作</li>
+<li>默认会加后缀<code>js</code>,<code>json</code>,…</li>
+<li>不同模块下的变量不会相互<code>冲突</code></li>
+</ul>
+<h3 id="闭包实现-其实CommonJS中每个模块都是一个闭包，所以里面的变量互不影响"><a href="#闭包实现-其实CommonJS中每个模块都是一个闭包，所以里面的变量互不影响" class="headerlink" title="闭包实现(其实CommonJS中每个模块都是一个闭包，所以里面的变量互不影响)"></a>闭包实现(其实CommonJS中每个模块都是一个闭包，所以里面的变量互不影响)</h3><ul>
+<li>我们可以在vscode中创建一个arguments.js项目</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//arguments就是参数列表</span></div><div class="line"><span class="built_in">console</span>.log(<span class="built_in">arguments</span>)</div></pre></td></tr></table></figure>
+<ul>
+<li>此时在node环境下执行该文件，就会输出如下</li>
+</ul>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line">&#123; '0': &#123;&#125;,</div><div class="line">  '1': </div><div class="line">   &#123; [Function: require]</div><div class="line">     resolve: &#123; [Function: resolve] paths: [Function: paths] &#125;,</div><div class="line">     main: </div><div class="line">      Module &#123;</div><div class="line">        id: '.',</div><div class="line">        exports: &#123;&#125;,</div><div class="line">        parent: null,</div><div class="line">        filename: '/Users/chenxufeng/Desktop/笔记/node/arguments.js',</div><div class="line">        loaded: false,</div><div class="line">        children: [],</div><div class="line">        paths: [Array] &#125;,</div><div class="line">     extensions: &#123; '.js': [Function], '.json': [Function], '.node': [Function] &#125;,</div><div class="line">     cache: &#123; '/Users/chenxufeng/Desktop/笔记/node/arguments.js': [Object] &#125; &#125;,</div><div class="line">  '2': </div><div class="line">   Module &#123;</div><div class="line">     id: '.',</div><div class="line">     exports: &#123;&#125;,</div><div class="line">     parent: null,</div><div class="line">     filename: '/Users/chenxufeng/Desktop/笔记/node/arguments.js',</div><div class="line">     loaded: false,</div><div class="line">     children: [],</div><div class="line">     paths: </div><div class="line">      [ '/Users/chenxufeng/Desktop/笔记/node/node_modules',</div><div class="line">        '/Users/chenxufeng/Desktop/笔记/node_modules',</div><div class="line">        '/Users/chenxufeng/Desktop/node_modules',</div><div class="line">        '/Users/chenxufeng/node_modules',</div><div class="line">        '/Users/node_modules',</div><div class="line">        '/node_modules' ] &#125;,</div><div class="line">  '3': '/Users/chenxufeng/Desktop/笔记/node/arguments.js',</div><div class="line">  '4': '/Users/chenxufeng/Desktop/笔记/node' &#125;</div></pre></td></tr></table></figure>
+<ul>
+<li>其实每个模块外面都包了这么一层闭包，所以外面的require才能获取到module.exports的值</li>
+</ul>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//exports内存中指向的就是module.exports指向的那块空间</span></div><div class="line"><span class="comment">//require一个方法</span></div><div class="line"><span class="comment">//Module模块类</span></div><div class="line"><span class="comment">//__filename该文件绝对路径</span></div><div class="line"><span class="comment">//__dirname该文件父文件夹的绝对路径</span></div><div class="line">(<span class="function"><span class="keyword">function</span>(<span class="params">exports,require,Module,__filename,__dirname</span>)</span>&#123;</div><div class="line">  <span class="built_in">module</span>.exports = exports = <span class="keyword">this</span> = &#123;&#125;</div><div class="line">  <span class="comment">//文件中的所有代码</span></div><div class="line">  </div><div class="line"></div><div class="line">  <span class="comment">//不能改变exports指向，因为返回的是module.exports，所以是个&#123;&#125;</span></div><div class="line">  <span class="keyword">return</span> <span class="built_in">module</span>.exports</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p><strong>所以我们require的时候其实就相当于执行了这么一个闭包，然后返回的就是我们的module.exports</strong></p>
+<h3 id="require是怎么样的？"><a href="#require是怎么样的？" class="headerlink" title="require是怎么样的？"></a>require是怎么样的？</h3><ul>
+<li>每个模块都会带一个require方法</li>
+<li>动态加载(v8执行到这一步才会去加载此模块)</li>
+<li>不同模块的类别，有不同的加载方式，一般有三种常用后缀<ul>
+<li>后缀名为.js的JavaScript脚本文件,需要先读入内存再运行</li>
+<li>后缀名为.json的JSON文件,fs 读入内存 转化成JSON对象</li>
+<li>后缀名为.node的经过编译后的二进制C/C++扩展模块文件,可以直接使用</li>
+</ul>
+</li>
+<li>查找第三方模块<ul>
+<li>如果require函数只指定名称则视为从node_modules下面加载文件，这样的话你可以移动模块而不需要修改引用的模块路径。</li>
+<li>第三方模块的查询路径包括module.paths和全局目录。</li>
+</ul>
+</li>
+</ul>
+<h3 id="流程图"><a href="#流程图" class="headerlink" title="流程图"></a>流程图</h3><p><img src="https://user-gold-cdn.xitu.io/2018/8/7/1651221feb8ab9bb?w=524&amp;h=815&amp;f=png&amp;s=32263" alt=""></p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><blockquote>
+<p>下面我通过步骤讲解<code>require</code>整个的一个实现</p>
+</blockquote>
+<h4 id="根据路径找是否有缓存"><a href="#根据路径找是否有缓存" class="headerlink" title="根据路径找是否有缓存"></a>根据路径找是否有缓存</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//require方法</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">req</span>(<span class="params">moduleId</span>)</span>&#123;</div><div class="line">  <span class="comment">//解析绝对路径的方法，返回一个绝对路径</span></div><div class="line">  <span class="keyword">let</span> p = Module._resolveFileName(moduleId)</div><div class="line">  <span class="comment">//查看是否有缓存</span></div><div class="line">  <span class="keyword">if</span>(Module._catcheModule[p])&#123;</div><div class="line">    <span class="comment">//有缓存直接返回对应模块的exports</span></div><div class="line">    <span class="keyword">return</span> Module._catcheModule[p].exports</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//没有缓存就生成一个</span></div><div class="line">  <span class="keyword">let</span> <span class="built_in">module</span> = <span class="keyword">new</span> Module(p)</div><div class="line">  <span class="comment">//把他放入缓存中</span></div><div class="line">  Module._catcheModule[p] = <span class="built_in">module</span></div><div class="line">  <span class="comment">//加载模块</span></div><div class="line">  <span class="built_in">module</span>.exports = <span class="built_in">module</span>.load(p)</div><div class="line">  <span class="keyword">return</span> <span class="built_in">module</span>.exports</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>上面有很多方法都还没有，不急，我们慢慢实现</p>
+</blockquote>
+<h4 id="创建Module类，并添加-resolveFileName和-catcheModule"><a href="#创建Module类，并添加-resolveFileName和-catcheModule" class="headerlink" title="创建Module类，并添加_resolveFileName和_catcheModule"></a>创建<code>Module类</code>，并添加<code>_resolveFileName</code>和<code>_catcheModule</code></h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//node原生的模块，用来读写文件(fileSystem)</span></div><div class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</div><div class="line"><span class="comment">//node原生的模块，用来解析文件路径</span></div><div class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</div><div class="line"><span class="comment">//Module类，就相当于我们的模块(因为node环境不支持es6的class，这里用function)</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Module</span>(<span class="params">p</span>)</span>&#123;</div><div class="line">  <span class="comment">//当前模块的标识</span></div><div class="line">  <span class="keyword">this</span>.id = p</div><div class="line">  <span class="comment">//没个模块都有一个exports属性</span></div><div class="line">  <span class="keyword">this</span>.exports = &#123;&#125;</div><div class="line">  <span class="comment">//这个模块默认没有加载完</span></div><div class="line">  <span class="keyword">this</span>.loaded = <span class="literal">false</span></div><div class="line">  <span class="comment">//模块加载方法(这个我们到时候再实现)</span></div><div class="line">  <span class="keyword">this</span>.load = <span class="function"><span class="keyword">function</span>(<span class="params">filepath</span>)</span>&#123;</div><div class="line">    <span class="comment">//判断文件是json还是 node还是js</span></div><div class="line">    <span class="keyword">let</span> ext = path.extname(filepath)</div><div class="line">    <span class="comment">//返回一个exports</span></div><div class="line">    <span class="keyword">return</span> Module._extensions[ext](<span class="keyword">this</span>)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//以绝对路径为key存储一个module</span></div><div class="line">Module._catcheModule = &#123;&#125;</div><div class="line"><span class="comment">// 解析绝对路径的方法，返回一个绝对路径</span></div><div class="line">Module._resolveFileName = <span class="function"><span class="keyword">function</span>(<span class="params">moduleId</span>)</span>&#123;</div><div class="line">  <span class="comment">//获取moduleId的绝对路径</span></div><div class="line">  <span class="keyword">let</span> p = path.resolve(moduleId)</div><div class="line">  <span class="keyword">try</span>&#123;</div><div class="line">    <span class="comment">//同步地测试 path 指定的文件或目录的用户权限</span></div><div class="line">    fs.accessSync(p)      </div><div class="line">    <span class="keyword">return</span> p</div><div class="line">  &#125;<span class="keyword">catch</span>(e)&#123;</div><div class="line">    <span class="built_in">console</span>.log(e)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>此时会有一个问题，如果我们没有传文件后缀，就会读取不到</p>
+</blockquote>
+<h4 id="给Module添加一个加载策略，并且在-resolveFileName中再加点东西"><a href="#给Module添加一个加载策略，并且在-resolveFileName中再加点东西" class="headerlink" title="给Module添加一个加载策略，并且在_resolveFileName中再加点东西"></a>给Module添加一个<code>加载策略</code>，并且在<code>_resolveFileName</code>中再加点东西</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//所有的加载策略</span></div><div class="line">Module._extensions = &#123;</div><div class="line">  <span class="string">'.js'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">module</span>)</span>&#123;</div><div class="line">    <span class="comment">//每个文件的加载逻辑不一样，这个我们后面再写</span></div><div class="line">  &#125;,</div><div class="line">  <span class="string">'.json'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">module</span>)</span>&#123;</div><div class="line">  &#125;,</div><div class="line">  <span class="string">'.node'</span>: <span class="string">'xxx'</span>,</div><div class="line">&#125;</div><div class="line">Module._resolveFileName = <span class="function"><span class="keyword">function</span>(<span class="params">moduleId</span>)</span>&#123;</div><div class="line">  <span class="comment">//对象中所有的key做成一个数组[]</span></div><div class="line">  <span class="keyword">let</span> arr = <span class="built_in">Object</span>.keys(Module._extensions)</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</div><div class="line">    <span class="keyword">let</span> file = p+arr[i]</div><div class="line">    <span class="comment">//因为整个模块读取是个同步过程，所以得用sync，这里判断有没有这个文件存在</span></div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">      fs.accessSync(file)      </div><div class="line">      <span class="keyword">return</span> p</div><div class="line">    &#125;<span class="keyword">catch</span>(e)&#123;</div><div class="line">      <span class="built_in">console</span>.log(e)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>此时，我们能够找到文件的绝对路径，并把他丢给Module实例上的<code>load</code>方法</p>
+</blockquote>
+<h4 id="load方法实现"><a href="#load方法实现" class="headerlink" title="load方法实现"></a>load方法实现</h4><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//node原生的模块，用来读写文件(fileSystem)</span></div><div class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</div><div class="line"><span class="comment">//node原生的模块，用来解析文件路径</span></div><div class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</div><div class="line"><span class="comment">//提供了一系列 API 用于在 V8 虚拟机环境中编译和运行代码。</span></div><div class="line"><span class="keyword">let</span> vm = <span class="built_in">require</span>(<span class="string">'vm'</span>)</div><div class="line"><span class="comment">//Module类，就相当于我们的模块(因为node环境不支持es6的class，这里用function)</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Module</span>(<span class="params">p</span>)</span>&#123;</div><div class="line">  <span class="comment">//当前模块的标识</span></div><div class="line">  <span class="keyword">this</span>.id = p</div><div class="line">  <span class="comment">//没个模块都有一个exports属性</span></div><div class="line">  <span class="keyword">this</span>.exports = &#123;&#125;</div><div class="line">  <span class="comment">//这个模块默认没有加载完</span></div><div class="line">  <span class="keyword">this</span>.loaded = <span class="literal">false</span></div><div class="line">  <span class="comment">//模块加载方法</span></div><div class="line">  <span class="keyword">this</span>.load = <span class="function"><span class="keyword">function</span>(<span class="params">filepath</span>)</span>&#123;</div><div class="line">    <span class="comment">//判断文件后缀是json还是 node还是js</span></div><div class="line">    <span class="keyword">let</span> ext = path.extname(filepath)</div><div class="line">    <span class="keyword">return</span> Module._extensions[ext](<span class="keyword">this</span>)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">//js文件加载的包装类</span></div><div class="line">Module._wrapper = [<span class="string">'(function(exports,require,module,__dirname,__filename)&#123;'</span>,<span class="string">'\n&#125;)'</span>]</div><div class="line"><span class="comment">//所有的加载策略</span></div><div class="line">Module._extensions = &#123;</div><div class="line">   <span class="comment">//这里的module参数是就是Module的实例</span></div><div class="line">  <span class="string">'.js'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">module</span>)</span>&#123;</div><div class="line">    <span class="keyword">let</span> fn = Module._wrapper[<span class="number">0</span>] + fs.readFileSync(<span class="built_in">module</span>.id,<span class="string">'utf8'</span>) + Module._wrapper[<span class="number">1</span>]</div><div class="line">    <span class="comment">//执行包装后的方法 把js文件中的导出引入module的exports中</span></div><div class="line">    <span class="comment">//模块中的this === module.exports === &#123;&#125; exports也只是module.exports的别名</span></div><div class="line">    <span class="comment">//runInThisContext：虚拟机会产生一个干净的作用域来跑其中的代码，类似于沙箱sandbox</span></div><div class="line">    vm.runInThisContext(fn).call(<span class="built_in">module</span>.exports,<span class="built_in">module</span>.exports,req,<span class="built_in">module</span>)</div><div class="line">    <span class="keyword">return</span> <span class="built_in">module</span>.exports</div><div class="line">  &#125;,</div><div class="line">  <span class="string">'.json'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">module</span>)</span>&#123;</div><div class="line">    <span class="comment">//同步读取文件中的内容并把它转为JSON对象</span></div><div class="line">    <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(fs.readFileSync(<span class="built_in">module</span>.id,<span class="string">'utf8'</span>))</div><div class="line">  &#125;,</div><div class="line">  <span class="string">'.node'</span>: <span class="string">'xxx'</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<blockquote>
+<p>此时我们的代码已经全部完成</p>
+</blockquote>
+<ul>
+<li>我们随便找个文件试一下，当然如果是vscode下的话，req的路径参数需要在根目录下，这是一个坑。</li>
+<li>如果是vscode，就可以下一个插件<code>Code Runner</code>，可在vscode右键直接运行js文件，在node环境中。</li>
+<li>我们拿之前的arguments.js来实验</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/7/16512599085c82c6?w=1168&amp;h=760&amp;f=jpeg&amp;s=91123" alt=""></p>
+<ul>
+<li>成功输出！！</li>
+</ul>
+<h3 id="完整代码"><a href="#完整代码" class="headerlink" title="完整代码"></a>完整代码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//node原生的模块，用来读写文件(fileSystem)</span></div><div class="line"><span class="keyword">let</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>)</div><div class="line"><span class="comment">//node原生的模块，用来解析文件路径</span></div><div class="line"><span class="keyword">let</span> path = <span class="built_in">require</span>(<span class="string">'path'</span>)</div><div class="line"><span class="comment">//提供了一系列 API 用于在 V8 虚拟机环境中编译和运行代码。</span></div><div class="line"><span class="keyword">let</span> vm = <span class="built_in">require</span>(<span class="string">'vm'</span>)</div><div class="line"><span class="comment">//Module类，就相当于我们的模块(因为node环境不支持es6的class，这里用function)</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Module</span>(<span class="params">p</span>)</span>&#123;</div><div class="line">  <span class="comment">//当前模块的标识</span></div><div class="line">  <span class="keyword">this</span>.id = p</div><div class="line">  <span class="comment">//没个模块都有一个exports属性</span></div><div class="line">  <span class="keyword">this</span>.exports = &#123;&#125;</div><div class="line">  <span class="comment">//这个模块默认没有加载完</span></div><div class="line">  <span class="keyword">this</span>.loaded = <span class="literal">false</span></div><div class="line">  <span class="comment">//模块加载方法</span></div><div class="line">  <span class="keyword">this</span>.load = <span class="function"><span class="keyword">function</span>(<span class="params">filepath</span>)</span>&#123;</div><div class="line">    <span class="comment">//判断文件是json还是 node还是js</span></div><div class="line">    <span class="keyword">let</span> ext = path.extname(filepath)</div><div class="line">    <span class="keyword">return</span> Module._extensions[ext](<span class="keyword">this</span>)</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//js文件加载的包装类</span></div><div class="line">Module._wrapper = [<span class="string">'(function(exports,require,module,__dirname,__filename)&#123;'</span>,<span class="string">'\n&#125;)'</span>]</div><div class="line"><span class="comment">//所有的加载策略</span></div><div class="line">Module._extensions = &#123;</div><div class="line">  <span class="string">'.js'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">module</span>)</span>&#123;</div><div class="line">    <span class="keyword">let</span> fn = Module._wrapper[<span class="number">0</span>] + fs.readFileSync(<span class="built_in">module</span>.id,<span class="string">'utf8'</span>) + Module._wrapper[<span class="number">1</span>]</div><div class="line">    <span class="comment">//执行包装后的方法 把js文件中的导出引入module的exports中</span></div><div class="line">    <span class="comment">//模块中的this === module.exports === &#123;&#125;  exports也只是module.exports的别名</span></div><div class="line">    vm.runInThisContext(fn).call(<span class="built_in">module</span>.exports,<span class="built_in">module</span>.exports,req,<span class="built_in">module</span>)</div><div class="line">    <span class="keyword">return</span> <span class="built_in">module</span>.exports</div><div class="line">  &#125;,</div><div class="line">  <span class="string">'.json'</span>: <span class="function"><span class="keyword">function</span>(<span class="params">module</span>)</span>&#123;</div><div class="line">    <span class="keyword">return</span> <span class="built_in">JSON</span>.parse(fs.readFileSync(<span class="built_in">module</span>.id,<span class="string">'utf8'</span>))</div><div class="line">  &#125;,</div><div class="line">  <span class="string">'.node'</span>: <span class="string">'xxx'</span>,</div><div class="line">&#125;</div><div class="line"><span class="comment">//以绝对路径为key存储一个module</span></div><div class="line">Module._catcheModule = &#123;&#125;</div><div class="line"><span class="comment">// 解析绝对路径的方法，返回一个绝对路径</span></div><div class="line">Module._resolveFileName = <span class="function"><span class="keyword">function</span>(<span class="params">moduleId</span>)</span>&#123;</div><div class="line">  <span class="keyword">let</span> p = path.resolve(moduleId)</div><div class="line">  <span class="keyword">try</span>&#123;</div><div class="line">    fs.accessSync(p)      </div><div class="line">    <span class="keyword">return</span> p</div><div class="line">  &#125;<span class="keyword">catch</span>(e)&#123;</div><div class="line">    <span class="built_in">console</span>.log(e)</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//对象中所有的key做成一个数组[]</span></div><div class="line">  <span class="keyword">let</span> arr = <span class="built_in">Object</span>.keys(Module._extensions)</div><div class="line">  <span class="keyword">for</span>(<span class="keyword">let</span> i=<span class="number">0</span>;i&lt;arr.length;i++)&#123;</div><div class="line">    <span class="keyword">let</span> file = p+arr[i]</div><div class="line">    <span class="comment">//因为整个模块读取是个同步过程，所以得用sync，这里判断有没有这个文件存在</span></div><div class="line">    <span class="keyword">try</span>&#123;</div><div class="line">      fs.accessSync(file)      </div><div class="line">      <span class="keyword">return</span> file</div><div class="line">    &#125;<span class="keyword">catch</span>(e)&#123;</div><div class="line">      <span class="built_in">console</span>.log(e)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">&#125;</div><div class="line"><span class="comment">//require方法</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">req</span>(<span class="params">moduleId</span>)</span>&#123;</div><div class="line">  <span class="keyword">let</span> p = Module._resolveFileName(moduleId)</div><div class="line">  <span class="keyword">if</span>(Module._catcheModule[p])&#123;</div><div class="line">    <span class="comment">//模块已存在</span></div><div class="line">    <span class="keyword">return</span> Module._catcheModule[p].exports</div><div class="line">  &#125;</div><div class="line">  <span class="comment">//没有缓存就生成一个</span></div><div class="line">  <span class="keyword">let</span> <span class="built_in">module</span> = <span class="keyword">new</span> Module(p)</div><div class="line">  Module._catcheModule[p] = <span class="built_in">module</span></div><div class="line">  <span class="comment">//加载模块</span></div><div class="line">  <span class="built_in">module</span>.exports = <span class="built_in">module</span>.load(p)</div><div class="line">  <span class="keyword">return</span> <span class="built_in">module</span>.exports</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/03/21/数组的扩展/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption"><</strong>
+      <div class="article-nav-title">
+        
+          数组的扩展
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2018/03/15/module/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">module</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'Shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>

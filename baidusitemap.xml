@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2018/03/15/%E6%A8%A1%E5%9D%97%E5%8C%96%20CommonJS/</loc>
+    <lastmod>2018-08-08T03:40:28.130Z</lastmod>
+    <data>
+        <display>
+        <title>你真的懂模块化吗？教你CommonJS实现</title>
+        <pubTime>2018-03-15T15:43:40.000Z</pubTime>
+        
+        <tag>模块化</tag>
+         
+        <tag>CommonJS</tag>
+         
+         
+           
+             
+              <breadCrumb title="web" url="http://shinemax1.github.io/categories/web/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2018/07/20/ReactSSR/</loc>
     <lastmod>2018-08-03T05:53:26.498Z</lastmod>
     <data>
@@ -655,26 +677,6 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/01/26/gcd-basics/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>GCD基础知识</title>
-        <pubTime>2015-01-26T12:05:56.000Z</pubTime>
-        
-        <tag>GCD</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://shinemax1.github.io/2016/06/09/modal-transitions-in-ios/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
@@ -817,6 +819,26 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2015/02/07/nsoperation-vs-gcd/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>NSOperation v.s GCD</title>
+        <pubTime>2015-02-07T02:24:41.000Z</pubTime>
+        
+        <tag>GCD</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2015/04/12/basics-in-objective-c/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
@@ -837,39 +859,21 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/06/26/objective-c-new-features-in-2015/</loc>
+    <loc>http://shinemax1.github.io/2015/12/05/git-basics/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>2015 Objective-C新特性</title>
-        <pubTime>2015-06-26T06:39:28.000Z</pubTime>
+        <title>Git基础</title>
+        <pubTime>2015-12-05T03:04:04.000Z</pubTime>
         
-        <tag>Objective-C</tag>
+        <tag>Git</tag>
+         
+        <tag>Tools</tag>
          
          
            
              
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2016/05/21/practice-in-uiscrollview/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>使用UIScrollView</title>
-        <pubTime>2016-05-21T05:41:28.000Z</pubTime>
-        
-        <tag>UIScrollView</tag>
-         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
           
         </display>
     </data>
@@ -915,28 +919,6 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/12/05/git-basics/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>Git基础</title>
-        <pubTime>2015-12-05T03:04:04.000Z</pubTime>
-        
-        <tag>Git</tag>
-         
-        <tag>Tools</tag>
-         
-         
-           
-             
-              <breadCrumb title="Others" url="http://shinemax1.github.io/categories/Others/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
     <loc>http://shinemax1.github.io/2015/06/22/ibinspectable-and-ibdesignable/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
@@ -945,6 +927,26 @@
         <pubTime>2015-06-22T02:50:45.000Z</pubTime>
         
         <tag>Xcode</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2015/10/11/good-resources-about-ios/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>iOS好资源</title>
+        <pubTime>2015-10-11T12:43:39.000Z</pubTime>
+        
+        <tag>Resources</tag>
          
          
            
@@ -1095,14 +1097,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/10/11/good-resources-about-ios/</loc>
+    <loc>http://shinemax1.github.io/2016/06/26/implicit-animations/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>iOS好资源</title>
-        <pubTime>2015-10-11T12:43:39.000Z</pubTime>
+        <title>隐式动画</title>
+        <pubTime>2016-06-26T15:38:26.000Z</pubTime>
         
-        <tag>Resources</tag>
+        <tag>Animation</tag>
          
          
            
@@ -1115,14 +1117,14 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2016/06/26/implicit-animations/</loc>
+    <loc>http://shinemax1.github.io/2015/04/28/initialize-and-load-in-objective-c/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>隐式动画</title>
-        <pubTime>2016-06-26T15:38:26.000Z</pubTime>
+        <title>Objective-C中的+initialize和+load</title>
+        <pubTime>2015-04-28T06:14:13.000Z</pubTime>
         
-        <tag>Animation</tag>
+        <tag>Objective-C</tag>
          
          
            
@@ -1385,12 +1387,12 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/04/28/initialize-and-load-in-objective-c/</loc>
+    <loc>http://shinemax1.github.io/2015/06/26/objective-c-new-features-in-2015/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>Objective-C中的+initialize和+load</title>
-        <pubTime>2015-04-28T06:14:13.000Z</pubTime>
+        <title>2015 Objective-C新特性</title>
+        <pubTime>2015-06-26T06:39:28.000Z</pubTime>
         
         <tag>Objective-C</tag>
          
@@ -1412,28 +1414,6 @@
         <title>使用WebViewJavascriptBridge</title>
         <pubTime>2015-06-16T08:53:35.000Z</pubTime>
         
-         
-           
-             
-              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-4/</loc>
-    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
-    <data>
-        <display>
-        <title>理解Objective-C Runtime（四）Method Swizzling</title>
-        <pubTime>2015-04-27T13:10:53.000Z</pubTime>
-        
-        <tag>Objective-C</tag>
-         
-        <tag>Runtime</tag>
-         
          
            
              
@@ -1556,6 +1536,26 @@
 
     
   <url>
+    <loc>http://shinemax1.github.io/2015/01/26/gcd-basics/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>GCD基础知识</title>
+        <pubTime>2015-01-26T12:05:56.000Z</pubTime>
+        
+        <tag>GCD</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-3/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
@@ -1578,14 +1578,36 @@
 
     
   <url>
-    <loc>http://shinemax1.github.io/2015/02/07/nsoperation-vs-gcd/</loc>
+    <loc>http://shinemax1.github.io/2015/04/27/understanding-objective-c-runtime-part-4/</loc>
     <lastmod>2016-08-08T12:02:58.000Z</lastmod>
     <data>
         <display>
-        <title>NSOperation v.s GCD</title>
-        <pubTime>2015-02-07T02:24:41.000Z</pubTime>
+        <title>理解Objective-C Runtime（四）Method Swizzling</title>
+        <pubTime>2015-04-27T13:10:53.000Z</pubTime>
         
-        <tag>GCD</tag>
+        <tag>Objective-C</tag>
+         
+        <tag>Runtime</tag>
+         
+         
+           
+             
+              <breadCrumb title="iOS" url="http://shinemax1.github.io/categories/iOS/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://shinemax1.github.io/2016/05/21/practice-in-uiscrollview/</loc>
+    <lastmod>2016-08-08T12:02:58.000Z</lastmod>
+    <data>
+        <display>
+        <title>使用UIScrollView</title>
+        <pubTime>2016-05-21T05:41:28.000Z</pubTime>
+        
+        <tag>UIScrollView</tag>
          
          
            
