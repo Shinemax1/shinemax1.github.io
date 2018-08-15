@@ -1,0 +1,741 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" >
+  <title>前端进阶必须懂得TCP/IP | Robot Dog</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="TCP/IP四层协议
+一往无前虎山行，拨开云雾见光明。梦里花落牡丹亭，幻想成真歌舞升平。 —— Gai
+
+计算机网络的结构分层            OSI七层模型        TCP/IP协议族层次         功能        TCP/IP协议族                应用层        应用层        电子邮件、远程传输、文件传输        TFTP，HTTP，S">
+<meta property="og:type" content="article">
+<meta property="og:title" content="前端进阶必须懂得TCP/IP">
+<meta property="og:url" content="http://shinemax1.github.io/2018/08/15/TCP:IP/index.html">
+<meta property="og:site_name" content="Robot Dog">
+<meta property="og:description" content="TCP/IP四层协议
+一往无前虎山行，拨开云雾见光明。梦里花落牡丹亭，幻想成真歌舞升平。 —— Gai
+
+计算机网络的结构分层            OSI七层模型        TCP/IP协议族层次         功能        TCP/IP协议族                应用层        应用层        电子邮件、远程传输、文件传输        TFTP，HTTP，S">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/8/1651879f7424b01b?w=639&h=581&f=png&s=264685">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/8/16519c25300e4263?w=940&h=944&f=jpeg&s=93646">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/8/16519ce6e380a5a8?w=560&h=503&f=png&s=18872">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/8/16519d7d1dcd5de7?w=533&h=427&f=jpeg&s=31970">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/8/1651a307aa520dfe?w=2066&h=728&f=jpeg&s=509288">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/9/1651d81d0c55eff9?w=772&h=544&f=jpeg&s=61278">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/9/1651da99df92d2b8?w=531&h=167&f=png&s=35130">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/9/1651df4d7bbd6c69?w=640&h=416&f=png&s=55583">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/9/1651e01317d3de42?w=2034&h=632&f=jpeg&s=295378">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/12/1652dbf6944fd611?w=1700&h=800&f=jpeg&s=307838">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/12/1652e310abecfde0?w=1206&h=886&f=png&s=77790">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/12/1652e87cee53fc37?w=2190&h=818&f=jpeg&s=337284">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/12/1652ed1de92dcfdd?w=1298&h=554&f=jpeg&s=182578">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2018/8/13/1652f0f13f0b1761?w=1194&h=1012&f=jpeg&s=106652">
+<meta property="og:updated_time" content="2018-08-15T03:25:13.774Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="前端进阶必须懂得TCP/IP">
+<meta name="twitter:description" content="TCP/IP四层协议
+一往无前虎山行，拨开云雾见光明。梦里花落牡丹亭，幻想成真歌舞升平。 —— Gai
+
+计算机网络的结构分层            OSI七层模型        TCP/IP协议族层次         功能        TCP/IP协议族                应用层        应用层        电子邮件、远程传输、文件传输        TFTP，HTTP，S">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2018/8/8/1651879f7424b01b?w=639&h=581&f=png&s=264685">
+  
+    <link rel="alternative" href="/atom.xml" title="Robot Dog" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.jpg">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+	<header id="header" class="inner">
+		<a href="/" class="profilepic">
+			
+			<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+		</a>
+		<hgroup>
+		  <h1 class="header-author"><a href="/">陈旭锋</a></h1>
+		</hgroup>
+
+		
+		<p class="header-subtitle">shinemax</p>
+		
+
+		
+			<div class="switch-btn">
+				<div class="icon">
+					<div class="icon-ctn">
+						<div class="icon-wrap icon-house" data-idx="0">
+							<div class="birdhouse"></div>
+							<div class="birdhouse_holes"></div>
+						</div>
+						<div class="icon-wrap icon-ribbon hide" data-idx="1">
+							<div class="ribbon"></div>
+						</div>
+						
+						
+						<div class="icon-wrap icon-me hide" data-idx="3">
+							<div class="user"></div>
+							<div class="shoulder"></div>
+						</div>
+						
+					</div>
+					
+				</div>
+				<div class="tips-box hide">
+					<div class="tips-arrow"></div>
+					<ul class="tips-inner">
+						<li>菜单</li>
+						<li>标签</li>
+						
+						
+						<li>关于我</li>
+						
+					</ul>
+				</div>
+			</div>
+		
+
+		<div class="switch-area">
+			<div class="switch-wrap">
+				<section class="switch-part switch-part1">
+					<nav class="header-menu">
+						<ul>
+						
+							<li><a href="/">主页</a></li>
+				        
+							<li><a href="/categories/Android/">Android相关</a></li>
+				        
+							<li><a href="/categories/iOS/">iOS相关</a></li>
+				        
+							<li><a href="/categories/web/">前端相关</a></li>
+				        
+							<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+				        
+							<li><a href="/categories/Others/">其它相关</a></li>
+				        
+							<li><a href="/categories/blog/">随笔</a></li>
+				        
+							<li><a href="/archives">所有文章</a></li>
+				        
+						</ul>
+					</nav>
+					<nav class="header-nav">
+						<div class="social">
+							
+								<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+					        
+								<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+					        
+								<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+					        
+								<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+					        
+						</div>
+					</nav>
+				</section>
+				
+				
+				<section class="switch-part switch-part2">
+					<div class="widget tagcloud" id="js-tagcloud">
+						<a href="/tags/AFNetworking/" style="font-size: 11.25px;">AFNetworking</a> <a href="/tags/Animation/" style="font-size: 13.75px;">Animation</a> <a href="/tags/Auto-Layout/" style="font-size: 10px;">Auto Layout</a> <a href="/tags/CommonJS/" style="font-size: 10px;">CommonJS</a> <a href="/tags/Error/" style="font-size: 10px;">Error</a> <a href="/tags/Functional-Programming/" style="font-size: 10px;">Functional Programming</a> <a href="/tags/GCD/" style="font-size: 16.25px;">GCD</a> <a href="/tags/Git/" style="font-size: 11.25px;">Git</a> <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/Hexo/" style="font-size: 10px;">Hexo</a> <a href="/tags/IP/" style="font-size: 10px;">IP</a> <a href="/tags/KVO/" style="font-size: 10px;">KVO</a> <a href="/tags/MVVM/" style="font-size: 10px;">MVVM</a> <a href="/tags/OSI/" style="font-size: 10px;">OSI</a> <a href="/tags/Objective-C/" style="font-size: 17.5px;">Objective-C</a> <a href="/tags/React/" style="font-size: 10px;">React</a> <a href="/tags/ReactiveCocoa/" style="font-size: 12.5px;">ReactiveCocoa</a> <a href="/tags/Resources/" style="font-size: 10px;">Resources</a> <a href="/tags/Runtime/" style="font-size: 15px;">Runtime</a> <a href="/tags/SSR/" style="font-size: 10px;">SSR</a> <a href="/tags/Sublime-Text/" style="font-size: 11.25px;">Sublime Text</a> <a href="/tags/TCP/" style="font-size: 10px;">TCP</a> <a href="/tags/Tools/" style="font-size: 13.75px;">Tools</a> <a href="/tags/Transition/" style="font-size: 12.5px;">Transition</a> <a href="/tags/UIScrollView/" style="font-size: 10px;">UIScrollView</a> <a href="/tags/UIWebView/" style="font-size: 10px;">UIWebView</a> <a href="/tags/Xcode/" style="font-size: 10px;">Xcode</a> <a href="/tags/ajax/" style="font-size: 10px;">ajax</a> <a href="/tags/css/" style="font-size: 10px;">css</a> <a href="/tags/css布局/" style="font-size: 10px;">css布局</a> <a href="/tags/es6/" style="font-size: 18.75px;">es6</a> <a href="/tags/html/" style="font-size: 10px;">html</a> <a href="/tags/js/" style="font-size: 11.25px;">js</a> <a href="/tags/js基础/" style="font-size: 20px;">js基础</a> <a href="/tags/node-js/" style="font-size: 11.25px;">node.js</a> <a href="/tags/promise/" style="font-size: 10px;">promise</a> <a href="/tags/stream/" style="font-size: 10px;">stream</a> <a href="/tags/事件环/" style="font-size: 10px;">事件环</a> <a href="/tags/写作/" style="font-size: 10px;">写作</a> <a href="/tags/前端日记/" style="font-size: 10px;">前端日记</a> <a href="/tags/千字文/" style="font-size: 10px;">千字文</a> <a href="/tags/宏任务/" style="font-size: 10px;">宏任务</a> <a href="/tags/微任务/" style="font-size: 10px;">微任务</a> <a href="/tags/总结/" style="font-size: 10px;">总结</a> <a href="/tags/模块化/" style="font-size: 11.25px;">模块化</a> <a href="/tags/流/" style="font-size: 10px;">流</a> <a href="/tags/知识管理/" style="font-size: 10px;">知识管理</a> <a href="/tags/设计模式/" style="font-size: 10px;">设计模式</a> <a href="/tags/面试/" style="font-size: 11.25px;">面试</a>
+					</div>
+				</section>
+				
+				
+				
+
+				
+				
+				<section class="switch-part switch-part3">
+				
+					<div id="js-aboutme">男，95年生人，全栈开发工程师。</div>
+				</section>
+				
+			</div>
+		</div>
+	</header>				
+</div>
+
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+  	<div class="overlay">
+  		<div class="slider-trigger"></div>
+  		<h1 class="header-author js-mobile-header hide">陈旭锋</h1>
+  	</div>
+	<div class="intrude-less">
+		<header id="header" class="inner">
+			<div class="profilepic">
+			
+				<img lazy-src="/favicon.jpg" class="js-avatar">
+			
+			</div>
+			<hgroup>
+			  <h1 class="header-author">陈旭锋</h1>
+			</hgroup>
+			
+			<p class="header-subtitle">shinemax</p>
+			
+			<nav class="header-menu">
+				<ul>
+				
+					<li><a href="/">主页</a></li>
+		        
+					<li><a href="/categories/Android/">Android相关</a></li>
+		        
+					<li><a href="/categories/iOS/">iOS相关</a></li>
+		        
+					<li><a href="/categories/web/">前端相关</a></li>
+		        
+					<li><a href="/categories/Objective-C/">Objective-C相关</a></li>
+		        
+					<li><a href="/categories/Others/">其它相关</a></li>
+		        
+					<li><a href="/categories/blog/">随笔</a></li>
+		        
+					<li><a href="/archives">所有文章</a></li>
+		        
+		        <div class="clearfix"></div>
+				</ul>
+			</nav>
+			<nav class="header-nav">
+				<div class="social">
+					
+						<a class="github" target="_blank" href="https://github.com/Shinemax1" title="github">github</a>
+			        
+						<a class="weibo" target="_blank" href="http://weibo.com/Themas" title="weibo">weibo</a>
+			        
+						<a class="mail" target="_blank" href="mailto:510360345@qq.com" title="mail">mail</a>
+			        
+						<a class="rss" target="_blank" href="/atom.xml" title="rss">rss</a>
+			        
+				</div>
+			</nav>
+		</header>				
+	</div>
+</nav>
+
+      <div class="body-wrap"><article id="post-TCP:IP" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2018/08/15/TCP:IP/" class="article-date">
+  	<time datetime="2018-08-15T03:25:40.000Z" itemprop="datePublished">2018-08-15</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      前端进阶必须懂得TCP/IP
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+	<div class="article-tag tagcloud">
+		<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/IP/">IP</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/OSI/">OSI</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/TCP/">TCP</a></li></ul>
+	</div>
+
+        
+	<div class="article-category tagcloud">
+	<a class="article-category-link" href="/categories/web/">web</a>
+	</div>
+
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="TCP-IP四层协议"><a href="#TCP-IP四层协议" class="headerlink" title="TCP/IP四层协议"></a>TCP/IP四层协议</h1><blockquote>
+<p>一往无前虎山行，拨开云雾见光明。梦里花落牡丹亭，幻想成真歌舞升平。 —— Gai</p>
+</blockquote>
+<h2 id="计算机网络的结构分层"><a href="#计算机网络的结构分层" class="headerlink" title="计算机网络的结构分层"></a>计算机网络的结构分层</h2><table style="text-align:center"><br>    <tr><br>        <td>OSI七层模型</td><br>        <td>TCP/IP协议族层次 </td><br>        <td>功能</td><br>        <td>TCP/IP协议族 </td><br>   </tr><br>    <tr><br>        <td>应用层</td><br>        <td rowspan="3">应用层</td><br>        <td>电子邮件、远程传输、文件传输</td><br>        <td>TFTP，HTTP，SNMP，FTP，SMTP，DNS，Telnet</td><br>    </tr><br>    <tr><br>        <td>表示层</td><br>        <td>数据格式化、代码转换、数据加密</td><br>        <td>没有协议</td><br>    </tr><br>    <tr><br>        <td>会话层</td><br>        <td>解除或建立别的节点的联系</td><br>        <td>没有协议</td><br>    </tr><br>    <tr><br>        <td>传输层</td><br>        <td>传输层</td><br>        <td>提供端对端的接口，处理端到端的通信细节</td><br>        <td>TCP，UDP</td><br>    </tr><br>    <tr><br>        <td>网络层</td><br>        <td>网络层</td><br>        <td>数据在网络中分组传输，网络层处理分组在网络中的活动</td><br>        <td>IP，ICMP，RIP，OSPF，BGP，IGMP</td><br>    </tr><br>    <tr><br>        <td>数据链路层</td><br>        <td rowspan="2">链路层</td><br>        <td>传输有地址的帧和错误检测功能</td><br>        <td>SLIP，CSLIP，PPP，ARP，RARP，MTU</td><br>    </tr><br>    <tr><br>        <td>物理层</td><br>        <td>以二进制数据形式在物理媒体上传输数据</td><br>        <td>ISO2110，IEEE802，IEEE802.2</td><br>    </tr><br></table>
+
+<ul>
+<li>物理层，相当于是那些物流公司里的<code>送货汽车</code>。</li>
+<li>数据链路层，可以看作是物流公司的<code>司机</code>，他们驾驶着汽车，将打包好的货物（数据帧）从一个城市（物理节点）运输到另一个城市。</li>
+<li>网络层，这好比是物流公司的路线规划者。物流公司有很多集散中心，根据集散中心的情况（是否拥堵），找出一条经过n个集散中心的路径将货物（数据）沿路运过去。</li>
+<li>传输层，可以将其看作是物流公司的<code>跟单员</code>。负责任的跟单员<code>（使用 TCP 协议）</code>会保证<code>数据</code>送到客户手上，如果送不到<code>（需要三次握手，四次挥手）</code>就让公司再发一次。不负责任的跟单员<code>（使用 UDP 协议）</code>层只管将快递送到客户指定的地方，不管快递是否送到客户手上。</li>
+<li>会话层，可看作是物流公司的<code>调度员</code>。他管理着这次物流的相关的信息。例如这次客户要发很多数据，发到哪，到底是一车一车发、还是用轮船一次运过去。这些都是他的职责。而运完之后，相关信息（连接）也可以被销毁了，这也是调度员的职责。</li>
+<li>表示层，相当于物流公司的<code>打包员</code>。如果快递（数据）太臃肿，他会在不破坏快递的情况下压扁（压缩）它。如果客户注重安全线，全能的快递公司还能用密码箱（ SSL/TLS）打包快递再快送。当然，打包员会确定，目的地快递站的拆包员，能无损地拆开包裹，将快递交给用户。</li>
+<li>应用层，可以想象成物流公司的<code>收件员</code>，当客户（应用）打电话（发起请求）给收件员（应用层）时，收件员可以根据用户的不同需求提供不同的服务（不同协议），比如隔天送达、指定时间送达等等。</li>
+</ul>
+<h2 id="TCP-IP协议族"><a href="#TCP-IP协议族" class="headerlink" title="TCP/IP协议族"></a>TCP/IP协议族</h2><ul>
+<li>用<code>TCP/IP</code>从上往下走的时候，会分层的传输进行通讯。</li>
+<li>发送端是从<code>应用层</code>到<code>链路层</code>，接收端是从<code>链路层</code>往上到<code>应用层</code>取数据。</li>
+<li>其中通过各种首部的包装来让相应的层进行<code>识别</code>。</li>
+<li>这里我拿了网上copy的一张通用的图来看一下。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/8/1651879f7424b01b?w=639&amp;h=581&amp;f=png&amp;s=264685" alt=""></p>
+<ul>
+<li><strong>每层协议需要实现的功能：</strong><ul>
+<li>将上层协议传递的<code>数据包</code>包装为满足该层协议的<code>数据包</code></li>
+<li>将下层协议传递的<code>数据包</code>解析为满足上层协议的<code>数据包</code></li>
+<li>处理其他层的交互</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/8/16519c25300e4263?w=940&amp;h=944&amp;f=jpeg&amp;s=93646" alt=""></p>
+<ul>
+<li><strong>这和上图要表达的意思差不多，需要注意的是</strong><ul>
+<li>从底往上传的<code>二进制包</code>，只要该层能处理就<code>不需要</code>按照严格意义上的分层解析</li>
+<li>比如说，网络层往上传<code>二进制包</code>的时候，你可以在传输层包一层<code>tcp头</code>，也可以不包，直接交给应用层解析</li>
+</ul>
+</li>
+</ul>
+<h2 id="数据包"><a href="#数据包" class="headerlink" title="数据包"></a>数据包</h2><h3 id="帧、数据包、段、消息（传输数据单位）"><a href="#帧、数据包、段、消息（传输数据单位）" class="headerlink" title="帧、数据包、段、消息（传输数据单位）"></a>帧、数据包、段、消息（传输数据单位）</h3><ul>
+<li>帧：用于表示数据链路层中包的单位；</li>
+<li>数据包： IP 和 UDP 等网络层以上的分层中包的单位；</li>
+<li>段：表示 TCP 数据流中的信息；</li>
+<li>消息：指应用协议中数据的单位。</li>
+</ul>
+<h3 id="数据在每个分层中的体现"><a href="#数据在每个分层中的体现" class="headerlink" title="数据在每个分层中的体现"></a>数据在每个分层中的体现</h3><ul>
+<li>每个分层中，都会对所发送的数据附加一个<code>首部</code>。</li>
+<li>在这个<code>首部</code>中包含了该层必要的信息，如发送的目标地址以及协议相关信息。</li>
+<li>通常，为协议提供的信息为包<code>首部</code>，所要发送的内容为数据。在下一层的角度看，从上一层收到的包全部都被认为是本层的数据。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/8/16519ce6e380a5a8?w=560&amp;h=503&amp;f=png&amp;s=18872" alt=""></p>
+<p><strong>在上面我们就能直观地看到，每一层的数据之外，其实包了很多层协议的首部</strong></p>
+<h2 id="数据链路层"><a href="#数据链路层" class="headerlink" title="数据链路层"></a>数据链路层</h2><h3 id="探究：数据链路层到底干了什么？"><a href="#探究：数据链路层到底干了什么？" class="headerlink" title="探究：数据链路层到底干了什么？"></a>探究：数据链路层到底干了什么？</h3><p><img src="https://user-gold-cdn.xitu.io/2018/8/8/16519d7d1dcd5de7?w=533&amp;h=427&amp;f=jpeg&amp;s=31970" alt=""></p>
+<ul>
+<li><strong>主要是做了接受IP数据报，并发送IP数据报至IP模块</strong></li>
+<li><strong>与ARP及RARP模块交互</strong></li>
+<li><strong>它的结构可以分为如下</strong><ul>
+<li>业务区：最底下的那些物理机构成的区域，是物理层流出的起点。</li>
+<li>接入层：业务区往上的千兆交换机，这里的物流机如果想互相通信，就必须通过这个交换机。</li>
+<li>核心交换机：由一组千兆交换机组成。</li>
+<li>IDC路由骨干：路由器组成。</li>
+</ul>
+</li>
+</ul>
+<h3 id="Wireshark抓包，看看数据链路层在传输时变成了什么？"><a href="#Wireshark抓包，看看数据链路层在传输时变成了什么？" class="headerlink" title="Wireshark抓包，看看数据链路层在传输时变成了什么？"></a>Wireshark抓包，看看数据链路层在传输时变成了什么？</h3><p><img src="https://user-gold-cdn.xitu.io/2018/8/8/1651a307aa520dfe?w=2066&amp;h=728&amp;f=jpeg&amp;s=509288" alt=""></p>
+<ul>
+<li>首先这个是<code>Wireshark</code>给我们解析出来的TCP/IP协议族的四层。</li>
+<li>从上至下，分别是<code>链路</code>、<code>网络</code>、<code>传输</code>、<code>应用</code></li>
+<li>我们着重看链路层，因为链路层在网络层之下，此时的地址都为硬件地址。</li>
+<li>只有通过<code>硬件地址</code>，物理层才能将数据包通过路由传至目标地址。</li>
+<li>这里就会有一个问题：<code>怎么通过IP地址去获取硬件地址呢？</code></li>
+</ul>
+<h3 id="ARP协议"><a href="#ARP协议" class="headerlink" title="ARP协议"></a>ARP协议</h3><h4 id="作用："><a href="#作用：" class="headerlink" title="作用："></a>作用：</h4><ul>
+<li>将32bit的IP地址，转换为48bit的以太网地址。</li>
+<li>发送ARP广播，获得目的端的IP地址和硬件地址。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/9/1651d81d0c55eff9?w=772&amp;h=544&amp;f=jpeg&amp;s=61278" alt=""></p>
+<h4 id="要注意的问题"><a href="#要注意的问题" class="headerlink" title="要注意的问题"></a>要注意的问题</h4><ul>
+<li>访问不存在的主机地址超过时间一般为<code>75s</code>，这个时间其实一般就是<code>TCP连接</code>请求的超时时间。</li>
+<li>如果<code>ARP</code>回答未返回，那么任何<code>TCP</code>报文段都不会发送。</li>
+</ul>
+<h4 id="如何捕获ARP数据？"><a href="#如何捕获ARP数据？" class="headerlink" title="如何捕获ARP数据？"></a>如何捕获ARP数据？</h4><ul>
+<li><strong>telnet</strong></li>
+<li><strong>tcpdump（相当于无界面的Wireshark）</strong></li>
+<li><strong>命令：</strong><ul>
+<li>arp -a：查看arp<code>高速缓存</code>。（每个已经找到的mac地址都会在arp中<code>缓存</code>）</li>
+<li>tcpdump -i 网络接口arp：监听网络接口的<code>ARP</code>。</li>
+<li>tcpdump -D：查看可监听的网络接口。</li>
+</ul>
+</li>
+</ul>
+<h4 id="MTU是什么？"><a href="#MTU是什么？" class="headerlink" title="MTU是什么？"></a>MTU是什么？</h4><p><strong>最大传输单元。</strong></p>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/9/1651da99df92d2b8?w=531&amp;h=167&amp;f=png&amp;s=35130" alt=""></p>
+<ul>
+<li>IPMTU就是最大的<code>传输单元</code>。</li>
+<li>每个路由都会有一个规定的<code>MTU大小</code>。</li>
+<li>如果我们传送的IP数据包大于这个<code>MTU</code>，就会<code>漏传</code>。</li>
+<li>需要遵循<code>短板原理</code>,根据最小的<code>MTU</code>来设置IP数据包大小。</li>
+</ul>
+<h4 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h4><ul>
+<li>主要就是通过发送端的<code>IP地址</code>，在内网（局域网）中通过<code>广播</code>的方式，去询问对应IP的<code>以太网地址</code>。</li>
+<li>如果访问不到，超过<code>75s</code>，就不会继续<code>广播</code>。</li>
+<li><code>MTU</code>控制我们传输的大小。</li>
+<li>如果我们访问的不是<code>局域网</code>，属于<code>公网</code>，那么我们还通过ARP来寻找<code>mac地址</code>吗？如果是这样，那么我们将会给每个<code>公网</code>发送一个<code>广播</code>，那得有多<code>恐怖</code>，所以ARP只存在<code>局域网</code>。</li>
+<li>上面这种情况，我们先通过<code>DNS解析</code>得到对应的<code>网络IP地址</code>，再通过找上层的<code>路由</code>去寻找，此时路由发现不是<code>局域网</code>，将会在往上寻找<code>ISP(Internet Service Provider)</code>，最后找到对应的<code>mac地址</code>。</li>
+</ul>
+<h2 id="网络层（IP协议）"><a href="#网络层（IP协议）" class="headerlink" title="网络层（IP协议）"></a>网络层（IP协议）</h2><blockquote>
+<p>上面说到的路由，和它息息相关的就是我们的网络层，最为<code>核心</code>的一层。</p>
+</blockquote>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/9/1651df4d7bbd6c69?w=640&amp;h=416&amp;f=png&amp;s=55583" alt=""></p>
+<h3 id="协议组成（必须严格遵守顺序）"><a href="#协议组成（必须严格遵守顺序）" class="headerlink" title="协议组成（必须严格遵守顺序）"></a>协议组成（必须严格遵守顺序）</h3><ul>
+<li>版本：4位</li>
+<li>首部长度：4位，⚠️注意，这里的每1位表示<code>10进制x4个字节的数目</code>。因为4位最大的个数为1111，即15，所以首部最长为15x4,<code>60字节</code>。</li>
+<li>服务类型：8位，大部分实现不支持，<code>无需关注</code>。</li>
+<li>总长度：16位，所以最大的IP包为<code>65536</code>。</li>
+<li>标识：16位，唯一标识主机发送的每一份<code>数据报</code>。</li>
+<li>3位标志+13位片偏移：<code>暂时不关注</code>。</li>
+<li>生存时间：8位，数据报最多可经过的<code>路由数</code>（如果不设置这个，就会无限回传）。</li>
+<li>上层协议：8位，表明该IP数据报对应的<code>上层协议</code>是什么。</li>
+<li>首部校验和：16位，保证IP数据报传输正确。</li>
+<li>源IP地址：32位。</li>
+<li>目的IP地址：32位。</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/9/1651e01317d3de42?w=2034&amp;h=632&amp;f=jpeg&amp;s=295378" alt=""></p>
+<ul>
+<li><strong>上面是Wireshark抓的包的IP层，可以清楚看到每个协议的组成。</strong></li>
+<li><strong>需要注意⚠️</strong><ul>
+<li>假如我们发的是<code>公网IP</code>，此时我们无法用<code>ARP</code>找到远端<code>mac地址</code>。</li>
+<li>需要通过发送给路由，所以我们需要路由的<code>mac地址</code>。</li>
+<li>本来<code>数据链路层</code>的<code>以太网首部</code>放的是本机<code>mac地址</code>和目标<code>mac地址</code>。</li>
+<li>现在放的是本机<code>mac地址</code>和路由<code>mac地址</code>。</li>
+<li>而我们的目标<code>IP地址</code>和<code>源IP地址</code>则是包在IP首部之中，最后交给路由，让路由处理。</li>
+</ul>
+</li>
+</ul>
+<h3 id="路由选择"><a href="#路由选择" class="headerlink" title="路由选择"></a>路由选择</h3><ul>
+<li><strong>每一个IP数据报在网络中进行<code>传输</code>的目的，要找到目的IP的<code>主机地址</code>，并最终到达该主机。所以IP数据报经过的每一个<code>节点</code>都相当于是一个<code>中转站</code>，也就是<code>路由</code>。</strong></li>
+<li><strong>IP数据报被路由节点的操作称为<code>路由选择</code>。</strong><ul>
+<li><code>动态选路</code>：根据当前<code>网络状况</code>，<code>权值</code>，选出一条最佳路径。</li>
+<li><code>静态选路</code>：以<code>手工方式</code>为每台路由器的路由选择表添加路由。</li>
+</ul>
+</li>
+<li><strong>常规的路由机制</strong><ul>
+<li>目的主机与源主机直接相连，或处于共享网络，<code>直接送达</code>目标主机（相同内网下）。</li>
+<li>默认<code>转发</code>至该网络存在的路由器上，再由其统一处理。</li>
+</ul>
+</li>
+<li><strong>路由匹配算法</strong><ul>
+<li>路由表中存在与目的IP地址完全相同的条目，直接发送至下一跳。</li>
+<li>路由表中存在与目的IP地址网络号相同的条目，发送至该条目指定的下一跳。</li>
+<li>以上条件均不成立，寻找默认条目，发送至该条目指定的下一跳。</li>
+<li>均不成立，返回主机或网路不可达。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/12/1652dbf6944fd611?w=1700&amp;h=800&amp;f=jpeg&amp;s=307838" alt=""></p>
+<ul>
+<li><strong>假如我们此时的目标IP地址为<code>192.168.0.100</code></strong>，此时会匹配<code>第一条</code>，他的<code>Gateway</code>就是目标的<code>mac地址</code>，en0是<code>网卡</code>，我们可以通过<code>ifconfig</code>查看(windows用ipconfig)</li>
+<li><strong>假如我们此时目标IP地址为<code>192.168.0.103</code></strong>，此时路由表没有对应IP地址，则会去寻找相同<code>网络号</code>，此时找到第二条，他的<code>Gateway</code>是<code>link#8</code>相当于<code>广播</code>出去。</li>
+<li><strong>假如我们此时目标IP地址为<code>192.168.1.2</code></strong>,此时无法在路由表中匹配，则走<code>default</code>，对应第三条，他的<code>Gateway</code>对应<code>192.168.0.1</code>，<code>192.168.0.1</code>其实就是我们的<code>路由器</code>。</li>
+</ul>
+<hr>
+<blockquote>
+<p>上面有提到判断<code>网络号</code>相同，这个我们怎么来做呢？</p>
+</blockquote>
+<hr>
+<h3 id="如何判断两个IP地址网络号相同"><a href="#如何判断两个IP地址网络号相同" class="headerlink" title="如何判断两个IP地址网络号相同"></a>如何判断两个IP地址网络号相同</h3><h4 id="IP地址的分类"><a href="#IP地址的分类" class="headerlink" title="IP地址的分类"></a>IP地址的分类</h4><table>
+<thead>
+<tr>
+<th style="text-align:center">类别</th>
+<th style="text-align:center">最大网络数</th>
+<th style="text-align:center">IP地址范围</th>
+<th style="text-align:center">最大主机数</th>
+<th style="text-align:center">私有IP地址范围 </th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">126（2^7-2)</td>
+<td style="text-align:center">0.0.0.0-127.255.255.255</td>
+<td style="text-align:center">16777214</td>
+<td style="text-align:center">10.0.0.0-10.255.255.255</td>
+</tr>
+<tr>
+<td style="text-align:center">B</td>
+<td style="text-align:center">16384(2^14)</td>
+<td style="text-align:center">128.0.0.0-191.255.255.255</td>
+<td style="text-align:center">65534</td>
+<td style="text-align:center">172.16.0.0-172.31.255.255</td>
+</tr>
+<tr>
+<td style="text-align:center">C</td>
+<td style="text-align:center">2097152(2^21)</td>
+<td style="text-align:center">192.0.0.0-223.255.255.255</td>
+<td style="text-align:center">254</td>
+<td style="text-align:center">192.168.0.0-192.168.255.255</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><strong>IP 地址分为五个级别，分别为A类、B类、C类、D类、E类。它根据 IP 地址中从第 1 位到第 4 位的比特列对其网络标识和主机标识进行区分。D、E类属特殊地址。</strong></li>
+<li><strong>A 类 IP 地址是首位以 “0” 开头的地址</strong>。从第 1 位到第 8 位是它的网络标识。用十进制表示的话，0.0.0.0~127.0.0.0 是 A 类的网络地址。A 类地址的后 24 位相当于主机标识。因此，一个网段内可容纳的主机地址上限为16,777,214个。</li>
+<li><strong>B 类 IP 地址是前两位 “10” 的地址，一般是公网</strong>。从第 1 位到第 16 位是它的网络标识。用十进制表示的话，128.0.0.0~191.255.0.0 是 B 类的网络地址。B 类地址的后 16 位相当于主机标识。因此，一个网段内可容纳的主机地址上限为65,534个。</li>
+<li><strong>C 类 IP 地址是前三位为 “110” 的地址</strong>。从第 1 位到第 24 位是它的网络标识。用十进制表示的话，192.0.0.0~223.255.255.0 是 C 类的网络地址。C 类地址的后 8 位相当于主机标识。因此，一个网段内可容纳的主机地址上限为254个。</li>
+</ul>
+<h4 id="子网掩码"><a href="#子网掩码" class="headerlink" title="子网掩码"></a>子网掩码</h4><ul>
+<li>为了<code>细分</code>更小力度的网络。</li>
+<li>他让A、B、C类地址的主机地址部分用作<code>子网地址</code>，可以将原网络分为<code>多个</code>物理网络的一种<code>机制</code>。</li>
+<li>每类的都有自己默认的网络地址</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">类别</th>
+<th style="text-align:center">子网掩码</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A</td>
+<td style="text-align:center">255.0.0.0</td>
+</tr>
+<tr>
+<td style="text-align:center">B</td>
+<td style="text-align:center">255.255.0.0</td>
+</tr>
+<tr>
+<td style="text-align:center">C</td>
+<td style="text-align:center">255.255.255.0</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>通过和IP地址进行<code>与</code>运算(1&amp;0=0;0&amp;0=0;1&amp;1=1)来得到<code>网络号</code>，这里的<code>与</code>操作需要将IP地址转为<code>二进制</code>在进行<code>与</code>。</li>
+</ul>
+<h4 id="为什么细分了网络？"><a href="#为什么细分了网络？" class="headerlink" title="为什么细分了网络？"></a>为什么细分了网络？</h4><p><img src="https://user-gold-cdn.xitu.io/2018/8/12/1652e310abecfde0?w=1206&amp;h=886&amp;f=png&amp;s=77790" alt=""></p>
+<p><strong>从上面的图，我们可以看出，每类地址的网络分段</strong></p>
+<ul>
+<li><strong>题目</strong><ul>
+<li>1、10.0.0.1和10.1.1.1的网络号相同吗？</li>
+<li>2、172.16.0.1和172.16.1.1的网络号呢？</li>
+<li>3、192.168.10.103和192.168.0.102呢？</li>
+</ul>
+</li>
+<li><strong>答案</strong><ul>
+<li>1、相同。首先我们知道这两个IP地址同属A类，再将他们和默认子网掩码<code>(255.0.0.0)</code>相<code>与</code>，得到结果两个都是<code>10.0.0.0</code>，这就是他们的网络号，也正好符合图中的前8位，10转为二进制就是<code>00001010</code></li>
+<li>2、同理可得，属于B类，相同，并且网络号为<code>172.16.0.0</code>。</li>
+<li>3、属于C类，网络号不同，分别为<code>192.168.10.0</code>和<code>192.168.0.0</code>。</li>
+</ul>
+</li>
+</ul>
+<p><strong>上面的题目都是在默认的子网掩码之下，那么如果我们改了子网掩码呢？</strong></p>
+<ul>
+<li><strong>题目</strong><ul>
+<li>1、172.16.0.1和172.16.1.1的子网掩码是255.255.255.0，此时网络号相同吗？</li>
+</ul>
+</li>
+<li><strong>答案</strong><ul>
+<li>1、不同，此时我们在算一次，把每个IP地址都和<code>255.255.255.0</code>相<code>与</code>，此时网络号分别为，<code>172.16.0.0</code>和<code>172.16.1.0</code>，则不同。</li>
+</ul>
+</li>
+<li><strong>我们可以看到经过<code>子网掩码</code>，把我们本来相同<code>网段</code>的<code>IP地址</code>，划为不通<code>网段</code>的地址，这样就<code>细分</code>了网络，有更多的<code>物理网络</code>。</strong></li>
+</ul>
+<h3 id="IP分片"><a href="#IP分片" class="headerlink" title="IP分片"></a>IP分片</h3><p><strong>当我们的<code>MTU</code>最大传输单元<code>(1500字节，去掉以太网首部，就是1480字节)</code>满足不了我们的需求时，我们就需要<code>IP分片</code>(分成一片片传输)。</strong></p>
+<ul>
+<li><strong>回顾IP协议组成中的：标志字段、片偏移</strong><ul>
+<li><strong>16位标识()</strong>：<code>IP分片</code>时，该值被复制每一个分片中，相当于每个分片的<code>id</code>。</li>
+<li><strong>三位标志</strong>：<ul>
+<li>首位：保留字段，一般为0。</li>
+<li>中间位：不进行<code>IP分片</code>时为0，进行时为1。</li>
+<li>末位：假如此时有3片<code>IP分片</code>，前两片末位都为1，最后一片末位为0。</li>
+</ul>
+</li>
+<li><strong>13位片偏移</strong>：该片偏移原始数据包开始处的位置。假如此时5片IP分片，那么第一片的13位片偏移为1，第二片为2，让路由知道<code>先后顺序</code>。</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/12/1652e87cee53fc37?w=2190&amp;h=818&amp;f=jpeg&amp;s=337284" alt=""></p>
+<ul>
+<li><strong>错误处理</strong><ul>
+<li>当<code>IP分片</code>时，只丢失<code>一片</code>数据，也需要<code>重传</code>整个IP数据报。</li>
+<li>当给定数据报的第一个数据报片到达时，开始<code>定时器</code>，<code>过期</code>丢弃所有数据报片。</li>
+</ul>
+</li>
+</ul>
+<h3 id="ICMP协议"><a href="#ICMP协议" class="headerlink" title="ICMP协议"></a>ICMP协议</h3><ul>
+<li><strong>属于IP协议的<code>一部分</code>。</strong></li>
+<li><strong>确认 IP 包<code>是否</code>成功送达目标地址，通知在发送过程当中 IP 包被废弃的具体原因，<code>改善</code>网络设置等。</strong></li>
+<li><strong>IP包首部有一个字段<code>TTL</code>，每经过一个路由器就会<code>减1</code>，直到减到0时IP报就会被丢弃。</strong></li>
+<li><strong>此时，IP路由器将会发送一个ICMP超时的消息给发送端，通知该包已被<code>丢弃</code>。</strong></li>
+<li><strong><code>traceroute</code>命令的原理就是通过ICMP超时消息来显示发送主机到达特定主机之前经历了多少路由器。</strong></li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2018/8/12/1652ed1de92dcfdd?w=1298&amp;h=554&amp;f=jpeg&amp;s=182578" alt=""></p>
+<h3 id="总结："><a href="#总结：" class="headerlink" title="总结："></a>总结：</h3><ul>
+<li><strong>处理数据报在网络中的行为（路由选择）。</strong></li>
+<li><strong>承载端到端的数据交互方式（两个ip的host之间的传递数据）。</strong></li>
+<li><strong>缺点：</strong><ul>
+<li>只是保证数据基本达到，数据可能是无序的。</li>
+<li>可能是缺失的。</li>
+</ul>
+</li>
+</ul>
+<h2 id="传输层（TCP协议）"><a href="#传输层（TCP协议）" class="headerlink" title="传输层（TCP协议）"></a>传输层（TCP协议）</h2><blockquote>
+<p>解决IP层的痛点，是一种安全的协议，主要通过<code>连接</code>疏通了整一个通道，安全传输。</p>
+</blockquote>
+<h3 id="三次握手和四次挥手"><a href="#三次握手和四次挥手" class="headerlink" title="三次握手和四次挥手"></a>三次握手和四次挥手</h3><p><img src="https://user-gold-cdn.xitu.io/2018/8/13/1652f0f13f0b1761?w=1194&amp;h=1012&amp;f=jpeg&amp;s=106652" alt=""></p>
+<h4 id="三次握手"><a href="#三次握手" class="headerlink" title="三次握手"></a>三次握手</h4><ul>
+<li><strong>看前三个<code>箭头</code>：</strong><ul>
+<li>客户端发送<code>SYN A1</code>来<code>请求建立连接</code>，SYN就是<code>synchronization(同步)</code>，而且此时A1是被传在<code>sequence(序列)</code>中的，此时服务端接收到客户端传来的<code>A1</code>信号。</li>
+<li>服务端<code>回应</code>客户端<code>我接收到了</code>，所以发送<code>ACK A2(只是确认应答，所以只需在原有的A1+1=A2)</code>，这里的ACK就是<code>acknowledge(确认)</code>。并且<code>请求客户端建立连接</code>， 此时发送一个信号<code>SYN B1</code>。</li>
+<li>客户端接受并<code>确认应答</code>，告知服务端接收到了信号，所以发送<code>ACK B2(因为上次推过来的SYN B1)</code>。</li>
+</ul>
+</li>
+</ul>
+<h4 id="四次挥手"><a href="#四次挥手" class="headerlink" title="四次挥手"></a>四次挥手</h4><ul>
+<li><strong>看后四个<code>箭头</code>：</strong><ul>
+<li>客户端发送结束信号<code>FIN C1</code>。</li>
+<li>服务端接收到结束信号，<code>回应接收到了</code>，此时发送信号<code>ACK C2</code>，客户端已经关闭，但是服务器处于<code>半关闭状态(客户端不能向服务器发送请求，服务器还是能接受客户端请求)</code>。</li>
+<li>服务端向客户端发送结束信号<code>FIN D1</code>。</li>
+<li>客户端接收到结束信号，<code>回应接收到了</code>，此时发送信号<code>ACK D2</code>，服务器也关闭。</li>
+</ul>
+</li>
+</ul>
+<h3 id="通过序列号与确认应答提高可靠性"><a href="#通过序列号与确认应答提高可靠性" class="headerlink" title="通过序列号与确认应答提高可靠性"></a>通过序列号与确认应答提高可靠性</h3><ul>
+<li><code>序列号</code>是按照<code>顺序</code>给发送数据的每一个字节<code>（8位字节）</code>都标上号码的编号。接收端查询接收数据TCP首部中的<code>序列号</code>和<code>数据的长度</code>，将自己下一步应该接收的<code>序列号</code>作为<code>确认应答</code>返送回去。通过<code>序列号</code>和<code>确认应答号</code>，TCP能够识别<code>是否</code>已经接收数据，又能够判断是否需要接收，从而实现可靠传输。</li>
+</ul>
+<h3 id="重发超时的确定"><a href="#重发超时的确定" class="headerlink" title="重发超时的确定"></a>重发超时的确定</h3><ul>
+<li><code>重发超时</code>是指在重发数据之前，等待确认应答到来的那个特定时间间隔。如果超过这个时间仍未收到确认应答，发送端将进行<code>数据重发</code>。最理想的是，找到一个<code>最小时间</code>，它能保证“确认应答一定能在这个时间内返回”。</li>
+<li>TCP 要求不论处在何种网络环境下都要提供高性能通信，并且无论网络拥堵情况发生何种变化，都必须保持这一特性。为此，它在每次发包时都会计算往返时间及其<code>偏差</code>。将这个往返时间和偏差时间相加，<code>重发超时</code>的时间就是比这个总和要稍大一点的值。</li>
+<li>在 BSD 的 Unix 以及Windows系统中，超时都以0.5秒为单位进行控制，因此重发超时都是0.5秒的<code>整数倍</code>。不过，最初其<code>重发超时</code>的默认值一般设置为<code>6秒</code>左右。</li>
+<li>数据被重发之后若还是收不到确认应答，则进行<code>再次发送</code>。此时，等待确认应答的时间将会以<code>2倍、4倍</code>的指数函数<code>延长</code>。</li>
+<li>此外，数据也不会被无限、反复地重发。达到一定重发次数之后，如果仍没有任何确认应答返回，就会判断为网络或对端主机发生了异常，<code>强制关闭连接</code>。并且通知应用通信异常<code>强行终止</code>。</li>
+</ul>
+<h3 id="以段为单位发送数据"><a href="#以段为单位发送数据" class="headerlink" title="以段为单位发送数据"></a>以段为单位发送数据</h3><ul>
+<li>在建立<code>TCP</code>连接的同时，也可以确定发送数据包的单位，我们也可以称其为“最大消息长度”<code>（MSS）</code>。最理想的情况是，最大消息长度正好是IP中不会被分片处理的最大数据长度。</li>
+<li><code>TCP</code>在传送大量数据时，是以<code>MSS</code>的大小将数据进行分割发送。进行重发时也是以<code>MSS</code>为单位。</li>
+<li><code>MSS</code>在三次握手的时候，在两端主机之间被计算得出。两端的主机在发出建立连接的请求时，会在<code>TCP</code>首部中写入<code>MSS</code>选项，告诉对方自己的接口能够适应的<code>MSS</code> 的大小。然后会在两者之间选择一个较小的值投入使用。</li>
+</ul>
+<h3 id="利用窗口控制提高速度"><a href="#利用窗口控制提高速度" class="headerlink" title="利用窗口控制提高速度"></a>利用窗口控制提高速度</h3><ul>
+<li><code>TCP</code> 以1个段为单位，每发送一个段进行一次确认应答的处理。这样的传输方式有一个<code>缺点</code>，就是包的往返时间越长<code>通信性能</code>就越低。</li>
+<li>为解决这个问题，TCP引入了<code>窗口</code>这个概念。确认应答不再是以每个<code>分段</code>，而是以更大的<code>单位</code>进行确认，转发时间将会被大幅地<code>缩短</code>。也就是说，发送端主机，在发送了一个段以后<code>不必要</code>一直等待确认应答，而是继续<code>发送</code>。</li>
+<li>窗口大小就是指无需等待确认应答而可以继续发送数据的最大值。这个机制实现了使用大量的<code>缓冲区</code>，通过对多个段同时进行确认应答的功能。</li>
+</ul>
+<h3 id="总结：-1"><a href="#总结：-1" class="headerlink" title="总结："></a>总结：</h3><ul>
+<li>抽象出<code>连接</code>的概念，在一个TCP连接中，仅有两方<code>彼此通信</code>。</li>
+<li>保证了可靠数据传输及正确顺序的<code>数据处理</code>。</li>
+<li>提供<code>流量控制</code>（Node.js中的流）</li>
+</ul>
+<h2 id="应用层（HTTP协议）"><a href="#应用层（HTTP协议）" class="headerlink" title="应用层（HTTP协议）"></a>应用层（HTTP协议）</h2><blockquote>
+<p><strong>我会留到下一篇再讲，同时我会结合<code>node</code>来讲解其中的<code>http</code>的应用和原理，敬请期待。</strong></p>
+</blockquote>
+
+      
+    </div>
+    
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/08/08/模块化 CommonJS/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">你真的懂模块化吗？教你CommonJS实现</div>
+      <strong class="article-nav-caption">></strong>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+
+<div class="share_jia">
+	<!-- JiaThis Button BEGIN -->
+	<div class="jiathis_style">
+		<span class="jiathis_txt">分享到: &nbsp; </span>
+		<a class="jiathis_button_facebook"></a> 
+    <a class="jiathis_button_twitter"></a>
+    <a class="jiathis_button_plus"></a> 
+    <a class="jiathis_button_tsina"></a>
+		<a class="jiathis_button_cqq"></a>
+		<a class="jiathis_button_douban"></a>
+		<a class="jiathis_button_weixin"></a>
+		<a class="jiathis_button_tumblr"></a>
+    <a href="http://www.jiathis.com/share" class="jiathis jiathis_txt jtico jtico_jiathis" target="_blank"></a>
+	</div>
+	<script type="text/javascript" src="http://v3.jiathis.com/code/jia.js?uid=1405949716054953" charset="utf-8"></script>
+	<!-- JiaThis Button END -->
+</div>
+
+
+
+
+
+
+
+
+<section id="comments">
+  <div id="disqus_thread"></div>
+    <script type="text/javascript">
+    /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+    var disqus_shortname = 'Shinemax'; // required: replace example with your forum shortname
+
+    /* * * DON'T EDIT BELOW THIS LINE * * */
+    (function() {
+      var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+      dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+      (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+    })();
+  </script>
+  <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+</div>
+      <footer id="footer">
+  <div class="outer">
+    <div id="footer-info">
+    	<div class="footer-left">
+    		&copy; 2018 陈旭锋
+    	</div>
+      	<div class="footer-right">
+      		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
+      	</div>
+    </div>
+  </div>
+</footer>
+    </div>
+    
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+
+
+<script>
+	var yiliaConfig = {
+		fancybox: true,
+		mathjax: true,
+		animate: true,
+		isHome: false,
+		isPost: true,
+		isArchive: false,
+		isTag: false,
+		isCategory: false,
+		open_in_new: false
+	}
+</script>
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+<script src="/js/main.js"></script>
+
+
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+  </div>
+</body>
+</html>
